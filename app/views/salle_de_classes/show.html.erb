@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @salle_de_class.name %>
+</p>
+
+<p>
+  <strong>Effectif:</strong>
+  <%= @salle_de_class.effectif %>
+</p>
+
+<p>
+  <strong>Cycle:</strong>
+  <%= @salle_de_class.cycle_id %>
+</p>
+
+<%= link_to 'Edit', edit_salle_de_class_path(@salle_de_class) %> |
+<%= link_to 'Back', salle_de_classes_path %>

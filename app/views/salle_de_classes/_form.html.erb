@@ -1,0 +1,32 @@
+<%= form_with(model: salle_de_class, local: true) do |form| %>
+  <% if salle_de_class.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(salle_de_class.errors.count, "error") %> prohibited this salle_de_class from being saved:</h2>
+
+      <ul>
+        <% salle_de_class.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :effectif %>
+    <%= form.number_field :effectif %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cycle_id %>
+    <%= form.text_field :cycle_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

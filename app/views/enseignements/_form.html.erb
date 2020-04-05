@@ -1,0 +1,32 @@
+<%= form_with(model: enseignement, local: true) do |form| %>
+  <% if enseignement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(enseignement.errors.count, "error") %> prohibited this enseignement from being saved:</h2>
+
+      <ul>
+        <% enseignement.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

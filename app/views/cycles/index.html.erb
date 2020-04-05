@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Cycles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Structure</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cycles.each do |cycle| %>
+      <tr>
+        <td><%= cycle.name %></td>
+        <td><%= cycle.structure_id %></td>
+        <td><%= link_to 'Show', cycle %></td>
+        <td><%= link_to 'Edit', edit_cycle_path(cycle) %></td>
+        <td><%= link_to 'Destroy', cycle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cycle', new_cycle_path %>

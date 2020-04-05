@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Salle De Classes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Effectif</th>
+      <th>Cycle</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @salle_de_classes.each do |salle_de_class| %>
+      <tr>
+        <td><%= salle_de_class.name %></td>
+        <td><%= salle_de_class.effectif %></td>
+        <td><%= salle_de_class.cycle_id %></td>
+        <td><%= link_to 'Show', salle_de_class %></td>
+        <td><%= link_to 'Edit', edit_salle_de_class_path(salle_de_class) %></td>
+        <td><%= link_to 'Destroy', salle_de_class, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Salle De Class', new_salle_de_class_path %>
