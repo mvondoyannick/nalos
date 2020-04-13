@@ -1,0 +1,146 @@
+<p id="notice"><%= notice %></p>
+
+<div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+  <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      Informations sur le cours
+    </h3>
+    <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+      Publié par vous <%= link_to current_user.complete_name, "#", class: " rounded-lg px-2 items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" %>.
+    </p>
+  </div>
+  <div>
+    <dl>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Titre du cours
+        </dt>
+        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @course.chapter %>
+        </dd>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Statut cours
+        </dt>
+        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @course.course_status_id.nil? ? "Inconnu" : @course.course_status.name %>
+        </dd>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Date de publication
+        </dt>
+        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @course.created_at.strftime("%d %b %Y") %>
+        </dd>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Catégorie du cours
+        </dt>
+        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <% if @course.categorie.nil? %>
+            Aucune catégorie associée à ce cours.
+          <% else %>
+            <%= @course.categorie %>
+          <% end %>
+        </dd>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Tags du cours
+        </dt>
+        <% if @course.tag.nil? %>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+              Aucun tag(s) pour ce cours
+            </span>
+          </dd>
+        <% else %>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <% @course.tag.split(',').each do |tagged| %>
+              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"><%= tagged %></span>
+            <% end %>
+          </dd>
+        <% end %>
+      </div>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Chapitre
+        </dt>
+        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @course.chapter %>
+        </dd>
+      </div>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Extrait de ce cours
+        </dt>
+        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @course.extrait.body %>
+        </dd>
+      </div>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Salle de classe concernée
+        </dt>
+        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @course.salle_de_class.name %>
+        </dd>
+      </div>
+      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Fichiers joints
+        </dt>
+        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+          <ul class="border border-gray-200 rounded-md">
+            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
+              <div class="w-0 flex-1 flex items-center">
+                <svg class="flex-shrink-0 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"/>
+                </svg>
+                <span class="ml-2 flex-1 w-0 truncate">
+                  <%= @course.file.filename %>
+                </span>
+              </div>
+              <div class="ml-4 flex-shrink-0">
+                <%= link_to "Télécharger", rails_blob_path(@course.file.attachment, disposition: "attachment"), class: "font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out" %>
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
+<p class="object-center">
+  <% if @course.file.attachment.previewable? %>
+    <% if @course.file.content_type == "video/mp4" %>
+      <%= video_tag url_for(@course.file), controls: true %>
+    <% elsif @course.file.content_type == "video/ogg" %>
+      <%= video_tag url_for(@course.file), controls: true %>
+    <% elsif @course.file.content_type == "video/webm" %>
+      <%= video_tag url_for(@course.file), controls: true %>
+    <% else %>
+      <%= link_to(image_tag(@course.file.attachment.preview(resize: "1000x1000")),  rails_blob_path(@course.file.attachment, disposition: "attachment")) %>
+    <% end %>
+  <% elsif @course.file.attachment.variable? %>
+    <%= link_to(image_tag(@course.file.attachment.variant(resize: "200x200")), rails_blob_path(@course.file.attachment, disposition: "attachment"))%>
+  <% else %>
+    <%= link_to "Download file", rails_blob_path(@course.file.attachment, disposition: "attachment") %>
+  <% end %>
+</p>
+
+<div class="flex flex-wrap">
+  <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-500">
+
+  </div>
+  <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-400">
+
+  </div>
+</div>
+
+
+<%= link_to 'Edit', edit_course_path(@course)  if current_user.role.name == "admin"%> |
+<%= link_to 'Back', courses_path %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Salle de class:</strong>
+  <%= @classe_matiere.salle_de_class_id %>
+</p>
+
+<p>
+  <strong>Matiere:</strong>
+  <%= @classe_matiere.matiere_id %>
+</p>
+
+<%= link_to 'Edit', edit_classe_matiere_path(@classe_matiere) %> |
+<%= link_to 'Back', classe_matieres_path %>

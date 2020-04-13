@@ -1,6 +1,17 @@
-<h1>Editing Enseignement</h1>
+<div class="flex mb-4">
+  <div class="w-3/4">
+    <h1 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-8 mb-8">Editing Enseignement</h1>
 
-<%= render 'form', enseignement: @enseignement %>
+    <%= render 'form', enseignement: @enseignement %>
 
-<%= link_to 'Show', @enseignement %> |
-<%= link_to 'Back', enseignements_path %>
+    <div class="inline-flex">
+      <%= link_to 'Show', @enseignement, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" %>
+      <%= link_to 'Back', enseignements_path, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" %>
+    </div>
+  </div>
+  <div class="w-1/4 bg-gray-400">
+    lorem content
+  </div>
+</div>
+
+

@@ -1,0 +1,72 @@
+<p class="text-gray-400 font-semibold text-xl mb-2">
+  Mes cours & mes documents
+</p>
+<div class="py-8">
+  <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+      <table class="min-w-full leading-normal">
+        <thead>
+        <tr>
+          <th
+            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Title
+          </th>
+          <th
+            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Chapitre
+          </th>
+          <th
+            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Date
+          </th>
+          <th
+            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Classe
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @course.each do |course| %>
+          <tr>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 w-10 h-10">
+                  <%= image_tag ExtractName.extract_content_type(course.file.content_type), class: 'w-full h-full' %>
+                </div>
+                <div class="ml-3">
+                  <p class="text-gray-900 whitespace-no-wrap font-semibold">
+                    <%= course.chapter %>
+                  </p>
+                  <p class="text-gray-900 text-sm whitespace-no-wrap">
+                    <%= course.matiere.name %>
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <p class="text-gray-900 font-semibold whitespace-no-wrap">
+                <%= course.chapter %>
+              </p>
+              <p class="text-gray-900 text-sm whitespace-no-wrap">
+                <%= link_to course.user.complete_name, "#" %>
+              </p>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <p class="text-gray-900 whitespace-no-wrap">
+                <%= course.created_at %>
+              </p>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <p class="text-gray-900 whitespace-no-wrap">
+                <%= course.salle_de_class.name %>
+              </p>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to 'Voir', read_course_path(cours_key: course.file.key, id: course.id) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

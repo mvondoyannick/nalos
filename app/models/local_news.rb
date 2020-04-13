@@ -1,0 +1,2 @@
+class LocalNews < ApplicationRecord
+end

@@ -1,0 +1,96 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="text-xl font-semibold text-gray-400">Vos publications de cours</h1>
+
+<div class="py-8">
+  <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+      <table class="min-w-full leading-normal">
+        <thead>
+        <tr>
+          <th
+            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Titre cours
+          </th>
+          <th
+            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Matiere
+          </th>
+          <th
+            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Date
+          </th>
+          <th
+            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Classe
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Statut
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" colspan="2"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @courses.each do |course| %>
+          <tr>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 w-10 h-10">
+                  <%= image_tag ExtractName.extract_content_type(course.file.content_type), class: 'w-full h-full' %>
+                </div>
+                <div class="ml-3">
+                  <p class="text-gray-900 whitespace-no-wrap font-semibold">
+                    <%= excerpt(course.chapter, '', radius: 30) %>
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <p class="text-gray-900 whitespace-no-wrap break-all">
+                <%= course.matiere.name %>
+              </p>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <p class="text-gray-900 whitespace-no-wrap">
+                <%= course.created_at.strftime("%d %b %Y") %>
+              </p>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <p class="text-gray-900 whitespace-no-wrap">
+                <%= course.salle_de_class.name %>
+              </p>
+            </td>
+            <% if course.course_status_id.nil? %>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                Inconnu
+              </td>
+            <% else %>
+              <td class="px-5 py-5 border-b border-gray-200 <%= "bg-yellow-400" if course.course_status_id == 1 %> <%= "bg-green-400" if course.course_status_id == 2 %> <%= "bg-red-400" if course.course_status_id == 3 %> text-sm">
+                <%= course.course_status.name %>
+              </td>
+            <% end %>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to 'Voir', course %></td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to course, method: :delete, data: { confirm: 'Are you sure? Cette action est irreversible.' } do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block icon icon-tabler icon-tabler-file-shredder" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z"/>
+                  <polyline points="14 3 14 8 19 8" />
+                  <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" />
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="6" y1="16" x2="6" y2="18" />
+                  <line x1="10" y1="16" x2="10" y2="22" />
+                  <line x1="14" y1="16" x2="14" y2="18" />
+                  <line x1="18" y1="16" x2="18" y2="20" />
+                </svg>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<%= link_to 'Nouveau cours', new_course_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow" %>

@@ -1,3 +1,5 @@
 class SalleDeClass < ApplicationRecord
-  belongs_to :cycle
+  has_many :students
+  belongs_to :cycle_ecole
+  has_many :users
 end

@@ -1,0 +1,32 @@
+<%= form_with(model: teacher_class, local: true) do |form| %>
+  <% if teacher_class.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(teacher_class.errors.count, "error") %> prohibited this teacher_class from being saved:</h2>
+
+      <ul>
+        <% teacher_class.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.collection_select(:user_id, User.all.where(role_id: 2), :id, :name, {prompt: "Selectionner un enseignant"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :salle_de_class_id %>
+    <%= form.collection_select(:salle_de_class_id, SalleDeClass.all, :id, :name, {prompt: "Selectionner une classe"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :salle_de_class_id %>
+    <%= form.collection_select(:matiere_id, Matiere.all, :id, :name, {prompt: "Selectionner une matière"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

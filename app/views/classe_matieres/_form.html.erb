@@ -1,0 +1,27 @@
+<%= form_with(model: classe_matiere, local: true) do |form| %>
+  <% if classe_matiere.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(classe_matiere.errors.count, "error") %> prohibited this classe_matiere from being saved:</h2>
+
+      <ul>
+        <% classe_matiere.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :salle_de_class_id %>
+    <%= form.text_field :salle_de_class_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :matiere_id %>
+    <%= form.text_field :matiere_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

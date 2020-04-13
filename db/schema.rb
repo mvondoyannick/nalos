@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_05_185134) do
+ActiveRecord::Schema.define(version: 2020_04_13_171724) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -43,12 +43,63 @@ ActiveRecord::Schema.define(version: 2020_04_05_185134) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "cycles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "classe_matieres", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "salle_de_class_id", null: false
+    t.bigint "matiere_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["matiere_id"], name: "index_classe_matieres_on_matiere_id"
+    t.index ["salle_de_class_id"], name: "index_classe_matieres_on_salle_de_class_id"
+  end
+
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "course_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_comments_on_course_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "course_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "chapter"
+    t.bigint "salle_de_class_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.string "synthese"
+    t.bigint "matiere_id"
+    t.string "tag"
+    t.string "categorie"
+    t.bigint "course_status_id"
+    t.integer "counter"
+    t.index ["course_status_id"], name: "index_courses_on_course_status_id"
+    t.index ["matiere_id"], name: "index_courses_on_matiere_id"
+    t.index ["salle_de_class_id"], name: "index_courses_on_salle_de_class_id"
+    t.index ["user_id"], name: "index_courses_on_user_id"
+  end
+
+  create_table "cycle_ecoles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.string "detail"
     t.bigint "structure_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["structure_id"], name: "index_cycles_on_structure_id"
+    t.index ["structure_id"], name: "index_cycle_ecoles_on_structure_id"
+  end
+
+  create_table "cycles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "enseignements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -58,13 +109,42 @@ ActiveRecord::Schema.define(version: 2020_04_05_185134) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "filieres", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "local_news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "title"
+    t.string "extrait"
+    t.string "statut"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "matieres", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "descriptioin"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "salle_de_classes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.integer "effectif"
-    t.bigint "cycle_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["cycle_id"], name: "index_salle_de_classes_on_cycle_id"
+    t.bigint "cycle_ecole_id"
+    t.index ["cycle_ecole_id"], name: "index_salle_de_classes_on_cycle_ecole_id"
   end
 
   create_table "structures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -80,7 +160,81 @@ ActiveRecord::Schema.define(version: 2020_04_05_185134) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "students", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.string "second_name"
+    t.string "sexe"
+    t.string "phone"
+    t.string "matricule"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "salle_de_class_id"
+    t.index ["email"], name: "index_students_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
+    t.index ["salle_de_class_id"], name: "index_students_on_salle_de_class_id"
+  end
+
+  create_table "teacher_classes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "salle_de_class_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "matiere_id"
+    t.index ["matiere_id"], name: "index_teacher_classes_on_matiere_id"
+    t.index ["salle_de_class_id"], name: "index_teacher_classes_on_salle_de_class_id"
+    t.index ["user_id"], name: "index_teacher_classes_on_user_id"
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.string "second_name"
+    t.string "matricule"
+    t.date "date_naissance"
+    t.string "lieu_naissance"
+    t.string "cni"
+    t.string "sexe"
+    t.string "phone1"
+    t.string "phone2"
+    t.string "password"
+    t.bigint "role_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "structure_id", null: false
+    t.bigint "cycle_ecole_id"
+    t.bigint "salle_de_class_id"
+    t.index ["cycle_ecole_id"], name: "index_users_on_cycle_ecole_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["role_id"], name: "index_users_on_role_id"
+    t.index ["salle_de_class_id"], name: "index_users_on_salle_de_class_id"
+    t.index ["structure_id"], name: "index_users_on_structure_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "cycles", "structures"
-  add_foreign_key "salle_de_classes", "cycles"
+  add_foreign_key "classe_matieres", "matieres"
+  add_foreign_key "classe_matieres", "salle_de_classes"
+  add_foreign_key "comments", "courses"
+  add_foreign_key "comments", "users"
+  add_foreign_key "courses", "matieres"
+  add_foreign_key "courses", "salle_de_classes"
+  add_foreign_key "courses", "users"
+  add_foreign_key "cycle_ecoles", "structures"
+  add_foreign_key "salle_de_classes", "cycle_ecoles"
+  add_foreign_key "students", "salle_de_classes"
+  add_foreign_key "teacher_classes", "matieres"
+  add_foreign_key "teacher_classes", "salle_de_classes"
+  add_foreign_key "teacher_classes", "users"
+  add_foreign_key "users", "cycle_ecoles"
+  add_foreign_key "users", "salle_de_classes"
+  add_foreign_key "users", "structures"
 end

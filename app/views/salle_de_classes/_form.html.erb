@@ -22,8 +22,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :cycle_id %>
-    <%= form.text_field :cycle_id %>
+    <%= form.label :cycle_ecole_id %>
+    <%= form.collection_select(:cycle_ecole_id, CycleEcole.all, :id, :name, :include_blank => "Please select a cycle...") %>
   </div>
 
   <div class="actions">

@@ -25,9 +25,16 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 # adding font awesome
 gem 'font-awesome-rails'
-
+#adding algolia search engine
+gem "algoliasearch-rails"
+# adding onebox link preview
+gem 'onebox'
+# adding Simple calendar
+gem 'simple_calendar', "~> 2.0"
+# adding chartkick
+gem 'chartkick'
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

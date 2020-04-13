@@ -16,6 +16,9 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+require("chartkick")
+require("chart.js")
+
 require("trix")
 require("@rails/actiontext")
 

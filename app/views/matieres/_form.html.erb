@@ -1,0 +1,27 @@
+<%= form_with(model: matiere, local: true) do |form| %>
+  <% if matiere.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(matiere.errors.count, "error") %> prohibited this matiere from being saved:</h2>
+
+      <ul>
+        <% matiere.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descriptioin %>
+    <%= form.text_field :descriptioin %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

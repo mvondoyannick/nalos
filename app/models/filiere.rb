@@ -1,0 +1,2 @@
+class Filiere < ApplicationRecord
+end

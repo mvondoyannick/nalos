@@ -1,0 +1,32 @@
+<%= form_with(model: local_news, local: true) do |form| %>
+  <% if local_news.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(local_news.errors.count, "error") %> prohibited this local_news from being saved:</h2>
+
+      <ul>
+        <% local_news.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :extrait %>
+    <%= form.text_field :extrait %>
+  </div>
+
+  <div class="field">
+    <%= form.label :statut %>
+    <%= form.text_field :statut %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

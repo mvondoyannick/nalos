@@ -1,183 +1,128 @@
-<div class="grid grid-cols-2 gap-4 mb-4 mt-5">
-  <!-- Emploi du temps du professeur -->
-  <div>
-    <div class="mb-5 ml-3 px-3 text-gray-500 text-md rounded-full bg-gray-200 mr-2 inline-block py-2 font-semibold">
-      Mon Emploi du temps
-    </div>
-    <%= link_to "Voir mon emploi du temps", enseignements_path, class: "inline-block text-right bg-green-200 shadow ml-5 content-end px-3 py-2 text-md rounded-full mr-2" %>
-    <div class="flex flex-col mb-5">
-      <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-          <table class="min-w-full">
+<div class="flex items-center justify-between mb-4">
+  <h2 class="text-xl font-bold text-gray-800">Planning de validation</h2>
+  <a href="#" class="text-blue-600 hover:text-blue-500 font-medium">
+    <%= link_to "Tout voir", "#" %>
+  </a>
+</div>
+<%= week_calendar number_of_week: 1 do |date| %>
+  <%= date %>
+<% end %>
+<div>
+  <div class="flex items-center justify-between mb-8 mt-10">
+    <h2 class="text-xl font-bold text-gray-800">Mes derniers publications</h2>
+    <%= link_to "Voir tous mes cours", courses_path, class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
+  </div>
+  <div class="grid grid-cols-3 gap-4 mb-4">
+    <% @current_course.last(6).each do |cours| %>
+      <div class="bg-white overflow-hidden border-b-4 border-blue-500">
+        <% case cours.file.content_type %>
+        <% when 'video/mp4' %>
+          <%= link_to(image_tag('video.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
+        <% when 'image/png' %>
+          <%= link_to image_tag('photo.png'), course_path(cours), class: "w-full object-cover h-32 sm:h-48 md:h-64" %>
+        <% when 'application/pdf' %>
+          <%= link_to(image_tag('pdf.png'),  course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+        <% when 'audio/mpeg' %>
+          <%= link_to(image_tag('audio.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
+        <% when 'video/ogg' %>
+          <%= link_to(image_tag('audio.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
+        <% when 'application/msword' %>
+          <%= link_to(image_tag('word.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
+        <% when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %>
+          <%= link_to(image_tag('word.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
+        <% end %>
+        <div class="p-4 md:p-6">
+          <p class="text-blue-500 font-semibold text-xs mb-1 leading-none"><%= cours.categorie.nil? ? "Aucune catégorie" : cours.categorie.upcase %></p>
+          <h3 class="font-semibold mb-2 text-xl leading-tight sm:leading-normal"><%= cours.chapter %></h3>
+          <div class="text-sm flex items-center">
+            <svg class="opacity-75 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="12" height="12" viewBox="0 0 97.16 97.16" style="enable-background:new 0 0 97.16 97.16;" xml:space="preserve">
+              <path d="M48.58,0C21.793,0,0,21.793,0,48.58s21.793,48.58,48.58,48.58s48.58-21.793,48.58-48.58S75.367,0,48.58,0z M48.58,86.823    c-21.087,0-38.244-17.155-38.244-38.243S27.493,10.337,48.58,10.337S86.824,27.492,86.824,48.58S69.667,86.823,48.58,86.823z"/>
+              <path d="M73.898,47.08H52.066V20.83c0-2.209-1.791-4-4-4c-2.209,0-4,1.791-4,4v30.25c0,2.209,1.791,4,4,4h25.832    c2.209,0,4-1.791,4-4S76.107,47.08,73.898,47.08z"/>
+            </svg>
+            <p class="leading-none">
+              Publié le : <%= cours.created_at.strftime("%d %b %Y") %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="py-8">
+  <div class="flex items-center justify-between mb-8 mt-10">
+    <h2 class="text-xl font-bold text-gray-800">Barbillard</h2>
+    <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
+  </div>
+
+
+  <div class="">
+    <div class="">
+      <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+        <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+          <table class="min-w-full leading-normal">
             <thead>
             <tr>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Classe
+              <th
+                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                activite
               </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Matière
+              <th
+                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                extrait
               </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Date
+              <th
+                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                date publication
               </th>
+              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
             </tr>
             </thead>
-            <tbody class="bg-white">
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10">
-                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
+            <tbody>
+            <% @local_news.each do |news| %>
+              <tr>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 w-10 h-10">
+                      <%= image_tag 'info.png', class: "w-full h-full" %>
+                    </div>
+                    <div class="ml-3">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        <%= news.title %>
+                      </p>
+                    </div>
                   </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900">Bernard Lane</div>
-                    <div class="text-sm leading-5 text-gray-500">bernardlane@example.com</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900">Director</div>
-                <div class="text-sm leading-5 text-gray-500">Human Resources</div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
-              </span>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10">
-                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900">Bernard Lane</div>
-                    <div class="text-sm leading-5 text-gray-500">bernardlane@example.com</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900">Director</div>
-                <div class="text-sm leading-5 text-gray-500">Human Resources</div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
-              </span>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10">
-                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1505503693641-1926193e8d57?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900">Bernard Lane</div>
-                    <div class="text-sm leading-5 text-gray-500">bernardlane@example.com</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900">Director</div>
-                <div class="text-sm leading-5 text-gray-500">Human Resources</div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                Inactive
-              </span>
-              </td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10">
-                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900">Bernard Lane</div>
-                    <div class="text-sm leading-5 text-gray-500">bernardlane@example.com</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap">
-                <div class="text-sm leading-5 text-gray-900">Director</div>
-                <div class="text-sm leading-5 text-gray-500">Human Resources</div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                Inactive
-              </span>
-              </td>
-            </tr>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">
+                    <%= news.extrait %>
+                  </p>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">
+                    <%= news.created_at %>
+                  </p>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <span
+                    class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                      <span aria-hidden
+                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                      <span class="relative"><%= news.statut %></span>
+                  </span>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <span
+                    class="relative inline-block px-3 py-1 font-semibold leading-tight">
+                      <span aria-hidden
+                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                      <span class="relative"><%= link_to "Consulter", local_news_path(news), class: "" %></span>
+                  </span>
+                </td>
+              </tr>
+            <% end %>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  </div>
-  <!-- information sur les cours  -->
-  <div>
-    <div class="mb-5 ml-3 px-3 text-gray-500 text-md rounded-full bg-gray-200 mr-2 inline-block py-2 font-semibold">
-      Mes derniers cours
-    </div>
-    <%= link_to "Voir tous les cours", enseignements_path, class: "inline-block text-right bg-green-200 shadow ml-5 content-end px-3 py-2 text-md rounded-lg mr-2" %>
-    <div class="grid grid-cols-2 gap-4 mb-4">
-      <% Enseignement.last(2).each do |cours| %>
-        <div>
-          <div class="max-w-sm rounded overflow-hidden shadow-lg">
-            <%= video_tag url_for(cours.image), size: "", class: "w-full h-48 object-cover", controls: true %>
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2"><%= cours.title %></div>
-              <p class="text-gray-700 text-base">
-                <%= cours.content %>
-              </p>
-            </div>
-            <div class="px-6 py-4">
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-
-<div class="mb-5 ml-3 px-3 text-gray-500 text-md rounded-full bg-gray-200 mr-2 inline-block py-2 font-semibold">
-  Mes Classes
-</div>
-<div class="grid grid-cols-3 gap-4 mb-4">
-  <% 6.times do %>
-    <div>
-      <div class="max-w-sm w-full lg:max-w-full lg:flex">
-        <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('https://tailwindcss.com/img/card-left.jpg')" title="Woman holding a mug">
-        </div>
-        <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-          <div class="mb-8">
-            <p class="text-sm text-gray-600 flex items-center">
-              <svg class="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z"/>
-              </svg>
-              Members only
-            </p>
-            <div class="text-gray-900 font-bold text-xl mb-2">Can coffee make you a better developer?</div>
-            <p class="text-gray-700 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-          </div>
-          <div class="flex items-center">
-            <div class="text-sm">
-              <p class="text-gray-900 leading-none px-3 py-2 bg-green-200 rounded-lg shadow mr-2 inline-block font-semibold">Accéder
-                à la classe</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  <div>
-
   </div>
 </div>

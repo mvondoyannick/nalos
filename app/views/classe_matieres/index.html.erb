@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Classe Matieres</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Salle de class</th>
+      <th>Matiere</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @classe_matieres.each do |classe_matiere| %>
+      <tr>
+        <td><%= classe_matiere.salle_de_class_id %></td>
+        <td><%= classe_matiere.matiere_id %></td>
+        <td><%= link_to 'Show', classe_matiere %></td>
+        <td><%= link_to 'Edit', edit_classe_matiere_path(classe_matiere) %></td>
+        <td><%= link_to 'Destroy', classe_matiere, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Classe Matiere', new_classe_matiere_path %>

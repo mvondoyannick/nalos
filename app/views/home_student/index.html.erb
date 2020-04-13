@@ -1,0 +1,147 @@
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js" defer></script>
+
+
+<!-- Narrower side column -->
+<div class="flex items-center justify-between mb-2">
+  <h2 class="text-xl font-bold text-gray-800">Cours récents</h2>
+
+  <a href="#" class="text-blue-600 hover:text-blue-500 font-medium">Tout voir</a>
+</div>
+<div class="mt-8">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Titre&nbsp;cours
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Enseignant
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Tags
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @last_course.each do |content| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <%= image_tag ExtractName.extract_content_type(content.file.content_type), style: 'h-10 w-10 rounded-full' %>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm leading-5 font-semibold text-gray-900"><%= excerpt(content.chapter, '', radius: 20) %></div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= content.user.complete_name %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= content.matiere.name %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold text-green-800">
+                <% if content.tag.nil? %>
+                  Aucun tags fournis
+                <% else %>
+                  <% content.tag.split(',').each do |content| %>
+                    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                      <%= content %>
+                    </span>
+                  <% end %>
+                <% end %>
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
+              <%= link_to "Accèder", read_course_path(cours_key: content.file.key, id: content.id), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="py-8">
+  <div class="flex items-center justify-between mb-8 mt-10">
+    <h2 class="text-xl font-bold text-gray-800">Barbillard</h2>
+    <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
+  </div>
+
+
+  <div class="">
+    <div class="">
+      <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+        <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+          <table class="min-w-full leading-normal">
+            <thead>
+            <tr>
+              <th
+                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                activite
+              </th>
+              <th
+                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                extrait
+              </th>
+              <th
+                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                date publication
+              </th>
+              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @local_news.each do |news| %>
+              <tr>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 w-10 h-10">
+                      <%= image_tag 'info.png', class: "w-full h-full" %>
+                    </div>
+                    <div class="ml-3">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        <%= news.title %>
+                      </p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">
+                    <%= news.extrait %>
+                  </p>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <p class="text-gray-900 whitespace-no-wrap">
+                    <%= news.created_at %>
+                  </p>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <span
+                    class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                      <span aria-hidden
+                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                      <span class="relative"><%= news.statut %></span>
+                  </span>
+                </td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <span
+                    class="relative inline-block px-3 py-1 font-semibold leading-tight">
+                      <span aria-hidden
+                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                      <span class="relative"><%= link_to "Consulter", local_news_path(news), class: "" %></span>
+                  </span>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

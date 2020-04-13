@@ -1,0 +1,7 @@
+<p class="text-gray-400 font-semibold text-xl mb-8">
+  Mon Dashboard
+</p>
+
+<%= pie_chart Course.where(user_id: current_user.id).group(:counter).count, donut: true %>
+
+<%= current_user.id %>

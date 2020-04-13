@@ -1,0 +1,123 @@
+<div class="px-4 py-2">
+  <ul>
+    <li>
+      <%= link_to home_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "index" && controller_name == "home"}" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+             stroke-linecap="round" stroke-linejoin="round">
+          <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+          <rect x="4" y="4" width="6" height="6" rx="1" />
+          <rect x="14" y="4" width="6" height="6" rx="1" />
+          <rect x="4" y="14" width="6" height="6" rx="1" />
+          <rect x="14" y="14" width="6" height="6" rx="1" />
+        </svg>
+        Accueil
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to dashboard_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "dashboard"}" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>
+          <circle cx="12" cy="13" r="2" />
+          <line x1="13.45" y1="11.55" x2="15.5" y2="9.5" />
+          <path d="M6.4 20a9 9 0 1 1 11.2 0Z" />
+        </svg>
+        Dashboard
+      <% end %>
+    </li>
+
+    <li>
+      <a href="#"
+         class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <polyline points="3 7 12 13 21 7" />
+        </svg>
+        Messagerie
+      </a>
+    </li>
+
+    <li>
+      <%= link_to courses_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "courses"}" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>
+          <polyline points="14 3 14 8 19 8" />
+          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+          <line x1="9" y1="9" x2="10" y2="9" />
+          <line x1="9" y1="13" x2="15" y2="13" />
+          <line x1="9" y1="17" x2="15" y2="17" />
+        </svg>
+        Publications
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to salle_classe_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "classes"}" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>
+          <circle cx="7" cy="5" r="2" />
+          <path d="M5 22v-5l-1-1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5" />
+          <circle cx="17" cy="5" r="2" />
+          <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4" />
+        </svg>
+        Classes
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to apprenant_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "apprenants"}" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>
+          <circle cx="8.5" cy="7" r="4" />
+          <path d="M2 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2" />
+          <path d="M16 11l2 2l4 -4" />
+        </svg>
+        Apprenants
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to discuss_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-gray-700 hover:bg-gray-200 #{"bg-gray-200" if action_name == "discuss"}" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>
+          <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />
+          <line x1="12" y1="11" x2="12" y2="11.01" />
+          <line x1="8" y1="11" x2="8" y2="11.01" />
+          <line x1="16" y1="11" x2="16" y2="11.01" />
+        </svg>
+        Chat
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to planning_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-gray-700 hover:bg-gray-200 #{"bg-gray-200" if action_name == "planning"}" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>
+          <rect x="4" y="5" width="16" height="16" rx="2" />
+          <line x1="16" y1="3" x2="16" y2="7"></line>
+          <line x1="8" y1="3" x2="8" y2="7" />
+          <line x1="4" y1="11" x2="20" y2="11" />
+          <line x1="11" y1="15" x2="12" y2="15" />
+          <line x1="12" y1="15" x2="12" y2="18" />
+        </svg>
+
+        Planning validation
+      <% end %>
+    </li>
+  </ul>
+
+  <div class="bg-orange-200 mb-10 p-6 rounded-lg mt-16">
+    <h2 class="text-gray-800 text-lg leading-tight">Try <strong class="font-bold">Dashing Admin.</strong></h2>
+    <p class="text-gray-800 text-lg mb-4 leading-tight">Premium for free!</p>
+
+    <button class="shadow text-center w-full block bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-semibold py-2 px-4 rounded-lg">
+      30 Days Free Trail
+    </button>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="flex items-center justify-between mb-4">
+  <h2 class="text-xl font-bold text-gray-800"><%= Course.find(params[:id]).chapter %></h2>
+</div>
+
+<%= render 'layouts/student/navbar_internal' %>
+
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js" defer></script>
+
+<div>
+  <main>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <!-- Replace with your content -->
+      <div class="px-4 py-6 sm:px-0">
+        <div class="border-4 border-dashed border-gray-200 rounded-lg h-96"></div>
+      </div>
+      <!-- /End replace -->
+    </div>
+  </main>
+</div>
+<%= @current_course.extrait.body %>
+

@@ -5,3 +5,4 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+CourseStatus.create([{name: 'waiting'}, {name: 'validate'}, {name: 'rejected'}]) if CourseStatus.all.count == 0

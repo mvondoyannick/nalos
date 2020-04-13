@@ -69,6 +69,6 @@ class SalleDeClassesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def salle_de_class_params
-      params.require(:salle_de_class).permit(:name, :effectif, :cycle_id)
+      params.require(:salle_de_class).permit(:name, :effectif, :cycle_ecole_id)
     end
 end

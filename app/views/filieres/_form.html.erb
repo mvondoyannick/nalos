@@ -1,0 +1,32 @@
+<%= form_with(model: filiere, local: true) do |form| %>
+  <% if filiere.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(filiere.errors.count, "error") %> prohibited this filiere from being saved:</h2>
+
+      <ul>
+        <% filiere.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :salle_de_class_id %>
+    <%= form.collection_select(:salle_de_class_id, SalleDeClass.all, :id, :name, :include_blank => "Please select a class...") %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

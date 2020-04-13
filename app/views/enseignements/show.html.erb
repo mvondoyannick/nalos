@@ -1,23 +1,36 @@
-<div class="ml-5">
-  <p id="notice"><%= notice %></p>
+<div class="flex mb-4">
+  <div class="w-3/4">
+    <div class="ml-5">
+      <p id="notice"><%= notice %></p>
 
-  <p class="text-lg font-bold mt-5">
-    <strong>Title:</strong>
-    <%= @enseignement.title %>
-  </p>
+      <p class="text-xl font-bold mt-5 mb-5">
+        <strong>Title:</strong>
+        <%= @enseignement.title %>
+      </p>
 
-  <p>
-    <strong>Content:</strong>
-    <%= @enseignement.content %>
-  </p>
+      <p class=" mt-5 mb-5">
+        <strong>Content:</strong>
+        <%= @enseignement.content %>
+      </p>
 
-  <p>
-    <strong class="text-lg text-gray-400">Video file</strong>
-    <%= video_tag url_for(@enseignement.image), size: "780x300", controls: true, class: "shadow", class: "shadow-lg px-5 mt-5" %>
-  </p>
+      <p>
+        <strong class="text-lg text-gray-400">Fichier vidéo assicié</strong>
+        <%= video_tag url_for(@enseignement.image), size: "1280x300", controls: true, class: "shadow", class: "shadow-lg px-5 mt-5" %>
+      </p>
 
-  <div class="mt-5">
-    <%= link_to 'Edit', edit_enseignement_path(@enseignement) %> |
-    <%= link_to 'Retour', enseignements_path, class: "rounded-lg inline-block bg-indigo-500 text-white px-5 shadow-lg py-3" %>
+      <div class="mt-5">
+        <%= link_to 'Edit', edit_enseignement_path(@enseignement) %> |
+        <%= link_to 'Retour à la page précédente', enseignements_path, class: "font-semibold rounded-lg inline-block bg-indigo-500 text-white px-5 shadow-lg py-3" %>
+      </div>
+    </div>
+  </div>
+  <!-- orientation droit de cette vue -->
+  <div class="w-1/4 bg-gray-400">
+    <p class="font-semibold text-sm text-center py-4">
+      Documents associés à ce <span class="text-indigo-500">cours</span>
+    </p>
+    <p class="font-semibold rounded-lg inline-block bg-indigo-500 text-center text-white px-5 py-3 shadow mx-12 center hover:bg-indigo-800">
+      <%= fa_icon "plus" %> Ajouter un document
+    </p>
   </div>
 </div>

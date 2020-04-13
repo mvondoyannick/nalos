@@ -1,0 +1,22 @@
+<div class="flex items-center justify-between mb-4">
+  <h2 class="text-xl font-bold text-gray-800"><%= Course.find(params[:id]).chapter %></h2>
+</div>
+
+<div class="flex mb-4">
+  <div class="m-3">
+    <%= render 'layouts/student/navbar_internal' %>
+    <%= video_tag url_for(@current_course.file), controls: true, class: "mb-3" %>
+    <%= link_to "Télécharger", rails_blob_path(@current_course.file, disposition: 'attachement'), class: "mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+</div>
+<br>
+<p class="mb-4 text-lg">
+  Envoyer une note à Mr <strong class="text-indigo-500"><%= Course.find(params[:id]).user.complete_name %></strong> concernant ce cours?
+</p>
+<%= form_with(url: student_comment_path) do |form| %>
+  <%= form.hidden_field :user_id, value: current_student.id %>
+  <%= form.hidden_field :course_id, value: params[:id] %>
+  <%= form.rich_text_area :content %>
+
+  <%= form.submit "Envoyer", class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<% end %>

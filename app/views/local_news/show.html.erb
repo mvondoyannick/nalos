@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @local_news.title %>
+</p>
+
+<p>
+  <strong>Extrait:</strong>
+  <%= @local_news.extrait %>
+</p>
+
+<p>
+  <strong>Statut:</strong>
+  <%= @local_news.statut %>
+</p>
+
+<%= link_to 'Edit', edit_local_news_path(@local_news) %> |
+<%= link_to 'Back', local_news_index_path %>
