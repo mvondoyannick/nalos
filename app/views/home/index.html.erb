@@ -4,125 +4,160 @@
     <%= link_to "Tout voir", "#" %>
   </a>
 </div>
-<%= week_calendar number_of_week: 1 do |date| %>
+<%= month_calendar events: @current_course do |date, meetings| %>
   <%= date %>
+
+  <% meetings.each do |meeting| %>
+    <div>
+      <%= link_to meeting.chapter, root_path, class: 'text-purple-500 text-md font-semibold' %>
+    </div>
+  <% end %>
 <% end %>
 <div>
   <div class="flex items-center justify-between mb-8 mt-10">
     <h2 class="text-xl font-bold text-gray-800">Mes derniers publications</h2>
     <%= link_to "Voir tous mes cours", courses_path, class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
   </div>
-  <div class="grid grid-cols-3 gap-4 mb-4">
-    <% @current_course.last(6).each do |cours| %>
-      <div class="bg-white overflow-hidden border-b-4 border-blue-500">
-        <% case cours.file.content_type %>
-        <% when 'video/mp4' %>
-          <%= link_to(image_tag('video.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
-        <% when 'image/png' %>
-          <%= link_to image_tag('photo.png'), course_path(cours), class: "w-full object-cover h-32 sm:h-48 md:h-64" %>
-        <% when 'application/pdf' %>
-          <%= link_to(image_tag('pdf.png'),  course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
-        <% when 'audio/mpeg' %>
-          <%= link_to(image_tag('audio.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
-        <% when 'video/ogg' %>
-          <%= link_to(image_tag('audio.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
-        <% when 'application/msword' %>
-          <%= link_to(image_tag('word.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
-        <% when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %>
-          <%= link_to(image_tag('word.png'),  course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
-        <% end %>
-        <div class="p-4 md:p-6">
-          <p class="text-blue-500 font-semibold text-xs mb-1 leading-none"><%= cours.categorie.nil? ? "Aucune catégorie" : cours.categorie.upcase %></p>
-          <h3 class="font-semibold mb-2 text-xl leading-tight sm:leading-normal"><%= cours.chapter %></h3>
-          <div class="text-sm flex items-center">
-            <svg class="opacity-75 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="12" height="12" viewBox="0 0 97.16 97.16" style="enable-background:new 0 0 97.16 97.16;" xml:space="preserve">
-              <path d="M48.58,0C21.793,0,0,21.793,0,48.58s21.793,48.58,48.58,48.58s48.58-21.793,48.58-48.58S75.367,0,48.58,0z M48.58,86.823    c-21.087,0-38.244-17.155-38.244-38.243S27.493,10.337,48.58,10.337S86.824,27.492,86.824,48.58S69.667,86.823,48.58,86.823z"/>
-              <path d="M73.898,47.08H52.066V20.83c0-2.209-1.791-4-4-4c-2.209,0-4,1.791-4,4v30.25c0,2.209,1.791,4,4,4h25.832    c2.209,0,4-1.791,4-4S76.107,47.08,73.898,47.08z"/>
-            </svg>
-            <p class="leading-none">
-              Publié le : <%= cours.created_at.strftime("%d %b %Y") %></p>
+
+  <% if @current_course.count.zero? %>
+    <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50 mx-auto md:mx-0 md:mr-6" width="100" height="100" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z"/>
+        <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"/>
+        <line x1="12" y1="11" x2="12" y2="11.01"/>
+        <line x1="8" y1="11" x2="8" y2="11.01"/>
+        <line x1="16" y1="11" x2="16" y2="11.01"/>
+      </svg>
+
+      <div class="text-center md:text-left">
+        <h2 class="text-lg mt-8">Aucune publication trouvée</h2>
+      </div>
+    </div>
+  <% else %>
+    <div class="grid grid-cols-3 gap-4 mb-4">
+      <% @current_course.last(6).each do |cours| %>
+        <div class="bg-white overflow-hidden border-b-4 border-blue-500">
+          <% if cours.file.nil? %>
+            Aucune publication trouvée
+          <% else %>
+            <% docs = Document.find(cours.document_id).file.find(cours.file_id) %>
+            <% if docs.previewable? %>
+              <%= link_to(image_tag(docs.preview(resize: '1000x1000')), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <% elsif docs.variable? %>
+                <%= link_to(image_tag(docs.variant(resize: '1000x1000')), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <% else %>
+              <%= link_to(image_tag('course.png'), course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
+            <% end %>
+          <% end %>
+          <div class="p-4 md:p-6">
+            <p class="text-blue-500 font-semibold text-xs mb-1 leading-none"><%= cours.categorie.nil? ? "Aucune catégorie" : cours.categorie.upcase %></p>
+            <h3 class="font-semibold mb-2 text-xl leading-tight sm:leading-normal"><%= cours.chapter %></h3>
+            <div class="text-sm flex items-center">
+              <svg class="opacity-75 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="12" height="12" viewBox="0 0 97.16 97.16" style="enable-background:new 0 0 97.16 97.16;" xml:space="preserve">
+                <path d="M48.58,0C21.793,0,0,21.793,0,48.58s21.793,48.58,48.58,48.58s48.58-21.793,48.58-48.58S75.367,0,48.58,0z M48.58,86.823    c-21.087,0-38.244-17.155-38.244-38.243S27.493,10.337,48.58,10.337S86.824,27.492,86.824,48.58S69.667,86.823,48.58,86.823z"/>
+                <path d="M73.898,47.08H52.066V20.83c0-2.209-1.791-4-4-4c-2.209,0-4,1.791-4,4v30.25c0,2.209,1.791,4,4,4h25.832    c2.209,0,4-1.791,4-4S76.107,47.08,73.898,47.08z"/>
+              </svg>
+              <p class="leading-none">
+                Publié le : <%= cours.created_at.strftime("%d %b %Y") %></p>
+            </div>
           </div>
         </div>
+      <% end %>
+  <% end %>
+  </div>
+  <div class="py-8">
+    <div class="flex items-center justify-between mb-8 mt-10">
+      <h2 class="text-xl font-bold text-gray-800">Barbillard</h2>
+      <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
+    </div>
+
+    <% if @local_news.count.zero? %>
+      <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50 mx-auto md:mx-0 md:mr-6" width="100" height="100" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>
+          <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"/>
+          <line x1="12" y1="11" x2="12" y2="11.01"/>
+          <line x1="8" y1="11" x2="8" y2="11.01"/>
+          <line x1="16" y1="11" x2="16" y2="11.01"/>
+        </svg>
+
+        <div class="text-center md:text-left">
+          <h2 class="text-lg mt-8">Barbillard vide pour le moment</h2>
+        </div>
       </div>
-    <% end %>
-  </div>
-</div>
-<div class="py-8">
-  <div class="flex items-center justify-between mb-8 mt-10">
-    <h2 class="text-xl font-bold text-gray-800">Barbillard</h2>
-    <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
-  </div>
-
-
-  <div class="">
-    <div class="">
-      <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-        <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-          <table class="min-w-full leading-normal">
-            <thead>
-            <tr>
-              <th
-                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                activite
-              </th>
-              <th
-                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                extrait
-              </th>
-              <th
-                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                date publication
-              </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% @local_news.each do |news| %>
-              <tr>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 w-10 h-10">
-                      <%= image_tag 'info.png', class: "w-full h-full" %>
-                    </div>
-                    <div class="ml-3">
+    <% else %>
+      <div class="">
+        <div class="">
+          <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <table class="min-w-full leading-normal">
+                <thead>
+                <tr>
+                  <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    activite
+                  </th>
+                  <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    extrait
+                  </th>
+                  <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    date publication
+                  </th>
+                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @local_news.each do |news| %>
+                  <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 w-10 h-10">
+                          <%= image_tag 'info.png', class: "w-full h-full" %>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-gray-900 whitespace-no-wrap">
+                            <%= news.title %>
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <p class="text-gray-900 whitespace-no-wrap">
-                        <%= news.title %>
+                        <%= news.extrait %>
                       </p>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    <%= news.extrait %>
-                  </p>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    <%= news.created_at %>
-                  </p>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <p class="text-gray-900 whitespace-no-wrap">
+                        <%= news.created_at %>
+                      </p>
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <span
                     class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                       <span aria-hidden
                             class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
                       <span class="relative"><%= news.statut %></span>
                   </span>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    </td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <span
                     class="relative inline-block px-3 py-1 font-semibold leading-tight">
                       <span aria-hidden
                             class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
                       <span class="relative"><%= link_to "Consulter", local_news_path(news), class: "" %></span>
                   </span>
-                </td>
-              </tr>
-            <% end %>
-            </tbody>
-          </table>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
+

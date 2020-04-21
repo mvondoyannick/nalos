@@ -355,3 +355,64 @@ from student
     <%= form_with(url: root_path) do |form| %>
       <%= form.text_field :lorem %>
     <% end %>
+
+
+
+    <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex-shrink-0 h-10 w-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"
+                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z"/>
+                  <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                  <circle cx="12" cy="14" r="2" />
+                  <polyline points="14 4 14 8 8 8 8 4" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <div class="text-sm leading-5 font-medium text-gray-900"><%= course.created_at.strftime("%d %b %Y") %></div>
+                <div class="text-sm leading-5 text-gray-500"><%= course.id %> Fichier(s)</div>
+              </div>
+            </td>
+            <td class="border-t">
+              <span class="text-gray-700 px-6 py-4 flex items-center">
+                <%= course.user.complete_name %>
+              </span>
+            </td>
+            <td class="border-t">
+              <span class="text-gray-700 px-6 py-4 flex items-center">
+                <%= course.salle_de_class.name %>
+              </span>
+            </td>
+            <td class="border-t">
+              <span class="text-gray-700 px-6 py-4 flex items-center">
+                <%= course.matiere.name %>
+              </span>
+            </td>
+            <td class="border-t">
+              <span class="text-gray-700 px-6 py-4 flex items-center justify-end">
+                <%= course.chapter %>
+              </span>
+            </td>
+            <td class="border-t">
+              <% if course.course_status.name == "waiting" %>
+                <span class="px-6 py-4 flex items-center">
+                  <span class="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-orange-200 text-orange-800"><%= course.course_status.name %></span>
+                </span>
+              <% elsif course.course_status.name == "validate" %>
+                <span class="px-6 py-4 flex items-center">
+                  <span class="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-green-200 text-green-800"><%= course.course_status.name %></span>
+                </span>
+              <% elsif course.course_status.name == "rejected" %>
+                <span class="px-6 py-4 flex items-center">
+                  <span class="px-2 rounded-full text-sm uppercase tracking-wide font-semibold bg-green-200 text-green-800"><%= course.course_status.name %></span>
+                </span>
+              <% end %>
+            </td>
+            <td class="border-t">
+              <span class="text-gray-700 px-6 py-4 flex items-center justify-end">
+                Vérifier le cours
+              </span>
+            </td>
+          </tr>

@@ -6,7 +6,9 @@
       Informations sur le cours
     </h3>
     <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-      Publié par vous <%= link_to current_user.complete_name, "#", class: " rounded-lg px-2 items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" %>.
+      Publié par
+      vous <%= link_to current_user.complete_name, "#", class: " rounded-lg px-2 items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" %>
+      .
     </p>
   </div>
   <div>
@@ -101,11 +103,12 @@
                   <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"/>
                 </svg>
                 <span class="ml-2 flex-1 w-0 truncate">
-                  <%= @course.file.filename %>
+                  <%= Document.find(@course.document_id).file.find(@course.file_id).filename %>
                 </span>
               </div>
               <div class="ml-4 flex-shrink-0">
-                <%= link_to "Télécharger", rails_blob_path(@course.file.attachment, disposition: "attachment"), class: "font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out" %>
+                <%=  %>
+                <%= link_to "Télécharger", rails_blob_path(Document.find(@course.document_id).file.find(@course.file_id), disposition: "attachment"), class: "font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out" %>
               </div>
             </li>
           </ul>
@@ -115,21 +118,15 @@
   </div>
 </div>
 <p class="object-center">
-  <% if @course.file.attachment.previewable? %>
-    <% if @course.file.content_type == "video/mp4" %>
-      <%= video_tag url_for(@course.file), controls: true %>
-    <% elsif @course.file.content_type == "video/ogg" %>
-      <%= video_tag url_for(@course.file), controls: true %>
-    <% elsif @course.file.content_type == "video/webm" %>
-      <%= video_tag url_for(@course.file), controls: true %>
-    <% else %>
-      <%= link_to(image_tag(@course.file.attachment.preview(resize: "1000x1000")),  rails_blob_path(@course.file.attachment, disposition: "attachment")) %>
+  <% docs = Document.find(@course.document_id).file.find(@course.file_id) %>
+  <% case docs.content_type %>
+    <% when "video/mp4" %>
+      <%= video_tag url_for(docs), controls: "", id: "player", playsinline: true %>
+    <% when "image/png" %>
+      <%= image_tag url_for(docs) %>
+    <% when "image/jpeg" %>
+      <%= image_tag url_for(docs) %>
     <% end %>
-  <% elsif @course.file.attachment.variable? %>
-    <%= link_to(image_tag(@course.file.attachment.variant(resize: "200x200")), rails_blob_path(@course.file.attachment, disposition: "attachment"))%>
-  <% else %>
-    <%= link_to "Download file", rails_blob_path(@course.file.attachment, disposition: "attachment") %>
-  <% end %>
 </p>
 
 <div class="flex flex-wrap">
@@ -141,6 +138,5 @@
   </div>
 </div>
 
+<video id="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY"></video>
 
-<%= link_to 'Edit', edit_course_path(@course)  if current_user.role.name == "admin"%> |
-<%= link_to 'Back', courses_path %>

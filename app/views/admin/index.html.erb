@@ -1,2 +1,155 @@
-<h1>Admin#index</h1>
-<p>Find me in app/views/admin/index.html.erb</p>
+
+<% if notice.present? %>
+  <div class="-m-2 text-center mb-8" id="notice">
+
+    <div class="p-2">
+      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
+        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
+        <span class="inline-flex px-2">
+          <%= notice %>
+        </span>
+      </div>
+    </div>
+
+  </div>
+  <% end %>
+
+<div class="flex items-center justify-between mb-4">
+  <h2 class="text-xl font-bold text-gray-800 mb-6">
+    <%= pie_chart(@course_stats) %>
+    <p class="text-center mt-8">
+      Cours publiés
+    </p>
+  </h2>
+  <h2 class="text-xl font-bold text-gray-800 mb-6">
+    <%= pie_chart(@course_view_stat) %>
+    <p class="text-center mt-8">
+      Cours lus
+    </p>
+  </h2>
+  <h2 class="text-xl font-bold text-gray-800 mb-6">
+    <%= pie_chart(@user_document_stat) %>
+    <p class="text-center mt-8">
+      Documents importés
+    </p>
+  </h2>
+</div>
+<div class="flex items-center justify-between mb-4">
+  <h2 class="text-xl font-bold text-gray-800 mb-6">Dernieres publications</h2>
+  <%= link_to 'Tout voir', course_all_path, class: 'text-blue-600 hover:text-blue-500 font-medium' %>
+</div>
+<div class="overflow-x-auto bg-white rounded-lg shadow">
+  <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
+    <thead>
+    <tr class="text-left">
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe & Matière</th>
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Statut</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @course.each do |course| %>
+      <tr>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 h-10 w-10">
+              <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"
+                   viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z"/>
+                <polyline points="14 3 14 8 19 8" />
+                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                <path d="M9 15l2 2l4 -4" />
+              </svg>
+            </div>
+            <div class="ml-4">
+              <div><%= course.created_at.strftime("%d %b %Y") %></div>
+              <div class="text-sm leading-5 text-gray-500"> Heures</div>
+            </div>
+          </div>
+        </td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <div class="text-sm leading-5 text-gray-900"><%= course.user.complete_name %></div>
+          <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
+        </td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <div class="text-sm leading-5 text-gray-900"><%= course.salle_de_class.name %></div>
+          <div class="text-sm leading-5 text-gray-500"><%= course.matiere.name %></div>
+        </td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <div class="text-sm leading-5 text-gray-900"><%= course.chapter %></div>
+          <div class="text-sm leading-5 text-gray-500"><%= course.matiere.name %></div>
+        </td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+            <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id) %>
+          </span>
+        </td>
+      </tr>
+
+    <% end %>
+
+    </tbody>
+  </table>
+</div>
+
+<br>
+
+<div class="flex items-center justify-between mb-4 mt-8">
+  <h2 class="text-xl font-bold text-gray-800 mb-6">Derniers documents</h2>
+  <%= link_to 'Tout voir', course_all_path, class: 'text-blue-600 hover:text-blue-500 font-medium' %>
+</div>
+<div class="flex flex-col">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Date importation
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Propriétaire
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @documents.each do |document| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"
+                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                       stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z"/>
+                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                    <circle cx="12" cy="14" r="2" />
+                    <polyline points="14 4 14 8 8 8 8 4" />
+                  </svg>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm leading-5 font-medium text-gray-900"><%= document.created_at.strftime("%d %b %Y") %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= document.filename %></div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900">Importé par</div>
+              <div class="text-sm leading-5 text-gray-500"><%=  %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                Active
+              </span>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -9,10 +9,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.5.10/plyr.min.js" integrity="sha256-PZ39kLf9/dLC2dBi9oCbWLVi4Qj5+DpuC78IiCcHkGo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.5.10/plyr.css" integrity="sha256-R1BwhMMcgyyowBIApC8kXIsC+3E8+wtG2yk4yawOTxk=" crossorigin="anonymous" />
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 	  <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.5.10/plyr.css" />
+
+    <!-- intégrating one signal -->
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        console.log("loading onesignal");
+        var OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "61094896-57dd-4135-a3b5-ca0ca68f5c3d",
+            });
+        });
+    </script>
+
+    <script>
+      import Plyr from 'plyr'
+      const player = new Plyr('#player');
+    </script>
   </head>
 
   <body class="antialiased bg-gray-100">
@@ -42,6 +66,8 @@
         </div>
       </div>
     <% end %>
+
+    <%= render 'sweetify/alert' %>
 
   </body>
 

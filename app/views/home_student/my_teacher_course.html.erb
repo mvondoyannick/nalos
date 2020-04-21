@@ -33,7 +33,7 @@
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
               <div class="flex items-center">
                 <div class="flex-shrink-0 w-10 h-10">
-                  <%= image_tag ExtractName.extract_content_type(course.file.content_type), class: 'w-full h-full' %>
+                  <%= image_tag 'course.png', class: 'w-full h-full' %>
                 </div>
                 <div class="ml-3">
                   <p class="text-gray-900 whitespace-no-wrap font-semibold">
@@ -60,7 +60,7 @@
                 <%= course.salle_de_class.name %>
               </p>
             </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to 'Consulter', read_course_path(cours_key: course.file.key, id: course.id) %></td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to 'Consulter', read_course_path(cours_key: nil, document_id: course.document_id, file_id: course.file_id, course_id: course.id) %></td>
             </td>
           </tr>
         <% end %>

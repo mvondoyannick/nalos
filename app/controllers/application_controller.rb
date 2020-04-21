@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  skip_before_action :verify_authenticity_token
+
   puts "Aucune structure définie ..." if Structure.all.count.zero?
 
   def after_sign_in_path_for(user)

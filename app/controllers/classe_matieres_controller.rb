@@ -1,4 +1,5 @@
 class ClasseMatieresController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_classe_matiere, only: [:show, :edit, :update, :destroy]
 
   # GET /classe_matieres

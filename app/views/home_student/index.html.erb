@@ -7,42 +7,46 @@
 
   <a href="#" class="text-blue-600 hover:text-blue-500 font-medium">Tout voir</a>
 </div>
-<div class="mt-8">
-  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-      <table class="min-w-full">
-        <thead>
-        <tr>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Titre&nbsp;cours
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Enseignant
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Tags
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-        </tr>
-        </thead>
-        <tbody class="bg-white">
-        <% @last_course.each do |content| %>
-          <tr>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <%= image_tag 'course.png', style: 'h-10 w-10 rounded-full' %>
-                </div>
-                <div class="ml-4">
-                  <div class="text-sm leading-5 font-semibold text-gray-900"><%= excerpt(content.chapter, '', radius: 20) %></div>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= content.user.complete_name %></div>
-              <div class="text-sm leading-5 text-gray-500"><%= content.matiere.name %></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+
+<!-- Narrower side column -->
+<div class="flex">
+  <div class="w-3/4">
+    <div class="mt-8">
+      <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+          <table class="min-w-full">
+            <thead>
+            <tr>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Titre&nbsp;cours
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Enseignant
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Tags
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+            </tr>
+            </thead>
+            <tbody class="bg-white">
+            <% @last_course.each do |content| %>
+              <tr>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10">
+                      <%= image_tag 'course.png', style: 'h-10 w-10 rounded-full' %>
+                    </div>
+                    <div class="ml-4">
+                      <div class="text-sm leading-5 font-semibold text-gray-900"><%= excerpt(content.chapter, '', radius: 20) %></div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div class="text-sm leading-5 text-gray-900"><%= content.user.complete_name %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= content.matiere.name %></div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <span class="px-2 inline-flex text-xs leading-5 font-semibold text-green-800">
                 <% if content.tag.nil? %>
                   Aucun tags fournis
@@ -54,14 +58,42 @@
                   <% end %>
                 <% end %>
               </span>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
-              <%= link_to "Accèder", read_course_path(cours_key: content.file.key, id: content.id), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
-            </td>
-          </tr>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
+                  <%= link_to "Accèder", read_course_path(cours_key: Document.find(content.document_id).file.find(content.file_id).key, id: Document.find(content.document_id).file.find(content.file_id).id, course_id: content.id), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-1/4">
+    <p class="text-gray-500 font-semibold ml-6 text-lg mt-4">
+      Liste des matieres
+    </p>
+    <div class="mt-8 px-4 py-2">
+      <ul>
+        <% @last_course.distinct.to_a.uniq.each do |course| %>
+          <li>
+            <%= link_to home_student_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                   viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z"/>
+                <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                <line x1="3" y1="6" x2="3" y2="19" />
+                <line x1="12" y1="6" x2="12" y2="19" />
+                <line x1="21" y1="6" x2="21" y2="19" />
+              </svg>
+              <%= course.matiere.name %>
+            <% end %>
+          </li>
         <% end %>
-        </tbody>
-      </table>
+      </ul>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="px-4 py-2">
   <ul>
     <li>
-      <%= link_to home_student_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "index"}" do %>
+      <%= link_to home_student_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "index" && controller_name == "home_student"}" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
              stroke-linecap="round" stroke-linejoin="round">
@@ -30,15 +30,14 @@
     </li>
 
     <li>
-      <a href="#"
-         class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+      <%= link_to messages_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "messages"}" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <path stroke="none" d="M0 0h24v24H0z"/>
           <rect x="3" y="5" width="18" height="14" rx="2" />
           <polyline points="3 7 12 13 21 7" />
         </svg>
         Messagerie
-      </a>
+      <% end %>
     </li>
 
     <li>

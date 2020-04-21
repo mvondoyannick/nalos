@@ -8,7 +8,16 @@ class User < ApplicationRecord
   belongs_to :structure
   belongs_to :cycle_ecole
   has_many :courses
+  has_many :comments
+  has_many :messages
+  # has_many :documents
   has_one :salle_de_class
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      User.create! row.to_hash
+    end
+  end
 
   def complete_name
     "#{self.name} " + "#{self.second_name}"

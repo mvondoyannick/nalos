@@ -10,6 +10,13 @@
 # Ignore vendors folder
 /vendor
 
+# remove solr files
+solr/data
+solr/test/data
+solr/development/data
+solr/default/data
+solr/pids
+
 #
 
 # Ignore all logfiles and tempfiles.

@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   # GET /comments
@@ -15,6 +16,18 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
+  end
+
+  def student_comment
+    @comment = Comment.new(comment_params)
+
+    if @comment.save
+      puts "saved : #{@comment}"
+      redirect_to read_course_path(course_key: params[:course_key], course_id: params[:course_id], id: params[:id]), notice: "Commentaire envoyé"
+    else
+      puts "erorrs : #{@comment}"
+      redirect_to :back, notice: "Impossible de valide ce commentaire : #{@comment.errors.full_messages}"
+    end
   end
 
   # GET /comments/1/edit
@@ -69,6 +82,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:user_id, :course_id)
+      params.require(:comment).permit(:student_id, :course_id, :content, :course_key, :course_id, :id)
     end
 end

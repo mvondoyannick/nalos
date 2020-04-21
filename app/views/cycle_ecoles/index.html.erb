@@ -1,33 +1,72 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Cycle Ecoles</h1>
+<h1 class="text-xl mb-8 font-semibold text-gray-400">Section de l'établissement</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Code</th>
-      <th>Detail</th>
-      <th>Structure</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @cycle_ecoles.each do |cycle_ecole| %>
-      <tr>
-        <td><%= cycle_ecole.name %></td>
-        <td><%= cycle_ecole.code %></td>
-        <td><%= cycle_ecole.detail %></td>
-        <td><%= cycle_ecole.structure_id %></td>
-        <td><%= link_to 'Show', cycle_ecole %></td>
-        <td><%= link_to 'Edit', edit_cycle_ecole_path(cycle_ecole) %></td>
-        <td><%= link_to 'Destroy', cycle_ecole, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="flex flex-col">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full" id="table">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Name
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Title
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Status
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @cycle_ecoles.each do |cycle_ecole| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm leading-5 font-medium text-gray-900"><%= cycle_ecole.name %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= cycle_ecole.code %></div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= cycle_ecole.structure.name%></div>
+              <div class="text-sm leading-5 text-gray-500">Human Resources</div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                Active
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+              <%= link_to 'Affichier', cycle_ecole %>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+              <%= link_to 'Editer', edit_cycle_ecole_path(cycle_ecole) %>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+              <%= link_to 'Supprimer', cycle_ecole, method: :delete, data: {confirm: 'Are you sure?'} %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 <br>
 
-<%= link_to 'New Cycle Ecole', new_cycle_ecole_path %>
+<%= link_to 'New Cycle Ecole', new_cycle_ecole_path, class: 'bg-blue-500 hover:bg-blue-700 hover:text-white text-white font-bold py-2 px-4 rounded' %>
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready( function () {
+        $('#table').DataTable();
+    } );
+</script>

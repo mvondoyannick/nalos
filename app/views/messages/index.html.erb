@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="text-gray-400 text-xl font-semibold mb-8">Mes messages</h1>
+
+<% if @messages.empty? %>
+
+  <p class="text-center mt-16 mb-16 text-gray-400 font-bold text-xl">
+    Aucune message pour le moment
+  </p>
+
+<% else %>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Student</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @messages.each do |message| %>
+      <tr>
+        <td><%= message.subject %></td>
+        <td><%= message.student_id %></td>
+        <td><%= message.user_id %></td>
+        <td><%= link_to 'Show', message %></td>
+        <td><%= link_to 'Edit', edit_message_path(message) %></td>
+        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+<% end %>
+
+<br>
+
+<%= link_to 'Nouveau Message', new_message_path, class: 'bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded' %>

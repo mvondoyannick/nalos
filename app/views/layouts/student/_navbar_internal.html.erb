@@ -1,8 +1,8 @@
 <div class="bg-white">
-  <nav class="flex sm:flex-row mb-8">
-    <%= link_to "Cours", read_course_path(cours_key: params[:cours_key], id: params[:id]), class: "text-gray-600 py-4 px-6 block hover:text-blue-500 hover:bg-blue-200 focus:outline-none text-blue-500 #{@css_class if action_name == "read_course"} font-medium border-blue-500" %>
-    <%= link_to "Exercices", exercice_path(cours_key: params[:cours_key], id: params[:id]), class: "text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none hover:bg-blue-200 text-blue-500 #{@css_class if action_name == "exercice"} font-medium border-blue-500" %>
-    <%= link_to "Synthèse", synthese_path(cours_key: params[:cours_key], id: params[:id]), class: "text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none hover:bg-blue-200 text-blue-500 #{@css_class if action_name == "synthese"} font-medium border-blue-500" %>
-    <%= link_to "Documents", documents_path(cours_key: params[:cours_key], id: params[:id]), class: "text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none hover:bg-blue-200 text-blue-500 #{@css_class if action_name == "documents"} font-medium border-blue-500" %>
+  <nav class="flex shadow sm:flex-row mb-8">
+    <%= link_to "Cours", read_course_path(cours_key: params[:cours_key], course_id: params[:course_id]), class: "text-gray-600 py-4 px-6 block hover:text-blue-500 hover:bg-blue-200 focus:outline-none text-blue-500 #{@css_class if action_name == "read_course"} font-medium border-blue-500" %>
+    <%= link_to "Exercices", exercice_path(cours_key: params[:cours_key], course_id: params[:course_id]), class: "text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none hover:bg-blue-200 text-blue-500 #{@css_class if action_name == "exercice"} font-medium border-blue-500" %>
+    <%= link_to "Synthèse", synthese_path(cours_key: params[:cours_key], course_id: params[:course_id]), class: "text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none hover:bg-blue-200 text-blue-500 #{@css_class if action_name == "synthese"} font-medium border-blue-500" %>
+    <%#= link_to "Documents", documents_path(cours_key: params[:cours_key], course_id: params[:course_id]), class: "text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none hover:bg-blue-200 text-blue-500 #{@css_class if action_name == "documents"} font-medium border-blue-500" %>
   </nav>
 </div>

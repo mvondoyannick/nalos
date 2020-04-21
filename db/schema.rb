@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_13_171724) do
+ActiveRecord::Schema.define(version: 2020_04_21_184653) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -53,11 +53,15 @@ ActiveRecord::Schema.define(version: 2020_04_13_171724) do
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "course_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "student_id"
+    t.boolean "read"
+    t.bigint "user_id"
+    t.string "metakey"
     t.index ["course_id"], name: "index_comments_on_course_id"
+    t.index ["student_id"], name: "index_comments_on_student_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -80,7 +84,13 @@ ActiveRecord::Schema.define(version: 2020_04_13_171724) do
     t.string "categorie"
     t.bigint "course_status_id"
     t.integer "counter"
+    t.bigint "file_id"
+    t.bigint "document_id"
+    t.string "file"
+    t.datetime "start_time"
     t.index ["course_status_id"], name: "index_courses_on_course_status_id"
+    t.index ["document_id"], name: "index_courses_on_document_id"
+    t.index ["file_id"], name: "index_courses_on_file_id"
     t.index ["matiere_id"], name: "index_courses_on_matiere_id"
     t.index ["salle_de_class_id"], name: "index_courses_on_salle_de_class_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
@@ -100,6 +110,13 @@ ActiveRecord::Schema.define(version: 2020_04_13_171724) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
   create_table "enseignements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -124,11 +141,36 @@ ActiveRecord::Schema.define(version: 2020_04_13_171724) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "lorems", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "age"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "matieres", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "descriptioin"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "subject"
+    t.bigint "student_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["student_id"], name: "index_messages_on_student_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "problemes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "student_id"
+    t.index ["student_id"], name: "index_problemes_on_student_id"
   end
 
   create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -145,6 +187,16 @@ ActiveRecord::Schema.define(version: 2020_04_13_171724) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "cycle_ecole_id"
     t.index ["cycle_ecole_id"], name: "index_salle_de_classes_on_cycle_ecole_id"
+  end
+
+  create_table "statistics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "counter"
+    t.bigint "course_id", null: false
+    t.bigint "student_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_statistics_on_course_id"
+    t.index ["student_id"], name: "index_statistics_on_student_id"
   end
 
   create_table "structures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -224,12 +276,20 @@ ActiveRecord::Schema.define(version: 2020_04_13_171724) do
   add_foreign_key "classe_matieres", "matieres"
   add_foreign_key "classe_matieres", "salle_de_classes"
   add_foreign_key "comments", "courses"
+  add_foreign_key "comments", "students"
   add_foreign_key "comments", "users"
+  add_foreign_key "courses", "documents"
   add_foreign_key "courses", "matieres"
   add_foreign_key "courses", "salle_de_classes"
   add_foreign_key "courses", "users"
   add_foreign_key "cycle_ecoles", "structures"
+  add_foreign_key "documents", "users"
+  add_foreign_key "messages", "students"
+  add_foreign_key "messages", "users"
+  add_foreign_key "problemes", "students"
   add_foreign_key "salle_de_classes", "cycle_ecoles"
+  add_foreign_key "statistics", "courses"
+  add_foreign_key "statistics", "students"
   add_foreign_key "students", "salle_de_classes"
   add_foreign_key "teacher_classes", "matieres"
   add_foreign_key "teacher_classes", "salle_de_classes"

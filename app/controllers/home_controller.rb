@@ -1,9 +1,20 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
+  before_action :update_comment_readed, only: :read_message
   def index
-    puts "welcome"
     @current_course = Course.where(user_id: current_user.id).order(created_at: :asc)
     @local_news = LocalNews.all.order(created_at: :desc)
+  end
+
+  # teacher messagerie
+  def messagerie
+    @comments = Comment.where(user_id: current_user.id)
+  end
+
+  # read message
+  def read_message
+    @current_comment = Comment.find_by(metakey: params[:key])
+    
   end
 
   def dashboard
@@ -41,5 +52,18 @@ class HomeController < ApplicationController
   # plannig de validation
   def planning
     @planning = Course.where(user_id: current_user.id).order(created_at: :desc)
+  end
+
+  private
+
+  def teacher_presence
+    if current_user.role == "teacher"
+
+    end
+  end
+
+  # update message or comment reading
+  def update_comment_readed
+    Comment.find_by(metakey: params[:key]).update(read: true)
   end
 end

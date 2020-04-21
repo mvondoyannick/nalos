@@ -12,7 +12,11 @@ class ExtractName
     end
   end
 
+  # return extention
+
   #extract content type from ActiveStorage and return thumbnali
+  # @param content_type
+  # @return fileextention
   def self.extract_content_type(content_type)
     require 'action_view'
     @content_type = content_type

@@ -1,5 +1,5 @@
 <div class="flex items-center justify-between mb-4">
-  <h2 class="text-xl font-bold text-gray-800"><%= Course.find(params[:id]).chapter %></h2>
+  <h2 class="text-xl font-bold text-gray-800"><%= Course.find(params[:course_id]).chapter %></h2>
 </div>
 
 <%= render 'layouts/student/navbar_internal' %>

@@ -1,0 +1,87 @@
+<h1 class="text-xl font-semibold text-gray-400 mb-8">Publication d'un cours</h1>
+
+  <div class="flex md:flex-row-reverse flex-wrap rounded shadow">
+    <div class="w-full md:w-3/4 bg-white p-4 text-left text-gray-200 ">
+      <%= form_with(url: create_course_from_document_path, class: "w-full mt-8") do |form| %>
+
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.hidden_field :file_id, value: @current_file.id %>
+        <%= form.hidden_field :document_id, value: params[:document_id] %>
+        <%= form.hidden_field :course_status_id, value: 1 %>
+
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+              <%= form.label :matiere %>
+            </label>
+            <%= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id), :id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+            </div>
+            <p class="text-gray-500 text-xs italic">Selectionner une matière</p>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+              <%= form.label "Chapitre du cours" %>
+            </label>
+            <%= form.text_field :chapter, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" %>
+            <p class="text-gray-500 text-xs italic">Chapitre du cours</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+              <%= form.label "Classe concernée" %>
+            </label>
+            <%= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id).distinct, :id, :class_with_initial, {prompt: "Selectionner une classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+            </div>
+            <p class="text-green-500 text-xs italic">Classe concernée par ce cours</p>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+              <%= form.label :categorie %>
+            </label>
+            <div class="inline-block relative w-84">
+              <%= form.select(:categorie, [%w(Cours cours), %w(TD td), %w(Exercices exercice), %w(Documents document)], {}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+              </div>
+            </div>
+            <p class="text-green-500 text-xs italic">Sélectionner une categorie</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+              <%= form.label :tag %>
+            </label>
+            <%= form.text_field :tag, class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
+            <p class="text-green-500 text-xs italic">Séparer les tags avec une virgule</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+              <%= form.label "Details supplémentaires sur le cours" %>
+            </label>
+            <%= form.rich_text_area :extrait %>
+            <p class="text-red-500 text-xs italic">Details supplémentaire</p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <%= form.submit "Enregistrer le cours", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="w-full md:w-1/4 bg-white p-4 text-center text-gray-700">
+      <% if @current_file.variable? %>
+        <%= link_to image_tag(@current_file.variant(resize: "200x200")), root_path %>
+      <% elsif @current_file.previewable? %>
+        <%= link_to image_tag(@current_file.preview(resize: "200x200")), root_path %>
+      <% end %>
+    </div>
+  </div>

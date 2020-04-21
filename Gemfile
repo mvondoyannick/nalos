@@ -21,8 +21,23 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# adding player plyr
+gem 'plyr-rails'
+# adding HTTParty
+gem 'httparty'
 # adding device
 gem 'devise'
+# Adding sweetify notification
+gem 'sweetify', '~> 2.0' #For Sweetalert2
+# adding roo for importing to xls
+gem 'roo', '~> 2.4'
+# adding activestorage office preview
+gem "activestorage-office-previewer"
+# adding ransack search engine
+#gem 'ransack'
+# adding sunspot search engine
+gem 'sunspot_rails'
+gem 'progress_bar'
 # adding font awesome
 gem 'font-awesome-rails'
 #adding algolia search engine
@@ -47,6 +62,7 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'sunspot_solr'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'rails-erd'

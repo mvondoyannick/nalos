@@ -12,6 +12,7 @@
  *
  *= require font-awesome
  *= require simple_calendar
+ *= require plyr
  *= require_tree .
  *= require_self
  */

@@ -1,22 +1,64 @@
+<% if notice.present? %>
+  <div class="-m-2 text-center mb-8" id="notice">
+
+    <div class="p-2">
+      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
+        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
+        <span class="inline-flex px-2">
+          <%= notice %>
+        </span>
+      </div>
+    </div>
+
+  </div>
+<% end %>
+
 <div class="flex items-center justify-between mb-4">
-  <h2 class="text-xl font-bold text-gray-800"><%= Course.find(params[:id]).chapter %></h2>
+  <h2 class="text-xl font-bold text-gray-800">
+    <%= @current_course.chapter %>
+    <p class="mt-4">Publié le <%= @current_course.created_at %> par Mr/Mme <%= @current_course.user.complete_name %></p>
+  </h2>
 </div>
+
+<%= render 'layouts/student/navbar_internal' %>
 
 <div class="flex mb-4">
   <div class="m-3">
-    <%= render 'layouts/student/navbar_internal' %>
-    <%= video_tag url_for(@current_course.file), controls: true, class: "mb-3" %>
-    <%= link_to "Télécharger", rails_blob_path(@current_course.file, disposition: 'attachement'), class: "mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <% case @current_file.content_type %>
+    <% when 'video/mp4' %>
+      <%= video_tag url_for(@current_file), controls: true, id: 'player' %>
+    <% when 'image/png' %>
+      <%= image_tag @current_file %>
+    <% when 'image/jpeg' %>
+      <%= image_tag(@current_file, size: '512x512', class: 'shadow') %>
+    <% when 'application/pdf' %>
+      <%= link_to image_tag(@current_file.preview(resize: '600x600')), nil %>
+    <% when 'audio/mpeg' %>
+      <%= audio_tag url_for(@current_file), controls: true, id: 'player' %>
+    <% when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %>
+      <%= link_to @current_file.preview(resize: '600x600'), nil %>
+    <% when 'application/msword' %>
+      <%= link_to @current_file.preview(resize: '600x600'), nil %>
+    <% when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
+      <%= link_to @current_file.preview(resize: '600x600'), nil %>
+    <% end %>
+    <br>
+    <%= link_to "Télécharger", rails_blob_path(Document.find(@current_course.document_id).file.find(@current_course.file_id), disposition: 'attachement'), class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
   </div>
 </div>
 <br>
 <p class="mb-4 text-lg">
-  Envoyer une note à Mr <strong class="text-indigo-500"><%= Course.find(params[:id]).user.complete_name %></strong> concernant ce cours?
+  Envoyer une note à Mr
+  <strong class="text-indigo-500"><%= @current_course.user.complete_name %></strong> concernant ce
+  cours?
 </p>
 <%= form_with(url: student_comment_path) do |form| %>
-  <%= form.hidden_field :user_id, value: current_student.id %>
-  <%= form.hidden_field :course_id, value: params[:id] %>
+  <%= form.hidden_field :student_id, value: current_student.id %>
+  <%= form.hidden_field :user_id, value: @current_course.user_id %>
+  <%= form.hidden_field :course_key, value: params[:course_key] %>
+  <%= form.hidden_field :course_id, value: params[:course_id] %>
+  <%= form.hidden_field :id, value: params[:id] %>
   <%= form.rich_text_area :content %>
 
-  <%= form.submit "Envoyer", class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <%= form.submit "Soumettre le commentaire", class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
 <% end %>

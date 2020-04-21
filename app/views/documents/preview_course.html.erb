@@ -1,0 +1,36 @@
+<p class="text-gray-400 font-semibold text-xl mb-8">
+  Prévisualiser du fichier :
+</p>
+
+<%# case @current_file.content_type %>
+<%# when "video/mp4" %>
+  <%#= video_tag url_for(@current_file), controls: true, id:  "player" %>
+<%# when "image/png" %>
+  <%#= image_tag url_for(@current_file) %>
+<%# when "image/jpeg" %>
+  <%#= image_tag url_for(@current_file) %>
+<%# when "application/pdf" %>
+  <%#= image_tag @current_file.preview(resize: "1024x1024") %>
+<%# when "application/vnd.openxmlformats-officedocument.wordprocessingml.document" %>
+  <%#= image_tag @current_file.preview(resize: "1024x1024") %>
+<%# when "application/vnd.openxmlformats-officedocument.wordprocessingml.document" %>
+  <%#= image_tag @current_file.preview(resize: "1024x1024") %>
+<%# when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
+  <%#= image_tag @current_file.preview(resize: "1024x1024") %>
+<%# end %>
+
+<% if @current_file.previewable? %>
+  <% case @current_file.content_type %>
+    <% when "video/mp4" %>
+      <%= video_tag url_for(@current_file), controls: true, id:  "player", class: 'shadow' %>
+    <% else %>
+      <%= image_tag @current_file.preview(resize: "1024x1024") %>
+    <% end %>
+<% elsif @current_file.variable? %>
+  <%= image_tag @current_file.variant(resize: "1024x1024") %>
+<% end %>
+
+<br>
+<br>
+
+<%= link_to 'Joindre ce fichier à un cours', join_to_course_path(document_id: params[:document_id], current_file_id: params[:file_id]), class: 'mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' %>

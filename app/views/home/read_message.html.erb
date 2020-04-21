@@ -1,0 +1,79 @@
+<% @current_course = Course.find(@current_comment.course_id) %>
+<p class="text-xl text-gray-500 font-semibold mb-2">
+  Commentaire de <%= @current_comment.student.complete_name %>
+</p>
+<p>sur le cours <%= @current_comment.course.chapter %></p>
+<br>
+<!-- Two columns -->
+<div class="flex mb-4">
+  <div class="w-1/2">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          Document joint au commentaire
+        </h3>
+        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+          Personal details and application.
+        </p>
+      </div>
+      <%= video_tag url_for(Document.find(@current_course.document_id).file.find(@current_course.file_id)), controls: true %>
+    </div>
+  </div>
+  <div class="w-1/2">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          Information sur le commentaire
+        </h3>
+        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+          Envoyé par <%= @current_comment.student.complete_name %>
+        </p>
+      </div>
+      <div>
+        <dl>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Date commentaire
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @current_comment.created_at %>
+            </dd>
+          </div>
+          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Référence du cours
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @current_course.chapter %>
+            </dd>
+          </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Date publication du cours
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @current_course.created_at %>
+            </dd>
+          </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Contenu
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @current_comment.content.body %>
+            </dd>
+          </div>
+          <div class="bg-gray-50 px-4 py-5 ">
+            <p class="text-gray-400 mb-2 mt-2">
+              Répondre à ce Commentaire
+            </p>
+            <%= form_with(url: root_path) do |form| %>
+              <%= form.rich_text_area :content %>
+              <%= form.submit :Répondre, class: 'mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+            <% end %>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>

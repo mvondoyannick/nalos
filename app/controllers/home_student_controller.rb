@@ -2,7 +2,7 @@ class HomeStudentController < ApplicationController
   before_action :authenticate_student!
   before_action :update_course_counter, only: :read_course
   def index
-    @last_course = Course.all.where(salle_de_class_id: current_student.salle_de_class_id) #Enseignement.last(10)
+    @last_course = Course.all.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2) #Enseignement.last(10)
     @local_news = LocalNews.all
   end
 
@@ -14,15 +14,14 @@ class HomeStudentController < ApplicationController
   def student_comment
     @comment = Comment.new(comment_params)
 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to root_path, notice: 'Commentaire correctement publié' }
-        format.json { render :show, status: :created, location: @course }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @comment.save
+      puts "saved : #{@comment}"
+      redirect_to read_course_path(course_key: params[:course_key], course_id: params[:course_id], id: params[:id]), notice: "Commentaire envoyé!"
+    else
+      puts "erorrs : #{@comment}"
+      redirect_to read_course_path(course_key: params[:course_key], course_id: params[:course_id], id: params[:id]), notice: "Impossible de valide ce commentaire : #{@comment.errors.full_messages}"
     end
+
   end
 
   # student read course
@@ -30,7 +29,8 @@ class HomeStudentController < ApplicationController
 
     current_course = params[:id]
     @css_class = "border-b-2"
-    @current_course = Course.find(current_course)
+    @current_course = Course.find(params[:course_id])#Course.find(current_course)
+    @current_file = Document.find(@current_course.document_id).file.find(@current_course.file_id)
   end
 
   def my_course
@@ -38,19 +38,19 @@ class HomeStudentController < ApplicationController
   end
 
   def exercice
-    id = params[:id]
+    id = params[:course_id]
     @css_class = "border-b-2"
     @current_course = Course.find(id)
   end
 
   def synthese
-    id = params[:id]
+    id = params[:course_id]
     @css_class = "border-b-2"
     @current_course = Course.find(id)
   end
 
   def documents
-    id = params[:id]
+    id = params[:course_id]
     @css_class = "border-b-2"
     @current_course = Course.find(id)
   end
@@ -68,7 +68,7 @@ class HomeStudentController < ApplicationController
   end
 
   def my_teacher_course
-    @courses = Course.where(user_id: params[:current_teacher], salle_de_class_id: current_student.salle_de_class_id)
+    @courses = Course.where(user_id: params[:current_teacher], salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2)
   end
 
   # ressource de l'apprenant
@@ -89,10 +89,10 @@ class HomeStudentController < ApplicationController
   private
 
   def update_course_counter
-    Course.find(params[:id]).increment!(:counter)
+    Course.find(params[:course_id]).increment!(:counter)
   end
 
   def comment_params
-    params.permit(:user_id, :course_id, :content)
+    params.permit(:student_id, :user_id, :course_id, :content)
   end
 end

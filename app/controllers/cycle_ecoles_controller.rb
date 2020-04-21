@@ -1,4 +1,5 @@
 class CycleEcolesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_cycle_ecole, only: [:show, :edit, :update, :destroy]
 
   # GET /cycle_ecoles

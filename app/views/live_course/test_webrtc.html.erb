@@ -1,0 +1,16 @@
+<video autoplay controls class="shadow" style="object-fit: cover"></video>
+
+<script>
+    const constraints = {
+        video: true
+    };
+
+    const video = document.querySelector('video');
+
+    navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true
+    }).then((stream) => {
+        video.srcObject = stream
+    });
+</script>

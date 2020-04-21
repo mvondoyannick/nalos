@@ -16,6 +16,8 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+//=require plyr
+
 require("chartkick")
 require("chart.js")
 
@@ -25,3 +27,7 @@ require("@rails/actiontext")
 import '../css/application.css'
 require('tailwindcss')('./app/javascript/css/tailwind.js'),
 require('autoprefixer')
+
+document.addEventListener("turbolinks:load", function() {
+    const player = new Plyr('#player');
+});
