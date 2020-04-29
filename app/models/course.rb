@@ -4,11 +4,12 @@ class Course < ApplicationRecord
   belongs_to :user
   belongs_to :course_status
   has_one :document
+  has_many :statistics
 
   #include sunspot
-  searchable do
-    text :chapter
-  end
+  # searchable do
+  #   text :chapter
+  # end
 
 
   #set status

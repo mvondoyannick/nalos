@@ -63,4 +63,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   config.assets.paths << "#{Rails.root}/app/assets/videos"
+
+  # remote access,
+  config.hosts << "4da151d2.ngrok.io"
 end

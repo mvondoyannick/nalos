@@ -1,4 +1,5 @@
 class LocalNewsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_local_news, only: [:show, :edit, :update, :destroy]
 
   # GET /local_news

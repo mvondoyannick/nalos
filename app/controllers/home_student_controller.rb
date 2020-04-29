@@ -1,6 +1,6 @@
 class HomeStudentController < ApplicationController
   before_action :authenticate_student!
-  before_action :update_course_counter, only: :read_course
+  before_action :update_course_statitics, only: :read_course
   def index
     @last_course = Course.all.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2) #Enseignement.last(10)
     @local_news = LocalNews.all
@@ -22,6 +22,14 @@ class HomeStudentController < ApplicationController
       redirect_to read_course_path(course_key: params[:course_key], course_id: params[:course_id], id: params[:id]), notice: "Impossible de valide ce commentaire : #{@comment.errors.full_messages}"
     end
 
+  end
+
+  # read student matieres
+  def read_matiere
+    matiere_token = params[:matiere_id] # token
+
+    # return all course from this matiere
+    @last_course = Course.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2, matiere_id: Matiere.find_by_token(matiere_token).id)
   end
 
   # student read course
@@ -86,10 +94,29 @@ class HomeStudentController < ApplicationController
 
   end
 
+  # ressource document
+  def ressource_document
+
+  end
+
+  # ressrouce exercice
+  def ressource_exercice
+
+  end
+
+  # ressource epreuve
+  def ressource_epreuve
+    
+  end
+
   private
 
   def update_course_counter
     Course.find(params[:course_id]).increment!(:counter)
+  end
+
+  def update_course_statitics
+    Statistic.where(course_id: params[:course_id], student_id: current_student.id).first_or_create(counter: 0).increment!(:counter) #new(course_id: params[:course_id, student_id: current_student.id, ])
   end
 
   def comment_params

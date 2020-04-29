@@ -2281,6 +2281,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, ruby-2.6.5-p105) [gem]" level="application" />
+    <orderEntry type="library" name="OneSignalSDKUpdaterWorker" level="application" />
+    <orderEntry type="library" name="OneSignalSDKWorker" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />

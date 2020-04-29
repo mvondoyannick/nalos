@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_184653) do
+ActiveRecord::Schema.define(version: 2020_04_26_155046) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -126,6 +126,18 @@ ActiveRecord::Schema.define(version: 2020_04_21_184653) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "epreuves", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "title"
+    t.bigint "salle_de_class_id", null: false
+    t.bigint "matiere_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["matiere_id"], name: "index_epreuves_on_matiere_id"
+    t.index ["salle_de_class_id"], name: "index_epreuves_on_salle_de_class_id"
+    t.index ["user_id"], name: "index_epreuves_on_user_id"
+  end
+
   create_table "filieres", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "content"
@@ -153,6 +165,7 @@ ActiveRecord::Schema.define(version: 2020_04_21_184653) do
     t.string "descriptioin"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "token"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -284,6 +297,9 @@ ActiveRecord::Schema.define(version: 2020_04_21_184653) do
   add_foreign_key "courses", "users"
   add_foreign_key "cycle_ecoles", "structures"
   add_foreign_key "documents", "users"
+  add_foreign_key "epreuves", "matieres"
+  add_foreign_key "epreuves", "salle_de_classes"
+  add_foreign_key "epreuves", "users"
   add_foreign_key "messages", "students"
   add_foreign_key "messages", "users"
   add_foreign_key "problemes", "students"

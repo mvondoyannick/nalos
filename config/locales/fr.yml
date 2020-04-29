@@ -29,6 +29,6 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
+fr:
   hello: "Hello world"
-  last_post: "My last posts"
+  last_post: "Mes derniers publications"

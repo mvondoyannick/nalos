@@ -69,8 +69,8 @@
                 <%= course.course_status.name %>
               </td>
             <% end %>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to 'Voir', course %></td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to course, method: :delete, data: { confirm: 'Are you sure? Cette action est irreversible.' } do %>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to 'Voir', course, class: 'hover:bg-transparent text-indigo-500 hover:text-green-800' %></td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to course, method: :delete, data: { confirm: 'Are you sure? Cette action est irreversible.' }, class: 'hover:bg-transparent text-indigo-500 hover:text-green-800' do %>
                 <svg xmlns="http://www.w3.org/2000/svg" class="inline-block icon icon-tabler icon-tabler-file-shredder" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z"/>
                   <polyline points="14 3 14 8 19 8" />

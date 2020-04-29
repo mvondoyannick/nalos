@@ -70,12 +70,13 @@ class AdminController < ApplicationController
 
   # import student
   def import_student
-
+    @students = Student.all.order(:name)
   end
 
   def import_student_intent
-    Lorem.import(params[:fichier])
-    redirect_to admin_index_path, notice: 'Tous les apprenants ont été importés avec succès'
+    # Lorem.import(params[:fichier])
+    Student.import(params[:fichier])
+    redirect_to root_path, notice: 'Tous les apprenants ont été importés avec succès'
   end
 
   # importe teacher

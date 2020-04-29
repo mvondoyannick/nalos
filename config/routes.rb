@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :epreuves
   resources :messages
   resources :problemes
   #get 'people/search'
@@ -8,6 +9,13 @@ Rails.application.routes.draw do
   resources :comments
   resources :classe_matieres
   root 'welcome#index'
+
+  scope :nalos do
+    get 'services', to: 'welcome#services'
+    get 'actualites', to: 'welcome#actualites'
+  end
+
+
   resources :local_news
   resources :teacher_classes
   resources :matieres
@@ -36,8 +44,13 @@ Rails.application.routes.draw do
     get 'discuss', to: 'home#discuss'
     get 'planning', to: 'home#planning'
 
+    #gestion des epreuves
+    scope :epreuves do
+      get 'epreuve', to: 'home#epreuves'
+    end
+
     scope :messagerie do
-      get 'messages', to: 'home#messagerie'
+      get 'msg', to: 'home#messagerie'
       get 'read_message', to: 'home#read_message'
     end
 
@@ -92,6 +105,7 @@ Rails.application.routes.draw do
   # course for student
   scope :course do
     get "read_course", to: "home_student#read_course"
+    get "read_matiere", to: "home_student#read_matiere"
     get "my_dashboard", to: "home_student#dashboard"
     get "exercice", to: "home_student#exercice"
     get "synthese", to: "home_student#synthese"

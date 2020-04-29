@@ -1,0 +1,46 @@
+<%= form_with(model: epreufe, local: true) do |form| %>
+  <% if epreufe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(epreufe.errors.count, "error") %> prohibited this epreufe from being saved:</h2>
+
+      <ul>
+        <% epreufe.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :salle_de_class_id %>
+    <%= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id), :id, :class_with_initial, {prompt: "Selectionner une classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+    <%#= form.text_field :salle_de_class_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :matiere_id %>
+    <%= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id), :id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+    <%#= form.text_field :matiere_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Fichier épreuve" %>
+    <%= form.file_field :file, accept: 'application/pdf' %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Réponse à l'épreuve" %>
+    <%= form.file_field :response, accept: 'application/pdf' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

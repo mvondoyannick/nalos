@@ -13,3 +13,52 @@
     </div>
   </div>
 <% end %>
+
+<div class="overflow-x-auto bg-white rounded-lg shadow">
+  <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
+    <thead>
+    <tr class="text-left">
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Matricule</th>
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Nom & prénom</th>
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Matricule</th>
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">phone</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @students.each do |course| %>
+      <tr>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 h-10 w-10">
+              <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"
+                   viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z"/>
+                <polyline points="14 3 14 8 19 8" />
+                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                <path d="M9 15l2 2l4 -4" />
+              </svg>
+            </div>
+            <div class="ml-4">
+              <div><%= course.matricule %></div>
+              <div class="text-sm leading-5 text-gray-500"> Heures</div>
+            </div>
+          </div>
+        </td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <div class="text-sm leading-5 text-gray-900"><%= course.name %></div>
+          <div class="text-sm leading-5 text-gray-900"><%= course.matricule %></div>
+        </td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <div class="text-sm leading-5 text-gray-900"><%= course.matricule %></div>
+        </td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <div class="text-sm leading-5 text-gray-900"><%= course.phone %></div>
+        </td>
+      </tr>
+
+    <% end %>
+
+    </tbody>
+  </table>
+</div>

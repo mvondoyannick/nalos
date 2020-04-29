@@ -1,0 +1,108 @@
+<p id="notice"><%= notice %></p>
+
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Ready to dive in?
+      <br />
+      <span class="text-indigo-600">Start your free trial today.</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to 'Modifier', edit_epreufe_path(@epreufe), class: 'inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
+      </div>
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <%= link_to 'Back', epreuves_path, class: 'hover:bg-transparent inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Two columns -->
+<div class="flex mb-4">
+  <div class="w-1/2 sm:w-1/2 md:w-1/1 bg-white">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          <%= @epreufe.title %>
+        </h3>
+        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+          <%= @epreufe.matiere.name %>
+        </p>
+      </div>
+      <div>
+        <p>
+          <% if @epreufe.file.previewable? %>
+            <%= link_to(image_tag(@epreufe.file.preview(resize: '1000x1000')), rails_blob_path(@epreufe.file, disposition: 'inline')) %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+    <hr class="m-8">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          Correction epreuve <%= @epreufe.title %>
+        </h3>
+        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+          Publié le <%= @epreufe.created_at %>
+        </p>
+      </div>
+      <div>
+        <p>
+          <% if @epreufe.response.previewable? %>
+            <%= link_to(image_tag(@epreufe.response.preview(resize: '1000x1000')), rails_blob_path(@epreufe.response, disposition: 'inline')) %>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-1/2 bg-white">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          Applicant Information
+        </h3>
+        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+          Personal details and application.
+        </p>
+      </div>
+      <div>
+        <dl>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Titre épreuve
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @epreufe.title %>
+            </dd>
+          </div>
+          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Classe
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @epreufe.salle_de_class.name %>
+            </dd>
+          </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Filière
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @epreufe.matiere.name %>
+            </dd>
+          </div>
+          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Publié par
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @epreufe.user.complete_name %>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,13 +9,13 @@
 
   <% meetings.each do |meeting| %>
     <div>
-      <%= link_to meeting.chapter, root_path, class: 'text-purple-500 text-md font-semibold' %>
+      <%= link_to meeting.chapter, meeting, class: 'hover:bg-transparent hover:text-purple-500 text-purple-500 text-md font-semibold' %>
     </div>
   <% end %>
 <% end %>
 <div>
   <div class="flex items-center justify-between mb-8 mt-10">
-    <h2 class="text-xl font-bold text-gray-800">Mes derniers publications</h2>
+    <h2 class="text-xl font-bold text-gray-800"><%= t('last_post', locale: :fr) %></h2>
     <%= link_to "Voir tous mes cours", courses_path, class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
   </div>
 

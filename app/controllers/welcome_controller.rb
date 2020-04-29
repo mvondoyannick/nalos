@@ -4,4 +4,12 @@ class WelcomeController < ApplicationController
     render layout: 'student'
   end
 
+  def services
+    render layout: 'student'
+  end
+
+  def actualites
+    render layout: 'student'
+  end
+
 end

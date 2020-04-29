@@ -11,6 +11,11 @@ class HomeController < ApplicationController
     @comments = Comment.where(user_id: current_user.id)
   end
 
+  # epreuves
+  def epreuves
+
+  end
+
   # read message
   def read_message
     @current_comment = Comment.find_by(metakey: params[:key])

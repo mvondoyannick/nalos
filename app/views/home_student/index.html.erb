@@ -1,6 +1,5 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js" defer></script>
 
-
 <!-- Narrower side column -->
 <div class="flex items-center justify-between mb-2">
   <h2 class="text-xl font-bold text-gray-800">Cours récents</h2>
@@ -71,25 +70,26 @@
     </div>
   </div>
   <div class="w-1/4">
-    <p class="text-gray-500 font-semibold ml-6 text-lg mt-4">
-      Liste des matieres
-    </p>
+    <div class="align-middle inline-block mt-8 min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <p class="text-gray-500 font-semibold ml-6 text-lg mt-4">
+        Cours par matière
+      </p>
+      <p class="ml-6 mt-2">
+        Liste de vous cours classé par matière.
+      </p>
+    </div>
     <div class="mt-8 px-4 py-2">
       <ul>
-        <% @last_course.distinct.to_a.uniq.each do |course| %>
+        <% @last_course.distinct.pluck(:matiere_id).uniq.each do |course| %>
           <li>
-            <%= link_to home_student_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
-              <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                   viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                   stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z"/>
-                <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                <line x1="3" y1="6" x2="3" y2="19" />
-                <line x1="12" y1="6" x2="12" y2="19" />
-                <line x1="21" y1="6" x2="21" y2="19" />
-              </svg>
-              <%= course.matiere.name %>
+            <%= link_to read_matiere_path(matiere_id: Matiere.find(course).token), class: "hover:bg-transparent mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="30" height="30"
+                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z"/>
+                  <path d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10" />
+                </svg>
+                <%= Matiere.find(course).name %>
             <% end %>
           </li>
         <% end %>

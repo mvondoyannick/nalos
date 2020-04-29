@@ -23,28 +23,23 @@
 <%= render 'layouts/student/navbar_internal' %>
 
 <div class="flex mb-4">
-  <div class="m-3">
-    <% case @current_file.content_type %>
-    <% when 'video/mp4' %>
+  <div class="mt-3 mr-3 w-3/4">
+    <% if @current_file.video? %>
       <%= video_tag url_for(@current_file), controls: true, id: 'player' %>
-    <% when 'image/png' %>
-      <%= image_tag @current_file %>
-    <% when 'image/jpeg' %>
-      <%= image_tag(@current_file, size: '512x512', class: 'shadow') %>
-    <% when 'application/pdf' %>
-      <%= link_to image_tag(@current_file.preview(resize: '600x600')), nil %>
-    <% when 'audio/mpeg' %>
+    <% elsif @current_file.audio? %>
       <%= audio_tag url_for(@current_file), controls: true, id: 'player' %>
-    <% when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %>
+    <% elsif @current_file.image? %>
+      <%= image_tag(@current_file, size: '512x512', class: 'shadow') %>
+    <% elsif @current_file.text? %>
+    <% elsif @current_file.content_type.end_with?('document')%>
       <%= link_to @current_file.preview(resize: '600x600'), nil %>
-    <% when 'application/msword' %>
-      <%= link_to @current_file.preview(resize: '600x600'), nil %>
-    <% when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
+    <% elsif @current_file.content_type.end_with?('sheet')%>
       <%= link_to @current_file.preview(resize: '600x600'), nil %>
     <% end %>
     <br>
     <%= link_to "Télécharger", rails_blob_path(Document.find(@current_course.document_id).file.find(@current_course.file_id), disposition: 'attachement'), class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
   </div>
+  <div class="w-1/4 bg-white mt-3 shadow"></div>
 </div>
 <br>
 <p class="mb-4 text-lg">
@@ -61,4 +56,46 @@
   <%= form.rich_text_area :content %>
 
   <%= form.submit "Soumettre le commentaire", class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<% end %>
+<br>
+<hr>
+<p>Autre cours du même enseignant</p>
+<br>
+<% @teacher_course = Course.where(user_id: @current_course.user_id, salle_de_class_id: current_student.salle_de_class_id).limit(8) %>
+<% if @teacher_course.nil? %>
+  <p class="text-center text-gray-600 font-semibold">Aucun cours produit par cet enseignant</p>
+<% else %>
+  <div class="grid grid-cols-4 gap-4 mb-4">
+    <% @teacher_course.each do |cours| %>
+      <div class="bg-white overflow-hidden border-b-4 border-blue-500">
+        <% if cours.file.nil? %>
+          Aucune publication trouvée
+        <% else %>
+          <% docs = Document.find(cours.document_id).file.find(cours.file_id) %>
+          <% if docs.previewable? %>
+            <%= link_to(image_tag(docs.preview(resize: '1000x1000')), read_course_path(cours_key: Document.find(cours.document_id).file.find(cours.file_id).key, id: Document.find(cours.document_id).file.find(cours.file_id).id, course_id: cours.id), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+          <% elsif docs.variable? %>
+            <%= link_to(image_tag(docs.variant(resize: '1000x1000')), read_course_path(cours_key: Document.find(cours.document_id).file.find(cours.file_id).key, id: Document.find(cours.document_id).file.find(cours.file_id).id, course_id: cours.id), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+          <% else %>
+            <%= link_to(image_tag('course.png'), read_course_path(cours_key: Document.find(cours.document_id).file.find(cours.file_id).key, id: Document.find(cours.document_id).file.find(cours.file_id).id, course_id: cours.id), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
+          <% end %>
+        <% end %>
+        <div class="p-4 md:p-6">
+          <p class="text-blue-500 font-semibold text-xs mb-1 leading-none"><%= cours.categorie.nil? ? "Aucune catégorie" : cours.categorie.upcase %></p>
+          <h3 class="font-semibold mb-2 text-xl leading-tight sm:leading-normal"><%= cours.chapter %></h3>
+          <div class="text-sm flex items-center">
+            <svg class="opacity-75 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="12" height="12" viewBox="0 0 97.16 97.16" style="enable-background:new 0 0 97.16 97.16;" xml:space="preserve">
+              <path d="M48.58,0C21.793,0,0,21.793,0,48.58s21.793,48.58,48.58,48.58s48.58-21.793,48.58-48.58S75.367,0,48.58,0z M48.58,86.823    c-21.087,0-38.244-17.155-38.244-38.243S27.493,10.337,48.58,10.337S86.824,27.492,86.824,48.58S69.667,86.823,48.58,86.823z"/>
+              <path d="M73.898,47.08H52.066V20.83c0-2.209-1.791-4-4-4c-2.209,0-4,1.791-4,4v30.25c0,2.209,1.791,4,4,4h25.832    c2.209,0,4-1.791,4-4S76.107,47.08,73.898,47.08z"/>
+            </svg>
+            <p class="leading-none">
+              Publié le : <%= cours.created_at.strftime("%d %b %Y") %> <br>
+              Par : <%= cours.user.complete_name %> <br>
+              classe : <%= cours.salle_de_class.name %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 <% end %>

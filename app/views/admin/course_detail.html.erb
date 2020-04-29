@@ -7,29 +7,36 @@
     <h3 class="text-lg leading-6 font-medium text-gray-900">
       <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
-          Apperçu du fichier
+          Aperçu du fichier
         </h3>
         <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
           Personal details and application.
         </p>
       </div>
     </h3>
-    <% case @document.content_type %>
-      <% when 'video/mp4'%>
-        <%= video_tag url_for(@document), controls: true, id: 'player' %>
-      <% when 'image/png' %>
-        <%= image_tag @document %>
-      <% when 'application/pdf' %>
-        <%= link_to @document.preview(resize: '600x600'), nil %>
-      <% when 'audio/mpeg' %>
-        <%= audio_tag url_for(@document), controls: true, id: 'player' %>
-      <% when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %>
-        <%= link_to @documment.preview(resize: '600x600'), nil %>
-      <% when 'application/msword' %>
-        <%= link_to @document.preview(resize: '600x600'), nil %>
-      <% when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
-        <%= link_to @document.preview(resize: '600x600'), nil %>
-    <% end %>
+    <% if @document.video? %>
+      <%= video_tag url_for(@document), controls: true, id: 'player' %>
+    <% elsif @document.image? %>
+      <%= image_tag @document %>
+    <% elsif @document.audio? %>
+      <%= audio_tag url_for(@document), controls: true, id: 'player' %>
+    <% else %>
+      <% case @document.content_type %>
+        <% when 'application/pdf' %>
+          <%= link_to @document.preview(resize: '600x600'), nil %>
+        <% when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %>
+          <%= link_to @documment.preview(resize: '600x600'), nil %>
+        <% when 'application/msword' %>
+          <%= link_to @document.preview(resize: '600x600'), nil %>
+        <% when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
+          <%= link_to @document.preview(resize: '600x600'), nil %>
+        <% end %>
+      <% end %>
+    <hr class="mt-4">
+    <p class="font-bold mt-2 mb-4">
+      Autres documents du cours
+    </p>
+    <%= @course.extrait.body %>
   </div>
   <div class="w-1/2 bg-gray-500">
     <div class="bg-white shadow overflow-hidden">

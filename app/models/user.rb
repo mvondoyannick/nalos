@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :courses
   has_many :comments
   has_many :messages
+
+  # for epreuve
+  has_many :epreuves
+
   # has_many :documents
   has_one :salle_de_class
 
