@@ -16,7 +16,7 @@ class Course < ApplicationRecord
   before_save :set_status, if: :new_record?
 
   # send SMS after submit cours
-  after_save :sms_notification, if: :persisted?
+  #after_save :sms_notification, if: :persisted?
 
   # including activeStorage
   has_one_attached :file
