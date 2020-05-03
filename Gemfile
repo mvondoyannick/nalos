@@ -38,7 +38,7 @@ gem "activestorage-office-previewer"
 # adding ransack search engine
 #gem 'ransack'
 # adding sunspot search engine
-gem 'sunspot_rails'
+# gem 'sunspot_rails'
 gem 'progress_bar'
 # adding font awesome
 gem 'font-awesome-rails'
