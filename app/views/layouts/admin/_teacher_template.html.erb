@@ -59,11 +59,11 @@
 
             <div x-show.transition="open" @click.away="open = false"
                  class="absolute top-0 mt-12 right-0 w-48 bg-white py-2 shadow-md border border-gray-100 rounded-lg z-40">
-              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Edit
-                Profile</a>
+              <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600">
+                Contacter @admin</a>
               <a href="#"
-                 class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600">Account
-                Settings</a>
+                 class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600">
+                Signaler un problème</a>
               <%= link_to "Se déconnecter", destroy_student_session_path, method: :delete, class: "block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600" %>
             </div>
           </div>
@@ -97,7 +97,7 @@
                   <path stroke="none" d="M0 0h24v24H0z"/>
                   <polyline points="15 6 9 12 15 18" />
                 </svg>
-                retourner
+                Retour
               <% end %>
             <% else %>
 
@@ -116,7 +116,7 @@
           </div>
         <% else %>
           <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-bold text-gray-800">Dashboard</h2>
+            <h2 class="text-xl font-bold text-gray-800"></h2>
             <% if controller_name == "courses" && action_name == "show" %>
               <%= link_to courses_path, class: "shadow inline-flex items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-semibold py-2 px-4 rounded-lg" do %>
                 <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 w-5 h-5" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -132,7 +132,7 @@
                   <line x1="12" y1="5" x2="12" y2="19" />
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
-                Importer un cours
+                Publier un cours
               <% end %>
             <% end %>
           </div>

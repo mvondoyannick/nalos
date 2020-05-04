@@ -22,6 +22,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="alpine" level="application" />
     <orderEntry type="library" name="plyr" level="application" />
+    <orderEntry type="library" name="OneSignalSDKUpdaterWorker" level="application" />
+    <orderEntry type="library" name="OneSignalSDKWorker" level="application" />
     <orderEntry type="module-library">
       <library name="actioncable (vbundled(6.0.2.2)) [path][gem]" type="rubylib">
         <properties>
@@ -541,27 +543,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="faraday (vbundled(1.0.1)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/faraday-1.0.1/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/faraday-1.0.1/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/faraday-1.0.1/examples" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/faraday-1.0.1/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/faraday-1.0.1/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/faraday-1.0.1/examples" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/faraday-1.0.1/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/faraday-1.0.1/examples" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="ffi (vbundled(1.12.2)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -1067,24 +1048,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="multipart-post (vbundled(2.1.1)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/multipart-post-2.1.1/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/multipart-post-2.1.1/spec" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/multipart-post-2.1.1/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/multipart-post-2.1.1/spec" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/multipart-post-2.1.1/spec" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="mustache (vbundled(1.1.1)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -1281,24 +1244,6 @@
         </SOURCES>
         <excluded>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.4.7/bin" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="pr_geohash (vbundled(1.0.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/pr_geohash-1.0.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/pr_geohash-1.0.0/test" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/pr_geohash-1.0.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/pr_geohash-1.0.0/test" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/pr_geohash-1.0.0/test" />
         </excluded>
       </library>
     </orderEntry>
@@ -1660,24 +1605,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="rsolr (vbundled(2.3.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/rsolr-2.3.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/rsolr-2.3.0/spec" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/rsolr-2.3.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/rsolr-2.3.0/spec" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/rsolr-2.3.0/spec" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="ruby-graphviz (vbundled(1.2.5)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -1930,63 +1857,6 @@
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sprockets-rails-3.2.1/lib" />
         </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="sunspot (vbundled(2.5.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/log" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/pkg" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/tasks" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/script" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/log" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/pkg" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/tasks" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/script" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/log" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/pkg" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/tasks" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot-2.5.0/script" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="sunspot_rails (vbundled(2.5.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/gemfiles" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/dev_tasks" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/generators" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/gemfiles" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/dev_tasks" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/generators" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/gemfiles" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/dev_tasks" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sunspot_rails-2.5.0/generators" />
-        </excluded>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -2281,8 +2151,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, ruby-2.6.5-p105) [gem]" level="application" />
-    <orderEntry type="library" name="OneSignalSDKUpdaterWorker" level="application" />
-    <orderEntry type="library" name="OneSignalSDKWorker" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />
