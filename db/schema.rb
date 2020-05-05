@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_103007) do
+ActiveRecord::Schema.define(version: 2020_05_05_125945) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -83,14 +83,13 @@ ActiveRecord::Schema.define(version: 2020_05_05_103007) do
     t.string "tag"
     t.string "categorie"
     t.integer "counter"
-    t.bigint "file_id"
     t.bigint "document_id"
     t.string "file"
     t.datetime "start_time"
     t.bigint "course_status_id", null: false
+    t.integer "file_id"
     t.index ["course_status_id"], name: "index_courses_on_course_status_id"
     t.index ["document_id"], name: "index_courses_on_document_id"
-    t.index ["file_id"], name: "index_courses_on_file_id"
     t.index ["matiere_id"], name: "index_courses_on_matiere_id"
     t.index ["salle_de_class_id"], name: "index_courses_on_salle_de_class_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
