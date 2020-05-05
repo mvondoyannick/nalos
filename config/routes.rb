@@ -91,6 +91,19 @@ Rails.application.routes.draw do
     scope :account do
       get 'accounts', to: 'admin#accounts'
 
+      # Managing matieres
+      scope :matieres do
+        get 'index_matieres', to: 'admin#matieres'
+      end
+
+      scope :enseignants do
+        get 'index_enseignants', to: 'admin#enseignants'
+      end
+
+      scope :salle_classes do
+        get 'index_salle_classes', to: 'admin#salle_classes'
+      end
+
 
       # import account information
       scope :import do
@@ -98,6 +111,15 @@ Rails.application.routes.draw do
         post 'import_teacher_intent', to: 'admin#import_teacher_intent'
         get 'import_student', to: 'admin#import_student'
         post 'import_student_intent', to: 'admin#import_student_intent'
+
+        # matiere import
+        post 'import_matiere_intent', to: 'admin#import_matiere_intent'
+
+        # enseignant import
+        post 'import_enseignant_intent', to: 'admin#import_enseignant_intent'
+
+        # salle de classe
+        post 'import_salle_classe_intent', to: 'admin#import_salle_classe_intent'
       end
     end
   end

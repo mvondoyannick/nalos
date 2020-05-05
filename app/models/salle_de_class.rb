@@ -6,6 +6,12 @@ class SalleDeClass < ApplicationRecord
   # for epreuves
   has_many :epreuves
 
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      SalleDeClass.create! row.to_hash
+    end
+  end
+
   private
   def set_ecole_cycle
     self.cycle_ecole_id = 1

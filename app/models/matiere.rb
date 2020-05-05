@@ -4,4 +4,10 @@ class Matiere < ApplicationRecord
 
   # for epreuves
   has_many :epreuves
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      Matiere.create!(row.to_hash)
+    end
+  end
 end

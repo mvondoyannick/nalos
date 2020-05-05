@@ -68,6 +68,39 @@ class AdminController < ApplicationController
     @students = Student.all
   end
 
+  # gestion des enseignants
+  def enseignants
+    @enseignants = User.where(role_id: 1)
+  end
+
+  # import enseignant
+  def import_enseignant_intent
+    User.import(params[:file])
+    redirect_to index_enseignants_path, notice: 'Touts les ensiengnants ont été importées'
+  end
+
+  # gestion des salles de classe
+  def salle_classes
+    @salle_classes = SalleDeClass.all
+  end
+
+  # import salle de classe
+  def import_salle_classe_intent
+    SalleDeClass.import(params[:file])
+    redirect_to index_salle_classes_path, notice: 'Import correctement effectué'
+  end
+
+  # gestion des matieres
+  def matieres
+    @matieres = Matiere.all
+  end
+
+  # import matiere
+  def import_matiere_intent
+    Matiere.import(params[:file])
+    redirect_to index_matieres_path, notice: 'Toutes les matières ont été importées'
+  end
+
   # import student
   def import_student
     @students = Student.all.order(:name)
