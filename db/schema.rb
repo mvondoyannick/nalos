@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_155046) do
+ActiveRecord::Schema.define(version: 2020_05_05_103007) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -82,12 +82,12 @@ ActiveRecord::Schema.define(version: 2020_04_26_155046) do
     t.bigint "matiere_id"
     t.string "tag"
     t.string "categorie"
-    t.bigint "course_status_id"
     t.integer "counter"
     t.bigint "file_id"
     t.bigint "document_id"
     t.string "file"
     t.datetime "start_time"
+    t.bigint "course_status_id", null: false
     t.index ["course_status_id"], name: "index_courses_on_course_status_id"
     t.index ["document_id"], name: "index_courses_on_document_id"
     t.index ["file_id"], name: "index_courses_on_file_id"
@@ -106,11 +106,11 @@ ActiveRecord::Schema.define(version: 2020_04_26_155046) do
     t.index ["structure_id"], name: "index_cycle_ecoles_on_structure_id"
   end
 
-  # create_table "cycles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-  #   t.string "name"
-  #   t.datetime "created_at", precision: 6, null: false
-  #   t.datetime "updated_at", precision: 6, null: false
-  # end
+  create_table "cycles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -291,6 +291,7 @@ ActiveRecord::Schema.define(version: 2020_04_26_155046) do
   add_foreign_key "comments", "courses"
   add_foreign_key "comments", "students"
   add_foreign_key "comments", "users"
+  add_foreign_key "courses", "course_statuses"
   add_foreign_key "courses", "documents"
   add_foreign_key "courses", "matieres"
   add_foreign_key "courses", "salle_de_classes"
