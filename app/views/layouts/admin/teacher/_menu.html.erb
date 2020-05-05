@@ -86,22 +86,22 @@
           <line x1="12" y1="12" x2="12" y2="12.01" />
           <path d="M3 13a20 20 0 0 0 18 0" />
         </svg>
-        Trainning Space
+        Training Space
       <% end %>
     </li>
 
-    <li>
-      <%= link_to live_course_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "live_course"}" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <path d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
-          <circle cx="12" cy="13" r="3" />
-        </svg>
-        Live course
-      <% end %>
-    </li>
+<!--    <li>-->
+      <%#= link_to live_course_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "live_course"}" do %>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--             stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--          <path d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />-->
+<!--          <circle cx="12" cy="13" r="3" />-->
+<!--        </svg>-->
+<!--        Live course-->
+      <%# end %>
+<!--    </li>-->
 
     <li>
       <%= link_to salle_classe_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "classes"}" do %>

@@ -29,7 +29,7 @@ class Course < ApplicationRecord
 
   # set course status
   def set_status
-    self.course_status_id = CourseStatus.first.id
+    self.course_status_id = CourseStatus.second.id
   end
 
   # send sms after publish course
