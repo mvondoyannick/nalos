@@ -41,10 +41,18 @@
             Aucune publication trouvée
           <% else %>
             <% docs = Document.find(cours.document_id).file.find(cours.file_id) %>
-            <% if docs.previewable? %>
-              <%= link_to(image_tag(docs.preview(resize: '1000x1000')), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
-            <% elsif docs.variable? %>
-                <%= link_to(image_tag(docs.variant(resize: '1000x1000')), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <% if docs.video? %>
+              <%= link_to(image_tag('video.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <% elsif docs.audio? %>
+              <%= link_to(image_tag('audio.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <% elsif docs.image? %>
+              <%= link_to(image_tag('photo.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <% elsif docs.content_type.end_with?("pdf") %>
+              <%= link_to(image_tag('pdf.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+              <%= link_to(image_tag('word.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+              <%= link_to(image_tag('excel.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
             <% else %>
               <%= link_to(image_tag('course.png'), course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
             <% end %>
@@ -67,7 +75,7 @@
   </div>
   <div class="py-8">
     <div class="flex items-center justify-between mb-8 mt-10">
-      <h2 class="text-xl font-bold text-gray-800">Barbillard</h2>
+      <h2 class="text-xl font-bold text-gray-800">Babillard</h2>
       <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
     </div>
 
