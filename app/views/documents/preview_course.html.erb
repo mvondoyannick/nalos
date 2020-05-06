@@ -29,7 +29,9 @@
     <%= link_to(image_tag(@current_file.preview(resize: "1024x1024")), rails_blob_path(@current_file, disposition: "inline")) %>
   <% else %>
     <%= image_tag @current_file.preview(resize: "1024x1024") %>
+    <%= link_to "Télécharger ce document", rails_blob_path(@current_file, disposition: "attachment") %>
   <% end %>
 <% elsif @current_file.variable? %>
-  <%= link_to(image_tag @current_file.variant(resize: "1024x1024"), "lorem") %>
+  <%= link_to(image_tag @current_file.variant(resize: "1024x1024"), rails_blob_path(@current_file, disposition: "inline")) %>
+  <%= link_to "Télécharger ce document", rails_blob_path(@current_file, disposition: "attachment") %>
 <% end %>

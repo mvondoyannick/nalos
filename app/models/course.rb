@@ -10,6 +10,7 @@ class Course < ApplicationRecord
   # searchable do
   #   text :chapter
   # end
+  validates :chapter, presence: true
 
 
   #set status

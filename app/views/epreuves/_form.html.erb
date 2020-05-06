@@ -13,34 +13,72 @@
 
   <%= form.hidden_field :user_id, value: current_user.id %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          Titre de l'epreuve
+        </label>
+        <%= form.text_field :title, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" %>
+        <p class="text-red text-xs italic">Please fill out this field.</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Matière de l'epreuve
+        </label>
+        <%= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id), :id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"}) %>
+      </div>
+    </div>
+
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Salle de classe
+        </label>
+        <%= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id), :id, :class_with_initial, {prompt: "Selectionner une salle de classe..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"}) %>
+      </div>
+    </div>
+
   </div>
 
   <div class="field">
-    <%= form.label :salle_de_class_id %>
-    <%= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id), :id, :class_with_initial, {prompt: "Selectionner une classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-    <%#= form.text_field :salle_de_class_id %>
+    <div class="flex flex-col max-w-4xl md:h-56 bg-white rounded-lg shadow-lg overflow-hidden md:flex-row my-10">
+      <div class="md:flex items-center justify-center md:w-1/2 md:bg-gray-700">
+        <div class="py-6 px-8 md:py-0">
+          <h2 class="text-gray-700 text-2xl font-bold md:text-gray-100">Document EPREUVE</h2>
+          <p class="mt-2 text-gray-600 md:text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur obcaecati odio</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-center pb-6 md:py-0 md:w-1/2 md:border-b-8 border-gray-700">
+          <div class="flex flex-col rounded-lg overflow-hidden sm:flex-row">
+            <%= form.file_field :file, accept: 'application/pdf', class: "py-3 px-4 bg-gray-200 text-gray-800 border-gray-300 border-2 outline-none placeholder-gray-500 focus:bg-gray-100" %>
+          </div>
+      </div>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :matiere_id %>
-    <%= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id), :id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-    <%#= form.text_field :matiere_id %>
+    <div class="flex flex-col max-w-4xl md:h-56 bg-white rounded-lg shadow-lg overflow-hidden md:flex-row my-10">
+      <div class="md:flex items-center justify-center md:w-1/2 md:bg-gray-700">
+        <div class="py-6 px-8 md:py-0">
+          <h2 class="text-gray-700 text-2xl font-bold md:text-gray-100">Correction de l'epreuve</h2>
+          <p class="mt-2 text-gray-600 md:text-gray-400">Inserer la correction de l'epreuve de l'epreuve que vous êtes entrain de soumettre.</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-center pb-6 md:py-0 md:w-1/2 md:border-b-8 border-gray-700">
+          <div class="flex flex-col rounded-lg overflow-hidden sm:flex-row">
+            <%= form.file_field :response, accept: 'application/pdf', class: "py-3 px-4 bg-gray-200 text-gray-800 border-gray-300 border-2 outline-none placeholder-gray-500 focus:bg-gray-100" %>
+          </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label "Fichier épreuve" %>
-    <%= form.file_field :file, accept: 'application/pdf' %>
-  </div>
-
-  <div class="field">
-    <%= form.label "Réponse à l'épreuve" %>
-    <%= form.file_field :response, accept: 'application/pdf' %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+    <div class="inline-flex rounded-md shadow">
+      <%= form.submit 'Enregistrer', class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+    </div>
+    <div class="ml-3 inline-flex rounded-md shadow">
+      <%= link_to "Annuler", epreuves_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+    </div>
   </div>
 <% end %>

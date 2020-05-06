@@ -5,7 +5,7 @@
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Epreuves d'examens
       <br />
-      <span class="text-indigo-600">Liste d'épreuve publiés par vous.</span>
+      <span class="text-indigo-600">Liste d'épreuves publiés par vous.</span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
@@ -42,7 +42,7 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
-                  <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                  <%= image_tag 'info.png', class: "h-10 w-10 rounded-full" %>
                 </div>
                 <div class="ml-4">
                   <div class="text-sm leading-5 font-medium text-gray-900"><%= epreufe.title %></div>
@@ -62,8 +62,8 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
               <div class="text-sm leading-5 text-gray-900"><%= epreufe.user.complete_name %></div>
             </td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Show', epreufe, class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Edit', edit_epreufe_path(epreufe), class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Consulter', epreufe, class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Editer', edit_epreufe_path(epreufe), class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Supprimer', epreufe, method: :delete, data: { confirm: 'Are you sure?' }, class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
           </tr>
           <% end %>

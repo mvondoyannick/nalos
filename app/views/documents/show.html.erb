@@ -25,31 +25,36 @@
         <thead>
         <tr>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Fichiers
+            Document
           </th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Date import
+            Date importation
           </th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Statut
+            Statut du document
           </th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
         </tr>
         </thead>
         <tbody class="bg-white">
         <% @document.file.each do |document| %>
-          <% if document.variable? %>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 h-30 w-30">
-                    <% if document.content_type.start_with?("application") %>
-                      <%= image_tag 'pdf.png', size: '100x100' %>
+                    <% if document.content_type.end_with?("pdf") %>
+                      <%= link_to(image_tag('pdf.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <% elsif document.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+                      <%= link_to(image_tag('excel.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <% elsif document.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+                      <%= link_to(image_tag('word.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
                     <% elsif document.image? %>
-                      <%= image_tag 'photo.png', size: '100x100' %>
+                      <%= link_to(image_tag('photo.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
                     <% elsif document.video? %>
-                      <%= image_tag 'video.png', size: '100x100' %>
+                      <%= link_to(image_tag('video.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
                     <% elsif document.audio? %>
-                      <%= image_tag 'audio.png', size: '100x100' %>
+                      <%= link_to(image_tag('audio.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <% else %>
+                      <%= link_to(image_tag('course.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
                     <% end %>
                   </div>
                   <div class="ml-4">
@@ -64,48 +69,7 @@
               </td>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
-              </span>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <%= link_to "Prévisualiser", preview_course_path(document_id: params[:id], file_id: document), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %>
-              </td>
-              <% if current_user.role.name == 'teacher' %>
-                <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                  <%= link_to "Joindre à un cours", join_to_course_path(document_id: @document.id, current_file_id: document.id), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %>
-                </td>
-              <% end %>
-            </tr>
-          <% elsif document.previewable? %>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-30 w-30">
-                    <% if document.content_type.start_with?("application") %>
-                      <%= image_tag 'pdf.png', size: '100x100' %>
-                    <% elsif document.image? %>
-                      <%= image_tag 'photo.png', size: '100x100' %>
-                    <% elsif document.video? %>
-                      <%= image_tag 'video.png', size: '100x100' %>
-                    <% elsif document.audio? %>
-                      <%= image_tag 'audio.png', size: '100x100' %>
-                    <% else %>
-                      <%= image_tag 'course.png', size: '100x100' %>
-                    <% end %>
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900"><%= document.filename %></div>
-                    <div class="text-sm leading-5 text-gray-500"><%= excerpt(document.content_type, '', radius: 30) %></div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= document.created_at.strftime("%d %b %Y") %></div>
-                <div class="text-sm leading-5 text-gray-500"></div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
+                Disponible
               </span>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
@@ -117,13 +81,9 @@
                 </td>
               <% end %>
             </tr>
-          <% end %>
         <% end %>
         </tbody>
       </table>
     </div>
   </div>
 </div>
-
-<!--<%#= link_to 'Edit', edit_document_path(@document) %> |-->
-<%#= link_to 'Back', documents_path %>
