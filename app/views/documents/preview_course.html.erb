@@ -1,36 +1,35 @@
-<p class="text-gray-400 font-semibold text-xl mb-8">
-  Prévisualiser du fichier :
-</p>
-
-<%# case @current_file.content_type %>
-<%# when "video/mp4" %>
-  <%#= video_tag url_for(@current_file), controls: true, id:  "player" %>
-<%# when "image/png" %>
-  <%#= image_tag url_for(@current_file) %>
-<%# when "image/jpeg" %>
-  <%#= image_tag url_for(@current_file) %>
-<%# when "application/pdf" %>
-  <%#= image_tag @current_file.preview(resize: "1024x1024") %>
-<%# when "application/vnd.openxmlformats-officedocument.wordprocessingml.document" %>
-  <%#= image_tag @current_file.preview(resize: "1024x1024") %>
-<%# when "application/vnd.openxmlformats-officedocument.wordprocessingml.document" %>
-  <%#= image_tag @current_file.preview(resize: "1024x1024") %>
-<%# when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
-  <%#= image_tag @current_file.preview(resize: "1024x1024") %>
-<%# end %>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Document importé
+      <br/>
+      <span class="text-indigo-600">Aperçu d'un document importé.</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to 'Joindre ce fichier à un cours', join_to_course_path(document_id: params[:document_id], current_file_id: params[:file_id]), class: 'inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
+      </div>
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Retour
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% if @current_file.previewable? %>
-  <% case @current_file.content_type %>
-    <% when "video/mp4" %>
-      <%= video_tag url_for(@current_file), controls: true, id:  "player", class: 'shadow' %>
-    <% else %>
-      <%= image_tag @current_file.preview(resize: "1024x1024") %>
-    <% end %>
+  <% if @current_file.video? %>
+    <%= video_tag url_for(@current_file), controls: true, id: "player", class: 'shadow' %>
+  <% elsif @current_file.audio? %>
+    <%= audio_tag url_for(@current_file), controls: true, id: "player", class: 'shadow' %>
+  <% elsif @current_file.image? %>
+    <%= image_tag @current_file.preview(resize: "1024x1024") %>
+  <% elsif @current_file.content_type.end_with?("pdf") %>
+    <%= link_to(image_tag(@current_file.preview(resize: "1024x1024")), rails_blob_path(@current_file, disposition: "inline")) %>
+  <% else %>
+    <%= image_tag @current_file.preview(resize: "1024x1024") %>
+  <% end %>
 <% elsif @current_file.variable? %>
-  <%= image_tag @current_file.variant(resize: "1024x1024") %>
+  <%= link_to(image_tag @current_file.variant(resize: "1024x1024"), "lorem") %>
 <% end %>
-
-<br>
-<br>
-
-<%= link_to 'Joindre ce fichier à un cours', join_to_course_path(document_id: params[:document_id], current_file_id: params[:file_id]), class: 'mt-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' %>

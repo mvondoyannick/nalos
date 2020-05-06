@@ -14,15 +14,23 @@
   <%= form.hidden_field :user_id, value: current_user.id %>
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full px-3 mb-6 md:mb-0">
-      <div class="bg-gray-50">
-        <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-8 lg:px-2 lg:flex lg:items-center lg:justify-between">
-          <h2 class="text-md leading-9 font-extrabold tracking-tight text-gray-900 sm:text-xl sm:leading-10">
-            <span class="text-indigo-600">Fichiers à importer.</span>
-          </h2>
+
+      <div class="flex flex-col max-w-4xl md:h-56 bg-white rounded-lg shadow-lg overflow-hidden md:flex-row my-10">
+        <div class="md:flex items-center justify-center md:w-1/2 md:bg-gray-700">
+          <div class="py-6 px-8 md:py-0">
+            <h2 class="text-gray-700 text-2xl font-bold md:text-gray-100">Importer des documents</h2>
+            <p class="mt-2 text-gray-600 md:text-gray-400">Selectionner un ou plusieurs documents parmis les formats autorisés.</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-center pb-6 md:py-0 md:w-1/2 md:border-b-8 border-gray-700">
+          <form>
+            <div class="flex flex-col rounded-lg overflow-hidden sm:flex-row">
+              <%= form.file_field :file, multiple: true, direct_upload: true, accept: 'application/pdf, video/mp4, audio/mp3, application/vnd.openxmlformats-officedocument.wordprocessingml.document', class: "py-3 px-4 bg-gray-200 text-gray-800 border-gray-300 border-2 outline-none placeholder-gray-500 focus:bg-gray-100" %>
+              <button class="py-3 px-4 bg-gray-700 text-gray-100 font-semibold uppercase hover:bg-gray-600">subscribe</button>
+            </div>
+          </form>
         </div>
       </div>
-      <%= form.file_field :file, multiple: true, direct_upload: true %>
-      <p class="text-red-500 text-xs italic">Vous pouvez joindre plusieurs fichiers</p>
     </div>
   </div>
 

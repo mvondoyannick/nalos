@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-
+  before_action :authenticate_user!
   def index
     @course = Course.where(course_status_id: 1)
     @course_stats = Course.group(:matiere_id).count

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(user)
     if user_signed_in?
       if current_user.role.name == "teacher"
-        root_path
+        home_index_path
       else
         admin_route_path
       end
