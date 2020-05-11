@@ -30,9 +30,10 @@
       <%= audio_tag url_for(@current_file), controls: true, id: 'player' %>
     <% elsif @current_file.image? %>
       <%= image_tag(@current_file, size: '512x512', class: 'shadow') %>
-    <% elsif @current_file.text? %>
+    <% elsif @current_file.content_type.end_with?("pdf") %>
+      <%= link_to(image_tag(@current_file.preview(resize: "1024x1024")), rails_blob_path(@current_file, disposition: "inline")) %>
     <% elsif @current_file.content_type.end_with?('document')%>
-      <%= link_to @current_file.preview(resize: '600x600'), nil %>
+      <%= link_to @current_file.preview(resize: '1000x1000'), nil %>
     <% elsif @current_file.content_type.end_with?('sheet')%>
       <%= link_to @current_file.preview(resize: '600x600'), nil %>
     <% end %>

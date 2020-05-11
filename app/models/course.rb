@@ -17,7 +17,7 @@ class Course < ApplicationRecord
   before_save :set_status, if: :new_record?
 
   # send SMS after submit cours
-  #after_save :sms_notification, if: :persisted?
+  after_save :sms_notification, if: :new_record? #:persisted?
 
   # including activeStorage
   has_one_attached :file
@@ -38,10 +38,11 @@ class Course < ApplicationRecord
     current_class = salle_de_class_id
     # begin extract data
     Student.where(salle_de_class_id: current_class).each do |the_student|
-      Sms.send(
-          phone: the_student.phone,
-          msg: "Bonjour Mr/Mme #{the_student.complete_name.upcase}, un nouveau cours de #{matiere.name}, titre : #{chapter.upcase} vient d'etre publié par Mr/Mme #{User.find(user_id).complete_name}"
-      )
+      SmsJob.set(wait: 10.seconds).perform_later(phone: "691451189", message: "Bonjour Mr/Mme #{the_student.complete_name.upcase}, un nouveau cours de #{matiere.name}, titre : #{chapter.upcase} vient d'etre publié par Mr/Mme #{User.find(user_id).complete_name}" )
+      # Sms.send(
+      #   phone: the_student.phone,
+      #   msg: "Bonjour Mr/Mme #{the_student.complete_name.upcase}, un nouveau cours de #{matiere.name}, titre : #{chapter.upcase} vient d'etre publié par Mr/Mme #{User.find(user_id).complete_name}"
+      # )
     end
   end
 end

@@ -59,7 +59,7 @@
               </span>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
-                  <%= link_to "Accèder", read_course_path(cours_key: Document.find(content.document_id).file.find(content.file_id).key, id: Document.find(content.document_id).file.find(content.file_id).id, course_id: content.id), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
+                  <%= link_to "Consulter ce cours", read_course_path(cours_key: Document.find(content.document_id).file.find(content.file_id).key, id: Document.find(content.document_id).file.find(content.file_id).id, course_id: content.id), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
                 </td>
               </tr>
             <% end %>
@@ -100,7 +100,7 @@
 
 <div class="py-8">
   <div class="flex items-center justify-between mb-8 mt-10">
-    <h2 class="text-xl font-bold text-gray-800">Barbillard</h2>
+    <h2 class="text-xl font-bold text-gray-800">Babillard</h2>
     <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
   </div>
 
