@@ -17,6 +17,7 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 //=require plyr
+//= require select_all.js
 
 require("chartkick")
 require("chart.js")
@@ -30,4 +31,8 @@ require('autoprefixer')
 
 document.addEventListener("turbolinks:load", function() {
     const player = new Plyr('#player');
+});
+
+$(function() {
+    $("#selectAll").select_all();
 });

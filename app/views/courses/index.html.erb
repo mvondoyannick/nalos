@@ -24,11 +24,19 @@
       <div class="inline-flex rounded-md shadow">
         <%= link_to 'Publier un nouveau cours', documents_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-400 hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Supprimer des cours
+        </a>
+      </div>
     </div>
+
   </div>
 </div>
 
-<div class="py-8">
+<%= form_with(url: root_path) do |form| %>
+
+  <div class="py-8">
   <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
     <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
       <table class="min-w-full leading-normal">
@@ -53,7 +61,10 @@
           <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
             Statut
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" colspan="2"></th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" colspan="2">Action</th>
+          <th data-sort-ignore="true" class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" id="selectAll">
+            <input type="checkbox" id="selectAll" />
+          </th>
         </tr>
         </thead>
         <tbody>
@@ -97,17 +108,11 @@
             <% end %>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to 'Voir', course, class: 'hover:bg-transparent text-indigo-500 hover:text-green-800' %></td>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to course, method: :delete, data: { confirm: 'Are you sure? Cette action est irreversible.' }, class: 'hover:bg-transparent text-indigo-500 hover:text-green-800' do %>
-                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block icon icon-tabler icon-tabler-file-shredder" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z"/>
-                  <polyline points="14 3 14 8 19 8" />
-                  <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="6" y1="16" x2="6" y2="18" />
-                  <line x1="10" y1="16" x2="10" y2="22" />
-                  <line x1="14" y1="16" x2="14" y2="18" />
-                  <line x1="18" y1="16" x2="18" y2="20" />
-                </svg>
+                Supprimer
               <% end %>
+            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+              <%= check_box_tag "course_ids[]", course.id, false, class: 'selectable' %>
             </td>
           </tr>
         <% end %>
@@ -116,3 +121,5 @@
     </div>
   </div>
 </div>
+
+<% end %>

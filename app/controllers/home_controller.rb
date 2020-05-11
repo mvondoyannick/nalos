@@ -31,7 +31,7 @@ class HomeController < ApplicationController
   end
 
   def apprenants
-    @apprenant = Student.all.where(salle_de_class_id: current_user.salle_de_class_id).order(:name)
+    @apprenant = Student.where(salle_de_class_id: current_user.salle_de_class_id).order(:name).page(params[:page]).per(50)  #all.where(salle_de_class_id: current_user.salle_de_class_id).order(:name)
   end
 
   def apprenant_details

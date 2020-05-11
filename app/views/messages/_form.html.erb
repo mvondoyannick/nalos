@@ -11,32 +11,39 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label 'Enseignant à envoyer' %>
-    <%= form.collection_select(:user_id, User.all, :id, :complete_name, {prompt: "Selectionner un destinataire..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-  </div>
+  <%= form.hidden_field :student_id, value: current_student.id %>
 
-  <div class="field">
-    <%= form.label :subject %>
-    <%= form.text_field :subject, class: 'appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' %>
-  </div>
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          Enseignant concerné
+        </label>
+        <%= form.collection_select(:user_id, User.all, :id, :complete_name, {prompt: "Selectionner un destinataire..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"}) %>
+        <p class="text-red text-xs italic">Selectionner l'enseignant à joindre.</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Object du message
+        </label>
+        <%= form.text_field :subject, class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4' %>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-full px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-password">
+          Contenu du message
+        </label>
+        <%= form.rich_text_area :content, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" %>
+        <p class="text-grey-dark text-xs italic">Vous pouvez également importer des documents</p>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label 'Contenu de votre message' %>
-    <%= form.rich_text_area :content %>
-  </div>
-
-  <div class="field">
-    <%= form.label 'Joindre un fichier' %>
-    <%= form.file_field :file, class: 'appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500' %>
-  </div>
-
-  <div class="field">
-    <%= form.label :student_id %>
-    <%= form.text_field :student_id %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <div class="ml-3 inline-flex rounded-md shadow">
+      <%= form.submit "Envoyer le message", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+    </div>
   </div>
 <% end %>

@@ -68,7 +68,7 @@ class HomeStudentController < ApplicationController
   end
 
   def student_course
-    @course = Course.all.where(salle_de_class_id: current_student.salle_de_class_id)
+    @course = Course.where(salle_de_class_id: current_student.salle_de_class_id).page(params[:page]).per(10)
   end
 
   def my_teachers

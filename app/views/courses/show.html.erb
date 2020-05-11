@@ -119,14 +119,23 @@
 </div>
 <p class="object-center">
   <% docs = Document.find(@course.document_id).file.find(@course.file_id) %>
-  <% case docs.content_type %>
-    <% when "video/mp4" %>
-      <%= video_tag url_for(docs), controls: "", id: "player", playsinline: true %>
-    <% when "image/png" %>
-      <%= image_tag url_for(docs) %>
-    <% when "image/jpeg" %>
-      <%= image_tag url_for(docs) %>
-    <% end %>
+  <% if docs.video? %>
+    <%= video_tag url_for(docs), controls: "", id: "player", playsinline: true %>
+  <% elsif docs.audio? %>
+    <%= audio_tag url_for(docs), controls: "", id: "player", playsinline: true %>
+  <% elsif docs.image? %>
+    <%= image_tag url_for(docs) %>
+  <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+    <%= image_tag(docs.preview(resize: "1000x1000")) %>
+  <% elsif docs.content_type.end_with?("msword") %>
+    <%= image_tag(docs.preview(resize: "1000x1000")) %>
+  <% elsif docs.content_type.end_with?("vnd.ms-excel") %>
+    <%= image_tag(docs.preview(resize: "1000x1000")) %>
+  <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+    <%= image_tag(docs.preview(resize: "1000x1000")) %>
+  <% elsif docs.content_type.end_with?("pdf") %>
+    <%= link_to image_tag(docs.preview(resize: "1000x1000")), rails_blob_path(docs, disposition: 'inline') %>
+  <% end %>
 </p>
 
 <div class="flex flex-wrap">

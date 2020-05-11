@@ -155,7 +155,7 @@
             <line x1="4" y1="18" x2="20" y2="18"/>
           </svg>
         </div>
-        <div class="text-xl font-bold tracking-tight text-gray-800 md:hidden ml-2">Dashing Admin.</div>
+        <div class="text-xl font-bold tracking-tight text-gray-800 md:hidden ml-2">NALOS.</div>
       </div>
       <div class="flex items-center">
 
@@ -189,18 +189,6 @@
 
     <div class="md:max-w-6xl md:mx-auto px-4 py-8">
 
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-bold text-gray-800">Dashboard</h2>
-
-        <%= link_to new_probleme_path, class: "shadow inline-flex items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-semibold py-2 px-4 rounded-lg" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 w-5 h-5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-          Signaler un problème
-        <% end %>
-      </div>
       <% if controller_name == "home_student" && action_name == "index" %>
         <div class="bg-orange-200 mb-10 p-6 rounded-lg shadow">
         <div class="md:flex">

@@ -32,10 +32,10 @@
       <%= image_tag(@current_file, size: '512x512', class: 'shadow') %>
     <% elsif @current_file.content_type.end_with?("pdf") %>
       <%= link_to(image_tag(@current_file.preview(resize: "1024x1024")), rails_blob_path(@current_file, disposition: "inline")) %>
-    <% elsif @current_file.content_type.end_with?('document')%>
-      <%= link_to @current_file.preview(resize: '1000x1000'), nil %>
-    <% elsif @current_file.content_type.end_with?('sheet')%>
-      <%= link_to @current_file.preview(resize: '600x600'), nil %>
+    <% elsif @current_file.content_type.end_with?('vnd.openxmlformats-officedocument.wordprocessingml.document')%>
+      <%= link_to image_tag(@current_file.preview(resize: '1000x1000')), nil %>
+    <% elsif @current_file.content_type.end_with?('vnd.openxmlformats-officedocument.spreadsheetml.sheet')%>
+      <%= link_to image_tag(@current_file.preview(resize: '600x600')), nil %>
     <% end %>
     <br>
     <%= link_to "Télécharger", rails_blob_path(Document.find(@current_course.document_id).file.find(@current_course.file_id), disposition: 'attachement'), class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
@@ -60,7 +60,7 @@
 <% end %>
 <br>
 <hr>
-<p>Autre cours du même enseignant</p>
+<p>Autres cours du même enseignant</p>
 <br>
 <% @teacher_course = Course.where(user_id: @current_course.user_id, salle_de_class_id: current_student.salle_de_class_id).limit(8) %>
 <% if @teacher_course.nil? %>
@@ -74,9 +74,9 @@
         <% else %>
           <% docs = Document.find(cours.document_id).file.find(cours.file_id) %>
           <% if docs.previewable? %>
-            <%= link_to(image_tag(docs.preview(resize: '1000x1000')), read_course_path(cours_key: Document.find(cours.document_id).file.find(cours.file_id).key, id: Document.find(cours.document_id).file.find(cours.file_id).id, course_id: cours.id), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <%= link_to(image_tag(docs.preview(resize: '500x200')), read_course_path(cours_key: Document.find(cours.document_id).file.find(cours.file_id).key, id: Document.find(cours.document_id).file.find(cours.file_id).id, course_id: cours.id), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
           <% elsif docs.variable? %>
-            <%= link_to(image_tag(docs.variant(resize: '1000x1000')), read_course_path(cours_key: Document.find(cours.document_id).file.find(cours.file_id).key, id: Document.find(cours.document_id).file.find(cours.file_id).id, course_id: cours.id), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+            <%= link_to(image_tag(docs.variant(resize: '500x200')), read_course_path(cours_key: Document.find(cours.document_id).file.find(cours.file_id).key, id: Document.find(cours.document_id).file.find(cours.file_id).id, course_id: cours.id), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
           <% else %>
             <%= link_to(image_tag('course.png'), read_course_path(cours_key: Document.find(cours.document_id).file.find(cours.file_id).key, id: Document.find(cours.document_id).file.find(cours.file_id).id, course_id: cours.id), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
           <% end %>

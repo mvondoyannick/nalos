@@ -24,6 +24,7 @@
     <orderEntry type="library" name="plyr" level="application" />
     <orderEntry type="library" name="OneSignalSDKUpdaterWorker" level="application" />
     <orderEntry type="library" name="OneSignalSDKWorker" level="application" />
+    <orderEntry type="library" name="datatables" level="application" />
     <orderEntry type="module-library">
       <library name="actioncable (vbundled(6.0.2.2)) [path][gem]" type="rubylib">
         <properties>
@@ -772,6 +773,73 @@
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/json-2.3.0/tools" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/json-2.3.0/diagrams" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/json-2.3.0/references" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="kaminari (vbundled(1.2.0)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-1.2.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-1.2.0/misc" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-1.2.0/gemfiles" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-1.2.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-1.2.0/misc" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-1.2.0/gemfiles" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-1.2.0/misc" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-1.2.0/gemfiles" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="kaminari-actionview (vbundled(1.2.0)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-actionview-1.2.0/lib" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-actionview-1.2.0/lib" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="kaminari-activerecord (vbundled(1.2.0)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-activerecord-1.2.0/lib" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-activerecord-1.2.0/lib" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="kaminari-core (vbundled(1.2.0)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-core-1.2.0/app" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-core-1.2.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-core-1.2.0/config" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-core-1.2.0/app" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-core-1.2.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-core-1.2.0/config" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/kaminari-core-1.2.0/config" />
         </excluded>
       </library>
     </orderEntry>
@@ -1753,6 +1821,26 @@
         <excluded>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sassc-rails-2.1.2/test" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sassc-rails-2.1.2/gemfiles" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="select_all-rails (vbundled(0.3.2)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/select_all-rails-0.3.2/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/select_all-rails-0.3.2/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/select_all-rails-0.3.2/vendor" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/select_all-rails-0.3.2/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/select_all-rails-0.3.2/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/select_all-rails-0.3.2/vendor" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/select_all-rails-0.3.2/bin" />
         </excluded>
       </library>
     </orderEntry>

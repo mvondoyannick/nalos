@@ -23,6 +23,10 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 # ActiveRecord import gem
 # gem 'activerecord-import'
+# Adding Kaminari
+gem 'kaminari'
+# adding select all
+gem 'select_all-rails'
 # adding player plyr
 gem 'plyr-rails'
 # adding HTTParty

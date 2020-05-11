@@ -111,6 +111,18 @@ GEM
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     json (2.3.0)
+    kaminari (1.2.0)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.0)
+      kaminari-activerecord (= 1.2.0)
+      kaminari-core (= 1.2.0)
+    kaminari-actionview (1.2.0)
+      actionview
+      kaminari-core (= 1.2.0)
+    kaminari-activerecord (1.2.0)
+      activerecord
+      kaminari-core (= 1.2.0)
+    kaminari-core (1.2.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -225,6 +237,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    select_all-rails (0.3.2)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -289,6 +302,7 @@ DEPENDENCIES
   httparty
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
+  kaminari
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.4.4)
   onebox
@@ -299,6 +313,7 @@ DEPENDENCIES
   rails-erd
   roo (~> 2.4)
   sass-rails (>= 6)
+  select_all-rails
   selenium-webdriver
   simple_calendar (~> 2.0)
   spring
