@@ -1,22 +1,27 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Epreuves
-      <br />
-      <span class="text-indigo-600">du training center</span>
+      Salle de classe
+      <br/>
+      <span class="text-indigo-600"><%= @classe.name %></span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
         <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          En savoir plus
+          Notifier la classe par SMS
+        </a>
+      </div>
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Contacter tous les parents
         </a>
       </div>
     </div>
   </div>
 </div>
 
+<% if @students.empty? %>
 
-<% if @epreuves.empty? %>
   <div class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center">
     <!--
       Background overlay, show/hide based on modal state.
@@ -52,12 +57,12 @@
           </div>
           <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
-              Aucune epreuve!
+              Salle de clase vide
             </h3>
             <div class="mt-2">
               <p class="text-sm leading-5 text-gray-500">
-                Désolé <%= current_student.complete_name %> mais aucune epreuve n'a encore été publiées, Merci de réessayer ultérieurement,
-                un enseignant est surement entrain de travailler dessus.
+                Aucune èlèves ne semble etre inscrit dans cette salle de classe. Si vous trouvez que cela n'est pas
+                normal, contacter l'administrateur.
               </p>
             </div>
           </div>
@@ -65,14 +70,21 @@
       </div>
       <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
       <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-        <%= link_to "Précédent", :back, class: "inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
+        <%= link_to "Contacter l'administrateur", "#", class: "inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
       </span>
         <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+          <%= link_to "Précédent", :back, class: "inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
       </span>
       </div>
     </div>
   </div>
+
 <% else %>
+
+  <%= paginate @students %>
+
+  <br>
+
   <div class="flex flex-col">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
@@ -80,48 +92,50 @@
           <thead>
           <tr>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Titre
+              Classe
             </th>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Matière
+              Date ajout
             </th>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Statut
+              Contacts parents
             </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Selectionner
+            </th>
           </tr>
           </thead>
           <tbody class="bg-white">
-          <% @epreuves.each do |epreuve| %>
+          <% @students.each do |student| %>
             <tr>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <%= image_tag 'course.png', class: 'h-10 w-10 rounded-full' %>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10">
+                    <%= image_tag 'student.png', class: "h-10 w-10 rounded-full" %>
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm leading-5 font-medium text-gray-900 font-semibold"><%= student.complete_name %></div>
+                    <div class="text-sm leading-5 font-medium text-gray-500"><%= student.sexe.present? ? student.sexe : "Non défini" %></div>
+                  </div>
                 </div>
-                <div class="ml-4">
-                  <div class="text-sm leading-5 font-medium text-gray-900"><%= epreuve.title %></div>
-                  <div class="text-sm leading-5 text-gray-500"><%= epreuve.salle_de_class.name %></div>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= epreuve.matiere.name %></div>
-              <div class="text-sm leading-5 text-gray-500">Par <%= epreuve.user.complete_name %></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
-              </span>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-              <%= link_to "Consulter cette epreuve", read_epreuve_path(token: epreuve.token), class: "text-indigo-600 hover:text-indigo-900 hover:text-indigo-500 hover:bg-transparent" %>
-            </td>
-          </tr>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="text-sm leading-5 text-gray-900"><%= student.created_at.strftime("%d %b %Y") %></div>
+                <div class="text-sm leading-5 text-gray-500"><%= student.matricule %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                <div class="text-sm leading-5 text-gray-900">Aucuns parents déclarés</div>
+                <div class="text-sm leading-5 text-gray-500"><%= student.phone.present? ? student.phone : "Aucun contact" %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                <input type="checkbox" />
+              </td>
+            </tr>
           <% end %>
           </tbody>
         </table>
       </div>
     </div>
   </div>
+
 <% end %>

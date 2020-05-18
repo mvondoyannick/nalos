@@ -3,7 +3,7 @@
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Mes salles de classe
       <br />
-      <span class="text-indigo-600">Salles de classes affectées.</span>
+      <span class="text-indigo-600">& affectations.</span>
     </h2>
   </div>
 </div>
@@ -28,7 +28,7 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
-                  <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                  <%= image_tag 'logo.png', class: "h-10 w-10 rounded-full" %>
                 </div>
                 <div class="ml-4">
                   <div class="text-sm leading-5 font-medium text-gray-900 font-semibold"><%= classe.salle_de_class.name %></div>
@@ -49,7 +49,7 @@
               <div class="text-sm leading-5 text-gray-500">Par @admin</div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-              <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">Acceder</a>
+              <%= link_to "Accèder à la classe", inside_classe_path(token: classe.salle_de_class.token), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline hover:bg-transparent" %>
             </td>
           </tr>
         <% end %>

@@ -134,7 +134,7 @@
   <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
     <%= image_tag(docs.preview(resize: "1000x1000")) %>
   <% elsif docs.content_type.end_with?("pdf") %>
-    <%= link_to image_tag(docs.preview(resize: "1000x1000")), rails_blob_path(docs, disposition: 'inline') %>
+    <object data="<%= rails_blob_path(docs) %>" type="" height="1000" width="100%"></object>
   <% end %>
 </p>
 

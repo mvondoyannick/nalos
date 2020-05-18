@@ -22,7 +22,7 @@
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to 'Modifier cet épreuve', edit_epreufe_path(@epreufe), class: 'inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
+        <%= link_to 'Modifier cette épreuve', edit_epreufe_path(@epreufe), class: 'inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
       </div>
       <div class="ml-3 inline-flex rounded-md shadow">
         <%= link_to 'Retourner aux épreuves', epreuves_path, class: 'hover:bg-transparent inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
@@ -46,7 +46,8 @@
       <div>
         <p>
           <% if @epreufe.file.previewable? %>
-            <%= link_to(image_tag(@epreufe.file.preview(resize: '1000x1000')), rails_blob_path(@epreufe.file, disposition: 'inline')) %>
+            <object data="<%= rails_blob_path(@epreufe.file) %>" type="<%= @epreufe.file.content_type %>" height="700" width="100%"></object>
+            <%= link_to "Télécharger l'epreuve", rails_blob_path(@epreufe.file, disposition: 'inline') %>
           <% end %>
         </p>
       </div>
@@ -59,13 +60,14 @@
           Document de correction
         </h3>
         <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-          Personal details and application.
+          Correction de l'epreuve <%= @epreufe.title %>
         </p>
       </div>
       <div>
         <p>
           <% if @epreufe.response.previewable? %>
-            <%= link_to(image_tag(@epreufe.response.preview(resize: '1000x1000')), rails_blob_path(@epreufe.response, disposition: 'inline')) %>
+            <object data="<%= rails_blob_path(@epreufe.response) %>" type="<%= @epreufe.response.content_type %>" height="700" width="100%"></object>
+            <%= link_to "Télécharger le corrigé", rails_blob_path(@epreufe.response, disposition: 'inline') %>
           <% end %>
         </p>
       </div>

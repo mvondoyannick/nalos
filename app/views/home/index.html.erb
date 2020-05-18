@@ -1,7 +1,7 @@
 <div class="flex items-center justify-between mb-4">
   <h2 class="text-xl font-bold text-gray-800">Planning de validation</h2>
   <a href="#" class="text-blue-600 hover:text-blue-500 font-medium">
-    <%= link_to "Tout voir", "#" %>
+    <%= link_to "Tout voir", planning_path, class: "hover:bg-transparent hover:text-indigo-500" %>
   </a>
 </div>
 <%= month_calendar events: @current_course do |date, meetings| %>
@@ -16,7 +16,7 @@
 <div>
   <div class="flex items-center justify-between mb-8 mt-10">
     <h2 class="text-xl font-bold text-gray-800"><%= t('last_post', locale: :fr) %></h2>
-    <%= link_to "Voir tous mes cours", courses_path, class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
+    <%= link_to "Voir tous mes cours", courses_path, class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent hover:bg-transparent hover:text-indigo-500" %>
   </div>
 
   <% if @current_course.count.zero? %>
@@ -76,7 +76,7 @@
   <div class="py-8">
     <div class="flex items-center justify-between mb-8 mt-10">
       <h2 class="text-xl font-bold text-gray-800">Babillard</h2>
-      <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent" %>
+      <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent hover:bg-transparent hover:text-indigo-500" %>
     </div>
 
     <% if @local_news.count.zero? %>
@@ -154,7 +154,7 @@
                     class="relative inline-block px-3 py-1 font-semibold leading-tight">
                       <span aria-hidden
                             class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                      <span class="relative"><%= link_to "Consulter", local_news_path(news), class: "" %></span>
+                      <span class="relative"><%= link_to "Consulter", local_news_path(news), class: "hover:bg-transparent hover:text-indigo-500" %></span>
                   </span>
                     </td>
                   </tr>

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   scope :teacher do
     get 'apprenant', to: 'home#apprenants'
     get 'salle_classe', to: 'home#classes'
+    get 'inside_classe', to: 'home#go_to_classe'
     get 'apprenant_details', to: 'home#apprenant_details'
     get 'student_par_classe', to: 'home#student_par_classe'
     get 'student_par_filiere', to: 'home#student_par_filiere'

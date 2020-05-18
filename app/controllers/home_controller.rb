@@ -54,6 +54,12 @@ class HomeController < ApplicationController
     @classe = TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id)
   end
 
+  # acceder à une salle de classe
+  def go_to_classe
+    @classe = SalleDeClass.find_by_token(params[:token])
+    @students = Student.where(salle_de_class_id: @classe.id).page(params[:page]).per(10)
+  end
+
   # plannig de validation
   def planning
     @planning = Course.where(user_id: current_user.id).order(created_at: :desc)
