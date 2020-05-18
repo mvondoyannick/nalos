@@ -1,33 +1,56 @@
-<div class="flex">
-  <% @students.each do |students| %>
-    <div class="bg-white my-12 pb-6 w-full flex-1 justify-center items-center overflow-hidden md:max-w-sm rounded-lg shadow-sm mx-auto">
-      <div class="relative h-40">
-        <%= image_tag 'student.png', class: "absolute h-full w-full object-cover" %>
-        <%= image_tag 'abstract.jpg', class: 'absolute h-full w-full object-cover' %>
-      </div>
-      <div class="relative shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-        <%= image_tag 'student.png', class: "object-cover w-full h-full" %>
-      </div>
-      <div class="mt-16">
-        <h1 class="text-lg text-center font-semibold">
-          <%= students.complete_name %>
-        </h1>
-        <p class="text-sm text-gray-600 text-center">
-          13 connections cette journée
-        </p>
-      </div>
-      <div class="mt-6 pt-3 flex flex-wrap mx-6 border-t">
-        <div class="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-          Chatter
-        </div>
-        <%= link_to "soumettre un problème", new_probleme_path, class: 'text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default' %>
-        <div class="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-          Demander une assistance
-        </div>
-        <div class="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-          Message
-        </div>
-      </div>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Salle de classe
+      <br />
+      <span class="text-indigo-600">Camarades de classe</span>
+    </h2>
+  </div>
+</div>
+<p>
+  <%= paginate @students, window: 2 %>
+</p>
+<br>
+<div class="flex flex-col">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Nom & classe
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Présence
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @students.each do |students| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <%= image_tag 'student.png', class: 'h-10 w-10 rounded-full' %>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm leading-5 font-medium text-gray-900"> <%= students.complete_name %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= students.salle_de_class.name %></div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= rand(30) %> connexion cette semaine</div>
+              <div class="text-sm leading-5 text-gray-500">Actuellement en ligne</div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+              <a href="#" class="text-indigo-600 hover:text-indigo-900">Joindre</a>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
-  <% end %>
+  </div>
 </div>

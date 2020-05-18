@@ -32,6 +32,26 @@ class HomeStudentController < ApplicationController
     @last_course = Course.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2, matiere_id: Matiere.find_by_token(matiere_token).id)
   end
 
+  # gestion des epreuves
+  def student_epreuves
+    @epreuves = Epreuve.where(salle_de_class_id: current_student.salle_de_class_id).page(params[:page]).per(10)
+  end
+
+  # read epreuves
+  def read_epreuve
+    @epreuve = Epreuve.find_by_token(params[:token])
+  end
+
+  # read epreuve response
+  def read_response
+    @epreuve_response = Epreuve.find_by_token(params[:token])
+  end
+
+  # gestion des matières de l'eleve
+  def student_matires
+
+  end
+
   # student read course
   def read_course
 
@@ -64,7 +84,7 @@ class HomeStudentController < ApplicationController
   end
 
   def salle_de_classe
-    @students = Student.all.where(salle_de_class_id: current_student.salle_de_class_id)
+    @students = Student.all.where(salle_de_class_id: current_student.salle_de_class_id).page(params[:page]).per(20)
   end
 
   def student_course
@@ -72,7 +92,7 @@ class HomeStudentController < ApplicationController
   end
 
   def my_teachers
-
+    @teachers = User.all.where(role_id: 1).page(params[:page]).per(5)
   end
 
   def my_teacher_course

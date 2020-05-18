@@ -31,9 +31,10 @@
     <% elsif @current_file.image? %>
       <%= image_tag(@current_file, size: '512x512', class: 'shadow') %>
     <% elsif @current_file.content_type.end_with?("pdf") %>
-      <%= link_to(image_tag(@current_file.preview(resize: "1024x1024")), rails_blob_path(@current_file, disposition: "inline")) %>
+      <object data="<%= rails_blob_path(@current_file) %>" height="1024" width="100%"></object>
+      <%#= link_to(image_tag(@current_file.preview(resize: "1024x1024")), rails_blob_path(@current_file, disposition: "inline")) %>
     <% elsif @current_file.content_type.end_with?('vnd.openxmlformats-officedocument.wordprocessingml.document')%>
-      <%= link_to image_tag(@current_file.preview(resize: '1000x1000')), nil %>
+      <%= link_to image_tag(@current_file.preview(resize: '1000x1000')), rails_blob_path(@current_file, disposition: "attachement") %>
     <% elsif @current_file.content_type.end_with?('vnd.openxmlformats-officedocument.spreadsheetml.sheet')%>
       <%= link_to image_tag(@current_file.preview(resize: '600x600')), nil %>
     <% end %>
@@ -43,11 +44,15 @@
   <div class="w-1/4 bg-white mt-3 shadow"></div>
 </div>
 <br>
-<p class="mb-4 text-lg">
-  Envoyer une note à Mr
-  <strong class="text-indigo-500"><%= @current_course.user.complete_name %></strong> concernant ce
-  cours?
-</p>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Laisser un message
+      <br />
+      <span class="text-indigo-600">concernant ce cours.</span>
+    </h2>
+  </div>
+</div>
 <%= form_with(url: student_comment_path) do |form| %>
   <%= form.hidden_field :student_id, value: current_student.id %>
   <%= form.hidden_field :user_id, value: @current_course.user_id %>
@@ -55,12 +60,21 @@
   <%= form.hidden_field :course_id, value: params[:course_id] %>
   <%= form.hidden_field :id, value: params[:id] %>
   <%= form.rich_text_area :content %>
+  <br>
+  <%= form.submit "Soumettre le commentaire", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
 
-  <%= form.submit "Soumettre le commentaire", class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
 <% end %>
 <br>
 <hr>
-<p>Autres cours du même enseignant</p>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Du même enseignant
+      <br />
+      <span class="text-indigo-600">Cours du même enseignant.</span>
+    </h2>
+  </div>
+</div>
 <br>
 <% @teacher_course = Course.where(user_id: @current_course.user_id, salle_de_class_id: current_student.salle_de_class_id).limit(8) %>
 <% if @teacher_course.nil? %>

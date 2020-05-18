@@ -1,6 +1,6 @@
 class Epreuve < ApplicationRecord
 
-  # before_validation :compare
+  before_save :generate_token, if: :new_record?
 
   belongs_to :salle_de_class
   belongs_to :matiere
@@ -18,6 +18,11 @@ class Epreuve < ApplicationRecord
 
   def compare
     puts FileUtils.compare_file(file, response)
+  end
+
+  # generate token
+  def generate_token
+    self.token = SecureRandom.hex(10)
   end
 
 end

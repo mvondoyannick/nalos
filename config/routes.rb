@@ -143,6 +143,18 @@ Rails.application.routes.draw do
     scope :teacher do
       get 'my_teacher_course', to: 'home_student#my_teacher_course'
     end
+
+    # gestion des epreuves
+    scope :epreuves do
+      get 'index_epreuves', to: "home_student#student_epreuves"
+      get 'read_epreuve', to: 'home_student#read_epreuve'
+      get 'read_response', to: 'home_student#read_response'
+    end
+
+    # gestion des matieres
+    scope :matieres do
+      get 'index_matiere', to: "home_student#student_matires"
+    end
   end
 
   # import document xls

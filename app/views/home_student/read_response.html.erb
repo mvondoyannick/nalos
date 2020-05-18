@@ -1,0 +1,16 @@
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Corrigé epreuve
+      <br />
+      <span class="text-indigo-600">de <%= @epreuve_response.title %> en <%= @epreuve_response.matiere.name %></span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <%= link_to "retourner à l'epreuve", read_epreuve_path(token: @epreuve_response.token), class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<object data="<%= rails_blob_path(@epreuve_response.response) %>" type="" height="1000" width="100%"></object>

@@ -21,8 +21,14 @@
               Il suffit d’avoir un téléphone, une tablette ou un ordinateur ainsi qu’une connexion Internet
             </p>
 
-            <%= link_to 'Je suis un étudiant', new_student_session_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
-            <%= link_to 'Je suis un enseignant', new_user_session_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
+            <% if student_signed_in? %>
+              <%= link_to "Acceder en tant que #{current_student.complete_name}", home_student_index_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
+            <% elsif user_signed_in? %>
+              <%= link_to "Accéder en tant que #{current_user.complete_name}", home_index_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
+            <% else %>
+              <%= link_to 'Je suis un étudiant', new_student_session_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
+              <%= link_to 'Je suis un enseignant', new_user_session_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
+            <% end %>
           </div>
           <div class="md:w-1/2 relative">
             <div class="hidden md:block">
@@ -338,36 +344,6 @@
               </div>
             </div>
 
-            <div
-              class="mr-3 md:hidden absolute right-0 bottom-0 w-40 bg-white rounded-lg shadow-lg px-10 py-6"
-              style="z-index: 2; margin-bottom: -380px;"
-            >
-              <div
-                class="bg-indigo-800 mx-auto rounded-lg w-20 pt-3 mb-12 relative"
-              >
-                <div class="h-3 bg-white"></div>
-
-                <div class="text-right my-2">
-                  <div
-                    class="inline-flex w-3 h-3 rounded-full bg-white -mr-2"
-                  ></div>
-                  <div
-                    class="inline-flex w-3 h-3 rounded-full bg-indigo-800 border-2 border-white mr-2"
-                  ></div>
-                </div>
-
-                <div
-                  class="-ml-4 -mb-6 absolute left-0 bottom-0 w-16 bg-green-700 mx-auto rounded-lg pb-2 pt-3"
-                >
-                  <div class="h-2 bg-white mb-2"></div>
-                  <div class="h-2 bg-white w-6 ml-auto rounded mr-2"></div>
-                </div>
-              </div>
-
-              <div class="text-gray-800 text-center text-sm">
-                Payment for <br />Internet
-              </div>
-            </div>
           </div>
         </div>
       </div>

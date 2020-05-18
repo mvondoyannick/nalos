@@ -1,71 +1,144 @@
-<p class="mb-2">Enseignant</p>
-<p class="text-gray-400 font-semibold text-xl">
-  <%= User.find(params[:current_teacher]).complete_name %>
-</p>
-<div class="py-8">
-  <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-      <table class="min-w-full leading-normal">
-        <thead>
-        <tr>
-          <th
-            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-            Titre cours
-          </th>
-          <th
-            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-            Matiere
-          </th>
-          <th
-            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-            Date&nbsp;publication
-          </th>
-          <th
-            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-            Classe
-          </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" colspan="2"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @courses.each do |course| %>
-          <tr>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 w-10 h-10">
-                  <%= image_tag 'course.png', class: 'w-full h-full' %>
-                </div>
-                <div class="ml-3">
-                  <p class="text-gray-900 whitespace-no-wrap font-semibold">
-                    <%= excerpt(course.chapter, '', radius: 30) %>
-                  </p>
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    <%= User.find(params[:current_teacher]).complete_name %>
-                  </p>
-                </div>
-              </div>
-            </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              <p class="text-gray-900 whitespace-no-wrap break-all">
-                <%= course.matiere.name %>
-              </p>
-            </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">
-                <%= course.created_at.strftime("%d %b %Y") %>
-              </p>
-            </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-              <p class="text-gray-900 whitespace-no-wrap">
-                <%= course.salle_de_class.name %>
-              </p>
-            </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" ><%= link_to 'Consulter', read_course_path(cours_key: nil, document_id: course.document_id, file_id: course.file_id, course_id: course.id) %></td>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Cours
+      <br />
+      <span class="text-indigo-600">de Mr/Mme <%= User.find(params[:current_teacher]).complete_name %></span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Contacter l'enseignant
+        </a>
+      </div>
     </div>
   </div>
 </div>
+
+<% if @courses.empty? %>
+  <div class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center">
+    <!--
+      Background overlay, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 transition-opacity">
+      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+
+    <!--
+      Modal panel, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        To: "opacity-100 translate-y-0 sm:scale-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100 translate-y-0 sm:scale-100"
+        To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+    -->
+    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="sm:flex sm:items-start">
+          <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+            <svg class="h-6 w-6 text-red-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+              Cours de <%= User.find(params[:current_teacher]).complete_name %>
+            </h3>
+            <div class="mt-2">
+              <p class="text-sm leading-5 text-gray-500">
+                Il semblerait que Mr/Mme <%= User.find(params[:current_teacher]).complete_name %> ne dispose pas encore de cours publiés.
+                Merci de revenir un peu plus tard, peut etre des cours seront déja disponible.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+      <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+        <%= link_to "Retourner", :back, class: "inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
+      </span>
+        <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+      </span>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="py-2">
+    <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+      <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+        <table class="min-w-full leading-normal">
+          <thead>
+          <tr>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              Titre cours
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              Matiere
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              Date&nbsp;publication
+            </th>
+            <th
+              class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              Classe
+            </th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" colspan="2"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @courses.each do |course| %>
+            <tr>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 w-10 h-10">
+                    <%= image_tag 'course.png', class: 'w-full h-full' %>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-gray-900 whitespace-no-wrap font-semibold">
+                      <%= excerpt(course.chapter, '', radius: 30) %>
+                    </p>
+                    <p class="text-gray-900 whitespace-no-wrap">
+                      <%= User.find(params[:current_teacher]).complete_name %>
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <p class="text-gray-900 whitespace-no-wrap break-all">
+                  <%= course.matiere.name %>
+                </p>
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <p class="text-gray-900 whitespace-no-wrap">
+                  <%= course.created_at.strftime("%d %b %Y") %>
+                </p>
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <p class="text-gray-900 whitespace-no-wrap">
+                  <%= course.salle_de_class.name %>
+                </p>
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" >
+                <%= link_to 'Consulter ce cours', read_course_path(cours_key: nil, document_id: course.document_id, file_id: course.file_id, course_id: course.id), class: "hover:text-purple-500 hover:bg-transparent" %>
+              </td>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>
