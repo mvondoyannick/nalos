@@ -1,0 +1,62 @@
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Fichiers
+      <br/>
+      <span class="text-indigo-600">disponibles.</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Revenir aux cours", :back, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-8">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            #
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Libellé Fichier
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @course_file.each do |files| %>
+          <% Document.find(files.document_id).file.each do |document| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10">
+                    <%= image_tag 'course.png', style: 'h-10 w-10 rounded-full' %>
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm leading-5 font-semibold text-gray-900"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="text-sm leading-5 text-gray-900"><%= document.filename %></div>
+                <div class="text-sm leading-5 text-gray-500"><%= document.content_type %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <%= document.id %>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
+                <%= link_to "Consulter ce fichier", "#", class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -52,7 +52,7 @@
           <line x1="9" y1="13" x2="15" y2="13" />
           <line x1="9" y1="17" x2="15" y2="17" />
         </svg>
-        Mes cours & documents
+        Cours publiés
       <% end %>
     </li>
 
@@ -68,7 +68,7 @@
           <line x1="9" y1="13" x2="15" y2="13" />
           <line x1="9" y1="17" x2="15" y2="17" />
         </svg>
-        Epreuves
+        Training center
       <% end %>
     </li>
 
@@ -85,7 +85,7 @@
     </li>
 
     <li>
-      <%= link_to student_ressources_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "student_ressources"} " do %>
+      <%= link_to my_courses_files_path(m: current_student.matricule, t: DateTime.now.to_i), class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "student_ressources"} " do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
              stroke-linecap="round" stroke-linejoin="round">

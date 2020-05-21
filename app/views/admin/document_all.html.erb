@@ -1,6 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Documents</h1>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Documents
+      <br />
+      <span class="text-indigo-600">importés sur la plateforme</span>
+    </h2>
+  </div>
+</div>
 
 <div class="flex flex-col">
   <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -48,8 +56,8 @@
               </span>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Lister les fichiers', document, class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Edit', edit_document_path(document), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Editer/modifier', edit_document_path(document), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Supprimer', document, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
           </tr>
         <% end %>
         </tbody>

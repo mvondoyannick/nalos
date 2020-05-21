@@ -34,9 +34,15 @@ class HomeController < ApplicationController
     @apprenant = Student.where(salle_de_class_id: current_user.salle_de_class_id).order(:name).page(params[:page]).per(50)  #all.where(salle_de_class_id: current_user.salle_de_class_id).order(:name)
   end
 
+  # details sur un apprenant
   def apprenant_details
     data = params[:id]
     @apprenant_details = Student.find(data)
+  end
+
+  #dashboard sur les cours
+  def course_dash
+
   end
 
   # permet d'afficher les etudiants par classe
@@ -58,6 +64,16 @@ class HomeController < ApplicationController
   def go_to_classe
     @classe = SalleDeClass.find_by_token(params[:token])
     @students = Student.where(salle_de_class_id: @classe.id).page(params[:page]).per(10)
+  end
+
+  # send SMS notification to all student/parent classe
+  def send_sms_notification_to_classe
+    if request.get?
+      @current_classe = SalleDeClass.find_by_token(params[:classe])
+      @current_student_phone = Student.where(salle_de_class_id: @current_classe.id).where("phone != '' ").count
+    else
+      # make post request
+    end
   end
 
   # plannig de validation

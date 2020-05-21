@@ -32,15 +32,17 @@
 </div>
 
 <!-- Two columns -->
-<div class="flex mb-4">
-  <div class="w-1/2 sm:w-1/2 md:w-1/1 bg-white">
+  <div class="bg-white">
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
       <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
-          <%= @epreufe.title %>
+          Epreuve  de <%= @epreufe.title %>
         </h3>
         <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
           <%= @epreufe.matiere.name %>
+        </p>
+        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+          Publié le <%= @epreufe.created_at %>
         </p>
       </div>
       <div>
@@ -53,7 +55,8 @@
       </div>
     </div>
   </div>
-  <div class="w-1/2 bg-white">
+  <br>
+  <div class="bg-white">
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
       <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -68,9 +71,11 @@
           <% if @epreufe.response.previewable? %>
             <object data="<%= rails_blob_path(@epreufe.response) %>" type="<%= @epreufe.response.content_type %>" height="700" width="100%"></object>
             <%= link_to "Télécharger le corrigé", rails_blob_path(@epreufe.response, disposition: 'inline') %>
+            <div class="ml-3 inline-flex rounded-md shadow">
+              <%= link_to 'Statistiques de consultation', epreuves_path, class: 'hover:bg-transparent inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
+            </div>
           <% end %>
         </p>
       </div>
     </div>
   </div>
-</div>

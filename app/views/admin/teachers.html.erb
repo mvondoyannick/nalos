@@ -1,38 +1,34 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Importer
-      <br />
-      <span class="text-indigo-600">un fichier enseignant</span>
-    </h2>
-  </div>
-</div>
-
-<%= form_with(url: import_teacher_intent_path, class: 'w-full max-w-lg') do |form| %>
-  <div class="flex flex-wrap -mx-3 mb-6">
-    <div class="w-full px-3">
-      <%= form.label "Fichier enseignants", class: 'block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2' %>
-      <%= form.file_field :fichier, class: 'appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password' %>
-      <p class="text-gray-600 text-xs italic">Selectionner un fichier au format CSV</p>
-
-      <%= form.submit "Importer", class: 'mt-8 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
-      <%= link_to "Utiliser le formulaire enseignant", "#", class: 'mt-8 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
-    </div>
-  </div>
-<% end %>
-<br>
-<hr>
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Liste
       <br />
-      <span class="text-indigo-600">des enseignants enregistrés</span>
+      <span class="text-indigo-600">des enseignants enregistrés.</span>
     </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <!-- component -->
+      <!-- This is an example component -->
+      <div class="relative inline-flex">
+        <svg class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232"><path d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z" fill="#648299" fill-rule="nonzero"/></svg>
+        <select class="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none">
+          <option>Actions groupées</option>
+          <option>Administrateur : ROLE</option>
+          <option>Enseignant : ROLE</option>
+          <option>AP : ROLE</option>
+          <option>Modification</option>
+          <option>Suspendre</option>
+          <option>Signaler un problème</option>
+          <option>Supprimer</option>
+          <option>SMS Groupé</option>
+        </select>
+      </div>
+    </div>
   </div>
 </div>
-<br>
-<div class="flex flex-col">
+
+<%= paginate @enseignants %>
+
+<div class="flex flex-col mt-8">
   <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
     <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
       <table class="min-w-full">
@@ -42,7 +38,7 @@
             Nom et prénom
           </th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Propriétaire
+            Matricule & date
           </th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
         </tr>
@@ -64,22 +60,25 @@
                 </div>
                 <div class="ml-4">
                   <div class="text-sm leading-5 font-medium text-gray-900"><%= enseignant.complete_name %></div>
-                  <div class="text-sm leading-5 text-gray-500"><%= enseignant.email %> Fichier(s)</div>
+                  <div class="text-sm leading-5 text-gray-500"><%= enseignant.email %></div>
                 </div>
               </div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= enseignant.matricule %></div>
+              <div class="text-sm leading-5 text-gray-900"><%= enseignant.matricule.present? ? enseignant.matricule : "Inconnu" %></div>
               <div class="text-sm leading-5 text-gray-500"><%= enseignant.created_at.strftime("%d %b %Y") %></div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
+                Activé
               </span>
             </td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Administrateur', set_role_path(type: 'admin', user_id: enseignant.id), data: { confirm: "Etes vous certain de donner le role ADMIN à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Admin', set_role_path(type: 'admin', user_id: enseignant.id), data: { confirm: "Etes vous certain de donner le role ADMIN à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'AP', set_role_path(type: 'ap', user_id: enseignant.id), data: { confirm: "Etes vous certain de vouloir donner le role de AP à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Enseignant', set_role_path(type: 'enseignant', user_id: enseignant.id), method: :delete, data: { confirm: "Cet utilisateur aura pour role Enseignant #{enseignant.complete_name}"}, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+              <input type="checkbox" />
+            </td>
           </tr>
         <% end %>
         </tbody>
@@ -87,3 +86,4 @@
     </div>
   </div>
 </div>
+<br>

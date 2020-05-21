@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :classe_matieres
   root 'welcome#index'
 
+  # for help
+  get 'yelp', to: "home_student#help"
+
   scope :nalos do
     get 'services', to: 'welcome#services'
     get 'actualites', to: 'welcome#actualites'
@@ -38,12 +41,20 @@ Rails.application.routes.draw do
     get 'apprenant', to: 'home#apprenants'
     get 'salle_classe', to: 'home#classes'
     get 'inside_classe', to: 'home#go_to_classe'
+    match 'send_sms_notification_to_classe', to: 'home#send_sms_notification_to_classe', via: [:post, :get] # send notification to classeroom
     get 'apprenant_details', to: 'home#apprenant_details'
     get 'student_par_classe', to: 'home#student_par_classe'
     get 'student_par_filiere', to: 'home#student_par_filiere'
     get 'dashboard', to: 'home#dashboard'
     get 'discuss', to: 'home#discuss'
     get 'planning', to: 'home#planning'
+
+    # gestion des elements du dashboard
+    scope :dashboard do
+      get 'course_dash', to: "home#course_dash"
+      get 'epreuves_dash', to: "home#epreuve_dash"
+      get 'documents_dash', to: "home#document_dash"
+    end
 
     #gestion des epreuves
     scope :epreuves do
@@ -73,14 +84,18 @@ Rails.application.routes.draw do
   scope :admin do
     get "index", to: "admin#index"
     root "admin#index", as: 'admin_route'
+    get 'set_role', to: "admin#set_role"
 
     scope :courses do
       get "course_all", to: "admin#course_all"
       get "course_detail", to: 'admin#course_detail'
+      get "course_detail_contact_teacher", to: "admin#course_detail_contact_teacher"
+      get "course_send_teacher_note", to: "admin#course_send_teacher_note"
 
       # course validation
       scope :validation do
         post 'course_validation', to: 'admin#course_validation'
+        get 'course_suspension', to: "admin#course_suspension"
       end
     end
 
@@ -99,6 +114,7 @@ Rails.application.routes.draw do
 
       scope :enseignants do
         get 'index_enseignants', to: 'admin#enseignants'
+        get 'teachers', to: 'admin#teachers'
       end
 
       scope :salle_classes do
@@ -128,13 +144,15 @@ Rails.application.routes.draw do
   # course for student
   scope :course do
     get "read_course", to: "home_student#read_course"
+    get "list_course", to: "home_student#list_course"
     get "read_matiere", to: "home_student#read_matiere"
     get "my_dashboard", to: "home_student#dashboard"
     get "exercice", to: "home_student#exercice"
     get "synthese", to: "home_student#synthese"
     get 'documents', to: "home_student#documents"
     get 'ma_classe', to: "home_student#salle_de_classe"
-    get 'my_courses', to: "home_student#student_course"
+    get 'my_courses', to: "home_student#student_course" # list student course
+    get 'my_courses_files', to: "home_student#student_course_files" #list student course files
     get 'my_teachers', to: "home_student#my_teachers"
     get 'student_ressources', to: 'home_student#student_ressources'
     get 'student_discuss', to: "home_student#discuss"

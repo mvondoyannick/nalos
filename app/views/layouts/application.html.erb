@@ -68,15 +68,15 @@
           });
       }
   </script>
-<!--  <script>-->
-<!--      console.log("loading onesignal");-->
-<!--      var OneSignal = window.OneSignal || [];-->
-<!--      OneSignal.push(function () {-->
-<!--          OneSignal.init({-->
-<!--              appId: "61094896-57dd-4135-a3b5-ca0ca68f5c3d",-->
-<!--          });-->
-<!--      });-->
-<!--  </script>-->
+  <!--  <script>-->
+  <!--      console.log("loading onesignal");-->
+  <!--      var OneSignal = window.OneSignal || [];-->
+  <!--      OneSignal.push(function () {-->
+  <!--          OneSignal.init({-->
+  <!--              appId: "61094896-57dd-4135-a3b5-ca0ca68f5c3d",-->
+  <!--          });-->
+  <!--      });-->
+  <!--  </script>-->
 
   <script>
       import Plyr from 'plyr'
@@ -99,7 +99,6 @@
 
   <!-- managing student -->
   <%= render 'layouts/student/student_template' %>
-  <%= render 'layouts/student/student_template' %>
 
 <% else %>
   <div class="flex mb-4 max-h-full h-screen">
@@ -107,6 +106,22 @@
       <%= image_tag("background.png", width: "100%", class: "object-cover") %>
     </div>
     <div class="w-2/4 bg-gray-100">
+
+      <% if notice.present? %>
+        <div class="-m-2 text-center mb-8" id="notice">
+
+          <div class="p-2">
+            <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
+              <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
+              <span class="inline-flex px-2">
+                <%= notice %>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
+
       <%= yield %>
     </div>
   </div>

@@ -2,12 +2,18 @@ class HomeStudentController < ApplicationController
   before_action :authenticate_student!
   before_action :update_course_statitics, only: :read_course
   def index
-    @last_course = Course.all.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2) #Enseignement.last(10)
+    @last_course = Course.all.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2).order(created_at: :desc) #Enseignement.last(10)
     @local_news = LocalNews.all
   end
 
+  # open yelp help document
+  def help
+    file_name = "#{Rails.root}/user_guide.pdf"
+    send_file(file_name, type: "application/pdf", disposition: "inline")
+  end
+
   def dashboard
-    
+    @course_data = Statistic.where(student_id: current_student.id)
   end
 
   # student make comment
@@ -49,7 +55,13 @@ class HomeStudentController < ApplicationController
 
   # gestion des matières de l'eleve
   def student_matires
+    @current_matiere =ClasseMatiere.where(salle_de_class_id: current_student.salle_de_class_id)
+  end
 
+  # lister tous les cours d'une matiere
+  def list_course
+    @current_course = Course.where(matiere_id: params[:id], salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2)
+    @current_matiere = Matiere.find(params[:id])
   end
 
   # student read course
@@ -87,8 +99,19 @@ class HomeStudentController < ApplicationController
     @students = Student.all.where(salle_de_class_id: current_student.salle_de_class_id).page(params[:page]).per(20)
   end
 
+  # liste all cours from this student
   def student_course
     @course = Course.where(salle_de_class_id: current_student.salle_de_class_id).page(params[:page]).per(10)
+  end
+
+  # liste all file from this student courses
+  def student_course_files
+    @course_file = Course.where(salle_de_class_id: current_student.salle_de_class_id).page(params[:page]).per(10)
+  end
+
+  # read document file with their own ID
+  def read_course_file
+    # @current_course_file = Document
   end
 
   def my_teachers

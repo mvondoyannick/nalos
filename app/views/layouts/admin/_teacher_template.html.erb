@@ -39,7 +39,8 @@
           </svg>
         </div>
         <div class="text-xl font-bold tracking-tight text-gray-800 md:hidden ml-2">
-          <%= image_tag 'logo.png', class: "h-10 w-10 inline-block" %>
+          <%= image_tag 'logo.png', class: "h-10 w-10 inline-block
+" %>
           Dashboard
         </div>
       </div>
@@ -63,9 +64,7 @@
                class="absolute top-0 mt-12 right-0 w-48 bg-white py-2 shadow-md border border-gray-100 rounded-lg z-40">
             <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600">
               Contacter @admin</a>
-            <a href="#"
-               class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600">
-              Signaler un problème</a>
+            <%= link_to "Signaler un problème", new_probleme_path, class: "block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600" %>
             <%= link_to "Se déconnecter", destroy_student_session_path, method: :delete, class: "block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600" %>
           </div>
         </div>
@@ -214,17 +213,8 @@
       <%= yield %>
 
       <div class="py-10 text-center">
-        <p class="text-gray-600">Created by
-          <a class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300" href="#">JFN
-            Developers</a>. Built with
-          <a class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300" href="https://tailwindcss.com/">tailwindCSS</a>
-          and
-          <a href="https://github.com/alpinejs/alpine" class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300">AlpineJS</a>.
-          Illustration from
-          <a href="https://undraw.co/illustrations" class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300">https://undraw.co/illustrations</a>.
-          SVG icons from
-          <a href="https://github.com/tabler/tabler-icons" class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300">Tabler
-            Icons</a>.</p>
+        <p class="text-gray-600">Design & develop by
+          <a class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300 hover:bg-transparent hover:text-indigo-500" href="https://www.paiemequick.com">PAYMEQUICK Ltd</a>.</p>
       </div>
     </div>
 

@@ -1,4 +1,3 @@
-
 <% if notice.present? %>
   <div class="-m-2 text-center mb-8" id="notice">
 
@@ -12,7 +11,29 @@
     </div>
 
   </div>
-  <% end %>
+<% end %>
+
+<div class="bg-gray-50 -mt-12">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Dashboard
+      <br />
+      <span class="text-indigo-600">administrateur</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Parametres généraux
+        </a>
+      </div>
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Paramètres
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="flex items-center justify-between mb-4">
   <h2 class="text-xl font-bold text-gray-800 mb-6">
@@ -34,18 +55,24 @@
     </p>
   </h2>
 </div>
+
+<%= paginate @course %>
+
 <div class="flex items-center justify-between mb-4">
-  <h2 class="text-xl font-bold text-gray-800 mb-6">Dernieres publications</h2>
+  <h2 class="text-xl font-bold text-gray-800 mb-6">Publication en attente de validation</h2>
   <%= link_to 'Tout voir', course_all_path, class: 'text-blue-600 hover:text-blue-500 font-medium' %>
 </div>
+
+<%= paginate @course %>
+
 <div class="overflow-x-auto bg-white rounded-lg shadow">
   <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
     <thead>
     <tr class="text-left">
-      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date publication</th>
       <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
       <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe & Matière</th>
-      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
+      <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre leçon</th>
       <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Statut</th>
     </tr>
     </thead>
@@ -59,9 +86,9 @@
                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                    stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z"/>
-                <polyline points="14 3 14 8 19 8" />
-                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                <path d="M9 15l2 2l4 -4" />
+                <polyline points="14 3 14 8 19 8"/>
+                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/>
+                <path d="M9 15l2 2l4 -4"/>
               </svg>
             </div>
             <div class="ml-4">
@@ -86,6 +113,15 @@
           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
             <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id) %>
           </span>
+          <div class="text-sm leading-5 text-gray-500">
+            <% if course.course_status.name == "waiting" %>
+              En attente de validation
+            <% elsif course.course_status.name == "rejected" %>
+              Rejecté
+            <% else %>
+              Validé par ...
+            <% end %>
+          </div>
         </td>
       </tr>
 
@@ -126,9 +162,9 @@
                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                        stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z"/>
-                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-                    <circle cx="12" cy="14" r="2" />
-                    <polyline points="14 4 14 8 8 8 8 4" />
+                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"/>
+                    <circle cx="12" cy="14" r="2"/>
+                    <polyline points="14 4 14 8 8 8 8 4"/>
                   </svg>
                 </div>
                 <div class="ml-4">
@@ -139,7 +175,7 @@
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="text-sm leading-5 text-gray-900">Importé par</div>
-              <div class="text-sm leading-5 text-gray-500"><%=  %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= %></div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">

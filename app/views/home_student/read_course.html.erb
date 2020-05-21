@@ -1,29 +1,24 @@
-<% if notice.present? %>
-  <div class="-m-2 text-center mb-8" id="notice">
-
-    <div class="p-2">
-      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
-        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
-        <span class="inline-flex px-2">
-          <%= notice %>
-        </span>
-      </div>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      <%= @current_course.chapter %>
+      <br />
+      <span class="text-indigo-600"><%= @current_course.matiere.name %></span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
     </div>
-
   </div>
-<% end %>
+</div>
 
 <div class="flex items-center justify-between mb-4">
   <h2 class="text-xl font-bold text-gray-800">
-    <%= @current_course.chapter %>
-    <p class="mt-4">Publié le <%= @current_course.created_at %> par Mr/Mme <%= @current_course.user.complete_name %></p>
+    <p class="mt-4">Publié le <%= @current_course.created_at.strftime("%d %b %Y") %> par Mr/Mme <%= @current_course.user.complete_name %></p>
   </h2>
 </div>
 
 <%= render 'layouts/student/navbar_internal' %>
 
-<div class="flex mb-4">
-  <div class="mt-3 mr-3 w-3/4">
+  <div class="mt-3 mr-3">
     <% if @current_file.video? %>
       <%= video_tag url_for(@current_file), controls: true, id: 'player' %>
     <% elsif @current_file.audio? %>
@@ -41,8 +36,6 @@
     <br>
     <%= link_to "Télécharger", rails_blob_path(Document.find(@current_course.document_id).file.find(@current_course.file_id), disposition: 'attachement'), class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
   </div>
-  <div class="w-1/4 bg-white mt-3 shadow"></div>
-</div>
 <br>
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">

@@ -85,8 +85,7 @@
 <!--  </li>-->
 
   <li>
-    <a href="#"
-       class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200">
+    <%= link_to teachers_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -95,7 +94,7 @@
         <path d="M5.5 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2" />
       </svg>
       Enseignants
-    </a>
+    <% end %>
   </li>
 
   <li>
@@ -107,23 +106,6 @@
         <path stroke="none" d="M0 0h24v24H0z"/>
         <polyline points="3 17 9 11 13 15 21 7" />
         <polyline points="14 7 21 7 21 14" />
-      </svg>
-      Historique
-    </a>
-  </li>
-
-  <li>
-    <a href="#"
-       class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
-      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-           stroke-linecap="round" stroke-linejoin="round">
-        <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
-        <path
-          d="M16 6h3a 1 1 0 011 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11"/>
-        <line x1="8" y1="8" x2="12" y2="8"/>
-        <line x1="8" y1="12" x2="12" y2="12"/>
-        <line x1="8" y1="16" x2="12" y2="16"/>
       </svg>
       Historique
     </a>
@@ -168,7 +150,7 @@
           d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
         <circle cx="12" cy="12" r="3"/>
       </svg>
-      Settings
+      Parametres
     </a>
   </li>
 </ul>

@@ -2,50 +2,55 @@
 
 <!-- Narrower side column -->
 <div class="flex items-center justify-between mb-2">
-  <h2 class="text-xl font-bold text-gray-800">Cours récents</h2>
+  <div class="bg-gray-50">
+    <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-5 lg:px-8 lg:flex lg:items-center lg:justify-between">
+      <h2 class="text-xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-2xl sm:leading-10">
+        <span class="text-indigo-600">Cours récemments publiés.</span>
+      </h2>
+    </div>
+  </div>
 
   <a href="#" class="text-blue-600 hover:text-blue-500 font-medium">Tout voir</a>
 </div>
 
 <!-- Narrower side column -->
-<div class="flex">
-  <div class="w-3/4">
-    <div class="mt-8">
-      <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-          <table class="min-w-full">
-            <thead>
-            <tr>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Titre&nbsp;cours
-              </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Enseignant
-              </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Tags
-              </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-            </tr>
-            </thead>
-            <tbody class="bg-white">
-            <% @last_course.each do |content| %>
-              <tr>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10">
-                      <%= image_tag 'course.png', style: 'h-10 w-10 rounded-full' %>
-                    </div>
-                    <div class="ml-4">
-                      <div class="text-sm leading-5 font-semibold text-gray-900"><%= excerpt(content.chapter, '', radius: 20) %></div>
-                    </div>
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                  <div class="text-sm leading-5 text-gray-900"><%= content.user.complete_name %></div>
-                  <div class="text-sm leading-5 text-gray-500"><%= content.matiere.name %></div>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+<div class="">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Titre&nbsp;cours
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Enseignant
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Tags
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @last_course.each do |content| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <%= image_tag 'course.png', style: 'h-10 w-10 rounded-full' %>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm leading-5 font-semibold text-gray-900"><%= excerpt(content.chapter, '', radius: 20) %></div>
+                  <div class="text-sm leading-5 font-semibold text-gray-500"><%= content.created_at.strftime("%d %b %Y") %></div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= content.user.complete_name %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= content.matiere.name %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <span class="px-2 inline-flex text-xs leading-5 font-semibold text-green-800">
                 <% if content.tag.nil? %>
                   Aucun tags fournis
@@ -57,43 +62,65 @@
                   <% end %>
                 <% end %>
               </span>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
-                  <%= link_to "Consulter ce cours", read_course_path(cours_key: Document.find(content.document_id).file.find(content.file_id).key, id: Document.find(content.document_id).file.find(content.file_id).id, course_id: content.id), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
-                </td>
-              </tr>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
+              <%= link_to "Consulter ce cours", read_course_path(cours_key: Document.find(content.document_id).file.find(content.file_id).key, id: Document.find(content.document_id).file.find(content.file_id).id, course_id: content.id), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="w-1/4">
-    <div class="align-middle inline-block mt-8 min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-      <p class="text-gray-500 font-semibold ml-6 text-lg mt-4">
-        Cours par matière
-      </p>
-      <p class="ml-6 mt-2">
-        Liste de vous cours classé par matière.
-      </p>
-    </div>
-    <div class="mt-8 px-4 py-2">
-      <ul>
-        <% @last_course.distinct.pluck(:matiere_id).uniq.each do |course| %>
-          <li>
-            <%= link_to read_matiere_path(matiere_id: Matiere.find(course).token), class: "hover:bg-transparent mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
-                <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="30" height="30"
-                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                     stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z"/>
-                  <path d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10" />
-                </svg>
-                <%= Matiere.find(course).name %>
-            <% end %>
-          </li>
+</div>
+
+<div class="bg-gray-50 mt-8">
+  <div class="max-w-screen-xl mx-auto py-12 px-8 sm:px-6 lg:py-5 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-2xl sm:leading-10">
+      <span class="text-indigo-600">Cours par matière.</span>
+    </h2>
+  </div>
+</div>
+
+<div class="">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Titre&nbsp;Matière
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Nombre de cours
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @last_course.distinct.pluck(:matiere_id).uniq.each do |content| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <%= image_tag 'logo.png', style: 'h-10 w-10 rounded-full' %>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm leading-5 font-semibold text-gray-900"><%= Matiere.find(content).name %></div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= Course.where(matiere_id: content, salle_de_class_id: current_student.salle_de_class_id).count %></div>
+              <div class="text-sm leading-5 text-gray-500"></div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
+              <%= link_to "Consulter les cours de cette matière", list_course_path(id: content, course_id: Course.find_by_matiere_id(content)), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
+            </td>
+          </tr>
         <% end %>
-      </ul>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

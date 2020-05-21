@@ -8,7 +8,7 @@
 
       <!-- Brand Logo / Name -->
       <div class="flex items-center px-6 py-3 h-16">
-        <div class="text-2xl font-bold tracking-tight text-gray-800">Dashing Admin.</div>
+        <div class="text-2xl font-bold tracking-tight text-gray-800">ADMINISTRATION</div>
       </div>
       <!-- @end Brand Logo / Name -->
 
@@ -25,7 +25,9 @@
 
     <!-- Brand Logo / Name -->
     <div class="flex items-center px-6 py-3 h-16">
-      <div class="text-2xl font-bold tracking-tight text-gray-800">NAL ADMIN</div>
+      <div class="text-2xl font-bold tracking-tight text-gray-800">
+        <%= image_tag 'logo.png', class: "h-10 w-10 inline-block" %>NAL Dash
+      </div>
     </div>
     <!-- @end Brand Logo / Name -->
 
@@ -33,14 +35,14 @@
 
       <%= render 'layouts/admin/admin_menu' %>
 
-<!--      <div class="bg-orange-200 mb-10 p-6 rounded-lg mt-16">-->
-<!--        <h2 class="text-gray-800 text-lg leading-tight">Try <strong class="font-bold">Dashing Admin.</strong></h2>-->
-<!--        <p class="text-gray-800 text-lg mb-4 leading-tight">Premium for free!</p>-->
+      <!--      <div class="bg-orange-200 mb-10 p-6 rounded-lg mt-16">-->
+      <!--        <h2 class="text-gray-800 text-lg leading-tight">Try <strong class="font-bold">Dashing Admin.</strong></h2>-->
+      <!--        <p class="text-gray-800 text-lg mb-4 leading-tight">Premium for free!</p>-->
 
-<!--        <button class="shadow text-center w-full block bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-semibold py-2 px-4 rounded-lg">-->
-<!--          30 Days Free Trail-->
-<!--        </button>-->
-<!--      </div>-->
+      <!--        <button class="shadow text-center w-full block bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline text-white font-semibold py-2 px-4 rounded-lg">-->
+      <!--          30 Days Free Trail-->
+      <!--        </button>-->
+      <!--      </div>-->
     </div>
   </div>
   <!-- @end Menu Above Medium Screen -->
@@ -108,26 +110,14 @@
 					</span>
       </div>
 
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="text-xl font-bold text-gray-800">Dashboard</h2>
+      <%# if user_signed_in? && current_user.role.name == "admin" %>
+<!--        <div class="flex items-center justify-between mb-8">-->
+<!--          <h2 class="text-xl font-bold text-gray-800">Dashboard</h2>-->
+<!--        </div>-->
+      <%# end %>
 
-      </div>
+      <%= yield %>
 
-     <%= yield %>
-
-      <div class="py-10 text-center">
-        <p class="text-gray-600">Created by
-          <a class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300" href="https://twitter.com/mithicher">@mithicher</a>.
-          Built with
-          <a class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300" href="https://tailwindcss.com/">tailwindCSS</a>
-          and
-          <a href="https://github.com/alpinejs/alpine" class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300">AlpineJS</a>.
-          Illustration from
-          <a href="https://undraw.co/illustrations" class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300">https://undraw.co/illustrations</a>.
-          SVG icons from
-          <a href="https://github.com/tabler/tabler-icons" class="text-blue-600 hover:text-blue-500 border-b-2 border-blue-200 hover:border-blue-300">Tabler
-            Icons</a>.</p>
-      </div>
     </div>
 
 

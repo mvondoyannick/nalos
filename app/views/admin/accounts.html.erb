@@ -12,9 +12,9 @@
           </button>
         </div>
         <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
-          <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Blog</a>
-          <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Portfolio</a>
-          <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">About</a>
+          <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">gestion des comptes</a>
+          <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Droits et autorisations</a>
+          <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Mise à jour</a>
           <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Contact</a>
           <div @click.away="open = false" class="relative" x-data="{ open: false }">
             <button @click="open = !open" class="flex flex-row text-gray-900 bg-gray-200 items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
@@ -60,7 +60,7 @@
                     </div>
                     <div class="ml-3">
                       <p class="font-semibold">Analytics</p>
-                      <p class="text-sm">Take a look at your statistics</p>
+                      <p class="text-sm">Demarrer une procedure d'analyse des fichiers</p>
                     </div>
                   </a>
                 </div>
@@ -77,12 +77,11 @@
 <div class="py-12 bg-white">
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="lg:text-center">
-      <p class="text-base leading-6 text-indigo-600 font-semibold tracking-wide uppercase">Transactions</p>
       <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
         Paramètres général de la plateforme
       </h3>
       <p class="mt-4 max-w-2xl text-xl leading-7 text-gray-500 lg:mx-auto">
-        Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam.
+        Gestion des parametres au centre de la plateforme.
       </p>
     </div>
 
@@ -98,9 +97,9 @@
               </div>
             </div>
             <div class="ml-4">
-              <h5 class="text-lg leading-6 font-medium text-gray-900">Gestion des Cycles</h5>
+              <%= link_to 'Gestion des cycles', cycle_ecoles_path, class: 'text-lg leading-6 font-medium text-gray-900' %>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                La gestion dest cycles est automatiquement faite par la plateforme.
               </p>
             </div>
           </div>
@@ -115,9 +114,9 @@
               </div>
             </div>
             <div class="ml-4">
-              <%= link_to 'Gestion des salles de classe', index_salle_classes_path, class: 'text-lg leading-6 font-medium text-gray-900' %>
+              <%= link_to 'Gestion des salles de classe', index_salle_classes_path, class: 'hover:bg-transparent hover:text-indogo-500 text-lg leading-6 font-medium text-gray-900' %>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                Ajouter et modifier les differentes salles de classes au sein de la plateforme.
               </p>
             </div>
           </div>
@@ -132,9 +131,9 @@
               </div>
             </div>
             <div class="ml-4">
-              <%= link_to 'Gestion des matieres', index_matieres_path, class: 'text-lg leading-6 font-medium text-gray-900 hover:bg-transparent' %>
+              <%= link_to 'Gestion des matières', index_matieres_path, class: 'text-lg leading-6 font-medium text-gray-900 hover:bg-transparent' %>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                Ajouter et modifier les differentes matières.
               </p>
             </div>
           </div>
@@ -151,7 +150,7 @@
             <div class="ml-4">
               <h5 class="text-lg leading-6 font-medium text-gray-900">Mobile notifications</h5>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.
+                Contrôle et gestoin des notifications mobiles et de la plateforme SMS.
               </p>
             </div>
           </div>
@@ -166,12 +165,11 @@
 <div class="py-12 bg-white">
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="lg:text-center">
-      <p class="text-base leading-6 text-indigo-600 font-semibold tracking-wide uppercase">Transactions</p>
       <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
         Gestion du personnel enseignant
       </h3>
       <p class="mt-4 max-w-2xl text-xl leading-7 text-gray-500 lg:mx-auto">
-        Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam.
+        Gerer votre personnel enseignant.
       </p>
     </div>
 
@@ -255,7 +253,6 @@
 <div class="py-12 bg-white">
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="lg:text-center">
-      <p class="text-base leading-6 text-indigo-600 font-semibold tracking-wide uppercase">Transactions</p>
       <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
         Gestion des apprenants
       </h3>

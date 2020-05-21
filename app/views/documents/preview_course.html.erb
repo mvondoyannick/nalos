@@ -1,7 +1,7 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Apreçu
+      Apeçu
       <br/>
       <span class="text-indigo-600">d'un document importé.</span>
     </h2>
@@ -21,9 +21,9 @@
   <% elsif @current_file.audio? %>
     <%= video_tag url_for(@current_file), controls: true, id: "player", class: 'shadow' %>
   <% elsif @current_file.image? %>
-    <%= image_tag @current_file.preview(resize: "1024x1024") %>
+    <%= image_tag url_for(@current_file) %>
   <% elsif @current_file.content_type.end_with?("pdf") %>
-  <object data="<%= rails_blob_path(@current_file) %>" type="<%= @current_file.content_type %>" height="1000" width="100%"></object>
+    <object data="<%= rails_blob_path(@current_file) %>" type="<%= @current_file.content_type %>" height="1000" width="100%"></object>
   <% else %>
     <%= image_tag @current_file.preview(resize: "1024x1024") %>
     <%= link_to "Télécharger ce document", rails_blob_path(@current_file, disposition: "attachment") %>

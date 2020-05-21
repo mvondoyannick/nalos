@@ -17,32 +17,25 @@ class Course < ApplicationRecord
   before_save :set_status, if: :new_record?
 
   # send SMS after submit cours
-  after_save :sms_notification, if: :new_record? #:persisted?
+  after_save :send_notification, if: :new_record? #:persisted?
 
   # including activeStorage
   has_one_attached :file
   has_rich_text :extrait
 
   private
+
+  # send notification to admin that new course is been published
   def send_notification
-    SendSms.send_sms
+    User.where(role_id: 2) do |admin|
+      SmsJob.set(wait: 10.seconds).perform_later(691451189, msg: "#{current_user.complete_name} vient de publier une nouvelle leçon est #{self.chapter}. Ce cours est attente de validation.")
+    end
   end
 
   # set course status
   def set_status
-    self.course_status_id = CourseStatus.second.id
+    self.course_status_id = CourseStatus.first.id
+    self.token = SecureRandom.hex(12)
   end
 
-  # send sms after publish course
-  def sms_notification
-    current_class = salle_de_class_id
-    # begin extract data
-    Student.where(salle_de_class_id: current_class).each do |the_student|
-      SmsJob.set(wait: 10.seconds).perform_later(phone: "691451189", message: "Bonjour Mr/Mme #{the_student.complete_name.upcase}, un nouveau cours de #{matiere.name}, titre : #{chapter.upcase} vient d'etre publié par Mr/Mme #{User.find(user_id).complete_name}" )
-      # Sms.send(
-      #   phone: the_student.phone,
-      #   msg: "Bonjour Mr/Mme #{the_student.complete_name.upcase}, un nouveau cours de #{matiere.name}, titre : #{chapter.upcase} vient d'etre publié par Mr/Mme #{User.find(user_id).complete_name}"
-      # )
-    end
-  end
 end

@@ -11,7 +11,11 @@
     </div>
   <% end %>
 
+<% if student_signed_in? %>
   <%= form.hidden_field :student_id, value: current_student.id %>
+<% elsif user_signed_in? %>
+    <%= form.hidden_field :student_id, value: current_user.id %>
+<% end %>
 
   <div class="field">
     <%= form.label 'Libellé du problème', class: 'text-md mb-4 mt-8 font-semibold' %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_070926) do
+ActiveRecord::Schema.define(version: 2020_05_20_124553) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_070926) do
     t.datetime "start_time"
     t.bigint "course_status_id", null: false
     t.integer "file_id"
+    t.string "token"
     t.index ["course_status_id"], name: "index_courses_on_course_status_id"
     t.index ["document_id"], name: "index_courses_on_document_id"
     t.index ["matiere_id"], name: "index_courses_on_matiere_id"
