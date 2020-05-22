@@ -93,7 +93,7 @@
       <% elsif @current_file.video? %>
         <%= video_tag url_for(@current_file), controls: true %>
       <% elsif @current_file.image? %>
-        <%= image_tag @current_file.preview(resize: "500x500") %>
+        <%= image_tag(@current_file, size: '500x500') %>
       <% elsif @current_file.content_type.end_with?("pdf") %>
         <%= image_tag @current_file.preview(resize: "500x500") %>
       <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
