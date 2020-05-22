@@ -1,7 +1,38 @@
-<div class="flex items-center justify-between mb-4">
-  <h2 class="text-xl font-bold text-gray-800 mb-6">Dernieres publications</h2>
-  <%= link_to 'Tout voir', course_all_path, class: 'text-blue-600 hover:text-blue-500 font-medium' %>
+<% if notice.present? %>
+  <div class="-m-2 text-center mb-8" id="notice">
+
+    <div class="p-2">
+      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
+        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
+        <span class="inline-flex px-2">
+          <%= notice %>
+        </span>
+      </div>
+    </div>
+
+  </div>
+<% end %>
+
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Tous les cours
+      <br />
+      <span class="text-indigo-600">publiés sur la plateforme</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
 </div>
+
+<%= paginate @course %>
+<br>
 <div class="overflow-x-auto bg-white rounded-lg shadow">
   <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
     <thead>
@@ -15,7 +46,7 @@
     </thead>
     <tbody>
     <% @course.each do |course| %>
-      <tr>
+      <tr class="<% "bg-red-300" if course.course_status.name == "rejected" %> ">
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
           <div class="flex items-center">
             <div class="flex-shrink-0 h-10 w-10">
@@ -48,8 +79,17 @@
         </td>
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-            <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id) %>
+            <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:text-indigo-500 hover:bg-transparent" %>
           </span>
+          <div class="text-sm leading-5 text-gray-500">
+            <% if course.course_status.name == "validate" %>
+            Leçon validée
+            <% elsif course.course_status.name == "waiting" %>
+            Leçon en attente
+            <% elsif course.course_status.name == "rejected"%>
+            Leçon rejetée
+            <% end %>
+          </div>
         </td>
       </tr>
 

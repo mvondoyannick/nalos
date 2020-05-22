@@ -13,7 +13,11 @@
       <!-- @end Brand Logo / Name -->
 
       <div class="px-4 py-2 flex-1 h-0 overflow-y-auto">
-        <%= render 'layouts/admin/admin_menu' %>
+        <% if controller_name == "setup" %>
+          <%= render 'layouts/admin/admin_menu_parametre' %>
+        <% else %>
+          <%= render 'layouts/admin/admin_menu' %>
+        <% end %>
       </div>
 
     </div>
@@ -26,14 +30,18 @@
     <!-- Brand Logo / Name -->
     <div class="flex items-center px-6 py-3 h-16">
       <div class="text-2xl font-bold tracking-tight text-gray-800">
-        <%= image_tag 'logo.png', class: "h-10 w-10 inline-block" %>NAL Dash
+        <%= image_tag 'logo.png', class: "h-10 w-10 inline-block" %> Admin
       </div>
     </div>
     <!-- @end Brand Logo / Name -->
 
     <div class="px-4 py-2">
 
-      <%= render 'layouts/admin/admin_menu' %>
+      <% if controller_name == "setup" %>
+        <%= render 'layouts/admin/admin_menu_parametre' %>
+      <% else %>
+        <%= render 'layouts/admin/admin_menu' %>
+      <% end %>
 
       <!--      <div class="bg-orange-200 mb-10 p-6 rounded-lg mt-16">-->
       <!--        <h2 class="text-gray-800 text-lg leading-tight">Try <strong class="font-bold">Dashing Admin.</strong></h2>-->
@@ -95,25 +103,10 @@
 
     <div class="md:max-w-6xl md:mx-auto px-4 py-8">
 
-      <div class="bg-red-200 text-red-700 px-6 py-4 rounded-lg relative mb-5" role="alert" x-data="{ open: true }" x-show.transition="open">
-        <div class="mr-4">
-          <strong class="font-bold">Connecté en tant qu'administrateur</strong>
-          <span class="block sm:inline">Attention, toutes actions effectuées dans ce compte est irreversible.</span>
-        </div>
-
-        <span class="cursor-pointer absolute top-0 bottom-0 right-0 hover:bg-red-100 hover:text-red-600 w-10 h-10 rounded-full inline-flex items-center justify-center mt-2 mr-3" x-on:click="open = false">
-						<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-							<rect x="0" y="0" width="24" height="24" stroke="none"></rect>
-							<line x1="18" y1="6" x2="6" y2="18"/>
-							<line x1="6" y1="6" x2="18" y2="18"/>
-						  </svg>
-					</span>
-      </div>
-
       <%# if user_signed_in? && current_user.role.name == "admin" %>
-<!--        <div class="flex items-center justify-between mb-8">-->
-<!--          <h2 class="text-xl font-bold text-gray-800">Dashboard</h2>-->
-<!--        </div>-->
+      <!--        <div class="flex items-center justify-between mb-8">-->
+      <!--          <h2 class="text-xl font-bold text-gray-800">Dashboard</h2>-->
+      <!--        </div>-->
       <%# end %>
 
       <%= yield %>

@@ -1,4 +1,5 @@
 class AdminController < ApplicationController
+
   before_action :authenticate_user!
 
   def index
@@ -21,7 +22,27 @@ class AdminController < ApplicationController
 
   # show all course
   def course_all
-    @course = Course.all
+    @course = Course.all.page(params[:page]).per(10)
+  end
+
+  # valider ou suspendre tous les cours
+  def course_validate_or_suspend_all
+    current_structure = Structure.find(params[:plateform])
+    if params[:a] == "suspend"
+      User.where(structure_id: params[:plateform]).each do |user|
+        user.courses.each do |course|
+          course.update(course_status_id: 1)
+        end
+      end
+      redirect_to course_all_path, notice: "Tous les leçons de #{current_structure.name} ont été suspendues."
+    elsif params[:a] == "validate"
+      User.where(structure_id: params[:plateform]).each do |user|
+        user.courses.each do |course|
+          course.update(course_status_id: 2)
+        end
+      end
+      redirect_to course_all_path, notice: "Toutes les leçon de #{current_structure.name} ont été validées."
+    end
   end
 
   # course details
@@ -144,13 +165,32 @@ class AdminController < ApplicationController
 
   # gestion des matieres
   def matieres
-    @matieres = Matiere.all
+    @matieres = Matiere.all.order(:name).page(params[:page]).per(10)
   end
 
   # import matiere
   def import_matiere_intent
     Matiere.import(params[:file])
     redirect_to index_matieres_path, notice: 'Toutes les matières ont été importées'
+  end
+
+  # import matire from form
+  def import_matiere_form
+    if request.get?
+
+    elsif request.post?
+
+      current_data = Matiere.new(matiere_params)
+
+      respond_to do |format|
+        if current_data.save
+          format.html {redirect_to index_matiere_path, notice: "Nouvelle matiere correctement importéés!"}
+        else
+          format.html {render import_matiere_form}
+        end
+      end
+
+    end
   end
 
   # import student
@@ -170,7 +210,7 @@ class AdminController < ApplicationController
   end
 
   def set_role
-    current_role = params[type]
+    current_role = params[:type]
 
     # update data
 
@@ -180,6 +220,11 @@ class AdminController < ApplicationController
   def import_teacher_intent
     Lorem.import(params[:fichier])
     redirect_to admin_index_path, notice: 'Tous les enseignants ont été importés avec succès'
+  end
+
+  private
+  def matiere_params
+    params.permit(:name, :description)
   end
 
 end

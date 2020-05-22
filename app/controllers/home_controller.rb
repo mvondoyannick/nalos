@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_action :authenticate_user!
   before_action :update_comment_readed, only: :read_message
   def index
-    @current_course = Course.where(user_id: current_user.id).order(created_at: :asc)
+    @current_course = Course.where(user_id: current_user.id).order(created_at: :desc)
     @local_news = LocalNews.all.order(created_at: :desc)
   end
 
@@ -27,7 +27,24 @@ class HomeController < ApplicationController
   end
 
   def discuss
-    
+    salle_id = current_user.salle_de_class_id
+    @classe = TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id)
+  end
+
+  # discus text actionCable
+  def discus_chat
+    @current_classe = SalleDeClass.find_by_token(params[:token])
+    @current_students = Student.where(salle_de_class_id: @current_classe.id).page(params[:page]).per(10)
+  end
+
+  # discus video actionCable + webRTC
+  def discus_video
+
+  end
+
+  # programmer un discus
+  def discus_schedul
+
   end
 
   def apprenants
@@ -76,9 +93,31 @@ class HomeController < ApplicationController
     end
   end
 
+  # send sms intent to all class
+  # post
+  def send_sms_notification_to_classe_intend
+    @current_classe = SalleDeClass.find_by_token(params[:classe])
+
+    # get current message
+    current_message = params[:message]
+
+    # get teacher informations
+    current_teacher = current_user.complete_name
+
+    # inspecting all student with phone number
+    Student.where(salle_de_class_id: @current_classe.id).where("phone != ''").each do |student|
+      SmsJob.set(wait: 2.minutes).perform_later(phone: student.phone, msg: " .#{current_teacher.upcase}")
+    end
+  end
+
   # plannig de validation
   def planning
     @planning = Course.where(user_id: current_user.id).order(created_at: :desc)
+  end
+
+  # managing blog
+  def blog_index
+
   end
 
   private

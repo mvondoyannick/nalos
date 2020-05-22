@@ -47,6 +47,17 @@ Rails.application.routes.draw do
     get 'student_par_filiere', to: 'home#student_par_filiere'
     get 'dashboard', to: 'home#dashboard'
     get 'discuss', to: 'home#discuss'
+
+    scope :discus do
+      get "discus_chat", to: "home#discus_chat"
+      get "discus_video", to: "home#discus_video"
+      get "discus_schedul", to: "home#discus_schedul"
+    end
+
+    scope :blog do
+      get "blog_index", to: "home#blog_index"
+    end
+
     get 'planning', to: 'home#planning'
 
     # gestion des elements du dashboard
@@ -86,6 +97,17 @@ Rails.application.routes.draw do
     root "admin#index", as: 'admin_route'
     get 'set_role', to: "admin#set_role"
 
+    # setup plateforme
+    scope :setup do
+      get 'setup_index', to: "setup#index"
+      get 'setup_enseignant_index', to: "setup#enseignant_index"
+      get 'setup_student_index', to: "setup#student_idenx"
+      get 'setup_notification_index', to: "setup#notification_index"
+      get 'setup_course_index', to: "setup#course_index"
+      get 'setup_structure_index', to: "setup#structure_index"
+      get 'setup_droits_index', to: "setup#droits_index"
+    end
+
     scope :courses do
       get "course_all", to: "admin#course_all"
       get "course_detail", to: 'admin#course_detail'
@@ -96,6 +118,7 @@ Rails.application.routes.draw do
       scope :validation do
         post 'course_validation', to: 'admin#course_validation'
         get 'course_suspension', to: "admin#course_suspension"
+        post 'course_validate_or_suspend_all', to: "admin#course_validate_or_suspend_all"
       end
     end
 
@@ -131,6 +154,7 @@ Rails.application.routes.draw do
 
         # matiere import
         post 'import_matiere_intent', to: 'admin#import_matiere_intent'
+        match 'import_matiere_form', to: "admin#import_matiere_form", via: [:get, :post]
 
         # enseignant import
         post 'import_enseignant_intent', to: 'admin#import_enseignant_intent'

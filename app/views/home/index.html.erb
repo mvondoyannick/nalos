@@ -4,8 +4,8 @@
     <%= link_to "Tout voir", planning_path, class: "hover:bg-transparent hover:text-indigo-500" %>
   </a>
 </div>
-<%= month_calendar events: @current_course do |date, meetings| %>
-  <%= date %>
+<%= month_calendar(attribute: :created_at, events: @current_course)  do |date, meetings| %>
+  <%= date.strftime("%d %b %Y") %>
 
   <% meetings.each do |meeting| %>
     <div>

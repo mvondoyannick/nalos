@@ -1,31 +1,71 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Local News</h1>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Babillard
+      <br/>
+      <span class="text-indigo-600">d'informations</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <%= link_to "Nouvelle publication", new_local_news_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Extrait</th>
-      <th>Statut</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="flex flex-col">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Titre
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Extrait information
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Statut
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @local_news.each do |local_news| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <%= image_tag 'logo.png', class: 'h-10 w-10' %>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm leading-5 font-medium text-gray-900"><%= local_news.title %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= local_news.created_at.strftime("%d %b %Y") %></div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= excerpt(local_news.extrait, '', radius: 20) %></div>
+              <div class="text-sm leading-5 text-gray-500">Aucune information supplementaire</div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                <%= local_news.statut %>
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+              <%= link_to 'Lire', local_news, class: "ml-2 hover:bg-transparent hover:text-indigo-500" %>
+              <%= link_to 'Editer', edit_local_news_path(local_news), class: "ml-2 hover:bg-transparent hover:text-indigo-500" %>
+              <%= link_to 'Supprimer', local_news, method: :delete, data: {confirm: "Estes vous sûr de vouloir supprimer #{local_news.title}?"}, class: "ml-2 hover:bg-transparent hover:text-indigo-500" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-  <tbody>
-    <% @local_news.each do |local_news| %>
-      <tr>
-        <td><%= local_news.title %></td>
-        <td><%= local_news.extrait %></td>
-        <td><%= local_news.statut %></td>
-        <td><%= link_to 'Show', local_news %></td>
-        <td><%= link_to 'Edit', edit_local_news_path(local_news) %></td>
-        <td><%= link_to 'Destroy', local_news, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Local News', new_local_news_path %>

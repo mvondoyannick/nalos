@@ -1,0 +1,78 @@
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Discus chat
+      <br />
+      <span class="text-indigo-600"><%= @current_classe.name %></span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Get started
+        </a>
+      </div>
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Quitter le session
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Narrower side column -->
+<div class="flex mb-4 shadow">
+  <div class="w-3/4 bg-gray-500">
+
+    <div class="bg-gray-400 pt-16">
+      <div class="relative bg-gray-600 h-12">
+        Fixed child
+        <div class="absolute top-0 right-0 bg-gray-800 h-12">
+          Absolute child
+        </div>
+      </div>
+
+      Scroll me!
+
+      Lorem ipsum...
+    </div>
+
+  </div>
+  <div class="w-1/4 bg-white p-4 ">
+    <%= paginate @current_students %>
+    <br>
+    <ul>
+      <% @current_students.each do |student| %>
+        <li>
+          <%= link_to admin_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z"/>
+              <circle cx="8.5" cy="7" r="4" />
+              <path d="M2 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2" />
+              <path d="M16 11l2 2l4 -4" />
+            </svg>
+            <p><%= excerpt(student.complete_name, '', radius: 15) %></p>
+            <p class="text-right md:text-right lg:text-right ml-4"><small>Online</small></p>
+
+          <% end %>
+        </li>
+      <% end %>
+
+      <!--  <li>-->
+      <!--    <a href="#"-->
+      <!--       class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">-->
+      <!--      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+      <!--           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+      <!--           stroke-linecap="round" stroke-linejoin="round">-->
+      <!--        <path stroke="none" d="M0 0h24v24H0z"/>-->
+      <!--        <circle cx="7" cy="5" r="2" />-->
+      <!--        <path d="M5 22v-5l-1-1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5" />-->
+      <!--        <circle cx="17" cy="5" r="2" />-->
+      <!--        <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4" />-->
+      <!--      </svg>-->
+      <!--      Apprenants-->
+      <!--    </a>-->
+      <!--  </li>-->
+    </ul>
+  </div>
+</div>

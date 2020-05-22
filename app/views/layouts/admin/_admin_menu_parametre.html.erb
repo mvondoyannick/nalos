@@ -1,6 +1,6 @@
 <ul>
   <li>
-    <%= link_to admin_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+    <%= link_to admin_route_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -10,12 +10,12 @@
         <rect x="4" y="14" width="6" height="6" rx="1"/>
         <rect x="14" y="14" width="6" height="6" rx="1"/>
       </svg>
-      Accueil
+      Quitter
     <% end %>
   </li>
 
   <li>
-    <%= link_to course_all_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+    <%= link_to setup_structure_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{ "bg-gray-200" if action_name == "structure_index"}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -24,12 +24,12 @@
         <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
         <path d="M9 15l2 2l4 -4" />
       </svg>
-      Publication de leçons
+      Gestion structure
     <% end %>
   </li>
 
   <li>
-    <%= link_to document_all_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+    <%= link_to setup_enseignant_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "enseignant_index"}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -37,12 +37,12 @@
         <path d="M9 4h3l2 2h5a2 2 0 0 1 2 2v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
         <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h2" />
       </svg>
-      Documents importés
+      Gestion enseignants
     <% end %>
   </li>
 
   <li>
-    <%= link_to cycle_ecoles_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+    <%= link_to setup_course_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{ "bg-gray-200" if (action_name == "course_index")}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -50,13 +50,12 @@
         <path d="M9 4h3l2 2h5a2 2 0 0 1 2 2v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
         <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h2" />
       </svg>
-      Cycle école
+      Gestion leçons
     <% end %>
   </li>
 
   <li>
-    <a href="#"
-       class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+    <%= link_to setup_notification_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{ "bg-gray-200" if (action_name == "notification_index")}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -64,25 +63,38 @@
         <line x1="4" y1="19" x2="20" y2="19"/>
         <polyline points="4 15 8 9 12 11 16 6 20 10"/>
       </svg>
-      Analytics
-    </a>
+      Gestion des notifications
+    <% end %>
   </li>
 
-<!--  <li>-->
-<!--    <a href="#"-->
-<!--       class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">-->
-<!--      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-<!--           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-<!--           stroke-linecap="round" stroke-linejoin="round">-->
-<!--        <path stroke="none" d="M0 0h24v24H0z"/>-->
-<!--        <circle cx="7" cy="5" r="2" />-->
-<!--        <path d="M5 22v-5l-1-1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5" />-->
-<!--        <circle cx="17" cy="5" r="2" />-->
-<!--        <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4" />-->
-<!--      </svg>-->
-<!--      Apprenants-->
-<!--    </a>-->
-<!--  </li>-->
+    <li>
+      <a href="#"
+         class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
+        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z"/>
+          <circle cx="7" cy="5" r="2" />
+          <path d="M5 22v-5l-1-1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5" />
+          <circle cx="17" cy="5" r="2" />
+          <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4" />
+        </svg>
+        Gestion des droits
+      </a>
+    </li>
+
+  <li>
+    <%= link_to teachers_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z"/>
+        <circle cx="12" cy="7" r="4" />
+        <path d="M5.5 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2" />
+      </svg>
+      Administrateurs
+    <% end %>
+  </li>
 
   <li>
     <%= link_to teachers_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200" do %>
@@ -112,7 +124,7 @@
   </li>
 
   <li>
-    <%= link_to setup_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+    <%= link_to accounts_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -121,7 +133,7 @@
           d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
         <circle cx="12" cy="12" r="3"/>
       </svg>
-      Paramètres
+      Gestion des documents
     <% end %>
   </li>
 
@@ -134,7 +146,46 @@
         <rect x="8" y="4" width="12" height="12" rx="2" />
         <rect x="4" y="8" width="12" height="12" rx="2" />
       </svg>
-      Barbillard
+      Gestion des informations
+    <% end %>
+  </li>
+
+  <li>
+    <%= link_to local_news_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+           stroke-linecap="round" stroke-linejoin="round">
+        <<path stroke="none" d="M0 0h24v24H0z"/>
+        <rect x="8" y="4" width="12" height="12" rx="2" />
+        <rect x="4" y="8" width="12" height="12" rx="2" />
+      </svg>
+      Etat du serveur
+    <% end %>
+  </li>
+
+  <li>
+    <%= link_to local_news_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+           stroke-linecap="round" stroke-linejoin="round">
+        <<path stroke="none" d="M0 0h24v24H0z"/>
+        <rect x="8" y="4" width="12" height="12" rx="2" />
+        <rect x="4" y="8" width="12" height="12" rx="2" />
+      </svg>
+      Journaux d'activités
+    <% end %>
+  </li>
+
+  <li>
+    <%= link_to local_news_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+           stroke-linecap="round" stroke-linejoin="round">
+        <<path stroke="none" d="M0 0h24v24H0z"/>
+        <rect x="8" y="4" width="12" height="12" rx="2" />
+        <rect x="4" y="8" width="12" height="12" rx="2" />
+      </svg>
+      Sécurités des données
     <% end %>
   </li>
 </ul>
