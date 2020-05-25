@@ -4,7 +4,7 @@
     <%= link_to "Tout voir", planning_path, class: "hover:bg-transparent hover:text-indigo-500" %>
   </a>
 </div>
-<%= month_calendar(attribute: :created_at, events: @current_course)  do |date, meetings| %>
+<%= month_calendar(attribute: :created_at, events: @current_course) do |date, meetings| %>
   <%= date.strftime("%d %b %Y") %>
 
   <% meetings.each do |meeting| %>
@@ -34,45 +34,86 @@
       </div>
     </div>
   <% else %>
-    <div class="grid grid-cols-3 gap-4 mb-4">
-      <% @current_course.last(6).each do |cours| %>
-        <div class="bg-white overflow-hidden border-b-4 border-blue-500">
-          <% if cours.file.nil? %>
-            Aucune publication trouvée
-          <% else %>
-            <% docs = Document.find(cours.document_id).file.find(cours.file_id) %>
-            <% if docs.video? %>
-              <%= link_to(image_tag('video.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
-            <% elsif docs.audio? %>
-              <%= link_to(image_tag('audio.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
-            <% elsif docs.image? %>
-              <%= link_to(image_tag('photo.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
-            <% elsif docs.content_type.end_with?("pdf") %>
-              <%= link_to(image_tag('pdf.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
-            <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
-              <%= link_to(image_tag('word.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
-            <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
-              <%= link_to(image_tag('excel.png', size: '1000x1000'), course_path(cours), class: "object-cover w-full h-32 sm:h-48 md:h-64") %>
+
+    <div class="container my-12 mx-auto px-4 md:px-12">
+      <div class="flex flex-wrap -mx-1 lg:-mx-4">
+
+        <% @current_course.last(6).each do |cours| %>
+
+          <!-- Column -->
+          <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+            <!-- Article -->
+            <% if cours.file.nil? %>
+              Aucune publication trouvée
             <% else %>
-              <%= link_to(image_tag('course.png'), course_path(cours), class: "object-cover  w-full h-32 sm:h-48 md:h-64") %>
+              <% docs = Document.find(cours.document_id).file.find(cours.file_id) %>
+
+              <article class="overflow-hidden rounded-lg shadow-lg">
+
+                <a href="#">
+                  <% if docs.video? %>
+                    <%= link_to(image_tag('video.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent block h-auto w-full") %>
+                  <% elsif docs.audio? %>
+                    <%= link_to(image_tag('audio.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent  block h-auto w-full") %>
+                  <% elsif docs.image? %>
+                    <%= link_to(image_tag('photo.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent block h-auto w-full") %>
+                  <% elsif docs.content_type.end_with?("pdf") %>
+                    <%= link_to(image_tag('pdf.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent  block h-auto w-full") %>
+                  <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+                    <%= link_to(image_tag('word.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent block h-auto w-full") %>
+                  <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+                    <%= link_to(image_tag('excel.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent block h-auto w-full") %>
+                  <% else %>
+                    <%= link_to(image_tag('course.png'), course_path(cours), class: "hover:bg-transparent  block h-auto w-full") %>
+                  <% end %>
+
+                </a>
+
+                <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+                  <h1 class="text-lg">
+                    <p class="text-red-500 font-bold">
+                      <%= cours.categorie.nil? ? "Aucune catégorie" : cours.categorie.upcase %>
+                    </p>
+                    <a class="hover:bg-transparent hover:text-indigo-500 no-underline hover:underline text-black" href="#">
+                      <%= cours.chapter %>
+                    </a>
+                  </h1>
+                  <p class="text-grey-darker text-sm">
+                    <%= cours.created_at.strftime("%d %b %Y") %>
+                  </p>
+                </header>
+
+                <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+                  <%= link_to "#", class: "hover:bg-transparent hover:text-indigo-500 flex items-center no-underline hover:underline text-black" do %>
+                    <%= image_tag 'teacher.png', class: "block rounded-full h-10 w-10" %>
+                    <p class="ml-2 text-sm">
+                      <%= cours.user.complete_name %>
+                    </p>
+                  <% end %>
+                  <a class="hover:bg-transparent hover:text-indigo-500 no-underline text-grey-darker hover:text-red-dark" href="#">
+                    <span class="hidden">Like</span>
+                    <i class="fa fa-heart"></i>
+                  </a>
+                </footer>
+
+              </article>
+
             <% end %>
-          <% end %>
-          <div class="p-4 md:p-6">
-            <p class="text-blue-500 font-semibold text-xs mb-1 leading-none"><%= cours.categorie.nil? ? "Aucune catégorie" : cours.categorie.upcase %></p>
-            <h3 class="font-semibold mb-2 text-xl leading-tight sm:leading-normal"><%= cours.chapter %></h3>
-            <div class="text-sm flex items-center">
-              <svg class="opacity-75 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="12" height="12" viewBox="0 0 97.16 97.16" style="enable-background:new 0 0 97.16 97.16;" xml:space="preserve">
-                <path d="M48.58,0C21.793,0,0,21.793,0,48.58s21.793,48.58,48.58,48.58s48.58-21.793,48.58-48.58S75.367,0,48.58,0z M48.58,86.823    c-21.087,0-38.244-17.155-38.244-38.243S27.493,10.337,48.58,10.337S86.824,27.492,86.824,48.58S69.667,86.823,48.58,86.823z"/>
-                <path d="M73.898,47.08H52.066V20.83c0-2.209-1.791-4-4-4c-2.209,0-4,1.791-4,4v30.25c0,2.209,1.791,4,4,4h25.832    c2.209,0,4-1.791,4-4S76.107,47.08,73.898,47.08z"/>
-              </svg>
-              <p class="leading-none">
-                Publié le : <%= cours.created_at.strftime("%d %b %Y") %></p>
-            </div>
+            <!-- END Article -->
+
           </div>
-        </div>
-      <% end %>
+          <!-- END Column -->
+
+        <% end %>
+
+      </div>
+    </div>
+
   <% end %>
   </div>
+
+
   <div class="py-8">
     <div class="flex items-center justify-between mb-8 mt-10">
       <h2 class="text-xl font-bold text-gray-800">Babillard</h2>

@@ -4,11 +4,11 @@ class TeacherClasse < ApplicationRecord
   belongs_to :matiere
 
   def name_with_initial
-    "#{matiere.name}"
+    (matiere.name).to_s
   end
 
   def class_with_initial
-    "#{salle_de_class.name}"
+    (salle_de_class.name).to_s
   end
 
 end
