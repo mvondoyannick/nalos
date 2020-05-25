@@ -32,6 +32,8 @@
     </div>
   </div>
 
+  <%= form.file_field :file, multiple: true, direct_upload: true, accept: 'image/*, video/*, application/pdf, audio/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', class: "py-3 px-4 bg-gray-200 text-gray-800 border-gray-300 border-2 outline-none placeholder-gray-500 focus:bg-gray-100" %>
+
   <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
     <div class="inline-flex rounded-md shadow">
       <%= form.submit "Importer document", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>

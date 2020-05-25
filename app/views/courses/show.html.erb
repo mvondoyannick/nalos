@@ -9,21 +9,17 @@
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Get started
-        </a>
+        <%= link_to "Supprimer", @course, method: :delete, data: {confirm: "Supprimer ce cours?"}, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
       <div class="ml-3 inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Learn more
-        </a>
+        <%= link_to "Retourner aux leçons", courses_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="flex mb-4 p-2 bg-white shadow">
-  <div class="w-3/4 bg-white ">
+<div class="mb-8 p-2 w-full flex flex-wrap bg-white shadow">
+  <div class="border-8 w-full lg:w-3/4 bg-white ">
     <p class="object-center lg:items-center">
       <% docs = Document.find(@course.document_id).file.find(@course.file_id) %>
       <% if docs.video? %>
@@ -45,7 +41,7 @@
       <% end %>
     </p>
   </div>
-  <div class="w-1/4 bg-white">
+  <div class="border-8 w-full lg:w-1/4 bg-white">
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
       <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -119,14 +115,6 @@
               <%= @course.chapter %>
             </dd>
           </div>
-          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Classe
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= link_to @course.salle_de_class.name, inside_classe_path(token: @course.salle_de_class.token), class: "hover:bg-transparent hover:text-purple-500" %>
-            </dd>
-          </div>
         </dl>
       </div>
     </div>
@@ -188,6 +176,4 @@
   </div>
 </div>
 
-
-<video id="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY"></video>
 
