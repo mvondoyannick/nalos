@@ -58,10 +58,10 @@ gem 'chartkick'
 gem 'image_processing', '~> 1.2'
 
 # adding capistrano
-# gem 'capistrano', '~> 3.11'
-# gem 'capistrano-passenger', '~> 0.2.0'
-# gem 'capistrano-rails', '~> 1.4'
-# gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+#gem 'capistrano', '~> 3.11'
+#gem 'capistrano-passenger', '~> 0.2.0'
+#gem 'capistrano-rails', '~> 1.4'
+#gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
