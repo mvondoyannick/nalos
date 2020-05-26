@@ -57,6 +57,15 @@ gem 'chartkick'
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 
+<<<<<<< HEAD
+# adding capistrano
+#gem 'capistrano', '~> 3.11'
+#gem 'capistrano-passenger', '~> 0.2.0'
+#gem 'capistrano-rails', '~> 1.4'
+#gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+
+=======
+>>>>>>> 265562d456a7749bfa43d4cc2e49b4b5de955a3a
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
