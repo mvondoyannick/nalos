@@ -1,23 +1,29 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Gestion des matières
+      Administrateurs
       <br/>
       <span class="text-indigo-600">de <%= current_user.structure.name %></span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to "Ajouter nouvelle", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        <%= link_to "Nouvel administrateur root", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to "Importer", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      <div class="ml-3 inline-flex rounded-md shadow  dropdown inline-block relative">
+        <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
+          <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Modifier</a></li>
+          <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Message</a></li>
+          <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Suspendre</a></li>
+          <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Update password</a></li>
+        </ul>
+        <%= link_to "Actions", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
     </div>
   </div>
 </div>
 
 <br>
-<%= paginate @matieres %>
+<%= paginate @roots %>
 <br>
 <div class="flex flex-col">
   <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -26,23 +32,51 @@
         <thead>
         <tr>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Libellé Matières
+            Nom Complet
           </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Classe & matières
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Contact
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="2"></th>
         </tr>
         </thead>
         <tbody class="bg-white">
-        <% @matieres.each do |matiere| %>
+        <% @roots.each do |root| %>
           <tr>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
-                  <%= image_tag 'course.png', class: "h-10 w-10 rounded-full" %>
+                  <%= image_tag 'teacher.png', class: "h-10 w-10 rounded-full" %>
                 </div>
                 <div class="ml-4">
-                  <div class="text-sm leading-5 font-medium text-gray-900"><%= matiere.name %></div>
-                  <div class="text-sm leading-5 text-gray-500"><%= matiere.structure.name %></div>
+                  <div class="text-sm leading-5 font-medium text-gray-900"><%= excerpt(root.complete_name, '', radius: 20) %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= root.matricule %></div>
                 </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900">
+                <% current_classe = TeacherClasse.where(user_id: root.id) %>
+                <% current_classe.distinct.pluck(:salle_de_class_id).uniq.each do |classe| %>
+                  <%= SalleDeClass.find(classe).name %>
+                <% end %>
+              </div>
+              <div class="text-sm leading-5 text-gray-500">
+                <% current_matiere = TeacherClasse.where(user_id: root.id) %>
+                <% current_classe.distinct.pluck(:matiere_id).uniq.each do |matiere| %>
+                  <%= Matiere.find(matiere).name %> <br>
+                <% end %>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900">
+                <%= root.phone1 %>
+              </div>
+              <div class="text-sm leading-5 text-gray-900">
+                <%= root.phone2 %>
               </div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
@@ -55,14 +89,15 @@
                   </button>
                   <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
                     <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Modifier</a></li>
-                    <li class="">
-                      <%= link_to "Supprimer", manage_matiere_path(token: matiere.token), method: :delete, class: "rounded-t bg-red-500 hover:bg-red-400 py-2 px-4 block whitespace-no-wrap text-left", data: {confirm: "En supprimant cette matière de #{matiere.name.upcase}, vous allez \nsupprimer tous les cours qui lui sont rattachés. \nSouhaitez-vous vraiment continuer? \nCette action est irreversible."} %>
-                    </li>
+                    <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Message</a></li>
+                    <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Suspendre</a></li>
+                    <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Update password</a></li>
                   </ul>
                 </div>
 
               </div>
             </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"></td>
           </tr>
         <% end %>
         </tbody>

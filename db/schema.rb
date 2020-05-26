@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_124553) do
+ActiveRecord::Schema.define(version: 2020_05_26_053319) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -167,6 +167,8 @@ ActiveRecord::Schema.define(version: 2020_05_20_124553) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "token"
+    t.bigint "structure_id"
+    t.index ["structure_id"], name: "index_matieres_on_structure_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -241,6 +243,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_124553) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "salle_de_class_id"
+    t.integer "structure"
     t.index ["email"], name: "index_students_on_email", unique: true
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
     t.index ["salle_de_class_id"], name: "index_students_on_salle_de_class_id"
@@ -303,6 +306,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_124553) do
   add_foreign_key "epreuves", "matieres"
   add_foreign_key "epreuves", "salle_de_classes"
   add_foreign_key "epreuves", "users"
+  add_foreign_key "matieres", "structures"
   add_foreign_key "messages", "students"
   add_foreign_key "messages", "users"
   add_foreign_key "problemes", "students"

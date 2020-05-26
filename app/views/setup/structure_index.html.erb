@@ -3,19 +3,186 @@
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Gestion de la structure
       <br />
-      <span class="text-indigo-600">et des informations de base.</span>
+      <span class="text-indigo-600"><%= @structure.name %></span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
         <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Get started
+          Supprimer
         </a>
       </div>
       <div class="ml-3 inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Learn more
-        </a>
+        <%= link_to "Nouvelle structure", setup_add_new_structure_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
     </div>
   </div>
 </div>
+
+<main class="flex-1 md:p-0 lg:pt-8 lg:px-8 md:ml-24 flex flex-col">
+  <section class="bg-white p-4 shadow">
+    <div class="md:flex">
+      <h2 class="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6">Create New Location</h2>
+    </div>
+    <%= form_with(url: root_path) do |form| %>
+      <div class="md:flex mb-8">
+        <div class="md:w-1/3">
+          <legend class="uppercase tracking-wide text-sm">Informations de base</legend>
+          <p class="text-xs font-light text-red">This entire section is required.</p>
+        </div>
+        <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-xs font-bold">Raison sociale</label>
+            <%= form.text_field :name, value: @structure.name, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-xs font-bold">Pays</label>
+            <%= form.text_field :pays, value: @structure.pays, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-xs font-bold">Region localisation</label>
+            <%= form.text_field :region, value: @structure.region, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-xs font-bold">Date ajout</label>
+            <%= form.text_field :date_added, value: @structure.created_at.strftime("%d %b %Y"), readonly: true,  class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+        </div>
+      </div>
+      <div class="md:flex mb-8">
+        <div class="md:w-1/3">
+          <legend class="uppercase tracking-wide text-sm">Informations de Contact</legend>
+        </div>
+        <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-xs font-bold">Adresse email</label>
+            <%= form.text_field :email, value: @structure.region, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Numéro de téléphone fixe</label>
+            <%= form.text_field :fixe, value: @structure.fixe, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Numéro de téléphone mobile</label>
+            <%= form.text_field :mobile, value: @structure.mobile, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Email</label>
+            <%= form.text_field :email, value: @structure.region, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+        </div>
+      </div>
+      <div class="md:flex mb-8">
+        <div class="md:w-1/3">
+          <legend class="uppercase tracking-wide text-sm">Informations du responsable</legend>
+        </div>
+        <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-xs font-bold">Adresse email</label>
+            <%= form.text_field :email, value: @structure.region, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Numéro de téléphone fixe</label>
+            <%= form.text_field :fixe, value: @structure.fixe, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Numéro de téléphone mobile</label>
+            <%= form.text_field :mobile, value: @structure.mobile, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Email</label>
+            <%= form.text_field :email, value: @structure.region, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+        </div>
+      </div>
+      <div class="md:flex mb-8">
+        <div class="md:w-1/3">
+          <legend class="uppercase tracking-wide text-sm">Informations administrateur</legend>
+        </div>
+        <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-xs font-bold">Adresse email administrateur</label>
+            <%= form.text_field :email, value: @admin.email, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Numéro de téléphone 1</label>
+            <%= form.text_field :fixe, value: @admin.phone1, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Numéro de téléphone 2</label>
+            <%= form.text_field :mobile, value: @admin.phone2, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+          <div class="mb-4">
+            <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Nom complete</label>
+            <%= form.text_field :email, value: @admin.complete_name, class: "w-full shadow-inner p-4 border-0 bg-gray-200" %>
+          </div>
+        </div>
+      </div>
+      <div class="md:flex">
+        <div class="md:w-1/3">
+          <legend class="uppercase tracking-wide text-sm">Réseaux sociaux</legend>
+        </div>
+        <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
+          <div class="md:flex mb-4">
+            <div class="md:flex-1 md:pr-3">
+              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Facebook</label>
+              <div class="w-full flex">
+                <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">facebook.com/</span>
+                <input class="flex-1 shadow-inner p-4 border-0" type="text" name="facebook" placeholder="acmeco">
+              </div>
+            </div>
+            <div class="md:flex-1 md:pl-3 mt-2 md:mt-0">
+              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Twitter</label>
+              <div class="w-full flex">
+                <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">twitter.com/</span>
+                <input class="flex-1 shadow-inner p-4 border-0" type="text" name="twitter" placeholder="acmeco">
+              </div>
+            </div>
+          </div>
+          <div class="md:flex mb-4">
+            <div class="md:flex-1 md:pr-3">
+              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Instagram</label>
+              <div class="w-full flex">
+                <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">instagram.com/</span>
+                <input class="flex-1 shadow-inner p-4 border-0" type="text" name="instagram" placeholder="acmeco">
+              </div>
+            </div>
+            <div class="md:flex-1 md:pl-3 mt-2 md:mt-0">
+              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Yelp</label>
+              <div class="w-full flex">
+                <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">yelp.com/</span>
+                <input class="flex-1 shadow-inner p-4 border-0" type="text" name="yelp" placeholder="acmeco">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="md:flex mb-6">
+        <div class="md:w-1/3">
+          <legend class="uppercase tracking-wide text-sm">Slogan</legend>
+        </div>
+        <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
+          <%= form.rich_text_area :slogan, value: @structure.slogan, class: "w-full shadow-inner p-4 border-0 bg-gray-200", rows: 6 %>
+        </div>
+      </div>
+      <div class="md:flex mb-6">
+        <div class="md:w-1/3">
+          <legend class="uppercase tracking-wide text-sm">Logo structure</legend>
+        </div>
+        <div class="md:flex-1 px-3 text-center">
+          <div class="button bg-gold hover:bg-gold-dark text-cream mx-auto cusor-pointer relative">
+            <%= form.file_field :logo_file, class: "bg-gray-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded", accept: "image/*" %>
+            Ajouter un logo
+          </div>
+        </div>
+      </div>
+      <div class="md:flex mb-6 border border-t-1 border-b-0 border-x-0 border-cream-dark">
+        <div class="md:flex-1 px-3 text-center md:text-right">
+          <input type="hidden" name="sponsor" value="0">
+          <div class="inline-flex rounded-md shadow">
+            <%= form.submit "Mettre à jour cet enregistrement", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </section>
+</main>

@@ -52,13 +52,7 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"
-                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                       stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z"/>
-                    <polyline points="14 3 14 8 19 8" />
-                    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                  </svg>
+                  <%= image_tag 'course.png', class: "h-10 w-10" %>
                 </div>
                 <div class="ml-4">
                   <div class="text-sm leading-5 font-medium text-gray-900"><%= document.created_at.strftime("%d %b %Y") %></div>

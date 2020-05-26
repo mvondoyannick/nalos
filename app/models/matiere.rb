@@ -1,6 +1,7 @@
 class Matiere < ApplicationRecord
-  has_many :courses
+  has_many :courses, dependent: :delete_all
   has_many :teacher_classes
+  belongs_to :structure
 
   before_create :set_token, if: :new_record?
 

@@ -1,6 +1,6 @@
 <ul>
   <li>
-    <%= link_to admin_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+    <%= link_to admin_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{ "bg-gray-200" if action_name == "index"}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -15,7 +15,7 @@
   </li>
 
   <li>
-    <%= link_to course_all_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+    <%= link_to course_all_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{ "bg-gray-200" if action_name == "course_all"}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -29,7 +29,7 @@
   </li>
 
   <li>
-    <%= link_to document_all_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+    <%= link_to document_all_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{ "bg-gray-200" if action_name == "document_all"}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -41,32 +41,32 @@
     <% end %>
   </li>
 
-  <li>
-    <%= link_to cycle_ecoles_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-           stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z"/>
-        <path d="M9 4h3l2 2h5a2 2 0 0 1 2 2v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
-        <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h2" />
-      </svg>
-      Cycle école
-    <% end %>
-  </li>
+<!--  <li>-->
+    <%#= link_to cycle_ecoles_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" do %>
+<!--      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--           stroke-linecap="round" stroke-linejoin="round">-->
+<!--        <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--        <path d="M9 4h3l2 2h5a2 2 0 0 1 2 2v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />-->
+<!--        <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h2" />-->
+<!--      </svg>-->
+<!--      Cycle école-->
+    <%# end %>
+<!--  </li>-->
 
-  <li>
-    <a href="#"
-       class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">
-      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-           stroke-linecap="round" stroke-linejoin="round">
-        <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
-        <line x1="4" y1="19" x2="20" y2="19"/>
-        <polyline points="4 15 8 9 12 11 16 6 20 10"/>
-      </svg>
-      Analytics
-    </a>
-  </li>
+<!--  <li>-->
+<!--    <a href="#"-->
+<!--       class="mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200">-->
+<!--      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--           stroke-linecap="round" stroke-linejoin="round">-->
+<!--        <rect x="0" y="0" width="24" height="24" stroke="none"></rect>-->
+<!--        <line x1="4" y1="19" x2="20" y2="19"/>-->
+<!--        <polyline points="4 15 8 9 12 11 16 6 20 10"/>-->
+<!--      </svg>-->
+<!--      Analytics-->
+<!--    </a>-->
+<!--  </li>-->
 
 <!--  <li>-->
 <!--    <a href="#"-->
@@ -85,7 +85,7 @@
 <!--  </li>-->
 
   <li>
-    <%= link_to teachers_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200" do %>
+    <%= link_to teachers_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 #{ "bg-gray-200" if action_name == "teachers"}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">

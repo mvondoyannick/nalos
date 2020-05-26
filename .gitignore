@@ -17,7 +17,11 @@ solr/development/data
 solr/default/data
 solr/pids
 
-#
+# Ignore gemfile for production
+Gemfile
+erd.pdf
+user_guide.pdf
+cours audio
 
 # Ignore all logfiles and tempfiles.
 /log/*

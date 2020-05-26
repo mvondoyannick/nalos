@@ -10,12 +10,12 @@
         <rect x="4" y="14" width="6" height="6" rx="1"/>
         <rect x="14" y="14" width="6" height="6" rx="1"/>
       </svg>
-      <%= current_user.structure.name %>
+      <%= current_user.structure.name %> SETUP
     <% end %>
   </li>
 
   <li>
-    <%= link_to setup_structure_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{ "bg-gray-200" if action_name == "structure_index"}" do %>
+    <%= link_to setup_structure_list_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{ "bg-gray-200" if action_name == "structure_list"}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -84,7 +84,7 @@
     </li>
 
   <li>
-    <%= link_to teachers_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200" do %>
+    <%= link_to setup_root_structure_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 #{ "bg-gray-200" if (action_name == "root_structure")}" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">
@@ -92,12 +92,12 @@
         <circle cx="12" cy="7" r="4" />
         <path d="M5.5 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2" />
       </svg>
-      Administrateurs
+      Root users
     <% end %>
   </li>
 
   <li>
-    <%= link_to teachers_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200 bg-gray-200" do %>
+    <%= link_to teachers_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-blue-600 hover:text-blue-600 hover:bg-gray-200" do %>
       <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
            stroke-linecap="round" stroke-linejoin="round">

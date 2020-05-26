@@ -251,27 +251,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="airbrussh (vbundled(1.4.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/airbrussh-1.4.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/airbrussh-1.4.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/airbrussh-1.4.0/.github" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/airbrussh-1.4.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/airbrussh-1.4.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/airbrussh-1.4.0/.github" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/airbrussh-1.4.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/airbrussh-1.4.0/.github" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="algoliasearch (vbundled(1.27.1)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -421,89 +400,6 @@
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/byebug-11.1.1/exe" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/byebug-11.1.1/ext" />
         </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="capistrano (vbundled(3.14.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/.github" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/features" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/.github" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/features" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-3.14.0/.github" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="capistrano-bundler (vbundled(1.6.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-bundler-1.6.0/lib" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-bundler-1.6.0/lib" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="capistrano-passenger (vbundled(0.2.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-passenger-0.2.0/lib" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-passenger-0.2.0/lib" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="capistrano-rails (vbundled(1.5.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-rails-1.5.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-rails-1.5.0/.github" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-rails-1.5.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-rails-1.5.0/.github" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-rails-1.5.0/.github" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="capistrano-rbenv (vbundled(2.1.6)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-rbenv-2.1.6/lib" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capistrano-rbenv-2.1.6/lib" />
-        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -1265,37 +1161,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="net-scp (vbundled(3.0.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/net-scp-3.0.0/lib" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/net-scp-3.0.0/lib" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="net-ssh (vbundled(6.0.2)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/net-ssh-6.0.2/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/net-ssh-6.0.2/support" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/net-ssh-6.0.2/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/net-ssh-6.0.2/support" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/net-ssh-6.0.2/support" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="nio4r (vbundled(2.5.2)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -1427,26 +1292,6 @@
         <excluded>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/orm_adapter-0.5.0/spec" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/orm_adapter-0.5.0/gemfiles" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="plyr-rails (vbundled(3.4.7)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.4.7/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.4.7/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.4.7/vendor" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.4.7/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.4.7/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.4.7/vendor" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.4.7/bin" />
         </excluded>
       </library>
     </orderEntry>
@@ -2080,30 +1925,6 @@
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sprockets-rails-3.2.1/lib" />
         </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="sshkit (vbundled(1.21.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/test" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/.github" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/examples" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/test" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/.github" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/examples" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/test" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/.github" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/sshkit-1.21.0/examples" />
-        </excluded>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
