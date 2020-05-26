@@ -27,8 +27,6 @@ gem 'jbuilder', '~> 2.7'
 gem 'kaminari'
 # adding select all
 gem 'select_all-rails'
-# adding player plyr
-gem 'plyr-rails'
 # adding HTTParty
 gem 'httparty'
 # adding device
@@ -57,12 +55,6 @@ gem 'chartkick'
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 
-# adding capistrano
-#gem 'capistrano', '~> 3.11'
-#gem 'capistrano-passenger', '~> 0.2.0'
-#gem 'capistrano-rails', '~> 1.4'
-#gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
@@ -81,11 +73,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  # adding capistrano
-  #gem 'capistrano', '~> 3.11'
-  #gem 'capistrano-passenger', '~> 0.2.0'
-  #gem 'capistrano-rails', '~> 1.4'
-  #gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
 end
 
 group :test do
