@@ -104,8 +104,11 @@ Rails.application.routes.draw do
       get 'setup_student_index', to: "setup#student_idenx"
       get 'setup_notification_index', to: "setup#notification_index"
       get 'setup_course_index', to: "setup#course_index"
+      get 'setup_structure_list', to: "setup#structure_list"
       get 'setup_structure_index', to: "setup#structure_index"
+      match 'setup_add_new_structure', to: "setup#new_structure", via: [:post, :get, :delete] # ajout d'une nouvelle strcture
       get 'setup_droits_index', to: "setup#droits_index"
+      get 'setup_root_structure', to: "setup#root_structure" # gestion des utilisateurs root
     end
 
     scope :courses do
@@ -168,6 +171,7 @@ Rails.application.routes.draw do
   # course for student
   scope :course do
     get "read_course", to: "home_student#read_course"
+    get 'read_course_file', to: "home_student#read_course_file"
     get "list_course", to: "home_student#list_course"
     get "read_matiere", to: "home_student#read_matiere"
     get "my_dashboard", to: "home_student#dashboard"

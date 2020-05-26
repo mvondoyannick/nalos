@@ -17,9 +17,9 @@
     <div class="-mx-3 md:flex mb-6">
       <div class="md:w-1/2 px-3 mb-6 md:mb-0">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
-          Enseignant concerné
+          Enseignant concerné de <%= current_student.salle_de_class.name %>
         </label>
-        <%= form.collection_select(:user_id, User.all, :id, :complete_name, {prompt: "Selectionner un destinataire..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"}) %>
+        <%= form.collection_select(:user_id, User.where(salle_de_class_id: current_student.salle_de_class_id), :id, :complete_name, {prompt: "Selectionner un enseignant..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"}) %>
         <p class="text-red text-xs italic">Selectionner l'enseignant à joindre.</p>
       </div>
       <div class="md:w-1/2 px-3">

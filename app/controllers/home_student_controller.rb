@@ -2,8 +2,8 @@ class HomeStudentController < ApplicationController
   before_action :authenticate_student!
   before_action :update_course_statitics, only: :read_course
   def index
-    @last_course = Course.all.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2).order(created_at: :desc) #Enseignement.last(10)
-    @local_news = LocalNews.all
+    @last_course = Course.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2).order(created_at: :desc).page(params[:page]).per(12) #Enseignement.last(10)
+    @local_news = LocalNews.all.page(params[:page]).per(5)
   end
 
   # open yelp help document
@@ -14,6 +14,9 @@ class HomeStudentController < ApplicationController
 
   def dashboard
     @course_data = Statistic.where(student_id: current_student.id)
+    @course_data_week = Statistic.where(student_id: current_student.id, created_at: Date.today.beginning_of_week..Date.today.end_of_week)
+    @course_data_mois = Statistic.where(student_id: current_student.id, created_at: Date.today.beginning_of_month..Date.today.end_of_month)
+    @course_data_year = Statistic.where(student_id: current_student.id, created_at: Date.today.beginning_of_year..Date.today.end_of_year)
   end
 
   # student make comment
@@ -111,7 +114,9 @@ class HomeStudentController < ApplicationController
 
   # read document file with their own ID
   def read_course_file
-    # @current_course_file = Document
+    document_id = params[:document_id]
+    file_id = params[:file_id]
+    @current_file = Document.find(document_id).file.find(file_id)
   end
 
   def my_teachers

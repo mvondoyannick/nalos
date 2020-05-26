@@ -1,1 +1,62 @@
-read course file not ended
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Detail d'une
+      <br />
+      <span class="text-indigo-600">ressource</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Retour aux ressources", my_courses_files_path(m: current_student.matricule, t: current_student.created_at.to_i), class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mb-8 p-2 w-full flex flex-wrap bg-white shadow">
+  <div class="border-8 w-full lg:w-3/4 bg-white ">
+    <p class="object-center lg:items-center">
+      <% if @current_file.video? %>
+        <%= video_tag url_for(@current_file), controls: "", id: "player", playsinline: true %>
+      <% elsif @current_file.audio? %>
+        <%= audio_tag url_for(@current_file), controls: "", id: "player", playsinline: true %>
+      <% elsif @current_file.image? %>
+        <%= image_tag url_for(@current_file) %>
+      <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+        <%= image_tag(@current_file.preview(resize: "1000x1000")) %>
+      <% elsif @current_file.content_type.end_with?("msword") %>
+        <%= image_tag(@current_file.preview(resize: "1000x1000")) %>
+      <% elsif @current_file.content_type.end_with?("vnd.ms-excel") %>
+        <%= image_tag(@current_file.preview(resize: "1000x1000")) %>
+      <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+        <%= image_tag(@current_file.preview(resize: "1000x1000")) %>
+      <% elsif @current_file.content_type.end_with?("pdf") %>
+        <object data="<%= rails_blob_path(@current_file) %>" type="" height="1000" width="100%"></object>
+      <% end %>
+    </p>
+  </div>
+  <div class="border-8 w-full lg:w-1/4 bg-white">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+      <div>
+        <dl>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Nom fichier
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @current_file.filename %>
+            </dd>
+          </div>
+          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Format
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @current_file.content_type %>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>

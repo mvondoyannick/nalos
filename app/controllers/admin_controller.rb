@@ -60,8 +60,9 @@ class AdminController < ApplicationController
   def course_suspension
     current_course = Course.find(params[:course_id])
 
-    current_course.course_status_id = 1
-    if current_course.save
+    # current_course.course_status_id = 1
+    current_waiting_id = CourseStatus.find_by_name("waiting").id
+    if current_course.update(course_status_id: current_waiting_id)
       # admin notification
       # Sms.send(phone: current_user.phone1, msg: "Vous venez de suspendre le cours #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}.")
       SmsJob.set(wait: 10.seconds).perform_later(phone: current_user.phone1, msg: "Vous venez de suspendre le cours #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}.")
@@ -73,7 +74,7 @@ class AdminController < ApplicationController
 
       redirect_to course_all_path, notice: "Cours N° #{current_course.id} a été validé avec succès."
     else
-
+      redirect_to admin_index_path, notice: "Impossible de suspendre cette leçon : #{current_course.errors.messages}"
     end
 
   end
@@ -88,8 +89,10 @@ class AdminController < ApplicationController
     course_id = params[:course_id]
 
     current_course = Course.find(course_id)
-    current_course.course_status_id = 2
-    if current_course.save
+    #current_course.course_status_id = 2
+    #if current_course.save
+    current_validation_id = CourseStatus.find_by_name("validate").id
+    if current_course.update(course_status_id: current_validation_id)
 
       # activeJob notification
       SmsJob.set(wait: 10.seconds).perform_later(phone: 691451189, msg: "Vous venez de valider la leçon #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}. Elle est désormais accessible par tous les élèves de #{current_course.salle_de_class.name} à l'adresse #{request.env['SERVER_NAME']}/course/read_course?cours_key=#{current_course.token}&course_id=#{current_course.id}&id=87.")
@@ -104,10 +107,10 @@ class AdminController < ApplicationController
         # SmsJob.set(wait: 10.seconds).perform_later(phone: student.phone, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}")
       end
 
-      redirect_to admin_index_path, notice: "Cours N° #{current_course.id} a été validé avec succès."
+      redirect_to admin_index_path, notice: "La leçon #{current_course.chapter} a été validé avec succès."
     else
       # puts current_course.errors.details
-      redirect_to admin_index_path, notice: "Impossible de valider ce cours : #{current_course.errors.details}"
+      redirect_to admin_index_path, notice: "Impossible de valider cette lecon : #{current_course.errors.messages}"
     end
   end
 
