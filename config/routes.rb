@@ -104,6 +104,7 @@ Rails.application.routes.draw do
       get 'setup_student_index', to: "setup#student_idenx"
       get 'setup_notification_index', to: "setup#notification_index"
       get 'setup_course_index', to: "setup#course_index"
+      match 'manage_matiere', to: 'setup#manage_matiere', via: [:post, :get, :delete]
       get 'setup_structure_list', to: "setup#structure_list"
       get 'setup_structure_index', to: "setup#structure_index"
       match 'setup_add_new_structure', to: "setup#new_structure", via: [:post, :get, :delete] # ajout d'une nouvelle strcture

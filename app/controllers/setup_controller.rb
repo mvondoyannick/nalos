@@ -21,6 +21,23 @@ class SetupController < ApplicationController
     @matieres = Matiere.where(structure_id: current_user.structure_id).page(params[:page]).per(10)
   end
 
+  # supprimer une matiere
+  def manage_matiere
+    if request.delete?
+      # delete record request
+      current_matiere = Matiere.find_by_token(params[:token])
+      if current_matiere.destroy
+        redirect_to setup_course_index_path, notice: "Suppression de la matière #{current_matiere.name} terminée"
+      else
+        redirect_to setup_course_index_path, notice: "Une erreur est survenue durant le traitement de la requete : #{current_matiere.errors.details}"
+      end
+    elsif request.post?
+      # request recoard request
+    elsif request.get?
+      # render normal view
+    end
+  end
+
   def droits_index
 
   end
@@ -78,7 +95,7 @@ class SetupController < ApplicationController
   private
 
   def structure_params
-    params.permit(:name, :slogan, :mobile, :fixe, :pays, :region, :email)
+    params.permit(:name, :slogan, :mobile, :fixe, :pays, :region, :email, :logo)
   end
 
 end

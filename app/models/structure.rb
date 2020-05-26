@@ -4,4 +4,6 @@ class Structure < ApplicationRecord
   has_many :matieres
 
   validates :name, :email, :fixe, :mobile, :region, :pays, presence: true
+
+  has_one_attached :logo
 end

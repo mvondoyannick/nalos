@@ -55,7 +55,9 @@
                   </button>
                   <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
                     <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Modifier</a></li>
-                    <li class=""><a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Supprimer</a></li>
+                    <li class="">
+                      <%= link_to "Supprimer", manage_matiere_path(token: matiere.token), method: :delete, class: "rounded-t bg-red-500 hover:bg-red-400 py-2 px-4 block whitespace-no-wrap text-left", data: {confirm: "En supprimant cette matière de #{matiere.name.upcase}, vous allez \nsupprimer tous les cours qui lui sont rattachés. \nSouhaitez-vous vraiment continuer? \nCette action est irreversible."} %>
+                    </li>
                   </ul>
                 </div>
 
