@@ -1,6 +1,7 @@
 class HomeStudentController < ApplicationController
   before_action :authenticate_student!
   before_action :update_course_statitics, only: :read_course
+  
   def index
     @last_course = Course.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2).order(created_at: :desc).page(params[:page]).per(12) #Enseignement.last(10)
     @local_news = LocalNews.all.page(params[:page]).per(5)
@@ -170,4 +171,5 @@ class HomeStudentController < ApplicationController
   def comment_params
     params.permit(:student_id, :user_id, :course_id, :content)
   end
+
 end
