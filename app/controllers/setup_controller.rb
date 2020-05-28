@@ -26,7 +26,7 @@ class SetupController < ApplicationController
     teacher = User.new(enseignant_params)
     if teacher.save
       # send sms to teacher and admin
-      SmsJob.set(wait: 10.seconds).perform_later(phone: 691451189, msg: "Mr/Mme #{teacher.complete_name}, bienvenue sur NALSCHOOL. Votre compte #{teacher.role.name} vient d'être ajouté, votre login est #{teacher.matricule} et votre mot de passe est #{params[:password]}. Connectez-vous à travers ce lien #{request.base_url}")
+      SmsJob.set(wait: 10.seconds).perform_later(phone: teacher.phone1, msg: "Mr/Mme #{teacher.complete_name}, bienvenue sur NALSCHOOL. Votre compte #{teacher.role.name} vient d'être ajouté, votre login est #{teacher.matricule} et votre mot de passe est #{params[:password]}. Connectez-vous à travers ce lien #{request.base_url}")
 
       # send sms to all admin team
       User.where(structure_id: current_structure.id, role_id: current_role_id.id).each do |admin|
