@@ -3,8 +3,8 @@ class Structure < ApplicationRecord
   has_many :cycle_ecoles
   has_many :matieres
 
-  validates :region, :pays, :logo, presence: {message: "%{value} est obligatoire."}
-  validates :fixe, :name, :mobile, :email, presence: {message: '%{value} est obligatoire'}, uniqueness: {message: "%{value} à déja été utilisée."}
+  #validates :region, :pays, :logo, presence: {message: "%{value} est obligatoire."}
+  #validates :fixe, :name, :mobile, :email, presence: {message: '%{value} est obligatoire'}, uniqueness: {message: "%{value} à déja été utilisée."}
 
   has_one_attached :logo
 
