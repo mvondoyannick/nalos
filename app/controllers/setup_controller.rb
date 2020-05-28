@@ -26,12 +26,12 @@ class SetupController < ApplicationController
     teacher = User.new(enseignant_params)
     if teacher.save
       # send sms to teacher and admin
-      SmsJob.set(wait: 10.seconds).perform_later(phone: 691451189, msg: "Mr/Mme #{teacher.complete_name} votre compte vient d'etre ajouté, votre login est #{} et votre mot de passe est #{}. Connectez-vous à travers ce lien #{request.original_url}")
+      SmsJob.set(wait: 10.seconds).perform_later(phone: teacher.phone1, msg: "Mr/Mme #{teacher.complete_name} votre compte vient d'etre ajouté, votre login est #{teacher.matricule} et votre mot de passe est #{params[:password]}. Connectez-vous à travers ce lien #{request.original_url}")
 
       # send sms to all admin team
-      # User.where(structure_id: current_structure.id, role_id: current_role_id.id).each do |admin|
-      #   SmsJob.set(wait: 5.seconds).perform_later(phone: admin.phone1, msg: "Nouvel utilisateur ajouté #{admin.complete_name} dans la structure #{current_structure.name.upcase} par l'administrateur #{current_user.complete_name}")
-      # end
+      User.where(structure_id: current_structure.id, role_id: current_role_id.id).each do |admin|
+        SmsJob.set(wait: 5.seconds).perform_later(phone: admin.phone1, msg: "Nouvel utilisateur ajouté #{admin.complete_name} dans la structure #{current_structure.name.upcase} par l'administrateur #{current_user.complete_name}")
+      end
 
       redirect_to setup_manage_enseignant_index_path(token: token), notice: "Nouvel enseignant ajouté"
     else
