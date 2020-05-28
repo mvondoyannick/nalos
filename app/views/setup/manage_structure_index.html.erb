@@ -1,0 +1,326 @@
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      <% if @current_structure.logo.attached? %>
+        <%= image_tag url_for(@current_structure.logo), class: "inline-block h-12 w-12" %> Gestion de la structure
+      <% else %>
+        <%= image_tag 'logo.png', class: "inline-block h-12 w-12" %> Gestion de la structure
+      <% end %>
+      <br/>
+      <span class="text-indigo-600"><%= @current_structure.name %>.</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Update structure", setup_structure_index_path(structure_id: params[:structure_id]), class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-12 mx-auto px-4 md:px-12">
+  <div class="flex flex-wrap -mx-1 lg:-mx-4">
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+
+        <% if User.where(structure_id: @current_structure.id).count.zero? %>
+          <%= link_to "#", data: {confirm: "Il est necessaire d'importer des enseignants pour avoir \naccès à cette fonctionnalités"} do %>
+            <%= image_tag 'word.png', class: "block h-auto w-full" %>
+          <% end %>
+        <% else %>
+          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+        <% end %>
+
+        <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              Adminstrateurs
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <p class="ml-2 text-sm">
+              Gestion des utilisateurs administrateur mais egalement d'administration
+            </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+
+        <a href="#">
+          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+        </a>
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              Gestion des matières
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <p class="ml-2 text-sm">
+              Gestion des matières par import d'un document ou une création à la volée.
+            </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+        <%= link_to setup_manage_enseignant_index_path(token: params[:token]) do %>
+          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+        <% end %>
+
+        <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              Gestion des enseignants
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <p class="ml-2 text-sm">
+            Importer ou créer des enseignants, effectuer des affectations.
+          </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+
+        <a href="#">
+          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+        </a>
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              Gestion des classes
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <p class="ml-2 text-sm">
+              Permet de gerer des salles de classe, d'importer ou de créer manuellement.
+            </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+
+        <a href="#">
+          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+        </a>
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              Gestion des apprenants
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <p class="ml-2 text-sm">
+              Gestion des apprenants, permet d'importer ou de créer des apprenants à la volée.
+            </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+
+        <a href="#">
+          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <!--          <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+        </a>
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              Roles & postes
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">
+            <p class="ml-2 text-sm">
+              Permet de gerer les rôles et les postes sur la plateforme
+            </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+
+        <a href="#">
+          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <!--          <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+        </a>
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              Gestion des Cycles
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <p class="ml-2 text-sm">
+              Permet de gerer les rôles et les postes sur la plateforme
+            </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+
+        <a href="#">
+          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+        </a>
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              External API Intégration
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <p class="ml-2 text-sm">
+              Permet de gerer l'intégration des API externes complementaires à la plateforme.
+            </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+
+        <a href="#">
+          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+        </a>
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              Sécurités de la structure
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <p class="ml-2 text-sm">
+              Permet de gerer tous les aspects liés à la sécurité de la plateforme.
+            </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+  </div>
+</div>

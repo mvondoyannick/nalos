@@ -101,13 +101,17 @@ Rails.application.routes.draw do
     scope :setup do
       get 'setup_index', to: "setup#index"
       get 'setup_enseignant_index', to: "setup#enseignant_index"
+      get 'setup_manage_enseignant_index', to: 'setup#manage_enseignant_index'
+      post 'setup_new_teacher', to: 'setup#new_teacher' # ajuoter un nouvel enseignant
       get 'setup_student_index', to: "setup#student_idenx"
       get 'setup_notification_index', to: "setup#notification_index"
       get 'setup_course_index', to: "setup#course_index"
       match 'manage_matiere', to: 'setup#manage_matiere', via: [:post, :get, :delete]
-      get 'setup_structure_list', to: "setup#structure_list"
+      get 'setup_structure_list'  , to: "setup#structure_list"
       get 'setup_structure_index', to: "setup#structure_index"
+      get 'setup_manage_structure_index', to: 'setup#manage_structure_index' # permet de manager un structure
       match 'setup_add_new_structure', to: "setup#new_structure", via: [:post, :get, :delete] # ajout d'une nouvelle strcture
+      post 'setup_update_structure', to: 'setup#update_structure' # update structure
       get 'setup_droits_index', to: "setup#droits_index"
       get 'setup_root_structure', to: "setup#root_structure" # gestion des utilisateurs root
     end

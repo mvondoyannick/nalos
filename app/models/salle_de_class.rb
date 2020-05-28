@@ -12,6 +12,10 @@ class SalleDeClass < ApplicationRecord
     end
   end
 
+  def salle_de_class_with_initial
+      name.to_s
+  end
+
   private
   def set_ecole_cycle
     self.cycle_ecole_id = 1

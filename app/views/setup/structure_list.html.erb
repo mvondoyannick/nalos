@@ -54,59 +54,60 @@
         </thead>
         <tbody class="bg-white">
         <% @structures.each do |structure| %>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10">
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <% if structure.logo.attached? %>
+                    <%= link_to(image_tag(url_for(structure.logo), class: "h-10 w-10 rounded-full hover:bg-transparent hover:bg-indigo-500"), setup_structure_index_path(structure_id: structure.id)) %>
+                  <% else %>
                     <%= link_to(image_tag('teacher.png', class: "h-10 w-10 rounded-full hover:bg-transparent hover:bg-indigo-500"), setup_structure_index_path(structure_id: structure.id)) %>
+                  <% end %>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm leading-5 font-medium text-gray-900">
+                    <%= link_to excerpt(structure.name, '', radius: 20), setup_structure_index_path(structure_id: structure.id), class: "hover:bg-transparent hover:text-indigo-500" %>
                   </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900">
-                      <%= link_to excerpt(structure.name, '', radius: 20), setup_structure_index_path(structure_id: structure.id), class: "hover:bg-transparent hover:text-indigo-500" %>
-                    </div>
-                    <div class="text-sm leading-5 text-gray-500"><%= structure.created_at.strftime("%d %b %Y") %></div>
-                  </div>
+                  <div class="text-sm leading-5 text-gray-500"><%= structure.created_at.strftime("%d %b %Y") %></div>
                 </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900">
-                  <%= structure.fixe %>
-                </div>
-                <div class="text-sm leading-5 text-gray-500">
-                  <%= structure.mobile %>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900">
-                  <%= structure.email %>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900">
-                  <%= structure.region %>
-                </div>
-                <div class="text-sm leading-5 text-gray-900">
-                  <%= structure.pays %>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900">
-                  <%= Student.where(structure: structure.id).count %> apprenant(s)
-                </div>
-                <div class="text-sm leading-5 text-gray-900">
-                  <%= User.where(structure_id: structure.id).count %> enseignant(s)
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <%= link_to "Supprimer", setup_add_new_structure_path(structure_id: structure.id), method: :delete, class: "hover:bg-transparent hover:text-indigo-500", data: {confirm: "Etes vous sûr de vouloir supprimer la structure #{structure.name}? \nCette action est irreversible"} %>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <%= link_to "Admin", "#", class: "hover:bg-transparent hover:text-indigo-500" %>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <%= check_box :lorem, checked: true %>
-              </td>
-            </tr>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900">
+                <%= structure.fixe %>
+              </div>
+              <div class="text-sm leading-5 text-gray-500">
+                <%= structure.mobile %>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900">
+                <%= structure.email %>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900">
+                <%= structure.region %>
+              </div>
+              <div class="text-sm leading-5 text-gray-900">
+                <%= structure.pays %>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900">
+                <%= Student.where(structure: structure.id).count %> apprenant(s)
+              </div>
+              <div class="text-sm leading-5 text-gray-900">
+                <%= User.where(structure_id: structure.id).count %> enseignant(s)
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+              <div class="text-center">
+                <%= link_to "Supprimer", setup_add_new_structure_path(structure_id: structure.id), method: :delete, class: "bg-red-400 hover:bg-grey-dark font-bold py-2 px-4 shadow -mr-1 hover:bg-transparent hover:text-indigo-500", data: {confirm: "En supprimant cette structure, tous les informations qui lui sont ratéchées seront supprimées \nEtes vous sûr de vouloir supprimer la structure #{structure.name}? \nCette action est irreversible"} %>
+                <%= link_to 'Gérer', setup_manage_structure_index_path(token: structure.token, structure_id: structure.id), class: "bg-grey hover:bg-grey-dark font-bold py-2 px-4 rounded-r rounded-lg shadow" %>
+              </div>
+            </td>
+          </tr>
         <% end %>
         </tbody>
       </table>

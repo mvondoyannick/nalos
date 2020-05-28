@@ -12,27 +12,27 @@
   <% end %>
 
   <%= form.hidden_field :user_id, value: current_user.id %>
-<!--  <div class="flex flex-wrap -mx-3 mb-6">-->
-<!--    <div class="w-full px-3 mb-6 md:mb-0">-->
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3 mb-6 md:mb-0">
 
-<!--      <div class="flex flex-col max-w-4xl md:h-56 bg-white rounded-lg shadow-lg overflow-hidden md:flex-row my-10">-->
-<!--        <div class="md:flex items-center justify-center md:w-1/2 md:bg-gray-700">-->
-<!--          <div class="py-6 px-8 md:py-0">-->
-<!--            <h2 class="text-gray-700 text-2xl font-bold md:text-gray-100">Importer des documents</h2>-->
-<!--            <p class="mt-2 text-gray-600 md:text-gray-400">Selectionner un ou plusieurs documents parmis les formats-->
-<!--              autorisés.</p>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="flex items-center justify-center pb-6 md:py-0 md:w-1/2 md:border-b-8 border-gray-700">-->
-<!--          <div class="flex flex-col rounded-lg overflow-hidden sm:flex-row">-->
-            <%#= form.file_field :file, multiple: true, direct_upload: true, accept: 'image/*, video/*, application/pdf, audio/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', class: "py-3 px-4 bg-gray-200 text-gray-800 border-gray-300 border-2 outline-none placeholder-gray-500 focus:bg-gray-100" %>
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+      <div class="flex flex-col max-w-4xl md:h-56 bg-white rounded-lg shadow-lg overflow-hidden md:flex-row my-10">
+        <div class="md:flex items-center justify-center md:w-1/2 md:bg-gray-700">
+          <div class="py-6 px-8 md:py-0">
+            <h2 class="text-gray-700 text-2xl font-bold md:text-gray-100">Importer des documents</h2>
+            <p class="mt-2 text-gray-600 md:text-gray-400">Selectionner un ou plusieurs documents parmis les formats
+              autorisés.</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-center pb-6 md:py-0 md:w-1/2 md:border-b-8 border-gray-700">
+          <div class="flex flex-col rounded-lg overflow-hidden sm:flex-row">
+            <%= form.file_field :file, multiple: true, direct_upload: true, accept: 'image/*, video/*, application/pdf, audio/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', class: "py-3 px-4 bg-gray-200 text-gray-800 border-gray-300 border-2 outline-none placeholder-gray-500 focus:bg-gray-100" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <%= form.file_field :file, multiple: true, direct_upload: true, accept: 'image/*, video/*, application/pdf, audio/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
+  <%#= form.file_field :file, multiple: true, direct_upload: true, accept: 'image/*, video/*, application/pdf, audio/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
 
   <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
     <div class="inline-flex rounded-md shadow">
