@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_082808) do
+ActiveRecord::Schema.define(version: 2020_05_28_154632) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -283,6 +283,9 @@ ActiveRecord::Schema.define(version: 2020_05_27_082808) do
     t.bigint "structure_id", null: false
     t.bigint "cycle_ecole_id"
     t.bigint "salle_de_class_id"
+    t.string "token"
+    t.string "statut"
+    t.boolean "deleted"
     t.index ["cycle_ecole_id"], name: "index_users_on_cycle_ecole_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

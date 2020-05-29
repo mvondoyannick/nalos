@@ -1,0 +1,108 @@
+<% if notice.present? %>
+  <div class="-m-2 text-center mb-8" id="notice">
+
+    <div class="p-2">
+      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
+        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
+        <span class="inline-flex px-2">
+          <%= notice %>
+        </span>
+      </div>
+    </div>
+
+  </div>
+<% end %>
+
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      <% if @current_structure.logo.attached? %>
+        <%= image_tag url_for(@current_structure.logo), class: "inline-block h-12 w-12" %> Gestion des matière
+      <% else %>
+        <%= image_tag 'logo.png', class: "inline-block h-12 w-12" %> Gestion des matières
+      <% end %>
+      <br/>
+      <span class="text-indigo-600"><%= @current_structure.name %>.</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Nouvelle matière", setup_new_matiere_path(token: params[:token]), class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<%= paginate @matieres %>
+<br>
+<div class="flex flex-col">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Nom Complet
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Classe & matières
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Contact
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @matieres.each do |matiere| %>
+          <tr>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <%= image_tag 'teacher.png', class: "h-10 w-10 rounded-full" %>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm leading-5 font-medium text-gray-900"><%= excerpt(matiere.name, '', radius: 20) %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= matiere.structure.name %></div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900">
+                <%= matiere.created_at.strftime("%d %b %Y") %>
+              </div>
+              <div class="text-sm leading-5 text-gray-500">
+                <%= matiere.descriptioin %>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+              <div class="pr-10">
+
+                <div class="dropdown inline-block relative">
+                  <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+                    <span class="mr-1">Menu</span>
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </button>
+                  <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
+                    <li class="">
+                      <%= link_to "Modifier", setup_new_matiere_path(m_token: matiere.token, token: params[:token]), class: "bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" %>
+                    </li>
+                    <li class="">
+                      <%= link_to "Supprimer", setup_new_matiere_path(m_token: matiere.token, token: params[:token]), method: :delete, data: {confirm: "Vous étes sur le point de supprimer cette matière \nceci supprimera également tous les cours qui lui sont associés \ncontinuer la suppression?"}, class: "bg-red-500 hover:text-red-500 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" %>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

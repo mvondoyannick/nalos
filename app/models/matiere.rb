@@ -5,6 +5,8 @@ class Matiere < ApplicationRecord
 
   before_create :set_token, if: :new_record?
 
+  validates :name, presence: {message: "%{value} à deja été utilisé."}
+
   # for epreuves
   has_many :epreuves
 

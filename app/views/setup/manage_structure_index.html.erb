@@ -64,14 +64,14 @@
       <!-- Article -->
       <article class="overflow-hidden rounded-lg shadow-lg">
 
-        <a href="#">
+        <%= link_to setup_matiere_index_path(token: params[:token]) do %>
           <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
           <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
-        </a>
+        <% end %>
 
         <header class="flex items-center justify-between leading-tight p-2 md:p-4">
           <h1 class="text-lg">
-            <a class="no-underline hover:underline text-black" href="#">
+            <a class="no-underline hover:underline text-black hover:bg-transparent hover:text-indigo-500" href="#">
               Gestion des matières
             </a>
           </h1>
