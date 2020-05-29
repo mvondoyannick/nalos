@@ -5,6 +5,14 @@
       <br/>
       <span class="text-indigo-600">et liste de discussion</span>
     </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Nouveau message", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <%= link_to "Retourner à l'accueil", home_index_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"  %>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -91,7 +99,7 @@
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 h-10 w-10">
-                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
+                    <%= image_tag 'student.png', class: "h-10 w-10 rounded-full" %>
                   </div>
                   <div class="ml-4">
                     <div class="text-sm leading-5 font-medium text-gray-900"><%= comment.course.chapter.nil? ? comment.course.chapter : "Aucune Chapitre" %></div>
@@ -112,12 +120,9 @@
                 <%= comment.read? ? "OUI" : "NON" %>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                  <%= link_to "Lire", read_message_path(key: comment.metakey) unless comment.metakey.nil? %>
+                <a href="#" class="hover:bg-transparent hover:text-indigo-500 text-indigo-600 hover:text-indigo-900">
+                  <%= link_to "Lire", read_message_path(key: comment.metakey), class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900" %>
                 </a>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900">Signaler</a>
               </td>
             </tr>
           <% end %>

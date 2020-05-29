@@ -49,14 +49,15 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"
-                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                       stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z"/>
-                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-                    <circle cx="12" cy="14" r="2" />
-                    <polyline points="14 4 14 8 8 8 8 4" />
-                  </svg>
+                  <%= image_tag 'teacher.png' %>
+<!--                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"-->
+<!--                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--                       stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />-->
+<!--                    <circle cx="12" cy="14" r="2" />-->
+<!--                    <polyline points="14 4 14 8 8 8 8 4" />-->
+<!--                  </svg>-->
                 </div>
                 <div class="ml-4">
                   <div class="text-sm leading-5 font-medium text-gray-900"><%= enseignant.complete_name %></div>
@@ -68,14 +69,9 @@
               <div class="text-sm leading-5 text-gray-900"><%= enseignant.matricule.present? ? enseignant.matricule : "Inconnu" %></div>
               <div class="text-sm leading-5 text-gray-500"><%= enseignant.created_at.strftime("%d %b %Y") %></div>
             </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Activé
-              </span>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Admin', set_role_path(type: 'admin', user_id: enseignant.id), data: { confirm: "Etes vous certain de donner le role ADMIN à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'AP', set_role_path(type: 'ap', user_id: enseignant.id), data: { confirm: "Etes vous certain de vouloir donner le role de AP à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Enseignant', set_role_path(type: 'enseignant', user_id: enseignant.id), method: :delete, data: { confirm: "Cet utilisateur aura pour role Enseignant #{enseignant.complete_name}"}, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Admin', set_role_path(type: 'admin', user_id: enseignant.id), data: { confirm: "Etes vous certain de donner le role ADMIN à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" if enseignant.role.name != "admin" %></td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'AP', set_role_path(type: 'ap', user_id: enseignant.id), data: { confirm: "Etes vous certain de vouloir donner le role de AP à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" if enseignant.role.name != "ap" %></td>
+            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Enseignant', set_role_path(type: 'enseignant', user_id: enseignant.id), method: :delete, data: { confirm: "Cet utilisateur aura pour role Enseignant #{enseignant.complete_name}"}, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" if enseignant.role.name != "teacher" %></td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
               <input type="checkbox" />
             </td>

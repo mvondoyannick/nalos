@@ -22,10 +22,10 @@
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
       <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"},  method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
     </div>
   </div>
@@ -50,14 +50,15 @@
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
           <div class="flex items-center">
             <div class="flex-shrink-0 h-10 w-10">
-              <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"
-                   viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                   stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z"/>
-                <polyline points="14 3 14 8 19 8" />
-                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                <path d="M9 15l2 2l4 -4" />
-              </svg>
+              <%= image_tag 'course.png' %>
+<!--              <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"-->
+<!--                   viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--                   stroke-linecap="round" stroke-linejoin="round">-->
+<!--                <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--                <polyline points="14 3 14 8 19 8" />-->
+<!--                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />-->
+<!--                <path d="M9 15l2 2l4 -4" />-->
+<!--              </svg>-->
             </div>
             <div class="ml-4">
               <div><%= course.created_at.strftime("%d %b %Y") %></div>

@@ -14,9 +14,9 @@
       </div>
       <div class="ml-3 inline-flex rounded-md shadow">
         <% if @course.course_status.name == "validate" %>
-          <%= link_to "Suspendre", course_suspension_path(course_id: @course.id), class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+          <%= link_to "Suspendre", course_suspension_path(course_id: @course.id), data: {confirm: "Confirmer la suspension de cette leçon? \nElle ne sera plus disponible aux apprenants de #{current_user.structure.name.upcase}."}, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
         <% else %>
-          <%= link_to "Valider", course_validation_path(course_id: @course.id), method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+          <%= link_to "Valider", course_validation_path(course_id: @course.id), data: {confirm: "Confirmer la validation de cette leçon? \nUn SMS sera envoyé à tous les apprenants en relation avec ce cours."}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
         <% end %>
       </div>
     </div>

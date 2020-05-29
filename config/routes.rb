@@ -96,6 +96,7 @@ Rails.application.routes.draw do
     get "index", to: "admin#index"
     root "admin#index", as: 'admin_route'
     get 'set_role', to: "admin#set_role"
+    get 'set_role_root', to: 'admin#set_role_root'
 
     # setup plateforme
     scope :setup do

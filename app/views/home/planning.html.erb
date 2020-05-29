@@ -5,7 +5,17 @@
       <br />
       <span class="text-indigo-600">Planning, validation, notifications.</span>
     </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <%= link_to "Retourner à l'accueil", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="py-10 text-xl">
+  Mr/Mme <strong><%= @current_user.complete_name %></strong>, voici votre calendrier des cours que vous avez publiés. Il vous permettra d'avoir un aperçu sur l'état des
+  cours que vous avez publié.
 </div>
 
 <div class="py-8">
@@ -34,9 +44,6 @@
             class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
             Status
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-            Validé par
-          </th>
         </tr>
         </thead>
         <tbody>
@@ -51,12 +58,18 @@
                   <p class="text-gray-900 whitespace-no-wrap font-semibold">
                     <%= excerpt(course.chapter, '', radius: 30) %>
                   </p>
+                  <p class="text-gray-500 whitespace-no-wrap break-all">
+                    <%= course.user.complete_name %>
+                  </p>
                 </div>
               </div>
             </td>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
               <p class="text-gray-900 whitespace-no-wrap break-all">
                 <%= course.matiere.name %>
+              </p>
+              <p class="text-gray-500 whitespace-no-wrap">
+                <%= course.salle_de_class.name %>
               </p>
             </td>
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -78,9 +91,6 @@
                 <%= course.course_status.name %>
               </td>
             <% end %>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" >
-              Personne
-            </td>
           </tr>
         <% end %>
         </tbody>

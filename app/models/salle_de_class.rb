@@ -1,6 +1,7 @@
 class SalleDeClass < ApplicationRecord
   has_many :students
   belongs_to :cycle_ecole
+  belongs_to :structure
   has_many :users
 
   # for epreuves

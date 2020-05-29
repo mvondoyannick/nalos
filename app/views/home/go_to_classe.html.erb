@@ -3,22 +3,19 @@
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Salle de classe
       <br/>
-      <span class="text-indigo-600"><%= @classe.name %></span>
+      <span class="text-indigo-600"><%= SalleDeClass.find_by_token(params[:token]).name %></span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to "Notifier cette classe par SMS", send_sms_notification_to_classe_path(classe: @classe.token, id: DateTime.now.to_i), class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Contacter tous les parents
-        </a>
+        <% unless @classe.nil? %>
+        <%=  link_to "Notifier cette classe par SMS", send_sms_notification_to_classe_path(classe: @classe.token, id: DateTime.now.to_i, token: params[:token], all: true), class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"  %>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 
-<% if @students.empty? %>
+<% if @students.nil? %>
 
   <div class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center">
     <!--
@@ -71,7 +68,7 @@
         <%= link_to "Contacter l'administrateur", "#", class: "inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
       </span>
         <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-          <%= link_to "Précédent", :back, class: "inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
+          <%= link_to "Précédent", home_index_path, class: "inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5" %>
       </span>
       </div>
     </div>
@@ -126,7 +123,7 @@
                 <div class="text-sm leading-5 text-gray-500"><%= student.phone.present? ? student.phone : "Aucun contact" %></div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <input type="checkbox" />
+                <input type="checkbox"/>
               </td>
             </tr>
           <% end %>
