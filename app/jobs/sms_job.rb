@@ -11,6 +11,7 @@ class SmsJob < ApplicationJob
 
   def perform(args)
     # Do something later
-    Sms.send(phone: args[:phone], msg: args[:msg])
+    # structure = current_structure(current_user.structure.name.delete(' ').upcase)
+    Sms.send(phone: args[:phone], msg: args[:msg], structure: args[:structure].delete(' '))
   end
 end

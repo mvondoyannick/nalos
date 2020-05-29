@@ -4,8 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:matricule]
 
-  validates :name, :password, :structure_id, :salle_de_class_id, :cycle_ecole_id, :cni, :role_id, :sexe, presence: {message: "%{value} est obligatoire, merci de le renseigner."}
-  validates :name, :matricule, :email, :cni, :phone1, :phone2, presence: {message: "Champs obligatoire manquant"}, uniqueness: {message: "%{value} à déja été utilisé"}
+  before_create :set_user_token, if: :new_record?
+
+  #validates :name, :password, :structure_id, :salle_de_class_id, :cycle_ecole_id, :cni, :role_id, :sexe, presence: {message: "%{value} est obligatoire, merci de le renseigner."}
+  #validates :name, :matricule, :email, :cni, :phone1, :phone2, presence: {message: "Champs obligatoire manquant"}, uniqueness: {message: "%{value} à déja été utilisé"}
 
   belongs_to :role
   belongs_to :structure
@@ -28,5 +30,13 @@ class User < ApplicationRecord
 
   def complete_name
     "#{self.name} " + "#{self.second_name}"
+  end
+
+  private
+
+  # set user token and statut
+  def set_user_token
+    self.token = SecureRandom.hex(20)
+    self.statut = "active"
   end
 end

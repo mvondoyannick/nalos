@@ -102,7 +102,7 @@ Rails.application.routes.draw do
       get 'setup_index', to: "setup#index"
       get 'setup_enseignant_index', to: "setup#enseignant_index"
       get 'setup_manage_enseignant_index', to: 'setup#manage_enseignant_index'
-      post 'setup_new_teacher', to: 'setup#new_teacher' # ajuoter un nouvel enseignant
+      match 'setup_new_teacher', to: 'setup#new_teacher', via: [:post, :patch, :delete] # ajuoter un nouvel enseignant
       get 'setup_student_index', to: "setup#student_idenx"
       get 'setup_notification_index', to: "setup#notification_index"
       get 'setup_course_index', to: "setup#course_index"
@@ -114,6 +114,16 @@ Rails.application.routes.draw do
       post 'setup_update_structure', to: 'setup#update_structure' # update structure
       get 'setup_droits_index', to: "setup#droits_index"
       get 'setup_root_structure', to: "setup#root_structure" # gestion des utilisateurs root
+
+      # gestion des aspects liés aux matiere de la plateforme
+      get 'setup_matiere_index', to: 'setup#matiere_index'
+      match 'setup_new_matiere', to: 'setup#new_matiere', via: [:post, :get, :delete, :patch]
+      # fin de la gestion des matiere
+
+
+      # gestion de la partie liés au notifications
+
+      # finc de la gestion des notifications
     end
 
     scope :courses do
