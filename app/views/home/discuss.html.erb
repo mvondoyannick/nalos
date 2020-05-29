@@ -25,9 +25,6 @@
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Nombre apprenants
           </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Connectés
-          </th>
         </tr>
         </thead>
         <tbody class="bg-white">
@@ -51,10 +48,6 @@
                   </div>
                 </div>
               </div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= Student.where(salle_de_class_id: classe.id).count %></div>
-              <div class="text-sm leading-5 text-gray-500">Apprenants dispo.</div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="text-sm leading-5 text-gray-900"><%= Student.where(salle_de_class_id: classe.id).count %></div>

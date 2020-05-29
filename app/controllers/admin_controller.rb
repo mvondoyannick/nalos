@@ -73,9 +73,9 @@ class AdminController < ApplicationController
       SmsJob.set(wait: 10.seconds).perform_later(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y")} à été suspendu par l'administrateur, Il n'est plus disponilble pour les élèves #{current_course.salle_de_class.name}.")
 
 
-      redirect_to course_all_path, notice: "Cours N° #{current_course.id} a été validé avec succès."
+      redirect_to course_all_path, notice: "La leçon #{current_course.chapter} a suspendu et n'est désormais plus ouvert aux apprenants."
     else
-      redirect_to admin_index_path, notice: "Impossible de suspendre cette leçon : #{current_course.errors.messages}"
+      redirect_to course_all_path, notice: "Impossible de suspendre cette leçon : #{current_course.errors.messages}"
     end
 
   end
@@ -108,10 +108,10 @@ class AdminController < ApplicationController
         # SmsJob.set(wait: 10.seconds).perform_later(phone: student.phone, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}")
       end
 
-      redirect_to admin_index_path, notice: "La leçon #{current_course.chapter} a été validé avec succès."
+      redirect_to course_all_path, notice: "La leçon #{current_course.chapter} a été validé avec succès."
     else
       # puts current_course.errors.details
-      redirect_to admin_index_path, notice: "Impossible de valider cette lecon : #{current_course.errors.messages}"
+      redirect_to course_all_path, notice: "Impossible de valider cette lecon : #{current_course.errors.messages}"
     end
   end
 
@@ -147,7 +147,7 @@ class AdminController < ApplicationController
 
   # liste des teachers
   def teachers
-    @enseignants = User.where(role_id: 1).page(params[:page]).per(20)
+    @enseignants = User.where(role_id: 1, structure_id: current_user.structure_id).page(params[:page]).per(15)
   end
 
   # import enseignant
@@ -214,11 +214,63 @@ class AdminController < ApplicationController
   end
 
   def set_role
-    current_role = params[:type]
-
-    # update data
+    next_role = params[:type]
+    current_enseignant = User.find(params[:user_id])
+    if next_role == "admin"
+      # set user role to admin
+      if current_enseignant.update(role_id: Role.find_by_name("admin").id)
+        redirect_to teachers_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé administrateur"
+      else
+        redirect_to teachers_path, notice: "Impossible de nommer un nouvel administrateur"
+      end
+    elsif next_role == "enseignant"
+      # set user role to admin
+      if current_enseignant.update(role_id: Role.find_by_name("teacher").id)
+        redirect_to teachers_path, notice: "L'enseignant #{current_enseignant.complete_name} a été reclassé en simple enseignant"
+      else
+        redirect_to teachers_path, notice: "Impossible de reclasser cet enseignant"
+      end
+    elsif next_role == "ap"
+      # set user role to admin
+      if current_enseignant.update(role_id: Role.find_by_name("admin").id)
+        redirect_to teachers_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé Animateur Pédagogique"
+      else
+        redirect_to teachers_path, notice: "Impossible de nommer un nouvel Animateur Pédagogique"
+      end
+    end
 
   end
+
+  # set role root
+  def set_role_root
+    next_role = params[:type]
+    current_enseignant = User.find(params[:user_id])
+    if next_role == "admin"
+      # set user role to admin
+      if current_enseignant.update(role_id: Role.find_by_name("admin").id)
+        redirect_to setup_root_structure_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé administrateur"
+      else
+        redirect_to setup_root_structure_path, notice: "Impossible de nommer un nouvel administrateur"
+      end
+    elsif next_role == "enseignant"
+      # set user role to admin
+      if current_enseignant.update(role_id: Role.find_by_name("teacher").id)
+        redirect_to setup_root_structure_path, notice: "L'enseignant #{current_enseignant.complete_name} a été reclassé en simple enseignant"
+      else
+        redirect_to setup_root_structure_path, notice: "Impossible de reclasser cet enseignant"
+      end
+    elsif next_role == "ap"
+      # set user role to admin
+      if current_enseignant.update(role_id: Role.find_by_name("admin").id)
+        redirect_to setup_root_structure_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé Animateur Pédagogique"
+      else
+        redirect_to setup_root_structure_path, notice: "Impossible de nommer un nouvel Animateur Pédagogique"
+      end
+    end
+
+  end
+
+  #
 
   # intent import teachers
   def import_teacher_intent

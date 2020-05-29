@@ -31,14 +31,15 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"
-                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                       stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z"/>
-                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-                    <circle cx="12" cy="14" r="2" />
-                    <polyline points="14 4 14 8 8 8 8 4" />
-                  </svg>
+<!--                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"-->
+<!--                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--                       stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />-->
+<!--                    <circle cx="12" cy="14" r="2" />-->
+<!--                    <polyline points="14 4 14 8 8 8 8 4" />-->
+<!--                  </svg>-->
+                  <%= image_tag 'course.png' %>
                 </div>
                 <div class="ml-4">
                   <div class="text-sm leading-5 font-medium text-gray-900"><%= document.created_at.strftime("%d %b %Y") %></div>
@@ -49,11 +50,6 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="text-sm leading-5 text-gray-900">Importé par</div>
               <div class="text-sm leading-5 text-gray-500"><%= User.find(document.user_id).complete_name unless document.user_id.nil? %></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
-              </span>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Lister les fichiers', document, class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Editer/modifier', edit_document_path(document), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>

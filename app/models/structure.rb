@@ -1,6 +1,7 @@
 class Structure < ApplicationRecord
   has_many :users
   has_many :cycle_ecoles
+  has_many :salle_de_classes
   has_many :matieres
 
   validates :region, :pays, :logo, presence: {message: "%{value} est obligatoire."}

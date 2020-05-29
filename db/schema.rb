@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_28_154632) do
+ActiveRecord::Schema.define(version: 2020_05_29_183504) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -203,7 +203,9 @@ ActiveRecord::Schema.define(version: 2020_05_28_154632) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "cycle_ecole_id"
     t.string "token"
+    t.bigint "structure_id"
     t.index ["cycle_ecole_id"], name: "index_salle_de_classes_on_cycle_ecole_id"
+    t.index ["structure_id"], name: "index_salle_de_classes_on_structure_id"
   end
 
   create_table "statistics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -315,6 +317,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_154632) do
   add_foreign_key "messages", "users"
   add_foreign_key "problemes", "students"
   add_foreign_key "salle_de_classes", "cycle_ecoles"
+  add_foreign_key "salle_de_classes", "structures"
   add_foreign_key "statistics", "courses"
   add_foreign_key "statistics", "students"
   add_foreign_key "students", "salle_de_classes"

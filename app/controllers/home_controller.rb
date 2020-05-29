@@ -79,17 +79,28 @@ class HomeController < ApplicationController
 
   # acceder à une salle de classe
   def go_to_classe
-    @classe = SalleDeClass.find_by_token(params[:token])
-    @students = Student.where(salle_de_class_id: @classe.id).page(params[:page]).per(10)
+    @classe = SalleDeClass.find_by(token: params[:token], structure_id: current_user.structure_id)
+    if @classe.nil?
+      @students = nil
+    else
+      @students = Student.where(salle_de_class_id: @classe.id).page(params[:page]).per(10)
+    end
   end
 
   # send SMS notification to all student/parent classe
   def send_sms_notification_to_classe
     if request.get?
-      @current_classe = SalleDeClass.find_by_token(params[:classe])
+      @current_classe = SalleDeClass.find_by(token: params[:classe], structure_id: current_user.structure_id)
       @current_student_phone = Student.where(salle_de_class_id: @current_classe.id).where("phone != '' ").count
-    else
+    elsif request.post?
       # make post request
+      if params[:all].present?
+        # send SMS to all student
+
+      elsif params[:selection].present?
+        # send SMS to selected student
+
+      end
     end
   end
 
