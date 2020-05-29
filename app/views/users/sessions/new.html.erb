@@ -1,3 +1,18 @@
+<% if notice.present? %>
+  <div class="-m-2 text-center mb-8" id="notice">
+
+    <div class="p-2">
+      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
+        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
+        <span class="inline-flex px-2">
+                <%= notice %>
+              </span>
+      </div>
+    </div>
+
+  </div>
+<% end %>
+
 <%= image_tag("undraw_teacher_35j2.png", class: "h-48 object-cover object-center mx-auto mt-12 mb-10") %>
 <p class="text-center text-lg text-gray-600">
   Bienvenue sur la plateforme d'enseignement à distance
@@ -16,7 +31,7 @@
     <div class="w-2/12"></div>
     <div class="w-8/12 h-12">
       <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
-        <%= f.text_field :matricule, autofocus: true, autocomplete: "email", placeholder: "Matricule", class: "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" %>
+        <%= f.password_field :matricule, autofocus: true, autocomplete: "email", placeholder: "Matricule enseignant", class: "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" %>
       </div>
     </div>
     <div class="w-2/12"></div>
@@ -39,7 +54,7 @@
         <%= f.check_box :remember_me, class: "mr-2 leading-tight" %>
       <% end %>
       <span class="text-sm">
-        Remeber me!
+        Se souvenir de moi
       </span>
     </label>
   </div>
