@@ -7,24 +7,24 @@
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to "Nouvel administrateur root", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        <%= link_to "Nouveau superUser", setup_new_root_select_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
-      <div class="ml-3 inline-flex rounded-md shadow  dropdown inline-block relative">
-        <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
-          <li class="">
-            <a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Modifier</a>
-          </li>
-          <li class="">
-            <a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Message</a>
-          </li>
-          <li class="">
-            <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Suspendre</a>
-          </li>
-          <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Update
-            password</a></li>
-        </ul>
-        <%= link_to "Actions", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
+<!--      <div class="ml-3 inline-flex rounded-md shadow  dropdown inline-block relative">-->
+<!--        <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">-->
+<!--          <li class="">-->
+<!--            <a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Modifier</a>-->
+<!--          </li>-->
+<!--          <li class="">-->
+<!--            <a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Message</a>-->
+<!--          </li>-->
+<!--          <li class="">-->
+<!--            <a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Suspendre</a>-->
+<!--          </li>-->
+<!--          <li class=""><a class="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" href="#">Update-->
+<!--            password</a></li>-->
+<!--        </ul>-->
+        <%#= link_to "Actions", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+<!--      </div>-->
     </div>
   </div>
 </div>
@@ -464,11 +464,11 @@
                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
               </svg>
             </button>
-            <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10 mb-12">
+            <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10 mb-12 md:mr-10 sm:mr-10">
               <% case enseignant.role.name %>
               <% when "admin" %>
                 <li class="z-10">
-                  <%= link_to set_role_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                  <%= link_to set_role_root_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
                          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                          stroke-linecap="round" stroke-linejoin="round">
@@ -480,7 +480,7 @@
                   <% end %>
                 </li>
                 <li class="">
-                  <%= link_to set_role_path(type: "ap", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                  <%= link_to set_role_root_path(type: "ap", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
                          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                          stroke-linecap="round" stroke-linejoin="round">
@@ -524,7 +524,7 @@
                 </li>
               <% when "ap" %>
                 <li class="">
-                  <%= link_to set_role_path(type: "admin", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                  <%= link_to set_role_root_path(type: "admin", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
                          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                          stroke-linecap="round" stroke-linejoin="round">
@@ -550,34 +550,34 @@
                   <% end %>
                 </li>
               <% end %>
-              <li class="">
-                <%= link_to set_role_root_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                       stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z"/>
-                    <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2v-2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-2" />
-                    <polyline points="8 8 16 8 16 16 8 16 8 8" stroke-dasharray="4 4" stroke-dashoffset="2" />
-                  </svg>
-                  Affecter cours
-                <% end %>
-              </li>
+<!--              <li class="">-->
+                <%#= link_to set_role_root_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+<!--                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--                       stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--                    <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2v-2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-2" />-->
+<!--                    <polyline points="8 8 16 8 16 16 8 16 8 8" stroke-dasharray="4 4" stroke-dashoffset="2" />-->
+<!--                  </svg>-->
+<!--                  Affecter cours-->
+                <%# end %>
+<!--              </li>-->
 
-              <li class="">
-                <%= link_to set_role_root_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                       stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z"/>
-                    <circle cx="12" cy="18" r="2" />
-                    <circle cx="7" cy="6" r="2" />
-                    <circle cx="17" cy="6" r="2" />
-                    <path d="M7 8v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2 -2v-2" />
-                    <line x1="12" y1="12" x2="12" y2="16" />
-                  </svg>
-                  Affecter classe
-                <% end %>
-              </li>
+<!--              <li class="">-->
+                <%#= link_to set_role_root_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+<!--                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--                       stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--                    <circle cx="12" cy="18" r="2" />-->
+<!--                    <circle cx="7" cy="6" r="2" />-->
+<!--                    <circle cx="17" cy="6" r="2" />-->
+<!--                    <path d="M7 8v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2 -2v-2" />-->
+<!--                    <line x1="12" y1="12" x2="12" y2="16" />-->
+<!--                  </svg>-->
+<!--                  Affecter classe-->
+                <%# end %>
+<!--              </li>-->
             </ul>
           </div>
         </label>

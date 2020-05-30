@@ -2,130 +2,139 @@
   <ul>
     <li>
       <%= link_to home_student_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "index" && controller_name == "home_student"}" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-             stroke-linecap="round" stroke-linejoin="round">
-          <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
-          <rect x="4" y="4" width="6" height="6" rx="1" />
-          <rect x="14" y="4" width="6" height="6" rx="1" />
-          <rect x="4" y="14" width="6" height="6" rx="1" />
-          <rect x="14" y="14" width="6" height="6" rx="1" />
-        </svg>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--             stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <rect x="0" y="0" width="24" height="24" stroke="none"></rect>-->
+<!--          <rect x="4" y="4" width="6" height="6" rx="1" />-->
+<!--          <rect x="14" y="4" width="6" height="6" rx="1" />-->
+<!--          <rect x="4" y="14" width="6" height="6" rx="1" />-->
+<!--          <rect x="14" y="14" width="6" height="6" rx="1" />-->
+<!--        </svg>-->
+        <%= image_tag 'iconfinder_world_job_seeker_employee_unemployee_work_2620496.png', class: 'mr-4 h-8 w-8' %>
         Accueil
       <% end %>
     </li>
 
     <li>
       <%= link_to my_dashboard_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "dashboard"}" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <circle cx="12" cy="13" r="2" />
-          <line x1="13.45" y1="11.55" x2="15.5" y2="9.5" />
-          <path d="M6.4 20a9 9 0 1 1 11.2 0Z" />
-        </svg>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--             stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--          <circle cx="12" cy="13" r="2" />-->
+<!--          <line x1="13.45" y1="11.55" x2="15.5" y2="9.5" />-->
+<!--          <path d="M6.4 20a9 9 0 1 1 11.2 0Z" />-->
+<!--        </svg>-->
+        <%= image_tag 'iconfinder_front_office_job_seeker_employee_unemployee_work_2620521.png', class: 'mr-4 h-8 w-8' %>
         Dashboard
       <% end %>
     </li>
 
     <li>
       <%= link_to messages_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "messages"}" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <rect x="3" y="5" width="18" height="14" rx="2" />
-          <polyline points="3 7 12 13 21 7" />
-        </svg>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--          <rect x="3" y="5" width="18" height="14" rx="2" />-->
+<!--          <polyline points="3 7 12 13 21 7" />-->
+<!--        </svg>-->
+        <%= image_tag 'iconfinder_mail_job_seeker_employee_unemployee_work_2620511.png', class: 'mr-4 h-8 w-8' %>
         Messagerie
       <% end %>
     </li>
 
     <li>
       <%= link_to my_courses_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "student_course"}" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <polyline points="14 3 14 8 19 8" />
-          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-          <line x1="9" y1="9" x2="10" y2="9" />
-          <line x1="9" y1="13" x2="15" y2="13" />
-          <line x1="9" y1="17" x2="15" y2="17" />
-        </svg>
-        Cours publiés
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--             stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--          <polyline points="14 3 14 8 19 8" />-->
+<!--          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />-->
+<!--          <line x1="9" y1="9" x2="10" y2="9" />-->
+<!--          <line x1="9" y1="13" x2="15" y2="13" />-->
+<!--          <line x1="9" y1="17" x2="15" y2="17" />-->
+<!--        </svg>-->
+        <%= image_tag 'iconfinder_book-note-paper-school_2824439.png', class: 'mr-4 h-8 w-8' %>
+        Leçons publiés
       <% end %>
     </li>
 
     <li>
       <%= link_to index_epreuves_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "student_epreuves"}" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <polyline points="14 3 14 8 19 8" />
-          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-          <line x1="9" y1="9" x2="10" y2="9" />
-          <line x1="9" y1="13" x2="15" y2="13" />
-          <line x1="9" y1="17" x2="15" y2="17" />
-        </svg>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--             stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--          <polyline points="14 3 14 8 19 8" />-->
+<!--          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />-->
+<!--          <line x1="9" y1="9" x2="10" y2="9" />-->
+<!--          <line x1="9" y1="13" x2="15" y2="13" />-->
+<!--          <line x1="9" y1="17" x2="15" y2="17" />-->
+<!--        </svg>-->
+        <%= image_tag 'iconfinder_pencil-pen-stationery-school_2824443.png', class: 'mr-4 h-8 w-8' %>
         Training center
       <% end %>
     </li>
 
     <li>
       <%= link_to index_matiere_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "student_matires"}" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <path d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10" />
-        </svg>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--             stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--          <path d="M7 9a2 2 0 1 1 2 -2v10a2 2 0 1 1 -2 -2h10a2 2 0 1 1 -2 2v-10a2 2 0 1 1 2 2h-10" />-->
+<!--        </svg>-->
+        <%= image_tag 'iconfinder_note_job_seeker_employee_unemployee_work_2620509.png', class: 'mr-4 h-8 w-8' %>
         Mes matières
       <% end %>
     </li>
 
     <li>
       <%= link_to my_courses_files_path(m: current_student.matricule, t: DateTime.now.to_i), class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "student_ressources"} " do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3" />
-          <line x1="12" y1="12" x2="20" y2="7.5" />
-          <line x1="12" y1="12" x2="12" y2="21" />
-          <line x1="12" y1="12" x2="4" y2="7.5" />
-        </svg>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
+<!--             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
+<!--             stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--          <polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3" />-->
+<!--          <line x1="12" y1="12" x2="20" y2="7.5" />-->
+<!--          <line x1="12" y1="12" x2="12" y2="21" />-->
+<!--          <line x1="12" y1="12" x2="4" y2="7.5" />-->
+<!--        </svg>-->
+        <%= image_tag 'iconfinder_location_job_seeker_employee_unemployee_work_2620495.png', class: 'mr-4 h-8 w-8' %>
         Mes ressources
       <% end %>
     </li>
 
     <li>
       <%= link_to ma_classe_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200 text-blue-600" if action_name ==  "salle_de_classe"}" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <circle cx="7" cy="5" r="2" />
-          <path d="M5 22v-5l-1-1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5" />
-          <circle cx="17" cy="5" r="2" />
-          <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4" />
-        </svg>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--          <circle cx="7" cy="5" r="2" />-->
+<!--          <path d="M5 22v-5l-1-1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5" />-->
+<!--          <circle cx="17" cy="5" r="2" />-->
+<!--          <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4" />-->
+<!--        </svg>-->
+        <%= image_tag 'iconfinder_folder_job_seeker_employee_unemployee_work_2620522.png', class: 'mr-4 h-8 w-8' %>
         Ma salle de Classe
       <% end %>
     </li>
 
     <li>
       <%= link_to my_teachers_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "my_teachers"}" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <circle cx="8.5" cy="7" r="4" />
-          <path d="M2 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2" />
-          <path d="M16 11l2 2l4 -4" />
-        </svg>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
+<!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
+<!--          <circle cx="8.5" cy="7" r="4" />-->
+<!--          <path d="M2 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2" />-->
+<!--          <path d="M16 11l2 2l4 -4" />-->
+<!--        </svg>-->
+        <%= image_tag 'iconfinder_hierarchy_job_seeker_employee_unemployee_work_2620519.png', class: 'mr-4 h-8 w-8' %>
         Mes enseignants
       <% end %>
     </li>
 
-<!--    <li>-->
-      <%#= link_to student_discuss_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "discuss"}" do %>
+    <li>
+      <%= link_to yelp_path, target: "_blank", class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "discuss"}" do %>
 <!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
 <!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
 <!--          <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />-->
@@ -133,10 +142,11 @@
 <!--          <line x1="8" y1="11" x2="8" y2="11.01" />-->
 <!--          <line x1="16" y1="11" x2="16" y2="11.01" />-->
 <!--        </svg>-->
+        <%= image_tag 'help.png', class: 'mr-4 h-8 w-8' %>
 
-<!--        Chat & discussions-->
-      <%# end %>
-<!--    </li>-->
+        Aide & documentations
+      <% end %>
+    </li>
 
 <!--    <li>-->
       <%#= link_to time_table_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name ==  "time_table"}" do %>

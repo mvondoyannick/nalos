@@ -175,7 +175,11 @@ class SetupController < ApplicationController
   def root_structure
     current_role_id = Role.find_by_name("admin").id
     @roots = User.where(structure_id: current_user.structure_id, role_id: current_role_id).page(params[:page]).per(5)
+  end
 
+  # add selection new root user
+  def new_root_select
+    @enseignants = User.where(role_id: Role.find_by_name("teacher").id, structure_id: current_user.structure_id, statut: "active")
   end
 
   # list all strcture

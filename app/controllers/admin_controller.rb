@@ -276,7 +276,23 @@ class AdminController < ApplicationController
 
   end
 
-  #
+  # set enseignant role from setup_new_root_select
+  def enseignant_root_role
+    if params[:action].present?
+      if params[:user_id].nil?
+        redirect_to setup_new_root_select_path, notice: "Certaines informations semblement etre absencetes."
+      else
+        # current_structure = current_user.structure_id
+        # begin
+        params[:user_id].each do |u|
+          User.find(u).update(role_id: Role.find_by_name("admin").id)
+        end
+        redirect_to setup_new_root_select_path, notice: "Tous les #{params[:user_id].count} enseignant ont été nommés ADMIN avec succès."
+      end
+    else
+      redirect_to setup_new_root_select_path, notice: "Des données manquent dans votre requête!"
+    end
+  end
 
   # intent import teachers
   def import_teacher_intent

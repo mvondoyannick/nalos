@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :blogs
   resources :epreuves
   resources :messages
   resources :problemes
@@ -115,6 +116,8 @@ Rails.application.routes.draw do
       post 'setup_update_structure', to: 'setup#update_structure' # update structure
       get 'setup_droits_index', to: "setup#droits_index"
       get 'setup_root_structure', to: "setup#root_structure" # gestion des utilisateurs root
+      get 'setup_new_root_select', to: 'setup#new_root_select' # lister les utilisateurs qui seront les prochains root
+      post 'setup_enseignant_root_role', to: 'admin#enseignant_root_role'
 
       # gestion des aspects liés aux matiere de la plateforme
       get 'setup_matiere_index', to: 'setup#matiere_index'

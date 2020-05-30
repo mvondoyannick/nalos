@@ -1,0 +1,63 @@
+<% if notice.present? %>
+  <div class="-m-2 text-center mb-8" id="notice">
+
+    <div class="p-2">
+      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
+        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
+        <span class="inline-flex px-2">
+                <%= notice %>
+              </span>
+      </div>
+    </div>
+
+  </div>
+<% end %>
+
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Selectionner les
+      <br/>
+      <span class="text-indigo-600">utilisateur à configurer.</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <%= link_to "Précédent", :back, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= form_with(url: setup_enseignant_root_role_path) do |form| %>
+  <%= form.hidden_field :action, value: "admin" %>
+  <ul class="font-sans list-none p-0 container m-auto text-gray-900">
+    <% @enseignants.each do |enseignant| %>
+      <li class="inline-block border-b border-gray-300 flex justify-between items-center py-4">
+        <div class="flex items-start w-2/5">
+          <div class="w-10 h-10 rounded mr-3">
+            <div class="rounded-full h-10 w-10">
+              <%= image_tag 'teacher.png' %>
+            </div>
+          </div>
+          <div class="flex-1 overflow-hidden">
+            <div>
+              <span class="font-bold"><%= enseignant.complete_name %></span>
+              <span class="text-gray-700 text-xs"><%= enseignant.email if enseignant.email.present? %></span>
+            </div>
+            <p class="text-black leading-normal"><%= enseignant.matricule %></p>
+          </div>
+        </div>
+        <p class="w-2/5">Accéder au dossier d'informations</p>
+        <label for="status" class="font-bold w-1/5 text-right"><%= enseignant.statut %></label>
+        <label for="status" class="font-bold w-1/5 text-right">
+          <%= form.check_box :user_id, {multiple: true}, enseignant.id, nil %>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="inline-flex rounded-md shadow mt-12 relative">
+    <%= form.submit "Valider la sélection", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+  </div>
+
+<% end %>

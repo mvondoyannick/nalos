@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :courses
   has_many :comments
   has_many :messages
+  has_many :blogs
 
   # for epreuve
   has_many :epreuves
