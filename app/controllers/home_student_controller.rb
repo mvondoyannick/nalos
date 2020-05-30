@@ -3,7 +3,7 @@ class HomeStudentController < ApplicationController
   before_action :update_course_statitics, only: :read_course
   
   def index
-    @last_course = Course.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2).order(created_at: :desc).page(params[:page]).per(12) #Enseignement.last(10)
+    @last_course = Course.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: CourseStatus.find_by_name("validate").id).order(created_at: :desc).page(params[:page]).per(12) #Enseignement.last(10)
     @local_news = LocalNews.all.page(params[:page]).per(5)
   end
 
