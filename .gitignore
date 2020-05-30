@@ -10,6 +10,9 @@
 # Ignore vendors folder
 /vendor
 
+# ignore database
+config/database.yml
+
 # remove solr files
 solr/data
 solr/test/data
