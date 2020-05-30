@@ -247,10 +247,16 @@ class AdminController < ApplicationController
     current_enseignant = User.find(params[:user_id])
     if next_role == "admin"
       # set user role to admin
-      if current_enseignant.update(role_id: Role.find_by_name("admin").id)
-        redirect_to setup_root_structure_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé administrateur"
+      # the max admin is 6 and the less is 1
+      admin_number = User.find_by(role_id: Role.find_by_name("admin").id)
+      if admin_number.to_i.between?(1..6)
+        if current_enseignant.update(role_id: Role.find_by_name("admin").id)
+          redirect_to setup_root_structure_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé administrateur"
+        else
+          redirect_to setup_root_structure_path, notice: "Impossible de nommer un nouvel administrateur"
+        end
       else
-        redirect_to setup_root_structure_path, notice: "Impossible de nommer un nouvel administrateur"
+        redirect_to setup_root_structure_path, notice: "Impossible d'ajouter comme admin, le nombre maximum d'admin atteint!"
       end
     elsif next_role == "enseignant"
       # set user role to admin

@@ -4,7 +4,7 @@ class SalleDeClassesController < ApplicationController
   # GET /salle_de_classes
   # GET /salle_de_classes.json
   def index
-    @salle_de_classes = SalleDeClass.all
+    @salle_de_classes = SalleDeClass.all.page(params[:page]).per(10)
   end
 
   # GET /salle_de_classes/1

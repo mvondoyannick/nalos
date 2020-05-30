@@ -36,8 +36,8 @@
       <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
         <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
         <span class="inline-flex px-2">
-                <%= notice %>
-              </span>
+          <%= notice %>
+        </span>
       </div>
     </div>
 
@@ -48,224 +48,6 @@
 <br>
 <%= paginate @roots %>
 <br>
-<div class="flex flex-col">
-  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-      <table class="min-w-full">
-        <thead>
-        <tr>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Nom Complet
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Classe & matières
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Contact
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-        </tr>
-        </thead>
-        <tbody class="bg-white">
-        <% @roots.each do |enseignant| %>
-          <tr>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <%= image_tag 'teacher.png', class: "h-10 w-10 rounded-full" %>
-                </div>
-                <div class="ml-4">
-                  <div class="text-sm leading-5 font-medium text-gray-900"><%= excerpt(enseignant.complete_name, '', radius: 20) %></div>
-                  <div class="text-sm leading-5 text-gray-500"><%= enseignant.matricule %></div>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900">
-                <% current_classe = TeacherClasse.where(user_id: enseignant.id) %>
-                <% current_classe.distinct.pluck(:salle_de_class_id).uniq.each do |classe| %>
-                  <%= SalleDeClass.find(classe).name %>
-                <% end %>
-              </div>
-              <div class="text-sm leading-5 text-gray-500">
-                <% current_matiere = TeacherClasse.where(user_id: enseignant.id) %>
-                <% current_classe.distinct.pluck(:matiere_id).uniq.each do |matiere| %>
-                  <%= Matiere.find(matiere).name %> <br>
-                <% end %>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900">
-                <%= enseignant.phone1 %>
-              </div>
-              <div class="text-sm leading-5 text-gray-900">
-                <%= enseignant.phone2 %>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-              <div class="pr-10">
-
-                <div class="dropdown inline-block relative">
-                  <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-                    <span class="mr-1">Menu</span>
-                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                    </svg>
-                  </button>
-                  <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
-                    <% case enseignant.role.name %>
-                    <% when "admin" %>
-                      <li class="">
-                        <%= link_to set_role_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                               stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z"/>
-                            <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
-                            <line x1="8" y1="9" x2="16" y2="9"/>
-                            <line x1="8" y1="13" x2="14" y2="13"/>
-                          </svg>
-                          Enseignant
-                        <% end %>
-                      </li>
-                      <li class="">
-                        <%= link_to set_role_path(type: "ap", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                               stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z"/>
-                            <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
-                            <line x1="8" y1="9" x2="16" y2="9"/>
-                            <line x1="8" y1="13" x2="14" y2="13"/>
-                          </svg>
-                          A. Pédagogique
-                        <% end %>
-                      </li>
-                    <% when "teacher" %>
-                      <li class="">
-                        <%= link_to set_role_root_path(type: "admin", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                               stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z"/>
-                            <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/>
-                            <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/>
-                            <line x1="16" y1="5" x2="19" y2="8"/>
-                          </svg>
-                          Admin
-                        <% end %>
-                      </li>
-                      <li class="">
-                        <%= link_to set_role_root_path(type: "ap", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                               stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z"/>
-                            <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
-                            <line x1="8" y1="9" x2="16" y2="9"/>
-                            <line x1="8" y1="13" x2="14" y2="13"/>
-                          </svg>
-                          A. Pédagogique
-                        <% end %>
-                      </li>
-                    <% when "ap" %>
-                      <li class="">
-                        <%= link_to set_role_path(type: "admin", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                               stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z"/>
-                            <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/>
-                            <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/>
-                            <line x1="16" y1="5" x2="19" y2="8"/>
-                          </svg>
-                          Admin
-                        <% end %>
-                      </li>
-                      <li class="">
-                        <%= link_to set_role_root_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                          <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                               stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z"/>
-                            <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
-                            <line x1="8" y1="9" x2="16" y2="9"/>
-                            <line x1="8" y1="13" x2="14" y2="13"/>
-                          </svg>
-                          A. Pédagogique
-                        <% end %>
-                      </li>
-                    <% end %>
-
-                    <!--                    <li class="">-->
-                    <%#= link_to set_role_path(type: "ap", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                    <!--                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-                    <!--                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-                    <!--                             stroke-linecap="round" stroke-linejoin="round">-->
-                    <!--                          <path stroke="none" d="M0 0h24v24H0z"/>-->
-                    <!--                          <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>-->
-                    <!--                          <line x1="8" y1="9" x2="16" y2="9"/>-->
-                    <!--                          <line x1="8" y1="13" x2="14" y2="13"/>-->
-                    <!--                        </svg>-->
-                    <!--                        AP-->
-                    <%# end %>
-                    <!--                    </li>-->
-                    <!--                    <li class="">-->
-                    <%#= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token], suspend: true), method: :delete, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                    <!--                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-                    <!--                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-                    <!--                             stroke-linecap="round" stroke-linejoin="round">-->
-                    <!--                          <path stroke="none" d="M0 0h24v24H0z"/>-->
-                    <!--                          <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3"/>-->
-                    <!--                        </svg>-->
-                    <!--                        Suspendre-->
-                    <%# end %>
-                    <!--                    </li>-->
-                    <!--                    <li class="">-->
-                    <%#= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token]), method: :delete, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                    <!--                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-                    <!--                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-                    <!--                             stroke-linecap="round" stroke-linejoin="round">-->
-                    <!--                          <path stroke="none" d="M0 0h24v24H0z"/>-->
-                    <!--                          <circle cx="6" cy="6" r="2" />-->
-                    <!--                          <circle cx="18" cy="18" r="2" />-->
-                    <!--                          <path d="M11 6h5a2 2 0 0 1 2 2v8" />-->
-                    <!--                          <polyline points="14 9 11 6 14 3" />-->
-                    <!--                          <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8" />-->
-                    <!--                          <polyline points="10 15 13 18 10 21" />-->
-                    <!--                        </svg>-->
-                    <!--                        Supprimer-->
-                    <%# end %>
-                    <!--                    </li>-->
-
-                    <!--                    <li class="">-->
-                    <%#= link_to setup_enseignant_index_path(e_token: enseignant.token, token: params[:token], pwd: true), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                    <!--                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-                    <!--                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-                    <!--                             stroke-linecap="round" stroke-linejoin="round">-->
-                    <!--                          <path stroke="none" d="M0 0h24v24H0z"/>-->
-                    <!--                          <circle cx="6" cy="6" r="2" />-->
-                    <!--                          <circle cx="18" cy="18" r="2" />-->
-                    <!--                          <path d="M11 6h5a2 2 0 0 1 2 2v8" />-->
-                    <!--                          <polyline points="14 9 11 6 14 3" />-->
-                    <!--                          <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8" />-->
-                    <!--                          <polyline points="10 15 13 18 10 21" />-->
-                    <!--                        </svg>-->
-                    <!--                        Mot de passe-->
-                    <%# end %>
-                    <!--                    </li>-->
-                  </ul>
-                </div>
-
-              </div>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 
 
 <!--<div class="container my-12 mx-auto px-4 md:px-12">-->
@@ -653,3 +435,153 @@
 
 <!--  </div>-->
 <!--</div>-->
+<div class="bg-white shadow p-4 rounded">
+  <ul class="font-sans list-none p-0 container m-auto text-gray-900">
+    <% @roots.each do |enseignant| %>
+      <li class="inline-block border-b border-gray-300 flex justify-between items-center py-4">
+        <div class="flex items-start w-2/5">
+          <div class="w-10 h-10 rounded mr-3">
+            <%= image_tag 'teacher.png', class: "rounded-full h-10 w-10" %>
+          </div>
+          <div class="flex-1 overflow-hidden">
+            <div>
+              <span class="font-bold"><%= enseignant.complete_name %></span>
+<!--              <span class="text-gray-700 text-xs">@logan</span>-->
+            </div>
+            <p class="text-black leading-normal"><%= enseignant.matricule %></p>
+          </div>
+        </div>
+        <p class="w-2/5">
+          <% TeacherClasse.where(user_id: enseignant.id).each do |classe| %>
+            <%= SalleDeClass.find(classe.salle_de_class_id).name %>
+          <% end %>
+        </p>
+        <label for="status" class="font-bold w-1/5 text-right">
+          <div class="dropdown inline-block relative">
+            <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+              <span class="mr-1">Menu</span>
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+              </svg>
+            </button>
+            <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10 mb-12">
+              <% case enseignant.role.name %>
+              <% when "admin" %>
+                <li class="z-10">
+                  <%= link_to set_role_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z"/>
+                      <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+                      <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+                    </svg>
+                    Enseignant
+                  <% end %>
+                </li>
+                <li class="">
+                  <%= link_to set_role_path(type: "ap", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z"/>
+                      <circle cx="12" cy="9" r="6" />
+                      <polyline points="9 14.2 9 21 12 19 15 21 15 14.2" transform="rotate(-30 12 9)" />
+                      <polyline points="9 14.2 9 21 12 19 15 21 15 14.2" transform="rotate(30 12 9)" />
+                    </svg>
+                    A. Pédagogique
+                  <% end %>
+                </li>
+              <% when "teacher" %>
+                <li class="">
+                  <%= link_to set_role_root_path(type: "admin", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z"/>
+                      <circle cx="7" cy="18" r="2" />
+                      <circle cx="7" cy="6" r="2" />
+                      <circle cx="17" cy="6" r="2" />
+                      <line x1="7" y1="8" x2="7" y2="16" />
+                      <path d="M9 18h6a2 2 0 0 0 2 -2v-5" />
+                      <polyline points="14 14 17 11 20 14" />
+                    </svg>
+                    Admin
+                  <% end %>
+                </li>
+                <li class="">
+                  <%= link_to set_role_root_path(type: "ap", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z"/>
+                      <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
+                      <line x1="8" y1="9" x2="16" y2="9"/>
+                      <line x1="8" y1="13" x2="14" y2="13"/>
+                    </svg>
+                    A. Pédagogique
+                  <% end %>
+                </li>
+              <% when "ap" %>
+                <li class="">
+                  <%= link_to set_role_path(type: "admin", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : ADMIN?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z"/>
+                      <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/>
+                      <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/>
+                      <line x1="16" y1="5" x2="19" y2="8"/>
+                    </svg>
+                    Admin
+                  <% end %>
+                </li>
+                <li class="">
+                  <%= link_to set_role_root_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z"/>
+                      <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
+                      <line x1="8" y1="9" x2="16" y2="9"/>
+                      <line x1="8" y1="13" x2="14" y2="13"/>
+                    </svg>
+                    A. Pédagogique
+                  <% end %>
+                </li>
+              <% end %>
+              <li class="">
+                <%= link_to set_role_root_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                       stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z"/>
+                    <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2v-2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-2" />
+                    <polyline points="8 8 16 8 16 16 8 16 8 8" stroke-dasharray="4 4" stroke-dashoffset="2" />
+                  </svg>
+                  Affecter cours
+                <% end %>
+              </li>
+
+              <li class="">
+                <%= link_to set_role_root_path(type: "enseignant", user_id: enseignant.id), data: {confirm: "Etes-vous nommer #{enseignant.complete_name.upcase} au rôle de : SIMPLE ENSEIGNANT"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                       stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z"/>
+                    <circle cx="12" cy="18" r="2" />
+                    <circle cx="7" cy="6" r="2" />
+                    <circle cx="17" cy="6" r="2" />
+                    <path d="M7 8v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2 -2v-2" />
+                    <line x1="12" y1="12" x2="12" y2="16" />
+                  </svg>
+                  Affecter classe
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+</div>
