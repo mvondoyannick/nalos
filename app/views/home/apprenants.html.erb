@@ -2,7 +2,7 @@
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Apprenants
-      <br />
+      <br/>
       <span class="text-indigo-600">Liste detaillée de vos apprenants.</span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
@@ -13,7 +13,7 @@
   </div>
 </div>
 
-<%= paginate @apprenant %>
+<%= paginate @current_classes %>
 
 <div class="flex flex-col mt-8">
   <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -37,17 +37,13 @@
         </tr>
         </thead>
         <tbody class="bg-white">
-          <% @apprenant.each do |apprenant| %>
+        <% SalleDeClass.where(structure_id: current_user.structure_id, id: @current_classes).each do |apprenant| %>
+          lorem
           <tr>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z"/>
-                    <circle cx="8.5" cy="7" r="4" />
-                    <path d="M2 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2" />
-                    <path d="M16 11l2 2l4 -4" />
-                  </svg>
+                  <%= image_tag 'student.png' %>
                 </div>
                 <div class="ml-4">
                   <div class="text-sm leading-5 font-medium text-gray-900"><%= apprenant.complete_name %></div>
@@ -68,20 +64,20 @@
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
 
-                <%= link_to apprenant_details_path(id: apprenant.id), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" do %>
+              <%= link_to apprenant_details_path(id: apprenant.id), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" do %>
 
-                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z"/>
-                    <circle cx="12" cy="12" r="2" />
-                    <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2" />
-                    <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2" />
-                  </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z"/>
+                  <circle cx="12" cy="12" r="2"/>
+                  <path d="M2 12l1.5 2a11 11 0 0 0 17 0l1.5 -2"/>
+                  <path d="M2 12l1.5 -2a11 11 0 0 1 17 0l1.5 2"/>
+                </svg>
 
-                <% end %>
+              <% end %>
 
             </td>
           </tr>
-          <% end %>
+        <% end %>
         </tbody>
       </table>
     </div>
@@ -89,7 +85,7 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-    $(document).ready( function () {
+    $(document).ready(function () {
         $('#table').DataTable();
-    } );
+    });
 </script>

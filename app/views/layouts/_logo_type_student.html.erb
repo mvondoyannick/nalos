@@ -1,0 +1,8 @@
+<% @current_structure = Structure.find(current_student.structure) %>
+<% if @current_structure.logo.attached? %>
+  <%= image_tag url_for(@current_structure.logo), class: "h-10 w-10 inline-block" %>
+  <%= @current_structure.name %>
+<% else %>
+  <%= image_tag 'logo.png', class: "h-10 w-10 inline-block" %>
+  <%= @current_structure.name %>
+<% end %>

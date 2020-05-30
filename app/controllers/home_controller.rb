@@ -48,7 +48,11 @@ class HomeController < ApplicationController
   end
 
   def apprenants
-    @apprenant = Student.where(salle_de_class_id: current_user.salle_de_class_id).order(:name).page(params[:page]).per(50)  #all.where(salle_de_class_id: current_user.salle_de_class_id).order(:name)
+    #@apprenant = Student.where(structure_id: current_user.structure_id, salle_de_class_id: current_user.salle_de_class_id).order(:name).page(params[:page]).per(50)  #all.where(salle_de_class_id: current_user.salle_de_class_id).order(:name)
+    # Recherche des salles de classe de l'enseignant
+    @current_classes = TeacherClasse.where(user_id: current_user.id).page(params[:page]).per(10)
+      #@current_classes = SalleDeClass.where(structure_id: current_user.structure_id, id: current_classes.salle_de_class_id)
+
   end
 
   # details sur un apprenant
@@ -79,9 +83,9 @@ class HomeController < ApplicationController
 
   # acceder à une salle de classe
   def go_to_classe
-    @classe = SalleDeClass.find_by(token: params[:token], structure_id: current_user.structure_id)
+    @classe = SalleDeClass.find_by(token: params[:token])
     if @classe.nil?
-      @students = nil
+      redirect_to salle_classe_path, notice: "Aucun apprenants n'a été trouvé dans cette salle de classe."
     else
       @students = Student.where(salle_de_class_id: @classe.id).page(params[:page]).per(10)
     end
@@ -128,7 +132,7 @@ class HomeController < ApplicationController
 
   # managing blog
   def blog_index
-
+    @blogs = Blog.all.page(params[:page]).per(4)
   end
 
   private
