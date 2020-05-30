@@ -105,7 +105,7 @@ class HomeStudentController < ApplicationController
 
   # liste all cours from this student
   def student_course
-    @course = Course.where(salle_de_class_id: current_student.salle_de_class_id).page(params[:page]).per(10)
+    @course = Course.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: CourseStatus.find_by_name("validate").id).page(params[:page]).per(10)
   end
 
   # liste all file from this student courses
