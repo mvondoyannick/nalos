@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= form.hidden_field :structure_id, value: current_user.structure_id %>
+
   <div class="field">
     <%= form.label :user_id %>
     <%= form.collection_select(:user_id, User.all.where(role_id: 1), :id, :name, {prompt: "Selectionner un enseignant"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>

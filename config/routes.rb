@@ -38,6 +38,9 @@ Rails.application.routes.draw do
   resources :structures
   get 'home/index'
   #root 'home#index'
+
+  post 'importation', to: 'home#importation'
+
   scope :teacher do
     get 'apprenant', to: 'home#apprenants'
     get 'salle_classe', to: 'home#classes'
@@ -123,6 +126,10 @@ Rails.application.routes.draw do
       get 'setup_matiere_index', to: 'setup#matiere_index'
       match 'setup_new_matiere', to: 'setup#new_matiere', via: [:post, :get, :delete, :patch]
       # fin de la gestion des matiere
+
+      # affectation
+      get 'affectation_details', to: 'teacher_classes#details'
+      delete 'delete_affectation', to: 'teacher_classes#delete_affectation'
 
 
       # gestion de la partie liés au notifications

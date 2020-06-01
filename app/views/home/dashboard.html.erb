@@ -9,7 +9,20 @@
 </div>
 
 <% if Course.where(user_id: current_user.id).empty? %>
-  rien
+
+  <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+
+    <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+
+      <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+
+      <div class="text-center md:text-left">
+        <h2 class="text-lg mt-8">Pas de leçons consultées pour le moment.</h2> <br>
+      </div>
+    </div>
+
+  </div>
+
 <% else %>
   <div class="flex">
     <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">

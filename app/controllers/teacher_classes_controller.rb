@@ -5,7 +5,25 @@ class TeacherClassesController < ApplicationController
   # GET /teacher_classes
   # GET /teacher_classes.json
   def index
-    @teacher_classes = TeacherClasse.all
+    current_structure = Structure.find_by_token(params[:token])
+    @teacher_classes = TeacherClasse.where(structure_id: current_structure.id).group(:user_id).distinct.page(params[:page]).per(15)
+  end
+
+  # details of one teacher
+  def details
+    @current_user = User.find_by_token(params[:token])
+    @teacher_classes = TeacherClasse.where(user_id: @current_user.id)
+  end
+
+  # delete affectation
+  def delete_affectation
+    token = params[:token]
+    current_affectation = TeacherClasse.find(params[:id])
+    if current_affectation.delete
+      redirect_to affectation_details_path(token: token), notice: "Affectation correctement supprimée"
+    else
+      redirect_to affectation_details_path(token: token), notice: "Une erreur est survenue : #{current_affectation.errors.details}"
+    end
   end
 
   # GET /teacher_classes/1
@@ -70,6 +88,6 @@ class TeacherClassesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def teacher_class_params
-      params.require(:teacher_classe).permit(:user_id, :salle_de_class_id, :matiere_id)
+      params.require(:teacher_classe).permit(:user_id, :salle_de_class_id, :matiere_id, :structure_id)
     end
 end

@@ -16,24 +16,33 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Salles de classe
-      <br/>
-      <span class="text-indigo-600">& affectations.</span>
+      Détails des affectations de
+      <br />
+      <span class="text-indigo-600"><%= @current_user.complete_name %></span>
     </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Ajouter une affectation", "#", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <%= link_to "Précedent", :back, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
   </div>
 </div>
 
-<% if @classe.empty? %>
+
+<% if @teacher_classes.empty? %>
 
   <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
     <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-      <%= image_tag('iconfinder_storytelling-storyboard-scenario-script-screenplay_3993838.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+      <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
 
       <div class="text-center md:text-left">
-        <h2 class="text-lg mt-8">Vous ne semblez pas encore être affecté.</h2> <br>
-        <%= link_to "Ecrire à l'administration?", new_message_path(admin_token: User.find_by_role_id(Role.find_by_name("admin").id).token), class: "hover:bg-transparent hover:text-indigo-500" %>
+        <h2 class="text-lg mt-8">Aucune affectation pour le moment.</h2> <br>
+        <%= link_to "Nouvelle affectation?", new_teacher_class_path, class: "hover:bg-transparent hover:text-indigo-500" %>
       </div>
     </div>
 
@@ -51,41 +60,30 @@
               Salle de Classe
             </th>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Statistique apprenants
+              Matière
             </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="2"></th>
           </tr>
           </thead>
           <tbody class="bg-white">
-          <% @classe.each do |classe| %>
+          <% @teacher_classes.each do |teacher_class| %>
             <tr>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 h-10 w-10">
-                    <%= image_tag 'logo.png', class: "h-10 w-10 rounded-full" %>
+                    <%= image_tag 'teacher.png', class: "h-10 w-10 rounded-full" %>
                   </div>
                   <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900 font-semibold"><%= classe.salle_de_class.name %></div>
-                    <div class="text-sm leading-5 font-medium text-gray-900">
-                      <div class="px-6 py-4">
-                        <% TeacherClasse.where(user_id: current_user.id, salle_de_class_id: classe.id).each do |matiere| %>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                          <%= Matiere.find(matiere.id).name %>
-                        </span>
-                        <% end %>
-                      </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        <%= classe.created_at.strftime("%d %b %Y") %>
-                      </div>
-                    </div>
+                    <div class="text-sm leading-5 text-gray-900"><%= teacher_class.salle_de_class.name %></div>
                   </div>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= Student.where(salle_de_class_id: classe.id).count %> Apprenant(s)</div>
-                <div class="text-sm leading-5 text-gray-500"><%= User.where(salle_de_class_id: classe.id).count %> Enseigneant(s)</div>
+                <div class="text-sm leading-5 text-gray-900"><%= teacher_class.matiere.name %></div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <%= link_to "Accèder à la classe", inside_classe_path(token: classe.salle_de_class.token), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline hover:bg-transparent" %>
+                <%= link_to "Modifier", delete_affectation_path(id: teacher_class.id), class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900" %>
+                <%= link_to "Supprimer", delete_affectation_path(id: teacher_class.id, token: params[:token]), method: :delete, data: {confirm: "Supprimer cet affectation?"}, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900" %>
               </td>
             </tr>
           <% end %>
