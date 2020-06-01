@@ -13,6 +13,7 @@ class HomeController < ApplicationController
 
   def importation
     TeacherClasse.import(params[:file])
+    redirect_to teacher_classes_path, notice: 'Toutes les affectations ont été importées'
   end
 
   # epreuves
