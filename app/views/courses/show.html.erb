@@ -23,9 +23,9 @@
     <p class="object-center lg:items-center">
       <% docs = Document.find(@course.document_id).file.find(@course.file_id) %>
       <% if docs.video? %>
-        <%= video_tag url_for(docs), controls: "", id: "player", playsinline: true %>
+        <%= video_tag url_for(docs), width: "100%", controls: "", id: "player", playsinline: true %>
       <% elsif docs.audio? %>
-        <%= audio_tag url_for(docs), controls: "", id: "player", playsinline: true %>
+        <%= video_tag url_for(docs), width: "100%", poster: "poster.jpg", controls: "", id: "player", playsinline: true %>
       <% elsif docs.image? %>
         <%= image_tag url_for(docs) %>
       <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
@@ -87,7 +87,7 @@
           </div>
           <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm leading-5 font-medium text-gray-500">
-              Date de pub.
+              Date
             </dt>
             <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
               <%= @course.created_at.strftime("%d %b %Y") %>

@@ -17,8 +17,10 @@
 
 <br>
 <%= form_with(url: importation_path) do |form| %>
-  <%= form.file_field :file %>
-  <%= form.submit "Importer" %>
+  <%= form.file_field :file, class: "w-full shadow-inner p-4 border-0 bg-white mb-4" %>
+  <span class="sm:ml-3 shadow-sm rounded-md mt-8">
+    <%= form.submit "Importer des affectations", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-700 active:bg-indigo-700 transition duration-150 ease-in-out" %>
+    </span>
 <% end %>
 <br>
 <br>
@@ -46,10 +48,13 @@
   <%= paginate @teacher_classes %>
   <br>
 
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher ...", class="w-full shadow-inner p-4 border-0 mb-8 bg-white-900">
+  <br>
+
   <div class="flex flex-col">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
       <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-        <table class="min-w-full">
+        <table class="min-w-full" id="myTable">
           <thead>
           <tr>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
@@ -125,3 +130,27 @@
   <%# end %>
 <!--  </tbody>-->
 <!--</table>-->
+
+<script !src="">
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
