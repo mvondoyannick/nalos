@@ -8,7 +8,7 @@
       <span class="text-indigo-600">Publier un nouveau cours.</span>
     </h2>
   </div>
-</div>student_
+</div>
 
   <div class="flex md:flex-row-reverse flex-wrap rounded shadow">
     <div class="w-full md:w-3/4 bg-white p-4 text-left text-gray-200 ">
@@ -93,9 +93,9 @@
     </div>
     <div class="w-full md:w-1/4 bg-white p-4 text-center text-gray-700">
       <% if @current_file.audio? %>
-        <%= audio_tag url_for(@current_file), controls: true %>
+        <%= video_tag url_for(@current_file), controls: true, width: "100%", poster: "poster.jpg" %>
       <% elsif @current_file.video? %>
-        <%= video_tag url_for(@current_file), controls: true %>
+        <%= video_tag url_for(@current_file), controls: true, width: "100%", poster: "poster.jpg" %>
       <% elsif @current_file.image? %>
         <%= image_tag(@current_file, size: '500x500') %>
       <% elsif @current_file.content_type.end_with?("pdf") %>
