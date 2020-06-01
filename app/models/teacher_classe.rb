@@ -16,7 +16,7 @@ class TeacherClasse < ApplicationRecord
       current_classe = SalleDeClass.find_by_name(row[2])
       current_matiere = Matiere.find_by_name(row[3])
         # puts row[0]
-      saving = TeacherClasse.new(user_id: current_teacher.id, salle_de_class_id: current_classe.id, matiere_id: current_matiere.id)
+      saving = TeacherClasse.new(user_id: current_teacher.id, salle_de_class_id: current_classe.id, matiere_id: current_matiere.id, structure_id: row[4])
       puts saving.save
     end
   end
