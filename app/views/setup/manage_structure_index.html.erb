@@ -131,6 +131,39 @@
       <!-- Article -->
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
 
+        <%= link_to teacher_classes_path(token: params[:token]) do %>
+          <%= image_tag 'iconfinder_book-note-paper-school_2824439.png', class: "block h-auto w-full" %>
+          <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+        <% end %>
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black hover:bg-transparent hover:text-indigo-500" href="#">
+              Gestion des affectations
+            </a>
+          </h1>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <p class="ml-2 text-sm">
+              Gerer toutes les affectations des enseignants dans l'établissement.
+            </p>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
+    </div>
+    <!-- END Column -->
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg bg-white">
+
           <%= link_to salle_de_classes_path do %>
             <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
           <% end %>

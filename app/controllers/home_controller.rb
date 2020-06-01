@@ -11,6 +11,10 @@ class HomeController < ApplicationController
     @comments = Comment.where(user_id: current_user.id)
   end
 
+  def importation
+    TeacherClasse.import(params[:file])
+  end
+
   # epreuves
   def epreuves
 

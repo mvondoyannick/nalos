@@ -25,25 +25,14 @@
 
   <% if @current_course.count.zero? %>
     <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50 mx-auto md:mx-0 md:mr-6" width="100" height="100" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z"/>
-        <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"/>
-        <line x1="12" y1="11" x2="12" y2="11.01"/>
-        <line x1="8" y1="11" x2="8" y2="11.01"/>
-        <line x1="16" y1="11" x2="16" y2="11.01"/>
-      </svg>
 
       <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50 mx-auto md:mx-0 md:mr-6" width="100" height="100" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"/>
-          <line x1="12" y1="11" x2="12" y2="11.01"/>
-          <line x1="8" y1="11" x2="8" y2="11.01"/>
-          <line x1="16" y1="11" x2="16" y2="11.01"/>
-        </svg>
+
+        <%= image_tag('iconfinder_box-empty-play-button-video_3993859.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
 
         <div class="text-center md:text-left">
-          <h2 class="text-lg mt-8">Aucun disponible pour le moment</h2>
+          <h2 class="text-lg mt-8">Pas de leçons trouvées.</h2> <br>
+          <%= link_to "Publier une nouvelle leçon?", documents_path, class: "hover:bg-transparent hover:text-indigo-500" %>
         </div>
       </div>
 
@@ -134,19 +123,18 @@
       <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent hover:bg-transparent hover:text-indigo-500" %>
     </div>
 
-    <% if @local_news.count.zero? %>
+    <% if @local_news.empty? %>
       <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50 mx-auto md:mx-0 md:mr-6" width="100" height="100" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z"/>
-          <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"/>
-          <line x1="12" y1="11" x2="12" y2="11.01"/>
-          <line x1="8" y1="11" x2="8" y2="11.01"/>
-          <line x1="16" y1="11" x2="16" y2="11.01"/>
-        </svg>
 
-        <div class="text-center md:text-left">
-          <h2 class="text-lg mt-8">Babillard vide pour le moment</h2>
+        <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+
+          <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+
+          <div class="text-center md:text-left">
+            <h2 class="text-lg mt-8">Babillard vide pour le moment.</h2> <br>
+          </div>
         </div>
+
       </div>
     <% else %>
       <div class="">

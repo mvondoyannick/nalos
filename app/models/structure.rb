@@ -3,6 +3,7 @@ class Structure < ApplicationRecord
   has_many :cycle_ecoles
   has_many :salle_de_classes
   has_many :matieres
+  has_many :teacher_classes
 
   validates :region, :pays, :logo, presence: {message: "%{value} est obligatoire."}
   validates :fixe, :name, :mobile, :email, presence: {message: '%{value} est obligatoire'}, uniqueness: {message: "%{value} à déja été utilisée."}
