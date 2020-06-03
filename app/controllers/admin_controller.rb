@@ -23,7 +23,7 @@ class AdminController < ApplicationController
 
   # show all course
   def course_all
-    @course = Course.all.order(created_at: :desc).page(params[:page]).per(10)
+    @course = Course.all.order(created_at: :desc).page(params[:page]).per(20)
   end
 
   # valider ou suspendre tous les cours
