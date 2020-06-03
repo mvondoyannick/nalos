@@ -2,4 +2,4 @@
 
 <%= render 'form', teacher_class: @teacher_class %>
 
-<%= link_to 'Back', teacher_classes_path %>
+<%= link_to 'Back', teacher_classes_path(token: params[:token]) %>

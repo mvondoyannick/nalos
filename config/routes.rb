@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :tuteurs
   resources :blogs
   resources :epreuves
   resources :messages
@@ -104,6 +105,10 @@ Rails.application.routes.draw do
 
     # setup plateforme
     scope :setup do
+      # liste des apprenants
+      get 'setup_liste_apprenants', to: 'setup#liste_apprenants'
+
+      # setup index
       get 'setup_index', to: "setup#index"
       get 'setup_enseignant_index', to: "setup#enseignant_index"
       get 'setup_manage_enseignant_index', to: 'setup#manage_enseignant_index'
@@ -196,6 +201,10 @@ Rails.application.routes.draw do
 
   # course for student
   scope :course do
+    # search tags for a course
+    get 'course_tags', to: 'courses#list_course_tags'
+
+    # students actions
     get "read_course", to: "home_student#read_course"
     get 'read_course_file', to: "home_student#read_course_file"
     get "list_course", to: "home_student#list_course"

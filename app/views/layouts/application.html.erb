@@ -14,6 +14,7 @@
   <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href=https://stitches.hyperyolo.com/output.css rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js" defer></script>
@@ -81,10 +82,15 @@
     <%= render 'layouts/admin/admin_template' %>
 
   <% end %>
+
 <% elsif student_signed_in? %>
 
   <!-- managing student -->
   <%= render 'layouts/student/student_template' %>
+
+<% elsif tuteur_signed_in? %>
+
+  <%= render 'layouts/parent/parent_template' %>
 
 <% else %>
   <!--  <div class="flex mb-4 max-h-full h-screen">-->
@@ -117,14 +123,14 @@
       <%= image_tag("background.png", width: "100%", class: "object-cover") %>
     </div>
     <div class="w-full lg:w-1/2 px-2">
-      <% if notice.present? %>
+      <% if @message_pwd.present? %>
         <div class="-m-2 text-center mb-8" id="notice">
 
           <div class="p-2">
             <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
               <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
               <span class="inline-flex px-2">
-                <%= notice %>
+                <%= @message_pwd %>
               </span>
             </div>
           </div>

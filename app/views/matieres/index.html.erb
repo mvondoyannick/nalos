@@ -1,29 +1,92 @@
-<p id="notice"><%= notice %></p>
+<% if notice.present? %>
+  <div class="-m-2 text-center mb-8" id="notice">
 
-<h1>Matieres</h1>
+    <div class="p-2">
+      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
+        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
+        <span class="inline-flex px-2">
+          <%= notice %>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Descriptioin</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Matières
+      <br/>
+      <span class="text-indigo-600">disponibles.</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to 'Nouvelle matière', new_matiere_path, class: "hover:bg-transparent inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <tbody>
-    <% @matieres.each do |matiere| %>
-      <tr>
-        <td><%= matiere.name %></td>
-        <td><%= matiere.descriptioin %></td>
-        <td><%= link_to 'Show', matiere %></td>
-        <td><%= link_to 'Edit', edit_matiere_path(matiere) %></td>
-        <td><%= link_to 'Destroy', matiere, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if @matieres.empty? %>
 
-<br>
+  <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-<%= link_to 'New Matiere', new_matiere_path %>
+    <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+
+      <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+
+      <div class="text-center md:text-left">
+        <h2 class="text-lg mt-8">Aucune matière trouvée.</h2> <br>
+        <%= link_to 'Ajouter une matiere?', new_matiere_path, class: "hover:bg-transparent hover:text-indigo-500" %>
+      </div>
+    </div>
+
+  </div>
+
+<% else %>
+
+  <%= paginate @matieres %>
+
+  <div class="flex flex-col">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+        <table class="min-w-full">
+          <thead>
+          <tr>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Libellé matiere
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              description
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
+          </tr>
+          </thead>
+          <tbody class="bg-white">
+          <% @matieres.each do |matiere| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10">
+                    <%= image_tag 'course.png', class: "h-10 w-10 rounded-full" %>
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm leading-5 font-medium text-gray-900"><%= matiere.name %></div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="text-sm leading-5 text-gray-900"><%= matiere.descriptioin %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Voir', matiere %></td>
+              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Editer', edit_matiere_path(matiere) %></td>
+              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Supprimer', matiere, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<% end %>

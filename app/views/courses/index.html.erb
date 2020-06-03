@@ -81,6 +81,9 @@
                     <a class="hover:bg-transparent hover:text-indigo-500 no-underline hover:underline text-black" href="#">
                       <%= course.chapter %>
                     </a>
+                    <p>
+                      <%= course.salle_de_class.name %>
+                    </p>
                   </h1>
                   <p class="text-grey-darker text-sm">
                     <%= course.created_at.strftime("%d %b %Y") %>

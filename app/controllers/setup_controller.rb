@@ -246,6 +246,12 @@ class SetupController < ApplicationController
     end
   end
 
+  # liste apprenants
+  def liste_apprenants
+    current_structure = Structure.find_by_token(params[:token])
+    @students = Student.where(structure: current_structure).page(params[:page]).per(20)
+  end
+
   private
 
   def structure_params

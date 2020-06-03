@@ -1,6 +1,7 @@
 class HomeStudentController < ApplicationController
   before_action :authenticate_student!
   before_action :update_course_statitics, only: :read_course
+  #load_and_authorize_resource
   
   def index
     @last_course = Course.where(salle_de_class_id: current_student.salle_de_class_id, course_status_id: CourseStatus.find_by_name("validate").id).order(created_at: :desc).page(params[:page]).per(12) #Enseignement.last(10)

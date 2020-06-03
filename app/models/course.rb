@@ -2,9 +2,9 @@ class Course < ApplicationRecord
   belongs_to :salle_de_class
   belongs_to :matiere
   belongs_to :user
-  belongs_to :course_status
-  has_one :document
-  has_many :statistics
+  belongs_to :course_status, dependent: :destroy
+  has_one :document#, dependent: :nullify
+  has_many :statistics#, dependent: :nullify
 
   #include sunspot
   # searchable do
@@ -36,6 +36,7 @@ class Course < ApplicationRecord
   def set_status
     self.course_status_id = CourseStatus.first.id
     self.token = SecureRandom.hex(12)
+    self.deleted = false
   end
 
 end

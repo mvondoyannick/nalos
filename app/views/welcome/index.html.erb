@@ -28,7 +28,7 @@
               Plateforme digitale d'enseignement à distance.
             </h1>
 
-            <p class="text-indigo-200 md:text-xl md:pr-38">
+            <p class="text-indigo-200 md:text-xl md:pr-38 leading-normal">
               NAL Online School est la plateforme d’enseignement à distance par excellence.
               Le groupe scolaire bilingue NAL (GSBNAL) et le complexe secondaire bilingue NAL (CSBNAL)
               invite leurs élèves et les parents d’élèves à suivre GRATUITEMENT à tout instant et en
@@ -40,9 +40,10 @@
               <%= link_to "Acceder en tant que #{current_student.complete_name}", home_student_index_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
             <% elsif user_signed_in? %>
               <%= link_to "Accéder en tant que #{current_user.complete_name}", home_index_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
+              <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: 'hover:bg-transparent hover:text-white ml-8' %>
             <% else %>
-              <%= link_to 'Je suis un étudiant', new_student_session_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
-              <%= link_to 'Je suis un enseignant', new_user_session_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
+              <%= link_to 'Apprenant/Elève', new_student_session_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
+              <%= link_to 'Enseignant', new_user_session_path, class: "mt-6 mb-12 md:mb-0 md:mt-10 inline-block py-3 px-8 text-white bg-red-500 hover:bg-red-600 rounded-lg shadow"%>
             <% end %>
           </div>
           <div class="md:w-1/2 relative">
@@ -369,5 +370,22 @@
       viewBox="0 0 1440 320" >
       <path fill-opacity="1" d="M0,224L1440,32L1440,320L0,320Z"></path>
     </svg>
+  </div>
+</div>
+
+<div class="w-full h-full">
+  <div class="fixed bottom-0 right-0 mr-8 mb-6 ">
+    <div class="bg-white rounded-lg shadow-md px-4 py-2 border-1 border-gray-400 ">
+      <%= link_to "Je suis parent d'élève", new_tuteur_session_path, class: "hover:bg-transparent hover:text-gray-600" %>
+      <svg class="inline w-6" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+        <path style="fill:#1B4145;" d="M337.455,133.897C433.857,133.897,512,195.96,512,272.518c0,54.665-39.846,101.933-97.729,124.502
+	c-4.038,26.225,3.938,53.969,23.951,74.174c-38.413,0-70.869-25.645-81.546-60.893c-6.313,0.549-12.724,0.84-19.221,0.84
+	c-96.396,0-174.545-62.064-174.545-138.622C162.909,195.96,241.06,133.897,337.455,133.897z"/>
+        <path style="fill:#FFD24D;" d="M174.545,40.806C78.143,40.806,0,102.87,0,179.427c0,54.665,39.846,101.933,97.729,124.502
+	c4.038,26.225-3.938,53.969-23.951,74.174c38.413,0,70.869-25.645,81.546-60.893c6.313,0.549,12.724,0.84,19.221,0.84
+	c96.396,0,174.545-62.064,174.545-138.622C349.091,102.87,270.94,40.806,174.545,40.806z"/>
+      </svg>
+    </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
+  before_action :check_default_password
   # before_action :configure_permitted_parameters, if: :devise_controller?
 
   puts "Aucune structure définie ..." if Structure.all.count.zero?
@@ -23,6 +24,25 @@ class ApplicationController < ActionController::Base
     added_attrs = [:matricule, :password, :remember_me]
     # devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :sign_in, keys: added_attrs
+  end
+
+  # check if the user have default password
+  def check_default_password
+    if user_signed_in?
+      if current_user.valid_password?("123456")
+        # force to change password
+        #redirect_to home_index_path, notice: "merci de me mettre votre mot de passe à jour", if: :course_controller
+        @message_pwd = "lorem"
+      else
+        # password has been modified
+      end
+    elsif student_signed_in?
+      if current_student.valid_password?("123456")
+        # force user to change password
+      else
+        # password hab been modified
+      end
+    end
   end
 
 end

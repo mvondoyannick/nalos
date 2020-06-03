@@ -4,7 +4,7 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.where(user_id: current_user.id).page(params[:page]).per(10)
+    @documents = Document.where(user_id: current_user.id).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def detail_content
@@ -22,16 +22,21 @@ class DocumentsController < ApplicationController
   end
 
   def create_course_from_document
-    @course = Course.new(course_params)
+    #@course = Course.new(course_params)
 
-    current_course = ManageCourse.save_course(course_params)
+    # current_course = ManageCourse.save_course(course_params)
 
-    if current_course[0]
-      puts "enregistré"
-      redirect_to courses_path
-    else
-      puts current_course[1]
-    end
+    # send to activeJob
+    CourseSaveJob.set(wait: 2.seconds).perform_later(classes_ids: params[:classes_ids], data: course_params, user_id: current_user.id)
+
+    redirect_to courses_path, notice: "Vos leçons sont en cours de traitement, merci de patienter ..."
+
+    # if current_course[0]
+    #   puts "enregistré"
+    #   redirect_to courses_path, notice: "Nouveau cours enregistré"
+    # else
+    #   redirect_to courses_path, notice: "Impossible d'enregistrer cette leçon : #{current_course[1]}"
+    # end
 
   end
 
@@ -101,6 +106,6 @@ class DocumentsController < ApplicationController
     end
 
   def course_params
-    params.permit(:user_id, :document_id, :file_id, :matiere_id, :chapter, :salle_de_class_id, :categorie, :tag, :extrait, :course_status_id)
+    params.permit(:user_id, :document_id, :file_id, :matiere_id, :chapter, :classes_ids, :categorie, :tag, :extrait, :course_status_id)
   end
 end

@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_action :authenticate_user!
   before_action :update_comment_readed, only: :read_message
   def index
-    @current_course = Course.where(user_id: current_user.id).order(created_at: :desc)
+    @current_course = Course.where(user_id: current_user.id, deleted: false).order(created_at: :desc)
     @local_news = LocalNews.all.order(created_at: :desc)
   end
 
@@ -126,7 +126,7 @@ class HomeController < ApplicationController
 
     # inspecting all student with phone number
     Student.where(salle_de_class_id: @current_classe.id).where("phone != ''").each do |student|
-      SmsJob.set(wait: 2.minutes).perform_later(phone: student.phone, msg: " .#{current_teacher.upcase}")
+      SmsJob.set(wait: 2.minutes).perform_later(phone: student.phone, msg: " .#{current_teacher.upcase}", structure: current_user.structure.name.upcase)
     end
   end
 

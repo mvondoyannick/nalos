@@ -4,7 +4,8 @@ class MatieresController < ApplicationController
   # GET /matieres
   # GET /matieres.json
   def index
-    @matieres = Matiere.all
+    current_structure = Structure.find_by_token(params[:token])
+    @matieres = Matiere.where(structure_id: current_structure.id).page(params[:page]).per(10)
   end
 
   # GET /matieres/1
