@@ -62,7 +62,7 @@ class CourseSaveJob < ApplicationJob
               course_id: @course.id,
               student_id: Student.first.id,
               user_id: @u_id,
-              content: ActionText::Content.new("Mr/Mme #{User.find(@current_user).complete_name}, votre leçon #{@current_chapter.upcase} n'a pas pu etre publiée pour les raisons suivantese #{@comment.errors.details}. Merci de corriger ce problème et de refaire votre publication.")
+              content: ActionText::Content.new("Mr/Mme #{User.find(@current_user).complete_name}, votre leçon #{@current_chapter.upcase} n'a pas pu etre publiée pour les raisons suivantese #{@course.errors.details}. Merci de corriger ce problème et de refaire votre publication.")
           )
 
           if @comment.save
