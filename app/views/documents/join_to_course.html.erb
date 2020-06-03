@@ -1,11 +1,24 @@
-<p id="notice"><%= notice %></p>
+<% if notice.present? %>
+  <div class="-m-2 text-center mb-8" id="notice">
+
+    <div class="p-2">
+      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
+        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
+        <span class="inline-flex px-2">
+                <%= notice %>
+              </span>
+      </div>
+    </div>
+
+  </div>
+<% end %>
 
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Publication de cours
       <br />
-      <span class="text-indigo-600">Publier un nouveau cours.</span>
+      <span class="text-indigo-600">Publier une nouvelle leçon.</span>
     </h2>
   </div>
 </div>
@@ -43,7 +56,10 @@
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
               <%= form.label "Classe concernée" %>
             </label>
-            <%= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id).distinct, :salle_de_class_id, :class_with_initial, {prompt: "Selectionner une classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+            <%#= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id).distinct, :salle_de_class_id, :class_with_initial, {prompt: "Selectionner une classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+            <%= form.collection_check_boxes(:classes_ids, TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id).distinct, :salle_de_class_id, :class_with_initial) do |b| %>
+              <%= b.label(class: "my-#{ b.object.class.name.parameterize } p-2 flex inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
+            <% end %>
             <div class="inline-flex">
               <%#= form.collection_check_boxes("salle_de_class_ids[]", TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id).distinct, :id, :class_with_initial, {class: "inline-block text-indigo-500 mr-8"}) %>
             </div>
@@ -51,7 +67,7 @@
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
             </div>
-            <p class="text-green-500 text-xs italic">Classe concernée par ce cours</p>
+            <p class="text-green-500 text-xs italic">Classe concernée par cette leçon</p>
           </div>
           <div class="w-full md:w-1/2 px-3">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
@@ -99,10 +115,11 @@
       <% elsif @current_file.image? %>
         <%= image_tag(@current_file, size: '500x500') %>
       <% elsif @current_file.content_type.end_with?("pdf") %>
-        <%= image_tag @current_file.preview(resize: "500x500") %>
+        <object data="<%= rails_blob_path(@current_file) %>" height="500" width="100%"></object>
+        <%#= image_tag @current_file.preview(resize: "500x500") %>
       <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
         <%= image_tag @current_file.preview(resize: "500x500") %>
-      <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>msword
+      <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
         <%= image_tag @current_file.preview(resize: "500x500") %>
       <% elsif @current_file.content_type.end_with?("msword") %>
         <%= image_tag @current_file.preview(resize: "500x500") %>

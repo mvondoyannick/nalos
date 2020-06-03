@@ -3,7 +3,7 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @course = Course.where(course_status_id: 1).page(params[:page]).per(10)
+    @course = Course.where(course_status_id: 1).order(created_at: :desc).page(params[:page]).per(10)
     @new_account = User.where(structure_id: current_user.structure_id, created_at: Date.today.beginning_of_week..Date.today.end_of_week).page(params[:page]).per(10)
     @course_stats = Course.group(:matiere_id).count
     @course_view_stat = Course.group(:counter).count
@@ -23,7 +23,7 @@ class AdminController < ApplicationController
 
   # show all course
   def course_all
-    @course = Course.all.page(params[:page]).per(10)
+    @course = Course.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # valider ou suspendre tous les cours
@@ -66,11 +66,11 @@ class AdminController < ApplicationController
     if current_course.update(course_status_id: current_waiting_id)
       # admin notification
       # Sms.send(phone: current_user.phone1, msg: "Vous venez de suspendre le cours #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}.")
-      SmsJob.set(wait: 10.seconds).perform_later(phone: current_user.phone1, msg: "Vous venez de suspendre le cours #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}.")
+      SmsJob.set(wait: 10.seconds).perform_later(phone: current_user.phone1, msg: "Vous venez de suspendre le cours #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}.", structure: current_user.structure.name.upcase)
 
       # send message ton teacher
       # Sms.send(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y")} à été suspendu par l'administrateur, Il n'est plus disponilble pour les élèves #{current_course.salle_de_class.name}.")
-      SmsJob.set(wait: 10.seconds).perform_later(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y")} à été suspendu par l'administrateur, Il n'est plus disponilble pour les élèves #{current_course.salle_de_class.name}.")
+      SmsJob.set(wait: 10.seconds).perform_later(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y")} à été suspendu par l'administrateur, Il n'est plus disponilble pour les élèves #{current_course.salle_de_class.name}.", structure: current_user.structure.name.upcase)
 
 
       redirect_to course_all_path, notice: "La leçon #{current_course.chapter} a suspendu et n'est désormais plus ouvert aux apprenants."
@@ -96,7 +96,7 @@ class AdminController < ApplicationController
     if current_course.update(course_status_id: current_validation_id)
 
       # activeJob notification
-      SmsJob.set(wait: 10.seconds).perform_later(phone: 691451189, msg: "Vous venez de valider la leçon #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}. Elle est désormais accessible par tous les élèves de #{current_course.salle_de_class.name} à l'adresse #{request.env['SERVER_NAME']}/course/read_course?cours_key=#{current_course.token}&course_id=#{current_course.id}&id=87.")
+      SmsJob.set(wait: 10.seconds).perform_later(phone: 691451189, msg: "Vous venez de valider la leçon #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}. Elle est désormais accessible par tous les élèves de #{current_course.salle_de_class.name} à l'adresse #{request.env['SERVER_NAME']}/course/read_course?cours_key=#{current_course.token}&course_id=#{current_course.id}&id=87.", structure: current_user.structure.name.upcase)
 
       # send message ton teacher
       # Sms.send(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y")} à été validé par l'administrateur. Il est désormais disponible à vos élèves de #{current_course.salle_de_class.name}.")

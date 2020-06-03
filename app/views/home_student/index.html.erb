@@ -116,103 +116,123 @@
 <!--  </div>-->
 <!--</div>-->
 
-<div class="container my-12 mx-auto px-4 md:px-12">
-  <div class="flex flex-wrap -mx-1 lg:-mx-4">
+<% if @last_course.empty? %>
 
-    <% @last_course.each do |content| %>
+  <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-      <!-- Column -->
-      <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+    <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-        <!-- Article -->
-        <article class="overflow-hidden rounded-lg shadow-lg">
+      <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
 
-          <%= link_to read_course_path(cours_key: Document.find(content.document_id).file.find(content.file_id).key, id: Document.find(content.document_id).file.find(content.file_id).id, course_id: content.id), class: "hover:bg-transparent hover:text-indigo-500" do %>
-            <%= image_tag 'pdf.png', class: 'block h-auto w-full' %>
-          <% end %>
-
-          <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-            <h1 class="text-lg">
-              <%= link_to content.chapter, read_course_path(cours_key: Document.find(content.document_id).file.find(content.file_id).key, id: Document.find(content.document_id).file.find(content.file_id).id, course_id: content.id), class: "hover:bg-transparent hover:text-indigo-500 no-underline hover:underline text-black" %>
-            </h1>
-            <p class="text-grey-darker text-sm">
-              <%= content.created_at.strftime("%d %b %y") %>
-            </p>
-          </header>
-          <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-            <%= link_to my_teacher_course_path(current_teacher: content.user_id), class: "hover:bg-transparent hover:text-indigo-500 flex items-center no-underline hover:underline text-black" do %>
-              <%= image_tag 'teacher.png', class: "block rounded-full h-10 w-10" %>
-              <p class="ml-2 text-sm">
-                <%= content.user.complete_name %>
-              </p>
-            <% end %>
-            <a class="hover:bg-transparent hover:text-indigo-500 no-underline text-grey-darker hover:text-red-dark" href="#">
-              <span class="hidden">Like</span>
-              <i class="fa fa-heart"></i>
-            </a>
-          </footer>
-
-        </article>
-        <!-- END Article -->
-
+      <div class="text-center md:text-left">
+        <h2 class="text-lg mt-8">Aucuns enseignants pour le moment</h2> <br>
+        <%= link_to "Importer des enseignant?", "#", class: "hover:bg-transparent hover:text-indigo-500" %>
       </div>
-      <!-- END Column -->
-
-    <% end %>
+    </div>
 
   </div>
-</div>
 
-<div class="bg-gray-50 mt-8">
-  <div class="max-w-screen-xl mx-auto py-12 px-8 sm:px-6 lg:py-5 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-2xl sm:leading-10">
-      <span class="text-indigo-600">Cours par matière.</span>
-    </h2>
-  </div>
-</div>
+<% else %>
 
-<div class="">
-  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-      <table class="min-w-full">
-        <thead>
-        <tr>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Titre&nbsp;Matière
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Nombre de cours
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-        </tr>
-        </thead>
-        <tbody class="bg-white">
-        <% @last_course.distinct.pluck(:matiere_id).uniq.each do |content| %>
-          <tr>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <%= image_tag 'logo.png', style: 'h-10 w-10 rounded-full' %>
-                </div>
-                <div class="ml-4">
-                  <div class="text-sm leading-5 font-semibold text-gray-900"><%= Matiere.find(content).name %></div>
-                </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= Course.where(matiere_id: content, salle_de_class_id: current_student.salle_de_class_id).count %></div>
-              <div class="text-sm leading-5 text-gray-500"></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
-              <%= link_to "Consulter les cours de cette matière", list_course_path(id: content, course_id: Course.find_by_matiere_id(content)), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+  <div class="container my-12 mx-auto px-4 md:px-12">
+    <div class="flex flex-wrap -mx-1 lg:-mx-4">
+
+      <% @last_course.each do |content| %>
+
+        <!-- Column -->
+        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+          <!-- Article -->
+          <article class="overflow-hidden rounded-lg shadow-lg">
+
+            <%= link_to read_course_path(cours_key: Document.find(content.document_id).file.find(content.file_id).key, id: Document.find(content.document_id).file.find(content.file_id).id, course_id: content.id), class: "hover:bg-transparent hover:text-indigo-500" do %>
+              <%= image_tag 'pdf.png', class: 'block h-auto w-full' %>
+            <% end %>
+
+            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+              <h1 class="text-lg">
+                <%= link_to content.chapter, read_course_path(cours_key: Document.find(content.document_id).file.find(content.file_id).key, id: Document.find(content.document_id).file.find(content.file_id).id, course_id: content.id), class: "hover:bg-transparent hover:text-indigo-500 no-underline hover:underline text-black" %>
+              </h1>
+              <p class="text-grey-darker text-sm">
+                <%= content.created_at.strftime("%d %b %y") %>
+              </p>
+            </header>
+            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+              <%= link_to my_teacher_course_path(current_teacher: content.user_id), class: "hover:bg-transparent hover:text-indigo-500 flex items-center no-underline hover:underline text-black" do %>
+                <%= image_tag 'teacher.png', class: "block rounded-full h-10 w-10" %>
+                <p class="ml-2 text-sm">
+                  <%= content.user.complete_name %>
+                </p>
+              <% end %>
+              <a class="hover:bg-transparent hover:text-indigo-500 no-underline text-grey-darker hover:text-red-dark" href="#">
+                <span class="hidden">Like</span>
+                <i class="fa fa-heart"></i>
+              </a>
+            </footer>
+
+          </article>
+          <!-- END Article -->
+
+        </div>
+        <!-- END Column -->
+
+      <% end %>
+
     </div>
   </div>
-</div>
+
+  <div class="bg-gray-50 mt-8">
+    <div class="max-w-screen-xl mx-auto py-12 px-8 sm:px-6 lg:py-5 lg:px-8 lg:flex lg:items-center lg:justify-between">
+      <h2 class="text-xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-2xl sm:leading-10">
+        <span class="text-indigo-600">Cours par matière.</span>
+      </h2>
+    </div>
+  </div>
+
+  <div class="">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+        <table class="min-w-full">
+          <thead>
+          <tr>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Titre&nbsp;Matière
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Nombre de cours
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          </tr>
+          </thead>
+          <tbody class="bg-white">
+          <% @last_course.distinct.pluck(:matiere_id).uniq.each do |content| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10">
+                    <%= image_tag 'logo.png', style: 'h-10 w-10 rounded-full' %>
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm leading-5 font-semibold text-gray-900"><%= Matiere.find(content).name %></div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="text-sm leading-5 text-gray-900"><%= Course.where(matiere_id: content, salle_de_class_id: current_student.salle_de_class_id).count %></div>
+                <div class="text-sm leading-5 text-gray-500"></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium hover:bg-indigo-100">
+                <%= link_to "Consulter les cours de cette matière", list_course_path(id: content, course_id: Course.find_by_matiere_id(content)), class: "text-indigo-600 hover:bg-transparent hover:text-indigo-900 focus:outline-none focus:underline" %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<% end %>
 
 <div class="py-8">
   <div class="flex items-center justify-between mb-8 mt-10">

@@ -4,7 +4,8 @@ class SalleDeClassesController < ApplicationController
   # GET /salle_de_classes
   # GET /salle_de_classes.json
   def index
-    @salle_de_classes = SalleDeClass.all.page(params[:page]).per(10)
+    current_structure = Structure.find_by_token(params[:token])
+    @salle_de_classes = SalleDeClass.where(structure_id: current_structure.id).page(params[:page]).per(10)
   end
 
   # GET /salle_de_classes/1

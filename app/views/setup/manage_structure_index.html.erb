@@ -17,6 +17,90 @@
   </div>
 </div>
 
+
+<section class="my-8 font-sans container m-auto max-w-xl ">
+  <div class="text-center">
+    <h1 class="my-4 font-medium">Show Your Work</h1>
+    <p class="leading-normal mb-4 max-w-sm m-auto">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+      eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+  <div class="flex flex-col sm:flex-row flex-wrap my-8">
+    <%= link_to setup_root_structure_path(token: params[:token]), class: "hover:bg-white hover:text-black w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 border-gray-300 border-r border-b hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child" do %>
+      <div class="w-12 h-12 rounded-full bg-red-300 text-center" alt="">
+      </div>
+      <h3 class="mt-4 mb-1">ADMIN</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal px-6 hidden hover:block">Donec nec justo eget felis
+        facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+    <% end %>
+    <%= link_to matieres_path(token: params[:token]), class: "hover:bg-white hover:text-black w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 border-gray-300 border-r border-b hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child" do %>
+      <div class="w-12 h-12 rounded-full bg-yellow-300" alt=""></div>
+      <h3 class="mt-4 mb-1">MATIERES</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Praesent dapibus, neque id cursus
+        faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
+    <% end %>
+    <%= link_to setup_manage_enseignant_index_path(token: params[:token]), class: "hover:bg-white hover:text-black w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-b hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child" do %>
+      <div class="w-12 h-12 rounded-full bg-black" alt=""></div>
+      <h3 class="mt-4 mb-1">ENSEIGNANTS</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Phasellus ultrices nulla quis nibh.
+        Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.</p>
+    <% end %>
+    <%= link_to cycle_ecoles_path(token: params[:token]), class: "hover:bg-white hover:text-black w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-r hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child" do %>
+      <div class="w-12 h-12 rounded-full bg-green-300" alt=""></div>
+      <h3 class="mt-4 mb-1">CYCLES</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Donec nec justo eget felis facilisis
+        fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+    <% end %>
+    <%= link_to teacher_classes_path(token: params[:token]), class: "hover:bg-white hover:text-black w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-r hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child" do %>
+      <div class="w-12 h-12 rounded-full bg-indigo-300" alt=""></div>
+      <h3 class="mt-4 mb-1">AFFECTATIONS</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Lorem ipsum dolor sit amet,
+        consectetuer adipiscing elit.</p>
+    <% end %>
+    <%= link_to salle_de_classes_path(token: params[:token]), class: "hover:bg-white hover:text-black w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-r hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child" do %>
+      <div class="w-12 h-12 rounded-full bg-gray-300" alt=""></div>
+      <h3 class="mt-4 mb-1">CLASSES</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Donec odio. Quisque volutpat mattis
+        eros. Nullam malesuada erat ut turpis. </p>
+    <% end %>
+    <%= link_to setup_liste_apprenants_path(token: params[:token]), class: "hover:bg-white hover:text-black w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-r hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child" do %>
+      <div class="w-12 h-12 rounded-full bg-yellow-300" alt=""></div>
+      <h3 class="mt-4 mb-1">APPRENANTS</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Praesent dapibus, neque id cursus
+        faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
+    <% end %>
+    <div class="w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-r border-b hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child">
+      <div class="w-12 h-12 rounded-full bg-yellow-300" alt=""></div>
+      <h3 class="mt-4 mb-1">API EXTERNES</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Praesent dapibus, neque id cursus
+        faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
+    </div>
+    <div class="w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-r border-b hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child">
+      <div class="w-12 h-12 rounded-full bg-yellow-300" alt=""></div>
+      <h3 class="mt-4 mb-1">ROLES</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Praesent dapibus, neque id cursus
+        faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
+    </div>
+    <div class="w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-r border-b hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child">
+      <div class="w-12 h-12 rounded-full bg-yellow-300" alt=""></div>
+      <h3 class="mt-4 mb-1">SALLES DE CLASSE</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Praesent dapibus, neque id cursus
+        faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
+    </div>
+    <div class="w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-r border-b hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child">
+      <div class="w-12 h-12 rounded-full bg-yellow-300" alt=""></div>
+      <h3 class="mt-4 mb-1">SALLES DE CLASSE</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Praesent dapibus, neque id cursus
+        faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
+    </div>
+    <div class="w-full sm:w-1/2 md:w-1/3 flex flex-col items-center justify-center h-48 md:h-64 p-8  border-gray-300 border-r border-b hover:shadow-md hover:border-0 bg-white hover:transform-scale-subtle transition-normal hover:show-child">
+      <div class="w-12 h-12 rounded-full bg-yellow-300" alt=""></div>
+      <h3 class="mt-4 mb-1">COMPTES PARENTS</h3>
+      <p class="mt-4 text-center text-gray-700 leading-normal hidden hover:block">Praesent dapibus, neque id cursus
+        faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat.</p>
+    </div>
+  </div>
+</section>
+
 <div class="container my-12 mx-auto px-4 md:px-12">
   <div class="flex flex-wrap -mx-1 lg:-mx-4">
 
@@ -28,20 +112,18 @@
 
         <% if User.where(structure_id: @current_structure.id).count.zero? %>
           <%= link_to "#", data: {confirm: "Il est necessaire d'importer des enseignants pour avoir \naccès à cette fonctionnalités"} do %>
-            <%= image_tag 'word.png', class: "block h-auto w-full" %>
+            <%#= image_tag 'word.png', class: "block h-auto w-full" %>
           <% end %>
         <% else %>
           <%= link_to setup_root_structure_path do %>
-            <%= image_tag 'rulers.png', class: "block h-auto w-full" %>
+            <%#= image_tag 'rulers.png', class: "block h-auto w-full" %>
           <% end %>
         <% end %>
-
-        <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
 
         <header class="flex items-center justify-between leading-tight p-2 md:p-4">
           <h1 class="text-lg">
             <a class="no-underline hover:underline text-black" href="#">
-              Adminstrateurs
+              ADMIN. <%= @current_structure.name %>
             </a>
           </h1>
         </header>
@@ -67,7 +149,7 @@
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
 
         <%= link_to setup_matiere_index_path(token: params[:token]) do %>
-          <%= image_tag 'iconfinder_book-note-paper-school_2824439.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'iconfinder_book-note-paper-school_2824439.png', class: "block h-auto w-full" %>
           <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
         <% end %>
 
@@ -99,7 +181,7 @@
       <!-- Article -->
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
         <%= link_to setup_manage_enseignant_index_path(token: params[:token]) do %>
-          <%= image_tag 'iconfinder_pencil-pen-stationery-school_2824443.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'iconfinder_pencil-pen-stationery-school_2824443.png', class: "block h-auto w-full" %>
         <% end %>
 
         <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
@@ -132,7 +214,7 @@
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
 
         <%= link_to teacher_classes_path(token: params[:token]) do %>
-          <%= image_tag 'iconfinder_book-note-paper-school_2824439.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'iconfinder_book-note-paper-school_2824439.png', class: "block h-auto w-full" %>
           <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
         <% end %>
 
@@ -164,11 +246,11 @@
       <!-- Article -->
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
 
-          <%= link_to salle_de_classes_path do %>
-            <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
-          <% end %>
+        <%= link_to salle_de_classes_path do %>
+          <%#= image_tag 'pdf.png', class: "block h-auto w-full" %>
+        <% end %>
 
-          <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+        <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
 
         <header class="flex items-center justify-between leading-tight p-2 md:p-4">
           <h1 class="text-lg">
@@ -199,7 +281,7 @@
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
 
         <a href="#">
-          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'pdf.png', class: "block h-auto w-full" %>
           <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
         </a>
 
@@ -232,7 +314,7 @@
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
 
         <a href="#">
-          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'pdf.png', class: "block h-auto w-full" %>
           <!--          <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
         </a>
 
@@ -266,7 +348,7 @@
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
 
         <a href="#">
-          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'pdf.png', class: "block h-auto w-full" %>
           <!--          <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
         </a>
 
@@ -299,7 +381,7 @@
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
 
         <a href="#">
-          <%= image_tag 'iconfinder_tube-lab-science-school_2824437.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'iconfinder_tube-lab-science-school_2824437.png', class: "block h-auto w-full" %>
           <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
         </a>
 
@@ -332,7 +414,7 @@
       <article class="overflow-hidden rounded-lg shadow-lg">
 
         <a href="#">
-          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'pdf.png', class: "block h-auto w-full" %>
           <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
         </a>
 
@@ -398,7 +480,7 @@
       <article class="overflow-hidden rounded-lg shadow-lg">
 
         <a href="#">
-          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'pdf.png', class: "block h-auto w-full" %>
           <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
         </a>
 
@@ -431,7 +513,7 @@
       <article class="overflow-hidden rounded-lg shadow-lg">
 
         <a href="#">
-          <%= image_tag 'pdf.png', class: "block h-auto w-full" %>
+          <%#= image_tag 'pdf.png', class: "block h-auto w-full" %>
           <!-- <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
         </a>
 

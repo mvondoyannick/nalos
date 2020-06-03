@@ -5,12 +5,36 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all.where(user_id: current_user.id).order(created_at: :desc).page(params[:page]).per(6)
+    @courses = Course.all.where(user_id: current_user.id, deleted: false).order(created_at: :desc).page(params[:page]).per(18)
   end
 
   # GET /courses/1
   # GET /courses/1.json
   def show
+  end
+
+  # search tags
+  def list_course_tags
+    current_course = Course.find_by_token(params[:token])
+
+    # begin searching course on all plateforme and only for this class
+    c_tags = []
+    current_tag = Course.all.each do |tag|
+      tag.tag.split(',').each do |r|
+        c_tags << r.delete(' ')
+      end
+    end
+
+    puts c_tags
+    last_course = []
+    c_tags.each do |info|
+      last_course << Course.find_by_tag(info)
+    end
+
+    last_course.each do |lorem|
+      puts lorem
+    end
+
   end
 
   # GET /courses/new
@@ -55,7 +79,8 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    @course.destroy
+    # @course.destroy
+    @course.update(deleted: true)
     respond_to do |format|
       format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }

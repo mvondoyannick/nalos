@@ -4,7 +4,7 @@
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Liste des
-      <br />
+      <br/>
       <span class="text-indigo-600">salles de classe</span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
@@ -18,34 +18,53 @@
   </div>
 </div>
 
-<br>
-<%= paginate @salle_de_classes %>
-<br>
-<div class="bg-white shadow p-8 rounded">
-  <ul class="font-sans list-none p-0 container m-auto text-gray-900">
-    <% @salle_de_classes.each do |salle_de_class| %>
-      <li class="inline-block border-b border-gray-300 flex justify-between items-center py-4">
-        <div class="flex items-start w-2/5">
-          <div class="w-10 h-10 rounded mr-3">
-            <div class="rounded-full h-10 w-10">
-              <%= image_tag 'course.png' %>
+<% if @salle_de_classes %>
+
+  <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+
+    <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+
+      <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+
+      <div class="text-center md:text-left">
+        <h2 class="text-lg mt-8">Aucune salle de classe.</h2> <br>
+        <%= link_to "Nouvelle salle de classe", new_salle_de_class_path, class: 'hover:bg-transparent hover:text-indigo-500' %>
+      </div>
+    </div>
+
+  </div>
+
+<% else %>
+
+  <%= paginate @salle_de_classes %>
+  <br>
+  <div class="bg-white shadow p-8 rounded">
+    <ul class="font-sans list-none p-0 container m-auto text-gray-900">
+      <% @salle_de_classes.each do |salle_de_class| %>
+        <li class="inline-block border-b border-gray-300 flex justify-between items-center py-4">
+          <div class="flex items-start w-2/5">
+            <div class="w-10 h-10 rounded mr-3">
+              <div class="rounded-full h-10 w-10">
+                <%= image_tag 'course.png' %>
+              </div>
+            </div>
+            <div class="flex-1 overflow-hidden">
+              <div>
+                <span class="font-bold"><%= salle_de_class.name %></span>
+                <span class="text-gray-700 text-xs">@logan</span>
+              </div>
+              <p class="text-black leading-normal"><%= salle_de_class.cycle_ecole.name %></p>
             </div>
           </div>
-          <div class="flex-1 overflow-hidden">
-            <div>
-              <span class="font-bold"><%= salle_de_class.name %></span>
-              <span class="text-gray-700 text-xs">@logan</span>
-            </div>
-            <p class="text-black leading-normal"><%= salle_de_class.cycle_ecole.name %></p>
-          </div>
-        </div>
-        <p class="w-2/5">Aucun effectif ...</p>
-        <label for="status" class="font-bold w-2/5 text-right">
-          <%= link_to 'Voir', salle_de_class, class: "m-4" %>
-          <%= link_to 'Editer', edit_salle_de_class_path(salle_de_class), class: "m-4" %>
-          <%= link_to 'Supprimer', salle_de_class, method: :delete, data: { confirm: 'Are you sure?' }, class: "m-4" %>
-        </label>
-      </li>
-    <% end %>
-  </ul>
-</div>
+          <p class="w-2/5">Aucun effectif ...</p>
+          <label for="status" class="font-bold w-2/5 text-right">
+            <%= link_to 'Voir les apprenants', salle_de_class, class: "m-4" %>
+            <%= link_to 'Editer', edit_salle_de_class_path(salle_de_class), class: "m-4" %>
+            <%= link_to 'Supprimer', salle_de_class, method: :delete, data: {confirm: 'Are you sure?'}, class: "m-4" %>
+          </label>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+<% end %>
