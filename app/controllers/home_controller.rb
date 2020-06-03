@@ -132,7 +132,7 @@ class HomeController < ApplicationController
 
   # plannig de validation
   def planning
-    @planning = Course.where(user_id: current_user.id).order(created_at: :desc)
+    @planning = Course.where(user_id: current_user.id, deleted: false).order(created_at: :desc)
   end
 
   # managing blog

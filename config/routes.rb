@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  #get 'share/title:string'
   devise_for :tuteurs
   resources :blogs
   resources :epreuves
