@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  token: MyString
+  ip: MyString
+  last_session: MyString
+  counter: 1
+
+two:
+  email: MyString
+  token: MyString
+  ip: MyString
+  last_session: MyString
+  counter: 1
