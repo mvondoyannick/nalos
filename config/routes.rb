@@ -14,6 +14,12 @@ Rails.application.routes.draw do
   resources :classe_matieres
   root 'welcome#index'
 
+  scope :shares do
+    get 'share', to: 'welcome#shares'
+    get 'file_share_detail', to: 'welcome#file'
+    match 'check_me_mppp', to: 'welcome#confirm_user_email_ip', via: [:post, :get]
+  end
+
   # for help
   get 'yelp', to: "home_student#help"
 

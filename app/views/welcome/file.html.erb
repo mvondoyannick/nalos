@@ -1,0 +1,13 @@
+<% if @file.video? %>
+
+  <%= video_tag url_for(@file), controls: true %>
+
+<% elsif @file.content_type.end_with?('pdf') %>
+
+  <%= link_to(image_tag(@file.preview(resize: "1024x1024")), rails_blob_path(@file, disposition: "attachment")) %>
+
+<!--  <object data="<%#= rails_blob_path(@file) %>" type="<%#= @file.content_type %>" width="100%" height="1024" ></object>-->
+
+<% end %>
+<br>
+<%= link_to "Télécharger ce document", rails_blob_path(@file), disposition: "attachment" %>
