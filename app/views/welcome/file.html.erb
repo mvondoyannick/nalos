@@ -4,10 +4,11 @@
 
 <% elsif @file.content_type.end_with?('pdf') %>
 
-  <%= link_to(image_tag(@file.preview(resize: "1024x1024")), rails_blob_path(@file, disposition: "attachment")) %>
+  <%= link_to rails_blob_path(@file, disposition: "attachment"), class: "shadow-2xl p-10" do %>
+    <%= image_tag 'programme_mppp_1.png', height: 500 %>
+  <% end %>
 
 <!--  <object data="<%#= rails_blob_path(@file) %>" type="<%#= @file.content_type %>" width="100%" height="1024" ></object>-->
-
 <% end %>
 <br>
 <%= link_to "Télécharger ce document", rails_blob_path(@file), disposition: "attachment" %>

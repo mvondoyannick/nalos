@@ -24,7 +24,7 @@ class WelcomeController < ApplicationController
   def file
     current_file = params[:blob_id]
     current_ip = params[:client_ip]
-    @file = Document.last.file.find_by_blob_id(current_file)
+    @file = Document.find(401).file.find_by_blob_id(651)
     render layout: 'share'
   end
 
