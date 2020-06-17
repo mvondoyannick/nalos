@@ -81,9 +81,12 @@
 <body class="antialiased bg-gray-100">
 
 <% if user_signed_in? %>
+
   <% if current_user.role.name == "teacher" %>
+
     <%= render "layouts/admin/teacher_template" %>
-  <% elsif current_user.role.name == "admin" %>
+
+  <% elsif current_user.role.name == "admin" || current_user.role.name == "principale" %>
 
     <%= render 'layouts/admin/admin_template' %>
 

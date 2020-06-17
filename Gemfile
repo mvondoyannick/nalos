@@ -53,7 +53,6 @@ gem 'simple_calendar', "~> 2.0"
 # adding chartkick
 gem 'chartkick'
 # cancancan authorisation
-gem 'cancancan'
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 
@@ -87,3 +86,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "active_storage_drag_and_drop", "~> 1.1"

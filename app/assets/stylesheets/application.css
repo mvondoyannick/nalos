@@ -18,3 +18,4 @@
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/plyr/3.5.10/plyr.css");
 @import url("https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css");
+@import "active_storage_drag_and_drop.css";

@@ -8,7 +8,7 @@ class SetupController < ApplicationController
   # enseignant update, create form
   def enseignant_index
     current_role_id = Role.find_by_name('teacher').id
-    @current_structure = Structure.find_by_token(params[:token])
+    @current_structure = Structure.find(current_user.structure.id)
     @enseignants = User.where(role_id: current_role_id).where(structure_id: current_user.structure_id).page(params[:page]).per(12)
   end
 
@@ -184,7 +184,11 @@ class SetupController < ApplicationController
 
   # list all strcture
   def structure_list
-    @structures = Structure.all.page(params[:page]).per(10)
+    if current_user.role.name == "admin"
+      @structures = Structure.all.page(params[:page]).per(10)
+    else
+      @structure = Structure.find(current_user.structure_id)
+    end
   end
 
   # details d'une strcture

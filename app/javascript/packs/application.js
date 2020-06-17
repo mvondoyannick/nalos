@@ -3,10 +3,18 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+//= require active_storage_drag_and_drop
+// import ActiveStorageDragAndDrop from 'active_storage_drag_and_drop'
+
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+// require("active_storage_drag_and_drop")
+// import 'active_storage_drag_and_drop'
+import ActiveStorageDragAndDrop from 'active_storage_drag_and_drop'
+ActiveStorageDragAndDrop.start()
+
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -28,6 +36,17 @@ import '../css/application.css'
 
 require('tailwindcss')('./app/javascript/css/tailwind.js'),
     require('autoprefixer')
+
+document.addEventListener('dnd-uploads:start', function (event) {
+    console.log("upload are starting ...");
+    event.preventDefault()
+});
+
+document.addEventListener('dnd-uploads:end', function (event) {
+    console.log("upload ended ...");
+    event.preventDefault()
+})
+
 
 document.addEventListener("turbolinks:load", function () {
     // fynamic search on table
