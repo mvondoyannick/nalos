@@ -42,12 +42,13 @@ class WelcomeController < ApplicationController
         cookies.permanent.signed[:browser_id_we_share] == "MPPP User validated"
 
         # update user data
-        if @current_user.update(ip: request.remote_ip, last_session: DateTime.now, token: SecureRandom.hex(12), counter: @current_user.increment!(:counter))
-          redirect_to file_share_detail_path(token: @current_user.token, blob_id: current_file), notice: "Vous disposez de 5 minutes"
-          return
-        else
-          puts "Une erreur est survenue : #{@current_user}"
-        end
+        # if @current_user.update(ip: request.remote_ip, last_session: DateTime.now, token: SecureRandom.hex(12), counter: @current_user.increment!(:counter))
+        #   redirect_to max_share_reached_path(token: @current_user.token, blob_id: current_file), notice: "Vous ne devez que recevoir une copie de ce manuel de jeûne. Merci de contacter l'homme de Dieu pour beneficier d'autres copies à sunsightsee@yahoo.fr (Ministè"
+        #   return
+        # else
+        #   puts "Une erreur est survenue : #{@current_user}"
+        # end
+        redirect_to max_share_reached_path, notice: "Il se peut que vous avez atteint la limite d'un copie de ce document telle que défini par l'administrateur"
       else
         @share = Share.new(email: current_email, ip: request.remote_ip, last_session: DateTime.now, token: SecureRandom.hex(12), counter: 1)
         if @share.save
@@ -60,9 +61,12 @@ class WelcomeController < ApplicationController
       end
     elsif request.get?
 
-
     end
     render layout: 'share'
+  end
+
+  def max_share_reached
+
   end
 
 end

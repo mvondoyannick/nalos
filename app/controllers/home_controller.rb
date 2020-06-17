@@ -2,8 +2,20 @@ class HomeController < ApplicationController
   before_action :authenticate_user!
   before_action :update_comment_readed, only: :read_message
   def index
-    @current_course = Course.where(user_id: current_user.id, deleted: false).order(created_at: :desc)
-    @local_news = LocalNews.all.order(created_at: :desc)
+    if current_user.role.name == 'teacher'
+
+      @current_course = Course.where(user_id: current_user.id, deleted: false).order(created_at: :desc)
+      @local_news = LocalNews.all.order(created_at: :desc)
+
+    elsif current_user.role.name == 'principale'
+
+      redirect_to admin_index_path, notice: 'Redirection forcée vers cette page!'
+
+    elsif current_user.role.name == 'admin'
+
+      redirect_to setup_index_path
+
+    end
   end
 
   # teacher messagerie

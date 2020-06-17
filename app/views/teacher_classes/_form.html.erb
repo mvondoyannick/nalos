@@ -13,22 +13,27 @@
 
   <%= form.hidden_field :structure_id, value: current_user.structure_id %>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.collection_select(:user_id, User.all.where(role_id: 1), :id, :name, {prompt: "Selectionner un enseignant"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+  <div class="p-10 bg-white shadow">
+
+    <div class="field">
+      <%= form.label 'Enseignant' %>
+      <%= form.collection_select(:user_id, User.where(role_id: Role.find_by_name('teacher'), structure_id: current_user.structure.id), :id, :name, {prompt: "Selectionner un enseignant"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+    </div>
+
+    <div class="field">
+      <%= form.label :salle_de_class_id %>
+      <%= form.collection_select(:salle_de_class_id, SalleDeClass.where(structure_id: current_user.structure.id), :id, :name, {prompt: "Selectionner une classe"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+    </div>
+
+    <div class="field">
+      <%= form.label 'Matières' %>
+      <%= form.collection_select(:matiere_id, Matiere.where(structure_id: current_user.structure.id), :id, :name, {prompt: "Selectionner une matière"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Valider l'affectation", class: "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" %>
+    </div>
+
   </div>
 
-  <div class="field">
-    <%= form.label :salle_de_class_id %>
-    <%= form.collection_select(:salle_de_class_id, SalleDeClass.all, :id, :name, {prompt: "Selectionner une classe"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :salle_de_class_id %>
-    <%= form.collection_select(:matiere_id, Matiere.all, :id, :name, {prompt: "Selectionner une matière"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

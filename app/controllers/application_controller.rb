@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
-  before_action :check_default_password
+  # before_action :check_default_password
+  # before_action :add_log if user_signed_in?
   # before_action :configure_permitted_parameters, if: :devise_controller?
 
   puts "Aucune structure définie ..." if Structure.all.count.zero?
@@ -43,6 +44,25 @@ class ApplicationController < ActionController::Base
         # password hab been modified
       end
     end
+  end
+
+  # save activity journal logs
+  def add_log
+    #permet de journaliser toutes les action dans la plateforme
+    log = Journal.new
+    log.browser = request.env['HTTP_USER_AGENT']
+    #log.token = request.headers['HTTP_X_API_POP_KEY']
+    log.ip = request.remote_ip #request.env['REMOTE_ADDR'] #request.remote_ip
+    log.controller = params[:controller]
+    log.action = params[:action]
+    log.date = DateTime.now
+    #log.pays = nil # DistanceMatrix::DistanceMatrix.pays(request.remote_ip)
+    #log.region = nil # DistanceMatrix::DistanceMatrix.region(request.remote_ip)
+    #log.user = current_member.email
+    #log.role = current_member.service.name
+
+    #on enregistre l'activité
+    log.save
   end
 
 end

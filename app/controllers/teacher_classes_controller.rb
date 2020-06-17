@@ -47,7 +47,7 @@ class TeacherClassesController < ApplicationController
 
     respond_to do |format|
       if @teacher_class.save
-        format.html { redirect_to @teacher_class, notice: 'Teacher classe was successfully created.' }
+        format.html { redirect_to teacher_classes_path(token: current_user.structure.token), notice: 'Teacher classe was successfully created.' }
         format.json { render :show, status: :created, location: @teacher_class }
       else
         format.html { render :new }

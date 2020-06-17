@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get 'share', to: 'welcome#shares'
     get 'file_share_detail', to: 'welcome#file'
     match 'check_me_mppp', to: 'welcome#confirm_user_email_ip', via: [:post, :get]
+    get 'max_share_reached', to: 'welcome#max_share_reached'
   end
 
   # for help
