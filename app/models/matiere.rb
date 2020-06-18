@@ -16,6 +16,10 @@ class Matiere < ApplicationRecord
     end
   end
 
+  def matiere_with_initial
+    name.to_s
+  end
+
   private
   def set_token
     self.token = SecureRandom.hex(12)
