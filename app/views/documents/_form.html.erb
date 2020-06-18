@@ -36,7 +36,10 @@
   <br>
 
   <div class="bg-white p-10 rounded max-w-4xl hover:grow hover:shadow-lg text-center shadow">
-    <%= form.drag_and_drop_file_field :file, 'Glissez vous fichiers ici pour commencer à importer', direct_upload: true, multiple: true, accept: 'image/*, application/pdf, video/*, audio/*' %>
+    <%= form.file_field :file, direct_upload: true, multiple: true, accept: 'image/*, application/pdf, video/*, audio/*', class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
+    <p class="text-left mt-3">
+      Importer un ou plusieurs fichiers
+    </p>
   </div>
 
 

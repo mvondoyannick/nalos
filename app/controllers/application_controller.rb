@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # before_action :check_default_password
   # before_action :add_log if user_signed_in?
   # before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :check_password
 
   puts "Aucune structure définie ..." if Structure.all.count.zero?
 
@@ -20,6 +21,21 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  # check user_student password
+  def check_password
+    if student_signed_in? && controller_name == "home_student"
+      if current_student.valid_password?(123456)
+        puts "you have to change password!"
+        redirect_to edit_student_registration_path
+      end
+    elsif user_signed_in? && controller_name == "home"
+      if current_user.valid_password?(123456)
+        puts "Please update your password"
+        redirect_to edit_user_registration_path
+      end
+    end
+  end
 
   def configure_permitted_parameters
     added_attrs = [:matricule, :password, :remember_me]
