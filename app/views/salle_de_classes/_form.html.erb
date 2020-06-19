@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= form.hidden_field :structure_id, value: current_user.structure_id %>
+
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
