@@ -7,6 +7,8 @@ class SalleDeClass < ApplicationRecord
   # for epreuves
   has_many :epreuves
 
+  before_create :generate_token
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       SalleDeClass.create! row.to_hash
@@ -20,5 +22,10 @@ class SalleDeClass < ApplicationRecord
   private
   def set_ecole_cycle
     self.cycle_ecole_id = 1
+  end
+
+  # generat salle de classe token
+  def generate_token
+    self.token = SecureRandom.hex(20)
   end
 end
