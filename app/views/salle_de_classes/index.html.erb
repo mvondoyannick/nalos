@@ -56,7 +56,9 @@
               <p class="text-black leading-normal"><%= salle_de_class.cycle_ecole.name %></p>
             </div>
           </div>
-          <p class="w-2/5">Aucun effectif ...</p>
+          <p class="w-2/5">
+            <%= Student.where(salle_de_class_id: salle_de_class.id).count %> Apprenant(s) inscrit
+          </p>
           <label for="status" class="font-bold w-2/5 text-right">
             <%= link_to 'Voir les apprenants', salle_de_class, class: "m-4" %>
             <%= link_to 'Editer', edit_salle_de_class_path(salle_de_class), class: "m-4" %>
