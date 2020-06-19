@@ -35,31 +35,20 @@
   </div>
 </div>
 
-<div class="flex items-center justify-between mb-4">
+<div class="items-center justify-between mb-4">
   <h2 class="text-xl font-bold text-gray-800 mb-6">
-    <%= pie_chart(@course_stats) %>
+    <%= column_chart(@course_stats) %>
     <p class="text-center mt-8">
-      Cours publiés
-    </p>
-  </h2>
-  <h2 class="text-xl font-bold text-gray-800 mb-6">
-    <%= pie_chart(@course_view_stat) %>
-    <p class="text-center mt-8">
-      Cours lus
-    </p>
-  </h2>
-  <h2 class="text-xl font-bold text-gray-800 mb-6">
-    <%= pie_chart(@user_document_stat) %>
-    <p class="text-center mt-8">
-      Documents importés
+      Statistique cours lus | <%= link_to 'Imprimer', "#", class: 'font-light' %> | <%= link_to 'Plus de statistiques', "#", class: 'font-light' %>
     </p>
   </h2>
 </div>
 
-<% if @new_account.nil? %>
+<% if @new_account.empty? %>
+
 <% else %>
   <div class="flex items-center justify-between mb-4">
-    <h2 class="text-xl font-bold text-gray-800 mb-6">Comptes nouvellements crées</h2>
+    <h2 class="text-xl font-bold text-gray-800 mb-6">Nouveaux comptes</h2>
     <%= link_to 'Tout voir', "#", class: 'hover:bg-transparent text-blue-600 hover:text-blue-500 font-medium' %>
   </div>
 

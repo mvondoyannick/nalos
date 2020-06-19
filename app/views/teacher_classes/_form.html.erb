@@ -15,19 +15,45 @@
 
   <div class="p-10 bg-white shadow">
 
-    <div class="field">
-      <%= form.label 'Enseignant' %>
+    <div class="flex flex-wrap -mx-3 mb-6">
+
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+        <%= form.label 'Enseignant' %>
+      </label>
       <%= form.collection_select(:user_id, User.where(role_id: Role.find_by_name('teacher'), structure_id: current_user.structure.id), :id, :name, {prompt: "Selectionner un enseignant"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+      <p class="text-gray-500 text-xs italic">Selectionner un enseignant</p>
     </div>
 
-    <div class="field">
-      <%= form.label :salle_de_class_id %>
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+        <%= form.label :salle_de_class_id %>
+      </label>
       <%= form.collection_select(:salle_de_class_id, SalleDeClass.where(structure_id: current_user.structure.id), :id, :name, {prompt: "Selectionner une classe"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+      <p class="text-gray-500 text-xs italic">Selectionner une salle de classe</p>
     </div>
 
-    <div class="field">
+    </div>
+
+<!--    <div class="field">-->
+      <%#= form.label 'Enseignant' %>
+      <%#= form.collection_select(:user_id, User.where(role_id: Role.find_by_name('teacher'), structure_id: current_user.structure.id), :id, :name, {prompt: "Selectionner un enseignant"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+<!--    </div>-->
+
+<!--    <div class="field">-->
+      <%#= form.label :salle_de_class_id %>
+      <%#= form.collection_select(:salle_de_class_id, SalleDeClass.where(structure_id: current_user.structure.id), :id, :name, {prompt: "Selectionner une classe"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+<!--    </div>-->
+
+    <div class="field flex inline-block flex-wrap">
       <%= form.label 'Matières' %>
-      <%= form.collection_select(:matiere_id, Matiere.where(structure_id: current_user.structure.id), :id, :name, {prompt: "Selectionner une matière"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+      <br>
+      <br>
+      <%#= form.collection_select(:matiere_id, Matiere.where(structure_id: current_user.structure.id), :id, :name, {prompt: "Selectionner une matière"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+
+      <%= form.collection_check_boxes(:matiere_id, Matiere.where(structure_id: current_user.structure.id).group(:id).distinct, :id, :matiere_with_initial) do |b| %>
+        <%= b.label(class: "my-#{ b.object.class.name.parameterize } p-2 flex inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
+      <% end %>
     </div>
 
     <div class="actions">
@@ -37,3 +63,12 @@
   </div>
 
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        console.log("loaded ...!");
+        $('#teacher_classe_user_id').select2();
+        $('#teacher_classe_salle_de_class_id').select2();
+    });
+</script>
