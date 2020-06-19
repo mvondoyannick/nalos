@@ -71,7 +71,7 @@
             <div class="ml-4">
               <div><%= course.salle_de_class.name %></div>
               <div class="text-sm leading-5 text-gray-500">
-                <%= link_to Structure.find(course.structure).name, "#" %>
+                <%= link_to Structure.find(course.structure).name, "#" unless course.structure.nil? %>
               </div>
             </div>
           </div>
