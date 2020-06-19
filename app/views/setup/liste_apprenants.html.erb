@@ -7,15 +7,15 @@
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+        <%= link_to import_student_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" do %>
           Nouvel apprenant
-        </a>
+        <% end %>
       </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Importer
-        </a>
-      </div>
+<!--      <div class="ml-3 inline-flex rounded-md shadow">-->
+<!--        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">-->
+<!--          Importer-->
+<!--        </a>-->
+<!--      </div>-->
     </div>
   </div>
 </div>
@@ -30,7 +30,7 @@
 
       <div class="text-center md:text-left">
         <h2 class="text-lg mt-8">Aucun apprenant trouvé.</h2> <br>
-        <%= link_to "Nouvelle apprenants?", new_salle_de_class_path, class: 'hover:bg-transparent hover:text-indigo-500' %>
+        <%= link_to "Nouvelle apprenants?", import_student_path, class: 'hover:bg-transparent hover:text-indigo-500' %>
       </div>
     </div>
 
@@ -89,7 +89,9 @@
               <%= Structure.find(student.structure).name %>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-              <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+              <a href="#" class="text-indigo-600 hover:text-indigo-900">Editer</a>
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 ml-4">Contacter</a>
+              <a href="#" class="text-indigo-600 hover:text-indigo-900 ml-4">Statistiques</a>
             </td>
           </tr>
             <% end %>
