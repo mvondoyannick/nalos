@@ -5,9 +5,8 @@ class AdminController < ApplicationController
   def index
     @course = Course.where(course_status_id: 1).order(created_at: :desc).page(params[:page]).per(10)
     @new_account = User.where(structure_id: current_user.structure_id, created_at: Date.today.beginning_of_week..Date.today.end_of_week).page(params[:page]).per(10)
-    @course_stats = Course.group(:matiere_id).count
+    @course_stats = Course.group(:chapter).count
     @course_view_stat = Course.group(:counter).count
-    @user_document_stat = Document.group(:user_id).count
     @documents = ActiveStorage::Blob.all.limit(5).order(created_at: :desc) #Document.last(2).limit(5)
   end
 

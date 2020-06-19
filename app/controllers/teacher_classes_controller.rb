@@ -20,7 +20,7 @@ class TeacherClassesController < ApplicationController
     token = params[:token]
     current_affectation = TeacherClasse.find(params[:id])
     if current_affectation.delete
-      redirect_to affectation_details_path(token: token), notice: "Affectation correctement supprimée"
+      redirect_to affectation_details_path(token: token), notice: 'Affectation correctement supprimée'
     else
       redirect_to affectation_details_path(token: token), notice: "Une erreur est survenue : #{current_affectation.errors.details}"
     end
@@ -43,17 +43,46 @@ class TeacherClassesController < ApplicationController
   # POST /teacher_classes
   # POST /teacher_classes.json
   def create
-    @teacher_class = TeacherClasse.new(teacher_class_params)
+    #@teacher_class = TeacherClasse.new(teacher_class_params)
+    
+    token = params[:token]
 
-    respond_to do |format|
-      if @teacher_class.save
-        format.html { redirect_to teacher_classes_path(token: current_user.structure.token), notice: 'Teacher classe was successfully created.' }
-        format.json { render :show, status: :created, location: @teacher_class }
-      else
-        format.html { render :new }
-        format.json { render json: @teacher_class.errors, status: :unprocessable_entity }
+    p = params[:teacher_classe][:matiere_id].reject!(&:blank?)
+
+    p.each do |c|
+      puts "Data receive #{c}"
+      # search if this record exist to DB
+      unless TeacherClasse.exists?(user_id: params[:teacher_classe][:user_id], salle_de_class_id: params[:teacher_classe][:salle_de_class_id], matiere_id: c, structure_id: current_user.structure_id)
+        a = TeacherClasse.new(user_id: params[:teacher_classe][:user_id], salle_de_class_id: params[:teacher_classe][:salle_de_class_id], matiere_id: c, structure_id: current_user.structure_id)
+        if a.save
+          puts "Saved to DB"
+        else
+          puts "Error : #{a.errors.details}"
+        end
       end
     end
+
+    # send user to new interface
+    redirect_to admin_index_path(token: token), notice: "Toutes les Affectations ont été effectuées"
+
+    # p = params[:matiere_id].reject!(&:blank?)
+    # p.each do |matiere|
+    #   unless matiere.nil?
+    #     TeacherClasse.new(user_id: params[:user_id], salle_de_class_id: params[:salle_de_class_id], matiere_id: params[:matiere_id], structure_id: current_user.structure_id).save
+    #   end
+    # end
+
+    # redirect_to teacher_classes_path, notice: "Affectation effectuée"
+
+    # respond_to do |format|
+    #   if @teacher_class.save
+    #     format.html { redirect_to teacher_classes_path(token: current_user.structure.token), notice: 'Teacher classe was successfully created.' }
+    #     format.json { render :show, status: :created, location: @teacher_class }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @teacher_class.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /teacher_classes/1
@@ -81,13 +110,14 @@ class TeacherClassesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_teacher_class
-      @teacher_class = TeacherClasse.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def teacher_class_params
-      params.require(:teacher_classe).permit(:user_id, :salle_de_class_id, :matiere_id, :structure_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_teacher_class
+    @teacher_class = TeacherClasse.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def teacher_class_params
+    params.require(:teacher_classe).permit(:user_id, :salle_de_class_id, structure_id, :matiere_id => [])
+  end
 end

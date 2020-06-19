@@ -5,6 +5,7 @@ class TeacherClasse < ApplicationRecord
   belongs_to :structure
 
   # validation
+  validates :user_id, :matiere_id, :salle_de_class_id, presence: {message: "%{value} est manquante"}
 
   def name_with_initial
     "#{matiere.name}"
