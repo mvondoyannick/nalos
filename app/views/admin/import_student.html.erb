@@ -70,13 +70,15 @@
             </div>
             <div class="ml-4">
               <div><%= course.salle_de_class.name %></div>
-              <div class="text-sm leading-5 text-gray-500"> Heures</div>
+              <div class="text-sm leading-5 text-gray-500">
+                <%= link_to Structure.find(course.structure).name, "#" %>
+              </div>
             </div>
           </div>
         </td>
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-          <div class="text-sm leading-5 text-gray-900"><%= course.name %></div>
-          <div class="text-sm leading-5 text-gray-900">@<%= course.matricule %></div>
+          <div class="text-sm font-bold leading-5 text-gray-900"><%= course.name %></div>
+          <div class="text-sm leading-5 text-gray-900"><%= course.sexe %></div>
         </td>
         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
           <div class="text-sm leading-5 text-gray-900"><%= course.matricule %></div>
