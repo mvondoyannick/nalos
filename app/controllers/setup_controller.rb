@@ -15,7 +15,7 @@ class SetupController < ApplicationController
   # gestion des enseignants
   def manage_enseignant_index
     current_role_id = Role.find_by_name('teacher').id
-    @current_structure = Structure.find_by_token(params[:token])
+    @current_structure = current_user.structure #Structure.find_by_token(params[:token])
     @enseignants = User.where(role_id: current_role_id, statut: "active").where(structure_id: @current_structure.id).page(params[:page]).per(12)
   end
 
