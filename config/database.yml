@@ -19,7 +19,6 @@ default: &default
   port: 3306
 
 development:
-<<<<<<< HEAD
  # <<: *default
  # database: ecole_development
   adapter: mysql2

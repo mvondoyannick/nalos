@@ -4,6 +4,7 @@ class CourseSaveJob < ApplicationJob
   def perform(args)
     # Do something later
     @current_user = args[:data][:user_id]
+    @current_structure = args[:data][:structure_id]
     @current_file = args[:data][:file_id]
     @current_document = args[:data][:document_id]
     @current_course_status = args[:data][:course_status_id]
@@ -27,7 +28,8 @@ class CourseSaveJob < ApplicationJob
           salle_de_class_id: classe_id.to_i,
           categorie: @current_categorie,
           tag: @current_tag,
-          extrait: @current_extrait
+          extrait: @current_extrait,
+          structure_id: @current_structure
         )
         if @course.save
           # enregistrer une notification dans la bd
@@ -49,20 +51,14 @@ class CourseSaveJob < ApplicationJob
 
           # SmsJob.perform_now(phone: User.find(@current_user).phone1, msg: "Mr/Mme #{User.find(@current_user).complete_name}, votre leçon #{@current_chapter.upcase} publiée pour la classe #{SalleDeClass.find(classe_id).name.upcase}  vient d'être publiée mais reste en attente de validation.", structure: User.find(@current_user).structure.name.upcase)
         else
-          # save a new message
-          # @message = Message.new(
-          #   subject: "Mr/Mme #{User.find(@current_user).complete_name}, Impossible de publier votre leçon #{@current_chapter.upcase} l'erreur durant cette publication est la suivante : #{@course.errors.details}.",
-          #   student_id: Student.first.id,
-          #   user_id: User.find_by(role_id: Role.find_by_name('admin').id, statut: "active", structure_id: User.find(@current_user).structure_id),
-          #   content: ActionText::Content.new("lorem")
-          # )
+
           # une erreur est survenu durant la publicatioin
           puts "Une erreur est survenue : #{@course.errors.details}"
           @comment = Comment.new(
-              course_id: @course.id,
-              student_id: Student.first.id,
-              user_id: @u_id,
-              content: ActionText::Content.new("Mr/Mme #{User.find(@current_user).complete_name}, votre leçon #{@current_chapter.upcase} n'a pas pu etre publiée pour les raisons suivantese #{@course.errors.details}. Merci de corriger ce problème et de refaire votre publication.")
+            course_id: @course.id,
+            student_id: Student.first.id,
+            user_id: @u_id,
+            content: ActionText::Content.new("Mr/Mme #{User.find(@current_user).complete_name}, votre leçon #{@current_chapter.upcase} n'a pas pu etre publiée pour les raisons suivantese #{@course.errors.details}. Merci de corriger ce problème et de refaire votre publication.")
           )
 
           if @comment.save
