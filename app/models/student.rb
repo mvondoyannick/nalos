@@ -17,7 +17,7 @@ class Student < ApplicationRecord
     end
   end
 
-  def self.import(file)
+  def self.import_bak_1(file)
     CSV.foreach(file.path, headers: true) do |row|
       if Student.exists?(matricule: row[1])
 
@@ -45,6 +45,22 @@ class Student < ApplicationRecord
 
         end
 
+      end
+    end
+  end
+
+  # update and extend student model
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      if Student.exists?(matricule: row[0])
+        c_student = Student.find_by_matricule(row[0])
+        if c_student.update(pere: row[1], mere: row[2], c_pere: row[3], f_pere: row[4], c_mere: row[5], f_mere: row[6], c_tuteur: row[7], c_autre: row[8])
+          puts "Student #{c_student.complete_name} updated"
+        else
+          puts "Impossible de faire la mise à jour."
+        end
+      else
+        puts "etudiant inconnu #{row[0]}"
       end
     end
   end
