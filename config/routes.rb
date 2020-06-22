@@ -116,6 +116,8 @@ Rails.application.routes.draw do
     scope :setup do
       # liste des apprenants
       get 'setup_liste_apprenants', to: 'setup#liste_apprenants'
+      get 'detail_apprenant', to: 'setup#detail_apprenant'
+      match 'update_apprenant', to: 'setup#update_apprenant', via: [:post, :get]
 
       # setup index
       get 'setup_index', to: "setup#index"

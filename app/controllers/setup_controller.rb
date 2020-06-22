@@ -256,6 +256,49 @@ class SetupController < ApplicationController
     @students = Student.where(structure: current_structure).page(params[:page]).per(20)
   end
 
+  # details d'un apprenant
+  def detail_apprenant
+    mat = params[:matricule]
+    if !mat.present?
+      redirect_to setup_liste_apprenants_path, notice: "Cet apprenant semble ne pas exister."
+    else
+      if Student.exists?(matricule: mat)
+        @current_student = Student.find_by(matricule: mat)
+      else
+        redirect_to setup_liste_apprenants_path, notice: "Apprenant inexistant"
+      end
+    end
+
+  end
+
+  # modifier le dossier apprenant
+  def update_apprenant
+    if request.post?
+
+      if Student.exists?(matricule: params[:m], structure: current_user.structure_id)
+        s = Student.find_by_matricule(params[:m])
+
+        if s.update(update_student_params)
+          redirect_to setup_liste_apprenants_path, notice: "Apprenant correctement mis à jour!"
+        else
+          redirect_to setup_liste_apprenants_path, notice: "Impossible de mettre l'apprenant à jour!"
+        end
+
+      end
+
+    elsif request.get?
+      if params[:m].present?
+        if Student.exists?(matricule: params[:m])
+          @student = Student.find_by_matricule(params[:m])
+        else
+          redirect_to setup_liste_apprenants_path, notice: "Apprenant inconnu"
+        end
+      else
+        redirect_to setup_liste_apprenants_path, notice: "Parametres manquants"
+      end
+    end
+  end
+
   private
 
   def structure_params
@@ -275,6 +318,11 @@ class SetupController < ApplicationController
   # user update data
   def enseignant_update_params
     params.permit(:name, :second_name, :structure_id, :role_id, :matricule, :cni, :date_naissance, :lieu_naissance)
+  end
+
+  # params student update
+  def update_student_params
+    params.permit(:name, :second_name, :sexe, :matricule, :salle_de_class_id, :structure, :d_naissance, :l_naissance, :pere, :c_pere, :f_pere, :mere, :c_mere, :f_mere, :tuteur, :c_tuteur, :c_autre)
   end
 
   # matiere params

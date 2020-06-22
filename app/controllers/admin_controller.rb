@@ -3,11 +3,11 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @course = Course.where(course_status_id: 1).order(created_at: :desc).page(params[:page]).per(20)
+    @course = Course.where(course_status_id: 1, deleted: false, structure_id: 11).order(created_at: :desc).page(params[:page]).per(20)
     @new_account = User.where(structure_id: current_user.structure_id, created_at: Date.today.beginning_of_week..Date.today.end_of_week).page(params[:page]).per(10)
-    @course_stats = Course.where(structure_id: current_user.structure_id).group(:chapter).count
+    @course_stats = Course.where(structure_id: 11, deleted: false).group(:chapter).count
     @course_view_stat = Course.group(:counter).count
-    @documents = ActiveStorage::Blob.all.limit(5).order(created_at: :desc) #Document.last(2).limit(5)
+    @documents = ActiveStorage::Blob.all.limit(10).order(created_at: :desc) #Document.last(2).limit(5)
   end
 
   # import excel file
@@ -22,7 +22,7 @@ class AdminController < ApplicationController
 
   # show all course
   def course_all
-    @course = Course.all.order(created_at: :desc).page(params[:page]).per(20)
+    @course = Course.where(deleted: false, structure_id: 11).order(created_at: :desc).page(params[:page]).per(20)
   end
 
   # valider ou suspendre tous les cours
@@ -99,7 +99,7 @@ class AdminController < ApplicationController
 
       # send message ton teacher
       # Sms.send(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y")} à été validé par l'administrateur. Il est désormais disponible à vos élèves de #{current_course.salle_de_class.name}.")
-      # SmsJob.set(wait: 10.seconds).perform_later(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y")} à été validé par l'administrateur. Il est désormais disponible à vos élèves de #{current_course.salle_de_class.name}.")
+      SmsJob.set(wait: 10.seconds).perform_later(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y à %Hh")} à été validé par l'administrateur. Il est désormais disponible à vos élèves de #{current_course.salle_de_class.name}.")
 
       # send sms to all student from this class
       Student.where(salle_de_class_id: current_course.salle_de_class_id).each do |student|
