@@ -20,7 +20,7 @@ class Course < ApplicationRecord
   after_save :send_notification, if: :new_record? #:persisted?
 
   # including activeStorage
-  has_one_attached :file
+  has_one_attached :file, dependent: :destroy
   has_rich_text :extrait
 
   private

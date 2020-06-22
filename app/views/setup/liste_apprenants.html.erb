@@ -64,7 +64,7 @@
           </thead>
           <tbody class="bg-white">
           <% @students.each do |student| %>
-          <tr>
+          <tr class="hover:shadow-xl">
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
@@ -89,7 +89,7 @@
               <%= Structure.find(student.structure).name %>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-              <a href="#" class="text-indigo-600 hover:text-indigo-900">Editer</a>
+              <%= link_to "Details", detail_apprenant_path(matricule: student.matricule), class: "text-indigo-600 hover:text-indigo-900" %>
               <a href="#" class="text-indigo-600 hover:text-indigo-900 ml-4">Contacter</a>
               <a href="#" class="text-indigo-600 hover:text-indigo-900 ml-4">Statistiques</a>
             </td>

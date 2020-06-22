@@ -1,0 +1,166 @@
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Mise à jour de l'élève
+      <br />
+      <span class="text-indigo-600"><%= excerpt(@student.name, '', radius: 20) %></span>
+    </h2>
+  </div>
+</div>
+
+<div class="flex flex-col">
+
+  <!--Grid Form-->
+
+  <div class="flex flex-1  flex-col md:flex-row lg:flex-row mx-2">
+    <div class="mb-2 border-solid border-gray-300 bg-white rounded border shadow-sm w-full">
+      <div class="bg-gray-200 px-2 py-3 border-solid border-gray-200 border-b">
+        Mise à jour éféctuée par <%= current_user.name %>
+      </div>
+      <div class="p-3">
+        <%= form_with(url: update_apprenant_path, html: {class: 'w-full'}) do |form| %>
+
+          <%= form.hidden_field :structure, value: @student.structure %>
+          <%= form.hidden_field :matricule, value: params[:m] %>
+
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-first-name">
+                Nom
+              </label>
+              <%= form.text_field :name, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.name, required: true %>
+              <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+            </div>
+            <div class="w-full md:w-1/2 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Prénom
+              </label>
+              <%= form.text_field :second_name, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.second_name, required: false %>
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-first-name">
+                Matricule
+              </label>
+              <%= form.text_field :matricule, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.matricule, required: true %>
+              <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Sexe
+              </label>
+              <%= form.select(:sexe, [%w(Masculin masculin), %w(Féminin feminin)], {prompt: @student.sexe}, {class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500"}) %>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Etablissement
+              </label>
+              <%= form.text_field :structure_id, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: Structure.find(@student.structure).name, required: true %>
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-first-name">
+                Salle de classe
+              </label>
+              <%= form.collection_select(:salle_de_class_id, SalleDeClass.where(structure_id: current_user.structure_id, cycle_ecole_id: current_user.cycle_ecole_id).group(:id).distinct, :id, :salle_de_class_with_initial, {prompt: @student.salle_de_class.name}, {class: "select2 appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", required: true}) %>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Date naissance
+              </label>
+              <%= form.date_field :d_naissance, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.d_naissance, required: true %>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Lieu naissance
+              </label>
+              <%= form.text_field :l_naissance, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.l_naissance, required: true %>
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-first-name">
+                Nom du père
+              </label>
+              <%= form.text_field :pere, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.pere, required: true %>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Contact
+              </label>
+              <%= form.text_field :c_pere, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.c_pere, required: true %>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Fonction
+              </label>
+              <%= form.text_field :f_pere, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.f_pere, required: true %>
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-first-name">
+                Nom de la mère
+              </label>
+              <%= form.text_field :mere, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.mere, required: true %>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Contact
+              </label>
+              <%= form.text_field :c_mere, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.c_mere, required: true %>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Fonction
+              </label>
+              <%= form.text_field :f_mere, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.f_mere, required: true %>
+            </div>
+          </div>
+          <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-first-name">
+                Nom du tuteur
+              </label>
+              <%= form.text_field :tuteur, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.tuteur, required: true %>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Contact
+              </label>
+              <%= form.text_field :c_tuteur, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.c_tuteur, required: true %>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-light mb-1"
+                     for="grid-last-name">
+                Autre contact
+              </label>
+              <%= form.text_field :c_autre, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white-500", value: @student.c_autre, required: true %>
+            </div>
+          </div>
+
+          <%= form.submit "Mise à jour ce dossier", class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow' %>
+          <% end %>
+      </div>
+    </div>
+  </div>
+  <!--/Grid Form-->
+</div>
