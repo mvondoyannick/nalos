@@ -35,6 +35,69 @@
   </div>
 </div>
 
+<br>
+<br>
+
+<section data-section-id="3" data-category="admin" data-component-id="73a6_15_02_awz" class="py-8 px-4">
+  <div class="flex flex-wrap -mx-4">
+    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
+      <div class="h-full">
+        <div class="flex justify-between items-end mb-2">
+          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col1-header">Enseignants</h3>
+          <span class="text-5xl leading-none text-blue-700" data-config-id="02-col1-number">
+            <%= User.where(role_id: Role.find_by_name('teacher').id, structure_id: current_user.structure_id).count %>
+          </span>
+        </div>
+        <div class="w-full h-4 bg-gray-300 rounded">
+          <div class="h-full bg-blue-500" style="width: 62%;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
+      <div class="h-full">
+        <div class="flex justify-between items-end mb-2">
+          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col2-header">Leçons publiés</h3>
+          <span class="text-5xl leading-none text-red-500" data-config-id="02-col2-number">
+            <%= Course.where(course_status_id: CourseStatus.find_by_name('validate').id, structure_id: current_user.structure_id).count %>
+          </span>
+        </div>
+        <div class="w-full h-4 bg-gray-300 rounded">
+          <div class="h-full bg-red-500" style="width: 62%;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
+      <div class="h-full">
+        <div class="flex justify-between items-end mb-2">
+          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col3-header">Leçons attentes</h3>
+          <span class="text-5xl leading-none text-purple-500" data-config-id="02-col3-number">
+            <%= Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count %>
+          </span>
+        </div>
+        <div class="w-full h-4 bg-gray-300 rounded">
+          <div class="h-full bg-purple-500" style="width: 62%;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
+      <div class="h-full">
+        <div class="flex justify-between items-end mb-2">
+          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col4-header">Apprenants</h3>
+          <span class="text-5xl leading-none text-green-500" data-config-id="02-col4-number">
+            <%= Student.where(structure: current_user.structure_id).count %>
+          </span>
+        </div>
+        <div class="w-full h-4 bg-gray-300 rounded">
+          <div class="h-full bg-green-500" style="width: 62%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<br>
+<br>
+
 <div class="items-center justify-between mb-4">
   <h2 class="text-xl font-bold text-gray-800 mb-6">
     <%= column_chart(@course_stats) %>
@@ -106,6 +169,10 @@
     </table>
   </div>
 <% end %>
+
+<br>
+<br>
+
 
 <br>
 <br>
