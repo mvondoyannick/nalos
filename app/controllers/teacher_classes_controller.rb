@@ -47,13 +47,13 @@ class TeacherClassesController < ApplicationController
     
     token = params[:token]
 
-    p = params[:teacher_classe][:matiere_id].reject!(&:blank?)
+    p = params[:teacher_classe][:salle_de_class_id].reject!(&:blank?)
 
     p.each do |c|
       puts "Data receive #{c}"
       # search if this record exist to DB
-      unless TeacherClasse.exists?(user_id: params[:teacher_classe][:user_id], salle_de_class_id: params[:teacher_classe][:salle_de_class_id], matiere_id: c, structure_id: current_user.structure_id)
-        a = TeacherClasse.new(user_id: params[:teacher_classe][:user_id], salle_de_class_id: params[:teacher_classe][:salle_de_class_id], matiere_id: c, structure_id: current_user.structure_id)
+      unless TeacherClasse.exists?(user_id: params[:teacher_classe][:user_id], salle_de_class_id: c, matiere_id: params[:teacher_classe][:matiere_id], structure_id: current_user.structure_id)
+        a = TeacherClasse.new(user_id: params[:teacher_classe][:user_id], salle_de_class_id: c, matiere_id: params[:teacher_classe][:matiere_id], structure_id: current_user.structure_id)
         if a.save
           puts "Saved to DB"
         else
