@@ -104,10 +104,13 @@ class AdminController < ApplicationController
       # send sms to all student from this class
       Student.where(salle_de_class_id: current_course.salle_de_class_id).each do |student|
         # Sms.send(phone: student.phone, msg: "Bonjour, ")
-        # SmsJob.set(wait: 10.seconds).perform_later(phone: student.phone, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}")
+        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_pere, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}") if student.c_pere.nil?
+        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_mere, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}") if student.c_mere.nil?
+        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_tuteur, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}") if student.c_tuteur.nil?
+        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_autre, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}") if student.c_autre.nil?
       end
 
-      redirect_to course_all_path, notice: "La leçon #{current_course.chapter} a été validé avec succès."
+      redirect_to course_all_path, notice: "La leçon #{current_course.chapter} a été validé avec succès \n et est maintenant disponible pour les apprenants."
     else
       # puts current_course.errors.details
       redirect_to course_all_path, notice: "Impossible de valider cette lecon : #{current_course.errors.messages}"

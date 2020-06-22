@@ -12,6 +12,14 @@ class SmsJob < ApplicationJob
   def perform(args)
     # Do something later
     # structure = current_structure(current_user.structure.name.delete(' ').upcase)
-    Sms.send(phone: args[:phone], msg: args[:msg], structure: args[:structure].delete(' '))
+    if args[:phone].nil?
+      # enregistrer le journal que le numero de telephone est vide
+      puts "numero de téléphone #{args[:phone]} est nul"
+    elsif args[:phone].to_s.length < 9 || args[:phone].to_s.length > 9
+      # enregistré le journaal
+      puts "numero de téléphone #{args[:phone]} est inférieur à 9"
+    else
+      Sms.send(phone: args[:phone], msg: args[:msg], structure: args[:structure].delete(' '))
+    end
   end
 end
