@@ -85,6 +85,7 @@
                class="absolute top-0 mt-12 right-0 w-48 bg-white py-2 shadow-md border border-gray-100 rounded-lg z-40">
             <a href="#" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600">
               Contacter @admin</a>
+            <%= link_to "Mon compte", edit_user_registration_path, class: 'block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600' %>
             <%= link_to "Signaler un problème", new_probleme_path, class: "block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600" %>
             <%= link_to "Fermer la session", destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-600" %>
           </div>
