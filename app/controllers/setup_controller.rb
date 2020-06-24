@@ -205,6 +205,26 @@ class SetupController < ApplicationController
     @current_structure = Structure.find_by(token: token)
   end
 
+  # external API
+  def manage_api
+
+  end
+
+  # words processing
+  def document_word_server
+
+  end
+
+  # calc processing
+  def document_calc_server
+
+  end
+
+  # powerpoint processing
+  def document_powerpoint_server
+
+  end
+
   # delete structure
   def structure_delete
 
@@ -275,15 +295,21 @@ class SetupController < ApplicationController
   def update_apprenant
     if request.post?
 
-      if Student.exists?(matricule: params[:m], structure: current_user.structure_id)
-        s = Student.find_by_matricule(params[:m])
+      if params[:m].present?
 
-        if s.update(update_student_params)
-          redirect_to setup_liste_apprenants_path, notice: "Apprenant correctement mis à jour!"
-        else
-          redirect_to setup_liste_apprenants_path, notice: "Impossible de mettre l'apprenant à jour!"
+        if Student.exists?(matricule: params[:m], structure: current_user.structure_id)
+          s = Student.find_by_matricule(params[:m])
+
+          if s.update(update_student_params)
+            redirect_to detail_apprenant_path(matricule: params[:m]), notice: "Apprenant correctement mis à jour!"
+          else
+            redirect_to setup_liste_apprenants_path, notice: "Impossible de mettre l'apprenant à jour!"
+          end
+
         end
 
+      else
+        redirect_to setup_liste_apprenants_path, notice: "Parametres manquant, impossible de continuer."
       end
 
     elsif request.get?

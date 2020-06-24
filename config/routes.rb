@@ -131,6 +131,14 @@ Rails.application.routes.draw do
       get 'setup_structure_list'  , to: "setup#structure_list"
       get 'setup_structure_index', to: "setup#structure_index"
       get 'setup_manage_structure_index', to: 'setup#manage_structure_index' # permet de manager un structure
+
+      # manage API
+      get 'setup_manage_api', to: 'setup#manage_api'
+      get 'document_word_server', to: 'setup#document_word_server'
+      get 'document_calc_server', to: 'setup#document_calc_server'
+      get 'document_powerpoint_server', to: 'setup#document_powerpoint_server'
+      # end managing API
+
       match 'setup_add_new_structure', to: "setup#new_structure", via: [:post, :get, :delete] # ajout d'une nouvelle strcture
       post 'setup_update_structure', to: 'setup#update_structure' # update structure
       get 'setup_droits_index', to: "setup#droits_index"
