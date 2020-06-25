@@ -664,3 +664,6 @@ from student
 
             </div>
           </div>
+
+
+          , multiple: true, direct_upload: true, accept: 'image/*, video/*, application/pdf, audio/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'

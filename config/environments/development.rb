@@ -66,5 +66,6 @@ Rails.application.configure do
 
   # remote access,
   # config.hosts << "4da151d2.ngrok.io"
+  # config.hosts << 'e5d9947287d9.ngrok.io'
   config.hosts << "elearning.nalschool.com"
 end
