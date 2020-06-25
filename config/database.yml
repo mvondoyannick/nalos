@@ -19,8 +19,13 @@ default: &default
   port: 3306
 
 development:
+<<<<<<< HEAD
   # <<: *default
   #  database: ecole_development
+=======
+ # <<: *default
+ # database: ecole_development
+>>>>>>> 11cb5e64910b0409fc4aae76e288464f34893fa3
   adapter: mysql2
   encoding: utf8
   pool: <%#= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
