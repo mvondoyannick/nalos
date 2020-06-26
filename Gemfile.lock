@@ -153,6 +153,9 @@ GEM
       mini_portile2 (~> 2.4.0)
     nokogumbo (2.0.2)
       nokogiri (~> 1.8, >= 1.8.4)
+    notifications (0.6.1)
+      kaminari (>= 0.15)
+      rails (>= 5)
     onebox (1.9.29)
       addressable (~> 2.7.0)
       htmlentities (~> 4.3)
@@ -304,6 +307,7 @@ DEPENDENCIES
   kaminari
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.4.4)
+  notifications (~> 0.6.0)
   onebox
   progress_bar
   puma (~> 4.1)

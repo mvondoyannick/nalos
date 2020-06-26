@@ -1,0 +1,14 @@
+
+<div class='flex inline-block'>
+  <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 icon icon-tabler icon-tabler-notification" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z"/>
+    <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+    <circle cx="16" cy="8" r="3" />
+  </svg>
+  <%= link_to notification.actor.complete_name, main_app.root_path(notification.actor), class: 'flex ' %> nous tenons à vous informer que votre leçon&nbsp;
+  <%= link_to notification.second_target.chapter, main_app.course_path(id: notification.second_target.id) unless notification.second_target.nil? %> à été correctement publié
+</div>
+
+<div class='mr-4'>
+  <%= notification.target.chapter unless notification.target.nil?%>
+</div>

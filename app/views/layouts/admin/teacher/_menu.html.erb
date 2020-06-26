@@ -1,7 +1,7 @@
 <div class="px-4 py-2">
   <ul>
     <li>
-      <%= link_to home_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "index" && controller_name == "home"}" do %>
+      <%= link_to main_app.home_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "index" && controller_name == "home"}" do %>
         <svg class="mr-4" height="32" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;" version="1.1" viewBox="0 0 101 125" width="32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
           <path d="M42.994,105.275l0,-26c0,-0.3 0.2,-0.5 0.5,-0.5l13.8,0c0.3,0 0.5,0.2 0.5,0.5l0,26l23.6,0c4.1,0 7.5,-3.4 7.5,-7.5l0,-42.2c0,-2.6 -1.1,-5.1 -2.9,-7l-30,-26.7c-3.1,-3 -8.2,-3 -11.3,0l-29.8,26.7l-0.1,0.1c-1.9,1.8 -2.9,4.4 -2.9,7l0,42.2c0,4.1 3.4,7.5 7.5,7.5l23.6,0l0,-0.1Zm-24.1,-7.5l0,-42.2c0,-0.7 0.3,-1.4 0.8,-1.9l29.8,-26.6l0.1,-0.1c0.5,-0.4 1.2,-0.4 1.6,0l29.9,26.7c0.5,0.5 0.8,1.2 0.8,1.9l0,42.2c0,0.3 -0.2,0.5 -0.5,0.5l-16.6,0l0,-19c0,-4.1 -3.4,-7.5 -7.5,-7.5l-13.8,0c-4.1,0 -7.5,3.4 -7.5,7.5l0,19l-16.6,0c-0.3,0 -0.5,-0.2 -0.5,-0.5Z" style="fill-rule:nonzero;"/>
           <path d="M81.394,98.275c0.34,-0.044 0.5,-0.232 0.5,-0.5l0,-42.2c0,-0.7 -0.3,-1.4 -0.8,-1.9l-29.9,-26.7c-0.4,-0.4 -1.1,-0.4 -1.6,0l-0.1,0.1l-29.8,26.6c-0.5,0.5 -0.8,1.2 -0.8,1.9l0,42.2c0,0.3 0.2,0.5 0.5,0.5l16.6,0l0,-19c0,-4.068 3.347,-7.447 7.5,-7.5l13.8,0c4.154,0.053 7.5,3.432 7.5,7.5l0,19l16.6,0Z" style="fill:#1cfff4;"/>
@@ -13,7 +13,7 @@
     </li>
 
     <li>
-      <%= link_to dashboard_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "dashboard"}" do %>
+      <%= link_to main_app.dashboard_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "dashboard"}" do %>
         <svg class="mr-4" height="32" id="svg8" version="1.1" viewBox="0 0 5.2932209 5.2932171" width="32" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg">
           <defs id="defs2"/>
           <g id="layer13" transform="translate(-17.726565,-34.3948)">
@@ -30,7 +30,7 @@
     </li>
 
     <li>
-      <%= link_to msg_path, class: 'mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200' do %>
+      <%= link_to main_app.msg_path, class: 'mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200' do %>
         <svg class="mr-4" height="32" width="32" viewBox="0 0 227.95 210.67" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <style>.cls-1 {
@@ -98,7 +98,72 @@
     </li>
 
     <li>
-      <%= link_to courses_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "courses"}" do %>
+      <%= link_to notifications_path, class: 'mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200' do %>
+        <svg class="mr-4" height="32" width="32" viewBox="0 0 227.95 210.67" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <style>.cls-1 {
+              fill: #ffc742;
+            }
+
+            .cls-2 {
+              fill: #275563;
+            }
+
+            .cls-3 {
+              fill: #f7ead0;
+            }
+
+            .cls-3, .cls-6 {
+              opacity: 0.5;
+            }
+
+            .cls-4 {
+              fill: #908152;
+            }
+
+            .cls-5, .cls-9 {
+              fill: #fff;
+            }
+
+            .cls-6, .cls-7 {
+              fill: #d9f0ff;
+            }
+
+            .cls-8, .cls-9 {
+              opacity: 0.7;
+            }</style>
+          </defs>
+          <title/>
+          <g data-name="Layer 2" id="Layer_2">
+            <g data-name="Layer 1" id="Layer_1-2">
+              <path class="cls-1" d="M223.94,54.78V173.56a8.82,8.82,0,0,1-8.82,8.82H198.18l-13.68,19.84a10.3,10.3,0,0,1-17-.06l-13.42-19.77H12.82A8.82,8.82,0,0,1,4,173.56V54.78A8.82,8.82,0,0,1,12.82,46H215.12A8.82,8.82,0,0,1,223.94,54.78Z"/>
+              <path class="cls-2" d="M79,97.22H37.88a4,4,0,1,1,0-8H79a4,4,0,0,1,0,8Z"/>
+              <path class="cls-2" d="M106.26,114.51H37.88a4,4,0,0,1,0-8h68.38a4,4,0,0,1,0,8Z"/>
+              <path class="cls-2" d="M106.26,131.8H37.88a4,4,0,0,1,0-8h68.38a4,4,0,0,1,0,8Z"/>
+              <rect class="cls-3" height="9.52" width="218.24" x="5.76" y="49.01"/>
+              <path class="cls-2" d="M176,210.67H176a14.29,14.29,0,0,1-11.78-6.27l-12.23-18H12.82A12.83,12.83,0,0,1,0,173.56V54.78A12.83,12.83,0,0,1,12.82,42H215.12a12.83,12.83,0,0,1,12.82,12.82V81.45a4,4,0,1,1-8,0V54.78A4.82,4.82,0,0,0,215.12,50H12.82A4.82,4.82,0,0,0,8,54.78V173.56a4.82,4.82,0,0,0,4.82,4.82H156.2l14.6,21.53a6.22,6.22,0,0,0,5.19,2.76h0a6.21,6.21,0,0,0,5.18-2.72l14.88-21.57h19a4.82,4.82,0,0,0,4.82-4.82V131.78a4,4,0,0,1,8,0v41.78a12.83,12.83,0,0,1-12.82,12.82H200.28l-12.49,18.11A14.29,14.29,0,0,1,176,210.67Z"/>
+              <ellipse class="cls-4" cx="165.43" cy="57.83" rx="43.47" ry="43.55"/>
+              <circle class="cls-5" cx="165.77" cy="46.94" r="43.55"/>
+              <path class="cls-6" d="M210,46.6a43.55,43.55,0,1,1-84.84-13.83C128.76,52.9,147.27,71,166.48,71s36.74-14.56,41.3-38.23A43.31,43.31,0,0,1,210,46.6Z"/>
+              <path class="cls-7" d="M209.65,45.94a43.55,43.55,0,1,1-87.09,0,44.06,44.06,0,0,1,.37-5.67,43.55,43.55,0,0,0,86.35,0A44.09,44.09,0,0,1,209.65,45.94Z"/>
+              <path class="cls-2" d="M165,95.09A47.55,47.55,0,1,1,212.5,47.55,47.6,47.6,0,0,1,165,95.09ZM165,8A39.55,39.55,0,1,0,204.5,47.55,39.59,39.59,0,0,0,165,8Z"/>
+              <g class="cls-8">
+                <path class="cls-5" d="M17.27,94.86a3,3,0,0,1-3-3V80.7a3,3,0,0,1,6,0V91.86A3,3,0,0,1,17.27,94.86Z"/>
+                <path class="cls-5" d="M17.27,74.33a3,3,0,0,1-3-3v-6a3,3,0,0,1,6,0v6A3,3,0,0,1,17.27,74.33Z"/>
+              </g>
+              <circle class="cls-9" cx="17.23" cy="104.38" r="3.53"/>
+              <path class="cls-2" d="M154.12,47.57a3.22,3.22,0,0,1,.59-2,1.86,1.86,0,0,1,1.56-.8H162V38.89a2,2,0,0,1,.86-1.59,3.16,3.16,0,0,1,2-.7,3,3,0,0,1,2,.7,2.06,2.06,0,0,1,.81,1.59V44.8h5.72a2,2,0,0,1,1.56.82,2.92,2.92,0,0,1,.7,2,2.86,2.86,0,0,1-.67,2,2.05,2.05,0,0,1-1.59.77h-5.72v6a2,2,0,0,1-.78,1.62,3.27,3.27,0,0,1-2.08.61,3.41,3.41,0,0,1-2.08-.61,1.91,1.91,0,0,1-.84-1.62v-6h-5.77a1.9,1.9,0,0,1-1.56-.74A3.08,3.08,0,0,1,154.12,47.57Z"/>
+              <path class="cls-2" d="M224,119.6a4,4,0,0,1-4-4v-7.31a4,4,0,0,1,8,0v7.31A4,4,0,0,1,224,119.6Z"/>
+              <path class="cls-2" d="M224,99.6a4,4,0,0,1-4-4v-.31a4,4,0,1,1,8,0v.31A4,4,0,0,1,224,99.6Z"/>
+            </g>
+          </g>
+        </svg>
+        <%= pluralize(Notification.unread_count(current_user), 'Notification') %>
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to main_app.courses_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "courses"}" do %>
         <svg class="mr-4" width="32" height="32" viewBox="0 0 314.14 288.42" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <style>.cls-1 {
@@ -164,14 +229,14 @@
     </li>
 
     <li>
-      <%= link_to documents_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "documents"}" do %>
+      <%= link_to main_app.documents_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "documents"}" do %>
         <%= image_tag 'iconfinder_note_job_seeker_employee_unemployee_work_2620509.png', class: 'w-8 h-8 mr-4' %>
         Mes documents
       <% end %>
     </li>
 
     <li>
-      <%= link_to epreuves_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "epreuves"}" do %>
+      <%= link_to main_app.epreuves_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if controller_name == "epreuves"}" do %>
 <!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
 <!--             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
 <!--             stroke-linecap="round" stroke-linejoin="round">-->
@@ -200,7 +265,7 @@
 <!--    </li>-->
 
     <li>
-      <%= link_to salle_classe_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "classes"}" do %>
+      <%= link_to main_app.salle_classe_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200 #{"bg-gray-200" if action_name == "classes"}" do %>
 <!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
 <!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
 <!--          <circle cx="7" cy="5" r="2" />-->
@@ -221,7 +286,7 @@
 <!--    </li>-->
 
     <li>
-      <%= link_to discuss_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-gray-700 hover:bg-gray-200 #{"bg-gray-200" if action_name == "discuss"}" do %>
+      <%= link_to main_app.discuss_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-gray-700 hover:bg-gray-200 #{"bg-gray-200" if action_name == "discuss"}" do %>
 <!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
 <!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
 <!--          <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />-->
@@ -235,7 +300,7 @@
     </li>
 
     <li>
-      <%= link_to planning_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-gray-700 hover:bg-gray-200 #{"bg-gray-200" if action_name == "planning"}" do %>
+      <%= link_to main_app.planning_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-gray-700 hover:bg-gray-200 #{"bg-gray-200" if action_name == "planning"}" do %>
 <!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
 <!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
 <!--          <rect x="4" y="5" width="16" height="16" rx="2" />-->
@@ -251,7 +316,7 @@
     </li>
 
     <li>
-      <%= link_to blog_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-gray-700 hover:bg-gray-200 #{"bg-gray-200" if action_name == "blog_index"}" do %>
+      <%= link_to main_app.blog_index_path, class: "mb-1 px-2 py-2 rounded-lg flex items-center font-medium text-gray-700 hover:text-gray-700 hover:bg-gray-200 #{"bg-gray-200" if action_name == "blog_index"}" do %>
 <!--        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">-->
 <!--          <path stroke="none" d="M0 0h24v24H0z"/>-->
 <!--          <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />-->
@@ -265,7 +330,7 @@
       <% end %>
     </li>
 
-    <%= render 'layouts/api_tools' %>
+
   </ul>
 
 </div>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount Notifications::Engine => "/notifications"
   #get 'share/title:string'
   devise_for :tuteurs
   resources :blogs

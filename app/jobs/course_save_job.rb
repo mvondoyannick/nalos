@@ -34,11 +34,12 @@ class CourseSaveJob < ApplicationJob
         if @course.save
           # enregistrer une notification dans la bd
           puts "Saved new course"
+          ActionCable.server.broadcast('notification_channel', "La leçon #{@course.chapter} à été correctement publiée")
           # CoursesController.render :index , assigns: { course: Course.last }
 
           @comment = Comment.new(
             course_id: @course.id,
-            student_id: Student.find_by_matricule('000000').id,
+            student_id: User.find_by_matricule('05I022IU').id,
             user_id: @u_id,
             content: ActionText::Content.new("Mr/Mme #{User.find(@current_user).complete_name}, votre leçon #{@current_chapter.upcase} publiée pour la classe #{SalleDeClass.find(classe_id).name.upcase}  vient d'être publiée mais reste en attente de validation.")
           )
@@ -47,12 +48,14 @@ class CourseSaveJob < ApplicationJob
             puts "new message saved!"
           else
             puts "some errors : #{@comment.errors.details}"
+
           end
 
           # SmsJob.perform_now(phone: User.find(@current_user).phone1, msg: "Mr/Mme #{User.find(@current_user).complete_name}, votre leçon #{@current_chapter.upcase} publiée pour la classe #{SalleDeClass.find(classe_id).name.upcase}  vient d'être publiée mais reste en attente de validation.", structure: User.find(@current_user).structure.name.upcase)
         else
 
           # une erreur est survenu durant la publicatioin
+          ActionCable.server.broadcast('notification_channel', "La leçon #{@course.chapter} n'à pas été correctement publiée \nL'erreur est #{@course.errors.details}")
           puts "Une erreur est survenue : #{@course.errors.details}"
           @comment = Comment.new(
             course_id: @course.id,

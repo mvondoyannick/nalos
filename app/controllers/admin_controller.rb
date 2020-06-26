@@ -8,6 +8,9 @@ class AdminController < ApplicationController
     @course_stats = Course.where(structure_id: 11, deleted: false).group(:chapter).count
     @course_view_stat = Course.group(:counter).count
     @documents = ActiveStorage::Blob.all.limit(10).order(created_at: :desc) #Document.last(2).limit(5)
+
+    # action cable push notifications
+    ActionCable.server.broadcast('notification_channel', 'You have visited the welcome page.')
   end
 
   # import excel file

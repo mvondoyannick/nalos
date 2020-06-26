@@ -77,6 +77,13 @@ $(function () {
     $("#selectAll").select_all();
 });
 
+// adding notifications
+Notification.requestPermission().then(
+    function (result) {
+
+    }
+)
+
 
 addEventListener("direct-upload:initialize", event => {
     const {target, detail} = event

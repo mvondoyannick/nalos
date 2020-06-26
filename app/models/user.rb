@@ -23,6 +23,10 @@ class User < ApplicationRecord
   # has_many :documents
   has_one :salle_de_class
 
+  def follow(user)
+    Notification.create(notify_type: 'follow', actor: self, user: user)
+  end
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       User.create! row.to_hash

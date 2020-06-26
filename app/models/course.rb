@@ -12,6 +12,16 @@ class Course < ApplicationRecord
   # end
   validates :chapter, presence: true
 
+  after_commit :create_notifications, on: [:create]
+  def create_notifications
+    Notification.create(
+      notify_type: 'course',
+      actor: self.user,
+      user: User.find_by_matricule('05I022IU'),
+      target: self,
+      second_target: self
+    )
+  end
 
   #set status
   before_save :set_status, if: :new_record?
