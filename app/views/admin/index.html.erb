@@ -230,20 +230,20 @@
             <div class="text-sm leading-5 text-gray-500"><%= excerpt(course.matiere.name, '', radius: 20) %></div>
           </td>
           <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="text-sm leading-5 text-gray-900"><%= link_to course.chapter, course_detail_path(course_id: course.id, document_id: course.document_id)  %></div>
+            <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 30), course_detail_path(course_id: course.id, document_id: course.document_id)  %></div>
             <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
           </td>
           <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-            <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id) %>
+            <%= link_to "Detail de la leçon", course_detail_path(course_id: course.id, document_id: course.document_id), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" %>
           </span>
             <div class="text-sm leading-5 text-gray-500">
               <% if course.course_status.name == "waiting" %>
-                En attente ...
+                Attente ...
               <% elsif course.course_status.name == "rejected" %>
                 Rejecté
               <% else %>
-                Validé par ...
+                Validé 
               <% end %>
             </div>
           </td>
