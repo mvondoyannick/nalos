@@ -45,9 +45,9 @@
     <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
       <div class="h-full">
         <div class="flex justify-between items-end mb-2">
-          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col1-header">Enseignants</h3>
+          <h3 class="text-lg font-heading font-light" data-config-id="02-col1-header">Enseignants</h3>
           <span class="text-5xl leading-none text-blue-700" data-config-id="02-col1-number">
-            <%= User.where(role_id: Role.find_by_name('teacher').id, structure_id: current_user.structure_id).count %>
+            <%= link_to User.where(role_id: Role.find_by_name('teacher').id, structure_id: current_user.structure_id).count, setup_manage_enseignant_index_path %>
           </span>
         </div>
         <div class="w-full h-4 bg-gray-300 rounded">
@@ -71,9 +71,9 @@
     <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
       <div class="h-full">
         <div class="flex justify-between items-end mb-2">
-          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col3-header">Leçons attentes</h3>
+          <h3 class="text-lg font-heading font-light" data-config-id="02-col3-header">Leçons attentes</h3>
           <span class="text-5xl leading-none text-purple-500" data-config-id="02-col3-number">
-            <%= Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count %>
+            <%= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %>
           </span>
         </div>
         <div class="w-full h-4 bg-gray-300 rounded">

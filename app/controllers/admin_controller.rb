@@ -3,9 +3,9 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @course = Course.where(course_status_id: 1, deleted: false, structure_id: 11).order(created_at: :desc).page(params[:page]).per(20)
+    @course = Course.where(course_status_id: 1, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
     @new_account = User.where(structure_id: current_user.structure_id, created_at: Date.today.beginning_of_week..Date.today.end_of_week).page(params[:page]).per(10)
-    @course_stats = Course.where(structure_id: 11, deleted: false).group(:chapter).count
+    @course_stats = Course.where(structure_id: current_user.structure_id, deleted: false).group(:chapter).count
     @course_view_stat = Course.group(:counter).count
     @documents = ActiveStorage::Blob.all.limit(10).order(created_at: :desc) #Document.last(2).limit(5)
 
@@ -25,7 +25,7 @@ class AdminController < ApplicationController
 
   # show all course
   def course_all
-    @course = Course.where(deleted: false, structure_id: 11).order(created_at: :desc).page(params[:page]).per(20)
+    @course = Course.where(deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
   end
 
   # valider ou suspendre tous les cours
