@@ -32,19 +32,19 @@
     <% if current_user.structure.logo.attached? %>
 
       <%= image_tag url_for(current_user.structure.logo), class: "h-10 w-10 inline-block" %>
-      <%= Structure.find(current_user.structure).name %>
+      <%= Structure.find(current_user.structure_id).name %>
 
     <% else %>
 
       <% image_tag 'logo.png', class: 'h-10 w-10 inline-block' %>
-      <%= Structure.find(current_user.structure).name %>
+      <%= Structure.find(current_user.structure_id).name %>
 
     <% end %>
 
   <% else %>
 
     <% image_tag 'logo.png', class: 'h-10 w-10 inline-block' %>
-    <%= Structure.find(current_user.structure).name %>
+    <%= Structure.find(current_user.structureid).name %>
 
   <% end %>
 
