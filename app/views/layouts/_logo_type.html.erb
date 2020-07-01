@@ -1,13 +1,46 @@
-<% if @current_structure.present? %>
-  <% if @current_structure.logo.attached? %>
-    <%= image_tag url_for(@current_structure.logo), class: "h-10 w-10 inline-block" %>
-    <%= @current_structure.name %>
-  <% else %>
-    <%= image_tag 'logo.png', class: "h-10 w-10 inline-block" %>
-    <%= @current_structure.name %>
-  <% end %>
-<% elsif !@current_structure.present? %>
-  <%= image_tag 'logo.png', class: "h-10 w-10 inline-block" %>
+<%# if @current_structure.present? %>
+  <%# if @current_structure.logo.attached? %>
+    <%#= image_tag url_for(@current_structure.logo), class: "h-10 w-10 inline-block" %>
+    <%#= @current_structure.name %>
+  <%# else %>
+    <%#= image_tag 'logo.png', class: "h-10 w-10 inline-block" %>
+    <%#= @current_structure.name %>
+  <%# end %>
+<%# elsif !@current_structure.present? %>
+  <%#= image_tag 'logo.png', class: "h-10 w-10 inline-block" %>
   <%#= @current_structure.name %>
-  NAL ADMIN
+<!--  NAL ADMIN-->
+<%# end %>
+<%= if student_signed_in? %>
+
+  <% if Structure.find(current_student.structure).logo.attached? %>
+
+    <%= image_tag url_for(Structure.find(current_student.structure).logo), class: "h-10 w-10 inline-block" %>
+
+  <% else %>
+
+    <%= image_tag 'logo.png', class: "h-10 w-10 inline-block" %>
+
+  <% end %>
+
+<% elsif user_signed_in? %>
+
+  <% if current_user.role.name = 'teacher' %>
+
+    <% if current_user.structure.logo.attached? %>
+
+      <%= image_tag url_for(current_user.structure.logo), class: "h-10 w-10 inline-block" %>
+
+      <% else %>
+
+      <% image_tag 'logo.png', class: 'h-10 w-10 inline-block' %>
+
+    <% end %>
+
+    <% else %>
+
+    <% image_tag 'logo.png', class: 'h-10 w-10 inline-block' %>
+
+  <% end %>
+
 <% end %>

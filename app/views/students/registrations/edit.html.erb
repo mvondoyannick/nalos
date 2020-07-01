@@ -1,43 +1,72 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Modifications
+      <br />
+      <span class="text-indigo-600">et mise à jour du compte <%= current_student.complete_name %></span>
+    </h2>
+  </div>
+</div>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <!-- component -->
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-full px-3">
+        <%= f.label :email, class: "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" %>
+        <p class="text-grey-dark text-xs italic">Vous pouvez changer votre adresse email</p>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-full px-3">
+        <%= f.label :name, class: "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" %><br />
+        <%= f.text_field :name, autofocus: true, autocomplete: "email", class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", readonly: true %>
+        <p class="text-grey-dark text-xs italic">Impossible de changer le nom, uniquement le principale</p>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-full px-3">
+        <%= f.label :second_name, class: "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" %><br />
+        <%= f.text_field :second_name, autofocus: true, autocomplete: "email", class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", readonly: true %>
+        <p class="text-grey-dark text-xs italic">Impossible de changer le prénom, uniquement le principale</p>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-full px-3">
+        <%= f.label :matricule, class: "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" %><br />
+        <%= f.text_field :matricule, autofocus: true, autocomplete: "email", class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", readonly: true %>
+        <p class="text-grey-dark text-xs italic">Impossible de changer le matricule, uniquement le principale</p>
+      </div>
+    </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
+
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/3 px-3 mb-6 md:mb-0">
+        <%= f.label "nouveau mot de passe", class: "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" %>
+        <% if @minimum_password_length %>
+          <br />
+          <em class="text-red text-xs italic"><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
+      <div class="md:w-1/3 px-3">
+        <%= f.label "confirmer nouveau mot de passe", class: "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" %>
+      </div>
+      <div class="md:w-1/3 px-3 mb-6 md:mb-0">
+        <%= f.label "Ancien mot de passe", class: "block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" %> <i>(Confirmez-nous que c'est vous)</i><br />
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" %>
+      </div>
+    </div>
+
+    <%= f.submit "Update", class: "p-4 shadow " %>
+
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
