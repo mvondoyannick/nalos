@@ -185,7 +185,7 @@
   <%= link_to 'Tout voir', course_all_path, class: 'hover:bg-transparent text-blue-600 hover:text-blue-500 font-medium' %>
 </div>
 
-<% if @course.empty? %>
+<% if Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).empty? %>
   <div class="bg-gray-50">
     <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
       <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
@@ -208,7 +208,7 @@
       </tr>
       </thead>
       <tbody>
-      <% @course.each do |course| %>
+      <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).each do |course| %>
         <tr>
           <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
             <div class="flex items-center">
