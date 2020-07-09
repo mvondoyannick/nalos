@@ -3,7 +3,7 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @course = Course.where(course_status_id: 1, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
+    @course = Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
     @new_account = User.where(structure_id: current_user.structure_id, created_at: Date.today.beginning_of_week..Date.today.end_of_week).page(params[:page]).per(10)
     @course_stats = Course.where(structure_id: current_user.structure_id, deleted: false).group(:chapter).count
     @course_view_stat = Course.group(:counter).count
@@ -25,6 +25,8 @@ class AdminController < ApplicationController
 
   # show all course
   def course_all
+    @waiting_course = Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
+    @validated_course = Course.where(course_status_id: CourseStatus.find_by_name('validate').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
     @course = Course.where(deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
   end
 

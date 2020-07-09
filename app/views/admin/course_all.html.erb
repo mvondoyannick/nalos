@@ -16,28 +16,30 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Tous les cours
+      Leçons en
       <br/>
-      <span class="text-indigo-600">publiés sur la plateforme</span>
+      <span class="text-indigo-600">attentes de validation</span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty?%>
       </div>
       <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
       </div>
     </div>
   </div>
 </div>
 
-<% if @course.empty? %>
+<% if @waiting_course.empty? %>
 
-  lorem
+  <p>
+    Aucunes leçon actuellement en attende de validation.
+  </p>
 
 <% else %>
 
-  <%= paginate @course %>
+  <%= paginate @waiting_course %>
   <br>
   <div class="overflow-x-auto bg-white rounded-lg shadow">
     <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
@@ -51,7 +53,7 @@
       </tr>
       </thead>
       <tbody>
-      <% @course.each do |course| %>
+      <% @waiting_course.each do |course| %>
         <tr class="
         <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
           <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -96,5 +98,81 @@
       </tbody>
     </table>
   </div>
+
+<% end %>
+
+<% if @validated_course.empty? %>
+
+  <% else %>
+
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Leçons déja
+      <br />
+      <span class="text-indigo-600">validés.</span>
+    </h2>
+  </div>
+</div>
+
+<div class="flex flex-col">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
+          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
+          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe & Matière</th>
+          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
+          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Statut</th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        <% @validated_course.each do |course| %>
+          <tr class="
+        <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <%= image_tag 'course.png' %>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= course.user.complete_name %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= course.salle_de_class.name %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= course.matiere.name %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 20), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= course.created_at.strftime("%d %b %Y, %Hh:%M") %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+            <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:text-indigo-500 hover:bg-transparent" %>
+          </span>
+              <div class="text-sm leading-5 text-gray-500">
+                <% if course.course_status.name == "validate" %>
+                  Validée
+                <% elsif course.course_status.name == "waiting" %>
+                  Attente
+                <% elsif course.course_status.name == "rejected" %>
+                  Rejetée
+                <% elsif course.deleted == true %>
+                  Supprimée
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 <% end %>
