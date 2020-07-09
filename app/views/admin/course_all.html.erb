@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<% if @waiting_course.empty? %>
+<% if Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).empty? %>
 
   <p>
     Aucunes leçon actuellement en attende de validation.
@@ -39,7 +39,7 @@
 
 <% else %>
 
-  <%= paginate @waiting_course %>
+  <%= paginate Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).page(params[:page]).per(10) %>
   <br>
   <div class="overflow-x-auto bg-white rounded-lg shadow">
     <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
@@ -53,7 +53,7 @@
       </tr>
       </thead>
       <tbody>
-      <% @waiting_course.each do |course| %>
+      <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).each do |course| %>
         <tr class="
         <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
           <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
