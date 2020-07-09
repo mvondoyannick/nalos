@@ -139,7 +139,7 @@
                 </li>
 
                 <li class="">
-                  <%= link_to setup_enseignant_index_path(e_token: enseignant.token, token: params[:token], pwd: true), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                  <%= link_to update_my_t_pwd_path(t_token: enseignant.token), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
                          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                          stroke-linecap="round" stroke-linejoin="round">

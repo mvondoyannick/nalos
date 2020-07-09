@@ -97,26 +97,31 @@ class AdminController < ApplicationController
     current_validation_id = CourseStatus.find_by_name("validate").id
     if current_course.update(course_status_id: current_validation_id)
 
-      # activeJob notification
-      SmsJob.set(wait: 10.seconds).perform_later(phone: 691451189, msg: "Vous venez de valider la leçon #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}. Elle est désormais accessible par tous les élèves de #{current_course.salle_de_class.name} à l'adresse #{request.env['SERVER_NAME']}/course/read_course?cours_key=#{current_course.token}&course_id=#{current_course.id}&id=87.", structure: current_user.structure.name.upcase)
+      # activeJob notification admin validation
+      notification_phone_list = %w(691451189)
+      notification_phone_list.each do |phone|
+        SmsJob.set(wait: 10.seconds).perform_later(phone: phone, msg: "Leçon validée: #{current_course.chapter}\nEnseignant ayant publié: Mr/Mme #{current_course.user.complete_name.upcase}\nSalle de classe: #{current_course.salle_de_class.name}\nAdresse disponibilité cours: #{request.env['SERVER_NAME']}/course/read_course?cours_key=#{current_course.token}&course_id=#{current_course.id}&id=87\nStatut: OK", structure: current_user.structure.name.upcase)
+      end
 
       # send message ton teacher
       # Sms.send(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y")} à été validé par l'administrateur. Il est désormais disponible à vos élèves de #{current_course.salle_de_class.name}.")
-      SmsJob.set(wait: 10.seconds).perform_later(phone: current_course.user.phone1, msg: "Votre leçon #{current_course.chapter} publiée le #{current_course.created_at.strftime("%d %b %Y à %Hh")} à été validé par l'administrateur. Il est désormais disponible à vos élèves de #{current_course.salle_de_class.name}.")
+      SmsJob.set(wait: 10.seconds).perform_later(phone: current_course.user.phone1, msg: "Leçon publiée : #{current_course.chapter}\nDate publication #{current_course.created_at.strftime("%d %b %Y, %Hh:%m")}\nSalle de classe #{current_course.salle_de_class.name} \nEtablissement #{current_user.structure.name.upcase}\nStatut: Cours validée avec succès", structure: current_user.structure.name.upcase)
 
       # send sms to all student from this class
       Student.where(salle_de_class_id: current_course.salle_de_class_id).each do |student|
         # Sms.send(phone: student.phone, msg: "Bonjour, ")
-        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_pere, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}") if student.c_pere.nil?
-        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_mere, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}") if student.c_mere.nil?
-        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_tuteur, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}") if student.c_tuteur.nil?
-        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_autre, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}") if student.c_autre.nil?
+        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_pere, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}", structure: current_user.structure.name.upcase) if student.c_pere.nil?
+        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_mere, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}", structure: current_user.structure.name.upcase) if student.c_mere.nil?
+        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_tuteur, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}", structure: current_user.structure.name.upcase) if student.c_tuteur.nil?
+        SmsJob.set(wait: 10.seconds).perform_later(phone: student.c_autre, msg: "Bonjour #{student.complete_name}, une nouvelle leçon : #{current_course.chapter} vient d'être publiée. Plus d'information sur #{request.original_url}", structure: current_user.structure.name.upcase) if student.c_autre.nil?
       end
 
       redirect_to course_all_path, notice: "La leçon #{current_course.chapter} a été validé avec succès \n et est maintenant disponible pour les apprenants."
+
     else
       # puts current_course.errors.details
       redirect_to course_all_path, notice: "Impossible de valider cette lecon : #{current_course.errors.messages}"
+
     end
   end
 

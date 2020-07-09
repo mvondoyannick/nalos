@@ -118,7 +118,7 @@ Rails.application.routes.draw do
       # liste des apprenants
       get 'setup_liste_apprenants', to: 'setup#liste_apprenants'
       get 'detail_apprenant', to: 'setup#detail_apprenant'
-      match 'update_apprenant', to: 'setup#update_apprenant', via: [:post, :get]
+      match 'update_apprenant', to: 'setup#update_apprenant', via: [:post, :get, :put]
 
       # setup index
       get 'setup_index', to: "setup#index"
@@ -132,6 +132,9 @@ Rails.application.routes.draw do
       get 'setup_structure_list'  , to: "setup#structure_list"
       get 'setup_structure_index', to: "setup#structure_index"
       get 'setup_manage_structure_index', to: 'setup#manage_structure_index' # permet de manager un structure
+
+      # update teacher password
+      match 'update_my_t_pwd', to: "setup#update_password", via: [:get, :post]
 
       # manage API
       get 'setup_manage_api', to: 'setup#manage_api'

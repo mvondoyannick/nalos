@@ -12,6 +12,58 @@ class SetupController < ApplicationController
     @enseignants = User.where(role_id: current_role_id).where(structure_id: current_user.structure_id).page(params[:page]).per(12)
   end
 
+  # change enseignant/teacher password
+  def update_password
+
+    #@teacher = User.find_by(token: params[:t_token], role_id: Role.find_by_name('teacher').id)
+
+    if request.get?
+
+      @teacher = User.find_by(token: params[:t_token], role_id: Role.find_by_name('teacher').id)
+
+      respond_to do |format|
+        format.html
+      end
+
+    elsif request.put?
+
+      t_token = params[:token]
+      t_new_pwd = params[:t_new_pwd]
+      t_new_confirm_pwd = params[:t_new_confirm_pwd]
+
+      @teacher = User.find_by(token: params[:t_token], role_id: Role.find_by_name('teacher').id)
+
+      # call module for treatment
+      r = CoreTeacher::Modifications.update_pwd(t_token: t_token, t_new_pwd: t_new_pwd, t_new_confirm_pwd: t_new_confirm_pwd)
+
+      if r[0]
+
+        respond_to do |format|
+
+          format.html {
+
+            redirect_to setup_manage_enseignant_index_path, notice: r[1]
+
+          }
+        end
+
+      else
+
+        respond_to do |format|
+
+          format.html {
+
+            redirect_to setup_manage_enseignant_index_path, notice: r[1]
+
+          }
+        end
+
+      end
+
+    end
+
+  end
+
   # gestion des enseignants
   def manage_enseignant_index
     current_role_id = Role.find_by_name('teacher').id

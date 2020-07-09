@@ -1,0 +1,3 @@
+module CoreStudent
+
+end
