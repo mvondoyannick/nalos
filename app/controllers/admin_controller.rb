@@ -100,7 +100,7 @@ class AdminController < ApplicationController
     if current_course.update(course_status_id: current_validation_id)
 
       # activeJob notification admin validation
-      notification_phone_list = %w(691451189)
+      notification_phone_list = %w(691451189, 696468953)
       notification_phone_list.each do |phone|
         SmsJob.set(wait: 10.seconds).perform_later(phone: phone, msg: "Leçon validée: #{current_course.chapter}\nEnseignant ayant publié: Mr/Mme #{current_course.user.complete_name.upcase}\nSalle de classe: #{current_course.salle_de_class.name}\nAdresse disponibilité cours: #{request.env['SERVER_NAME']}/course/read_course?cours_key=#{current_course.token}&course_id=#{current_course.id}&id=87\nStatut: OK", structure: current_user.structure.name.upcase)
       end
