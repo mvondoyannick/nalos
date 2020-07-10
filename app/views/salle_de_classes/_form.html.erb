@@ -32,3 +32,8 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<%= form_with(url: import_gsbnal_data_path) do |form| %>
+  <%= form.file_field :file %>
+  <%= form.submit %>
+<% end %>

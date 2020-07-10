@@ -15,6 +15,21 @@ class SalleDeClass < ApplicationRecord
     end
   end
 
+  def self.import_data(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      if SalleDeClass.exists?(name: row[0])
+        puts "Enregistrement annulé"
+      else
+        save_data = SalleDeClass.new(name: row[0], effectif: nil, token: SecureRandom.hex(20), structure_id: Structure.find_by_name('GSBNAL').id, cycle_ecole_id: CycleEcole.find_by(name: 'Francophone', structure_id: Structure.find_by_name('GSBNAL').id).id)
+        if save_data.save
+          puts "Salle de classe saved succefully"
+        else
+          puts "Cannot save salle de classe data : #{save_data.errors.details}"
+        end
+      end
+    end
+  end
+
   def salle_de_class_with_initial
       name.to_s
   end

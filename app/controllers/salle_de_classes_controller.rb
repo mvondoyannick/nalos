@@ -14,6 +14,15 @@ class SalleDeClassesController < ApplicationController
     @students = Student.where(salle_de_class_id: @salle_de_class.id).page(params[:page]).per(20)
   end
 
+  def import_gsbnal_data
+
+    file = params[:file]
+
+    #beginning import data
+    SalleDeClass.import_data(file)
+
+  end
+
   # GET /salle_de_classes/new
   def new
     @salle_de_class = SalleDeClass.new

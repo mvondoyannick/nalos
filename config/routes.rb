@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :problemes
   #get 'people/search'
 
+  # import data
+  post 'import_gsbnal_data', to: 'salle_de_classes#import_gsbnal_data'
+
 
   resources :documents
   resources :comments
