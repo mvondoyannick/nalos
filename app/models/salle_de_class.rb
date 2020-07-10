@@ -20,7 +20,7 @@ class SalleDeClass < ApplicationRecord
       if SalleDeClass.exists?(name: row[0])
         puts "Enregistrement annulé"
       else
-        save_data = SalleDeClass.new(name: row[0], effectif: nil, token: SecureRandom.hex(20), structure_id: Structure.find_by_name('GSBNAL').id, cycle_ecole_id: CycleEcole.find_by(name: 'Francophone', structure_id: Structure.find_by_name('GSBNAL').id).id)
+        save_data = SalleDeClass.new(name: row[0], effectif: nil, token: SecureRandom.hex(20), structure_id: Structure.find_by_name('GSBNAL').id, cycle_ecole_id: CycleEcole.first.id)
         if save_data.save
           puts "Salle de classe saved succefully"
         else
