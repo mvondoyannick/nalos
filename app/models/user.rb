@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include Discard::Model
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -12,16 +13,16 @@ class User < ApplicationRecord
   belongs_to :role
   belongs_to :structure
   belongs_to :cycle_ecole
-  has_many :courses
-  has_many :comments
-  has_many :messages
-  has_many :blogs
+  has_many :courses, dependent: :delete_all
+  has_many :comments, dependent: :delete_all
+  has_many :messages, dependent: :delete_all
+  has_many :blogs, dependent: :delete_all
 
   # for epreuve
-  has_many :epreuves
+  has_many :epreuves, dependent: :destroy
 
   # has_many :documents
-  has_one :salle_de_class
+  has_one :salle_de_class, dependent: :delete
 
   def follow(user)
     Notification.create(notify_type: 'follow', actor: self, user: user)

@@ -49,6 +49,7 @@ class Student < ApplicationRecord
     end
   end
 
+
   # update and extend student model
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
