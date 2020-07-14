@@ -1,5 +1,5 @@
 class Course < ApplicationRecord
-  include Discard::Model
+  #include Discard::Model
 
   belongs_to :salle_de_class
   belongs_to :matiere
