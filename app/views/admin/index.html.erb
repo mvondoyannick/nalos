@@ -13,7 +13,7 @@
   </div>
 <% end %>
 
-<%= link_to 'Send Notification', admin_index_path, remote: true %>
+<%#= link_to 'Send Notification', admin_index_path, remote: true %>
 
 <div class="bg-gray-50 -mt-12">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
@@ -158,7 +158,7 @@
               <% end %>
             </div>
           </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-blue-300">
           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
             <%= link_to "Details", "#", data: {confirm: "Aucuns details disponible pour le moment. \nMerci de patienter."} %>
           </span>
@@ -208,7 +208,7 @@
       </tr>
       </thead>
       <tbody>
-      <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).each do |course| %>
+      <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc).each do |course| %>
         <tr>
           <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
             <div class="flex items-center">
@@ -233,7 +233,7 @@
             <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 30), course_detail_path(course_id: course.id, document_id: course.document_id)  %></div>
             <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
           </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-blue-300">
           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
             <%= link_to "Detail", course_detail_path(course_id: course.id, document_id: course.document_id), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" %>
           </span>

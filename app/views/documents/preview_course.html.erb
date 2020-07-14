@@ -15,19 +15,9 @@
     </div>
   </div>
 </div>
-
-<% if @current_file.video? %>
-  <%= video_tag url_for(@current_file), width: "100%", poster: "poster.jpg", controls: true, class: 'shadow', preload: "auto", id: "my-video", height: 1000, width: "100%" %>
-<% elsif @current_file.audio? %>
-  <%= video_tag url_for(@current_file), width: "100%", poster: "poster.jpg", controls: true, id: "player", class: 'shadow' %>
-<% elsif @current_file.image? %>
-  <%= image_tag url_for(@current_file) %>
-<% elsif @current_file.content_type.end_with?("pdf") %>
-  <object data="<%= rails_blob_path(@current_file) %>" type="<%= @current_file.content_type %>" height="1000" width="100%"></object>
-<% else %>
-  <%= image_tag @current_file.preview(resize: "1024x1024") %>
-  <%= link_to "Télécharger ce document", rails_blob_path(@current_file, disposition: "attachment") %>
-<% end %>
+<div class="shadow">
+  <%= render 'layouts/previewer', data: @current_file %>
+</div>
 
 <script>
     // import Plyr from 'plyr'

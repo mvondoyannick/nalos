@@ -3,17 +3,14 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-//= require active_storage_drag_and_drop
+//= require plyr
+
 // import ActiveStorageDragAndDrop from 'active_storage_drag_and_drop'
 
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-// require("active_storage_drag_and_drop")
-// import 'active_storage_drag_and_drop'
-import ActiveStorageDragAndDrop from 'active_storage_drag_and_drop'
-ActiveStorageDragAndDrop.start()
 
 
 
@@ -25,9 +22,11 @@ ActiveStorageDragAndDrop.start()
 // const imagePath = (name) => images(name, true)
 
 //= require select_all.js
+//= require plyr
 
 require("chartkick")
 require("chart.js")
+require("plyr")
 
 require("trix")
 require("@rails/actiontext")
@@ -37,15 +36,10 @@ import '../css/application.css'
 require('tailwindcss')('./app/javascript/css/tailwind.js'),
     require('autoprefixer')
 
-document.addEventListener('dnd-uploads:start', function (event) {
-    console.log("upload are starting ...");
-    event.preventDefault()
+// lauching plyr
+$(document).on("turbolinks:load", function() {
+    const player = new Plyr('#player');
 });
-
-document.addEventListener('dnd-uploads:end', function (event) {
-    console.log("upload ended ...");
-    event.preventDefault()
-})
 
 
 document.addEventListener("turbolinks:load", function () {

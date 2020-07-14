@@ -16,7 +16,17 @@
           Personal details and application.
         </p>
       </div>
-      <%= video_tag url_for(Document.find(@current_course.document_id).file.find(@current_course.file_id)), controls: true %>
+      <% @c = Document.find(@current_course.document_id).file.find(@current_course.file_id) %>
+      <% if @c.audio? %>
+        <%= video_tag url_for(@c), controls: true, width: "100%" %>
+      <% elsif @c.video? %>
+        <%= video_tag url_for(@c), controls: true, width: "100%" %>
+      <% elsif @c.image? %>
+        <%= image_tag(@c, size: '500x500') %>
+      <% elsif @c.content_type.end_with?("pdf") %>
+        <object data="<%= rails_blob_path(@c) %>" height="500" width="100%"></object>
+      <% end %>
+      <%#= video_tag url_for(Document.find(@current_course.document_id).file.find(@current_course.file_id)), controls: true %>
     </div>
   </div>
   <div class="w-1/2">

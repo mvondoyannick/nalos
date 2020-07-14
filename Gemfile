@@ -91,3 +91,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'notifications', '~> 0.6.0'
 
 gem "discard", "~> 1.2"
+
+gem "plyr-rails", "~> 3.5"

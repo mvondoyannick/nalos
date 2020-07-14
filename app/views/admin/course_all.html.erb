@@ -53,7 +53,7 @@
       </tr>
       </thead>
       <tbody>
-      <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).each do |course| %>
+      <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc).each do |course| %>
         <tr class="
         <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
           <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -108,7 +108,7 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Leçons déja
+      Leçons publiées déja
       <br />
       <span class="text-indigo-600">validés.</span>
     </h2>
@@ -151,19 +151,19 @@
               <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 20), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
               <div class="text-sm leading-5 text-gray-500"><%= course.created_at.strftime("%d %b %Y, %Hh:%M") %></div>
             </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-blue-300">
+          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-yellow-800">
             <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:text-indigo-500 hover:bg-transparent" %>
           </span>
               <div class="text-sm leading-5 text-gray-500">
                 <% if course.course_status.name == "validate" %>
-                  Validée
+                  Leçon validée
                 <% elsif course.course_status.name == "waiting" %>
-                  Attente
+                  Leçon en attente
                 <% elsif course.course_status.name == "rejected" %>
-                  Rejetée
+                  Leçon rejetée
                 <% elsif course.deleted == true %>
-                  Supprimée
+                  Leçon supprimée
                 <% end %>
               </div>
             </td>

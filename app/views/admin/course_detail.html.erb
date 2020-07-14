@@ -7,7 +7,7 @@
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to "Emettre une note", course_send_teacher_note_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        <%= link_to "Ecrire", course_send_teacher_note_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
       <div class="ml-3 inline-flex rounded-md shadow">
         <%= link_to "Contacter l'enseignant", course_detail_contact_teacher_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
@@ -38,17 +38,7 @@
       </p>
     </div>
   </h3>
-  <% if @document.video? %>
-    <%= video_tag url_for(@document), controls: true, id: 'player' %>
-  <% elsif @document.image? %>
-    <%= image_tag url_for(@document) %>
-  <% elsif @document.audio? %>
-    <%= audio_tag url_for(@document), controls: true, id: 'player' %>
-  <% elsif @document.content_type.end_with?('pdf') %>
-    <object data="<%= rails_blob_path(@document) %>" type="<%= @document.content_type %>" width="100%" height="1000"></object>
-  <% elsif @document.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
-    <%= link_to(image_tag(@document.preview(resize: '1000x1000')), rails_blob_path(@document, disposition: 'attachment')) %>
-  <% end %>
+  <%= render 'layouts/previewer', data: @document %>
 </div>
 <br>
 <hr>

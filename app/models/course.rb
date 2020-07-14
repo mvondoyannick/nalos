@@ -49,6 +49,9 @@ class Course < ApplicationRecord
     self.course_status_id = CourseStatus.first.id
     self.token = SecureRandom.hex(12)
     self.deleted = false
+
+    # send notification channel
+    ActionCable.server.broadcast('notification_channel', "Nouvelle leçon publiée et attente de validation!")
   end
 
 end

@@ -31,64 +31,130 @@
   </div>
 </div>
 
-<div class="flex flex-col">
-  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-      <table class="min-w-full">
-        <thead>
-        <tr>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Document
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Date importation
-          </th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-        </tr>
-        </thead>
-        <tbody class="bg-white">
-        <% @document.file.each do |document| %>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-30 w-30">
-                    <% if document.content_type.end_with?("pdf") %>
-                      <%= link_to(image_tag('pdf.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
-                    <% elsif document.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
-                      <%= link_to(image_tag('excel.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
-                    <% elsif document.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
-                      <%= link_to(image_tag('word.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
-                    <% elsif document.image? %>
-                      <%= link_to(image_tag('photo.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
-                    <% elsif document.video? %>
-                      <%= link_to(image_tag('video.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
-                    <% elsif document.audio? %>
-                      <%= link_to(image_tag('audio.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
-                    <% else %>
-                      <%= link_to(image_tag('course.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
-                    <% end %>
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900"><%= excerpt(document.filename.to_s, '', radius: 30) %></div>
-                    <div class="text-sm leading-5 text-gray-500"><%= excerpt(document.content_type, '', radius: 30) %></div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= document.created_at.strftime("%d %b %Y") %></div>
-                <div class="text-sm leading-5 text-gray-500"><%= document.created_at.strftime("%H:%M") %></div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <%= link_to "Prévisualiser", preview_course_path(document_id: params[:id], file_id: document), class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %>
-              </td>
-              <% if current_user.role.name == 'teacher' %>
-                <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                  <%= link_to "Joindre à un cours", join_to_course_path(document_id: @document.id, current_file_id: document.id), class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %>
-                </td>
-              <% end %>
-            </tr>
-        <% end %>
-        </tbody>
-      </table>
+<!--<div class="flex flex-col">-->
+<!--  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">-->
+<!--    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">-->
+<!--      <table class="min-w-full">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">-->
+<!--            Document-->
+<!--          </th>-->
+<!--          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">-->
+<!--            Date importation-->
+<!--          </th>-->
+<!--          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody class="bg-white">-->
+        <%# @document.file.each do |document| %>
+<!--              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
+<!--                <div class="flex items-center">-->
+<!--                  <div class="flex-shrink-0 h-30 w-30">-->
+                    <%# if document.content_type.end_with?("pdf") %>
+                      <%#= link_to(image_tag('pdf.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <%# elsif document.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+                      <%#= link_to(image_tag('excel.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <%# elsif document.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+                      <%#= link_to(image_tag('word.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <%# elsif document.image? %>
+                      <%#= link_to(image_tag('photo.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <%# elsif document.video? %>
+                      <%#= link_to(image_tag('video.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <%# elsif document.audio? %>
+                      <%#= link_to(image_tag('audio.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <%# else %>
+                      <%#= link_to(image_tag('course.png', size: '100x100'), rails_blob_path(document, disposition: "inline")) %>
+                    <%# end %>
+<!--                  </div>-->
+<!--                  <div class="ml-4">-->
+<!--                    <div class="text-sm leading-5 font-medium text-gray-900"><%#= excerpt(document.filename.to_s, '', radius: 30) %></div>-->
+<!--                    <div class="text-sm leading-5 text-gray-500"><%#= excerpt(document.content_type, '', radius: 30) %></div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </td>-->
+<!--              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
+<!--                <div class="text-sm leading-5 text-gray-900"><%#= document.created_at.strftime("%d %b %Y") %></div>-->
+<!--                <div class="text-sm leading-5 text-gray-500"><%#= document.created_at.strftime("%H:%M") %></div>-->
+<!--              </td>-->
+<!--              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">-->
+                <%#= link_to "Prévisualiser", preview_course_path(document_id: params[:id], file_id: document), class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %>
+<!--              </td>-->
+              <%# if current_user.role.name == 'teacher' %>
+<!--                <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">-->
+                  <%#= link_to "Joindre à un cours", join_to_course_path(document_id: @document.id, current_file_id: document.id), class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %>
+<!--                </td>-->
+              <%# end %>
+<!--            </tr>-->
+        <%# end %>
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="container my-12 mx-auto px-4 md:px-12">
+  <div class="flex flex-wrap -mx-1 lg:-mx-4">
+
+    <% @document.file.each do |document| %>
+
+    <!-- Column -->
+    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+      <!-- Article -->
+      <article class="overflow-hidden rounded-lg shadow-lg">
+
+        <a href="#">
+          <% if document.content_type.end_with?("pdf") %>
+            <%= link_to(image_tag('pdf.png', size: '640x400', class: 'object-cover'), preview_course_path(document_id: params[:id], file_id: document)) %>
+          <% elsif document.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+            <%= link_to(image_tag('excel.png', size: '640x400', class: 'object-cover'), preview_course_path(document_id: params[:id], file_id: document)) %>
+          <% elsif document.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+            <%= link_to(image_tag('word.png', size: '640x400', class: 'object-cover'), preview_course_path(document_id: params[:id], file_id: document)) %>
+          <% elsif document.image? %>
+            <%= link_to(image_tag('photo.png', size: '640x400'), preview_course_path(document_id: params[:id], file_id: document)) %>
+          <% elsif document.video? %>
+            <%= link_to(image_tag('video.png', size: '640x400'), preview_course_path(document_id: params[:id], file_id: document)) %>
+          <% elsif document.audio? %>
+            <%= link_to(image_tag('audio.png', size: '640x400'), preview_course_path(document_id: params[:id], file_id: document)) %>
+          <% else %>
+            <%= link_to(image_tag('course.png', size: '640x400'), preview_course_path(document_id: params[:id], file_id: document)) %>
+          <% end %>
+          <!--img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random" -->
+        </a>
+
+        <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+          <h1 class="text-lg">
+            <a class="no-underline hover:underline text-black" href="#">
+              <%= excerpt(document.filename.to_s, '', radius: 30) %>
+            </a>
+          </h1>
+          <p class="text-grey-darker text-sm">
+            <%= document.created_at.strftime("%d %b %Y, %Hh:%m") %>
+          </p>
+        </header>
+
+        <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+          <a class="flex items-center no-underline hover:underline text-black" href="#">
+            <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">
+            <p class="ml-2 text-sm">
+              <%= link_to "Prévisualiser", preview_course_path(document_id: params[:id], file_id: document), class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %>
+            </p>
+          </a>
+          <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
+            <span class="hidden">Like</span>
+            <i class="fa fa-heart"></i>
+          </a>
+        </footer>
+
+      </article>
+      <!-- END Article -->
+
     </div>
+    <!-- END Column -->
+
+      <% end %>
+
   </div>
 </div>
