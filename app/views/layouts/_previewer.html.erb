@@ -10,6 +10,6 @@
 <% elsif data.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
   <%= link_to(image_tag('excel.png', size: '1000x1000'), rails_blob_path(data, disposition: "inline")) %>
 <% else %>
-  <%= image_tag data.preview(resize: "1024x1024") %>
+  <%= image_tag('document.png', size: "1000x1000") %>
   <%= link_to "Télécharger ce document", rails_blob_path(data, disposition: "attachment") %>
 <% end %>
