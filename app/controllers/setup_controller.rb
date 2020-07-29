@@ -25,16 +25,17 @@ class SetupController < ApplicationController
         format.html
       end
 
-    elsif request.put?
+    elsif request.post?
 
-      t_token = params[:token]
-      t_new_pwd = params[:t_new_pwd]
-      t_new_confirm_pwd = params[:t_new_confirm_pwd]
+      t_token = params[:t_token]
+      #t_new_pwd = params[:t_new_pwd]
+      default_pwd = params[:default_pwd]
+      #t_new_confirm_pwd = params[:t_new_confirm_pwd]
 
       @teacher = User.find_by(token: params[:t_token], role_id: Role.find_by_name('teacher').id)
 
       # call module for treatment
-      r = CoreTeacher::Modifications.update_pwd(t_token: t_token, t_new_pwd: t_new_pwd, t_new_confirm_pwd: t_new_confirm_pwd)
+      r = CoreTeacher::Modifications.update_pwd(t_token: t_token, default_pwd: default_pwd)
 
       if r[0]
 
@@ -69,6 +70,28 @@ class SetupController < ApplicationController
     current_role_id = Role.find_by_name('teacher').id
     @current_structure = current_user.structure #Structure.find_by_token(params[:token])
     @enseignants = User.where(role_id: current_role_id, statut: "active").where(structure_id: @current_structure.id).page(params[:page]).per(12)
+  end
+
+  # gestion des enseignants supprimés ou suspendu
+  def manage_enseignant_deleted
+    current_role_id = Role.find_by_name('teacher').id
+    @current_structure = current_user.structure #Structure.find_by_token(params[:token])
+    @enseignants = User.where(role_id: current_role_id, statut: "active", deleted: true).where(structure_id: @current_structure.id).page(params[:page]).per(12)
+  end
+
+  # restaurer un compte
+  def restaure_teacher_account
+    t_token = params[:t_token]
+    if User.exists?(token: t_token, deleted: true)
+      c_teacher = User.find_by_token(t_token)
+      if c_teacher.update(deleted: nil )
+        redirect_to setup_manage_enseignant_index_path, notice: "#{c_teacher.name.upcase} restauré avec succès"
+      else
+        redirect_to setup_manage_enseignant_index_path, notice: "Impossible de restaurer cet enseignant"
+      end
+    else
+      redirect_to setup_manage_enseignant_index_path, notice: "Impossible de trouver cet enseignant"
+    end
   end
 
   # add new enseignant user

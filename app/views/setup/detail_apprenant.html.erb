@@ -13,7 +13,7 @@
 <!--        </a>-->
 <!--      </div>-->
       <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to 'Modifier le dossier', update_apprenant_path(m: @current_student.matricule), class: 'inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
+        <%= link_to 'Modifier le dossier', edit_student_registration_path(id: @current_student), class: 'inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
       </div>
     </div>
   </div>

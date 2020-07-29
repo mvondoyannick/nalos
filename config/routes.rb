@@ -42,10 +42,16 @@ Rails.application.routes.draw do
   resources :filieres
   get 'home_student/index'
   #devise_for :students
-  devise_for :students, controllers: { sessions: 'student/sessions' }
+  devise_for :students, controllers: {
+      sessions: 'student/sessions',
+      registrations: 'student/registrations'
+  }
   resources :cycle_ecoles
   # devise_for :users
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+  devise_for :users, controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations'
+  }
   resources :roles
   resources :salle_de_classes
   resources :enseignements
@@ -127,6 +133,7 @@ Rails.application.routes.draw do
       get 'setup_index', to: "setup#index"
       get 'setup_enseignant_index', to: "setup#enseignant_index"
       get 'setup_manage_enseignant_index', to: 'setup#manage_enseignant_index'
+      get 'deleted_teachers_list', to: "setup#manage_enseignant_deleted"
       match 'setup_new_teacher', to: 'setup#new_teacher', via: [:post, :patch, :delete] # ajuoter un nouvel enseignant
       get 'setup_student_index', to: "setup#student_idenx"
       get 'setup_notification_index', to: "setup#notification_index"
@@ -138,6 +145,9 @@ Rails.application.routes.draw do
 
       # update teacher password
       match 'update_my_t_pwd', to: "setup#update_password", via: [:get, :post]
+
+      # restaure teacher from deleted
+      get "restaure_teacher", to: "setup#restaure_teacher_account"
 
       # manage API
       get 'setup_manage_api', to: 'setup#manage_api'
