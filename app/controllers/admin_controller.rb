@@ -36,14 +36,14 @@ class AdminController < ApplicationController
     if params[:a] == "suspend"
       User.where(structure_id: params[:plateform]).each do |user|
         user.courses.each do |course|
-          course.update(course_status_id: 1)
+          course.update(course_status_id: CourseStatus.find_by_name('waiting').id)
         end
       end
       redirect_to course_all_path, notice: "Tous les leçons de #{current_structure.name} ont été suspendues."
     elsif params[:a] == "validate"
       User.where(structure_id: params[:plateform]).each do |user|
         user.courses.each do |course|
-          course.update(course_status_id: 2)
+          course.update(course_status_id: CourseStatus.find_by_name('validate').id)
         end
       end
       redirect_to course_all_path, notice: "Toutes les leçon de #{current_structure.name} ont été validées."
@@ -133,7 +133,29 @@ class AdminController < ApplicationController
 
   # delete course
   def course_delete
+    if params[:course_token].present?
 
+      # search course existance
+      if Course.exists?(token: params[:course_token], deleted: false)
+        c_lecon = Course.find_by_token(params[:course_token])
+
+        # we can delete
+        c_lecon.deleted = true
+
+        if c_lecon.save
+          redirect_to course_all_path, notice: "La leçon #{c_lecon.chapter.upcase} à été correctement supprimée."
+        else
+          redirect_to course_all_path, notice: "Impossible de supprimer la leçon demandée."
+        end
+
+      else
+
+        redirect_to course_all_path, notice: "Impossible de trouver la leçon demandée."
+
+      end
+    else
+      redirect_to course_all_path, notice: "Certaines informations sont manquantes. Action annulée."
+    end
   end
 
   # suspend course

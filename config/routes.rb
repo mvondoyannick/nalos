@@ -189,6 +189,7 @@ Rails.application.routes.draw do
         post 'course_validation', to: 'admin#course_validation'
         get 'course_suspension', to: "admin#course_suspension"
         post 'course_validate_or_suspend_all', to: "admin#course_validate_or_suspend_all"
+        get 'course_delete', to: 'admin#course_delete'
       end
     end
 

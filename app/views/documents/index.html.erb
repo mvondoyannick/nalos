@@ -13,24 +13,6 @@
   </div>
 <% end %>
 
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Support de cours
-      <br/>
-      <span class="text-indigo-600">importés.</span>
-    </h2>
-    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow">
-        <%= link_to 'Importer un nouveau document', new_document_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<%= paginate @documents %>
-<br>
-
 <% if @documents.empty? %>
 
   <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
@@ -40,7 +22,7 @@
       <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
 
       <div class="text-center md:text-left">
-        <h2 class="text-lg mt-8">Pas de documents disponible.</h2> <br>
+        <h2 class="text-lg mt-8">Pas de supports de cours disponibles.</h2> <br>
         <%= link_to "Importer un nouveau document?", new_document_path, class: "hover:bg-transparent hover:text-indigo-500" %>
       </div>
     </div>
@@ -48,6 +30,24 @@
   </div>
 
 <% else %>
+
+  <div class="bg-gray-50">
+    <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+      <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+        Support de cours
+        <br/>
+        <span class="text-indigo-600">importés.</span>
+      </h2>
+      <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+        <div class="inline-flex rounded-md shadow">
+          <%= link_to 'Importer un nouveau document', new_document_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= paginate @documents %>
+  <br>
 
   <div class="flex flex-col">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
