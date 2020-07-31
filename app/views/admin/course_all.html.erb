@@ -13,166 +13,322 @@
   </div>
 <% end %>
 
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Leçons en
-      <br/>
-      <span class="text-indigo-600">attentes de validation</span>
-    </h2>
-    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow">
-        <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty?%>
-      </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<% if Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).empty? %>
-
-  <p>
-    Aucunes leçon actuellement en attende de validation.
-  </p>
-
-<% else %>
-
-  <%= paginate Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).page(params[:page]).per(10) %>
-  <br>
-  <div class="overflow-x-auto bg-white rounded-lg shadow">
-    <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
-      <thead>
-      <tr class="text-left">
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe & Matière</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Statut</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc).each do |course| %>
-        <tr class="
-        <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="flex items-center">
-              <div class="flex-shrink-0 h-10 w-10">
-                <%= image_tag 'course.png' %>
-              </div>
-            </div>
-          </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="text-sm leading-5 text-gray-900"><%= course.user.complete_name %></div>
-            <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
-          </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="text-sm leading-5 text-gray-900"><%= course.salle_de_class.name %></div>
-            <div class="text-sm leading-5 text-gray-500"><%= course.matiere.name %></div>
-          </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 20), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
-            <div class="text-sm leading-5 text-gray-500"><%= course.created_at.strftime("%d %b %Y, %Hh:%M") %></div>
-          </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-            <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:text-indigo-500 hover:bg-transparent" %>
-          </span>
-            <div class="text-sm leading-5 text-gray-500">
-              <% if course.course_status.name == "validate" %>
-                Validée
-              <% elsif course.course_status.name == "waiting" %>
-                Attente
-              <% elsif course.course_status.name == "rejected" %>
-                Rejetée
-              <% elsif course.deleted == true %>
-                Supprimée
-              <% end %>
-            </div>
-          </td>
-        </tr>
-
-      <% end %>
-
-      </tbody>
-    </table>
-  </div>
-
-<% end %>
-
-<% if @validated_course.empty? %>
-
-  <% else %>
-
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Leçons publiées déja
-      <br />
-      <span class="text-indigo-600">validés.</span>
-    </h2>
-  </div>
-</div>
-
-<div class="flex flex-col">
-  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-      <table class="min-w-full">
-        <thead>
-        <tr>
-          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
-          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
-          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe & Matière</th>
-          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
-          <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Statut</th>
-        </tr>
-        </thead>
-        <tbody class="bg-white">
-        <% @validated_course.each do |course| %>
-          <tr class="
-        <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <%= image_tag 'course.png' %>
+<div class="flex flex-wrap" id="tabs-id">
+  <div class="w-full">
+    <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-pink-600" onclick="changeAtiveTab(event,'tab-profile')">
+          En attente de validation
+        </a>
+      </li>
+      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-settings')">
+          Validés
+        </a>
+      </li>
+      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-options')">
+          Enseignants
+        </a>
+      </li>
+    </ul>
+    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+      <div class="px-4 py-5 flex-auto">
+        <div class="tab-content tab-space">
+          <div class="block" id="tab-profile">
+            <p>
+            <div class="bg-gray-50">
+              <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+                <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+                  Leçons en
+                  <br/>
+                  <span class="text-indigo-600">attentes de validation</span>
+                </h2>
+                <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+                  <div class="inline-flex rounded-md shadow">
+                    <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
+                  </div>
+                  <div class="ml-3 inline-flex rounded-md shadow">
+                    <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
+                  </div>
                 </div>
               </div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= course.user.complete_name %></div>
-              <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= course.salle_de_class.name %></div>
-              <div class="text-sm leading-5 text-gray-500"><%= course.matiere.name %></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 20), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
-              <div class="text-sm leading-5 text-gray-500"><%= course.created_at.strftime("%d %b %Y, %Hh:%M") %></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-blue-300">
-          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-yellow-800">
-            <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:text-indigo-500 hover:bg-transparent" %>
-          </span>
-              <div class="text-sm leading-5 text-gray-500">
-                <% if course.course_status.name == "validate" %>
-                  Leçon validée
-                <% elsif course.course_status.name == "waiting" %>
-                  Leçon en attente
-                <% elsif course.course_status.name == "rejected" %>
-                  Leçon rejetée
-                <% elsif course.deleted == true %>
-                  Leçon supprimée
-                <% end %>
+            </div>
+
+            <% if Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).empty? %>
+
+              <p>
+                Aucunes leçon actuellement en attende de validation.
+              </p>
+
+            <% else %>
+
+              <%= paginate Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).page(params[:page]).per(10) %>
+              <br>
+              <div class="overflow-x-auto bg-white rounded-lg shadow">
+                <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
+                  <thead>
+                  <tr class="text-left">
+                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
+                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
+                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe & Matière</th>
+                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
+                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Statut</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc).each do |course| %>
+                    <tr class="
+                      <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 h-10 w-10">
+                            <%= image_tag 'course.png' %>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div class="text-sm leading-5 text-gray-900"><%= course.user.complete_name %></div>
+                        <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div class="text-sm leading-5 text-gray-900"><%= course.salle_de_class.name %></div>
+                        <div class="text-sm leading-5 text-gray-500"><%= course.matiere.name %></div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 20), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
+                        <div class="text-sm leading-5 text-gray-500"><%= course.created_at.strftime("%d %b %Y, %Hh:%M") %></div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                          <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:text-indigo-500 hover:bg-transparent" %>
+                        </span>
+                        <div class="text-sm leading-5 text-gray-500">
+                          <% if course.course_status.name == "validate" %>
+                            Validée
+                          <% elsif course.course_status.name == "waiting" %>
+                            Attente
+                          <% elsif course.course_status.name == "rejected" %>
+                            Rejetée
+                          <% elsif course.deleted == true %>
+                            Supprimée
+                          <% end %>
+                        </div>
+                      </td>
+                    </tr>
+
+                  <% end %>
+
+                  </tbody>
+                </table>
               </div>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+
+            <% end %>
+            </p>
+          </div>
+          <div class="hidden" id="tab-settings">
+            <p>
+              <% if @validated_course.empty? %>
+
+              <% else %>
+
+              <div class="bg-gray-50">
+                <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+                  <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+                    Leçons publiées déja
+                    <br/>
+                    <span class="text-indigo-600">validés.</span>
+                  </h2>
+                </div>
+              </div>
+
+              <div class="flex flex-col">
+                <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                  <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                    <table class="min-w-full">
+                      <thead>
+                      <tr>
+                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
+                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
+                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe &
+                          Matière
+                        </th>
+                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
+                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Statut</th>
+                      </tr>
+                      </thead>
+                      <tbody class="bg-white">
+                      <% @validated_course.each do |course| %>
+                        <tr class="
+                           <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
+                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <div class="flex items-center">
+                              <div class="flex-shrink-0 h-10 w-10">
+                                <%= image_tag 'course.png' %>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <div class="text-sm leading-5 text-gray-900"><%= course.user.complete_name %></div>
+                            <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <div class="text-sm leading-5 text-gray-900"><%= course.salle_de_class.name %></div>
+                            <div class="text-sm leading-5 text-gray-500"><%= course.matiere.name %></div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 20), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
+                            <div class="text-sm leading-5 text-gray-500"><%= course.created_at.strftime("%d %b %Y, %Hh:%M") %></div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-blue-300">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-yellow-800">
+                              <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:text-indigo-500 hover:bg-transparent" %>
+                            </span>
+                            <div class="text-sm leading-5 text-gray-500">
+                              <% if course.course_status.name == "validate" %>
+                                Leçon validée
+                              <% elsif course.course_status.name == "waiting" %>
+                                Leçon en attente
+                              <% elsif course.course_status.name == "rejected" %>
+                                Leçon rejetée
+                              <% elsif course.deleted == true %>
+                                Leçon supprimée
+                              <% end %>
+                            </div>
+                          </td>
+                        </tr>
+                      <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            <% end %>
+            </p>
+          </div>
+          <div class="hidden" id="tab-options">
+            <p>
+            <div class="bg-gray-50">
+              <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+                <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+                  Détails sur les
+                  <br>
+                  <span class="text-indigo-600">enseignants</span>
+                </h2>
+<!--                <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">-->
+<!--                  <div class="inline-flex rounded-md shadow">-->
+<!--                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">-->
+<!--                      Get started-->
+<!--                    </a>-->
+<!--                  </div>-->
+<!--                  <div class="ml-3 inline-flex rounded-md shadow">-->
+<!--                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">-->
+<!--                      Learn more-->
+<!--                    </a>-->
+<!--                  </div>-->
+<!--                </div>-->
+              </div>
+            </div>
+
+            <div class="flex flex-col">
+              <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                  <table class="min-w-full divide-y divide-gray-200">
+                    <thead>
+                    <tr>
+                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        Enseignant
+                      </th>
+                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        Matière
+                      </th>
+                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        Leçons validées
+                      </th>
+                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        Leçons en attentes
+                      </th>
+                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    <% Course.where(structure_id: current_user.structure_id, course_status_id: CourseStatus.find_by_name('waiting').id).each do |teacher| %>
+
+                      <tr>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0 h-10 w-10">
+                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+                          </div>
+                          <div class="ml-4">
+                            <div class="text-sm leading-5 font-medium text-gray-900">
+                              <%= teacher.user.name %>
+                            </div>
+                            <div class="text-sm leading-5 text-gray-500">
+                              <%= Structure.find(teacher.structure_id).name.upcase %>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div class="text-sm leading-5 text-gray-900"><%= teacher.chapter %></div>
+                        <div class="text-sm leading-5 text-gray-500"><%= teacher.matiere.name %></div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          <%= Course.where(user_id: teacher.id, course_status_id: CourseStatus.find_by_name('validate').id).count %>
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          <%= Course.where(user_id: teacher.id, course_status_id: CourseStatus.find_by_name('waiting').id).count %>
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Details</a>
+                      </td>
+                    </tr>
+
+                    <% end %>
+
+                    <!-- More rows... -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<% end %>
+<script type="text/javascript">
+    function changeAtiveTab(event, tabID) {
+        let element = event.target;
+        while (element.nodeName !== "A") {
+            element = element.parentNode;
+        }
+        ulElement = element.parentNode.parentNode;
+        aElements = ulElement.querySelectorAll("li > a");
+        tabContents = document.getElementById("tabs-id").querySelectorAll(".tab-content > div");
+        for (let i = 0; i < aElements.length; i++) {
+            aElements[i].classList.remove("text-white");
+            aElements[i].classList.remove("bg-pink-600");
+            aElements[i].classList.add("text-pink-600");
+            aElements[i].classList.add("bg-white");
+            tabContents[i].classList.add("hidden");
+            tabContents[i].classList.remove("block");
+        }
+        element.classList.remove("text-pink-600");
+        element.classList.remove("bg-white");
+        element.classList.add("text-white");
+        element.classList.add("bg-pink-600");
+        document.getElementById(tabID).classList.remove("hidden");
+        document.getElementById(tabID).classList.add("block");
+    }
+</script>

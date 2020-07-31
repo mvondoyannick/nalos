@@ -31,6 +31,7 @@
       <%= form.hidden_field :file_id, value: @current_file.id %>
       <%= form.hidden_field :document_id, value: params[:document_id] %>
       <%= form.hidden_field :course_status_id, value: 1 %>
+      <%= form.hidden_field :structure_id, value: current_user.structure_id %>
 
       <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">

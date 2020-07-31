@@ -13,6 +13,17 @@
   </div>
 <% end %>
 
+
+<!--<iframe-->
+<!--  src="https://tokbox.com/embed/embed/ot-embed.js?embedId=2c9f024a-6460-44ac-8e61-a30f98f5681c&room=DEFAULT_ROOM&iframe=true"-->
+<!--  width=800-->
+<!--  height=640-->
+<!--  scrolling="auto"-->
+<!--  allow="microphone; camera">-->
+
+<!--</iframe>-->
+
+
 <%#= link_to 'Send Notification', admin_index_path, remote: true %>
 
 <div class="bg-gray-50 -mt-12">
@@ -302,6 +313,88 @@
 
   </div>
 </div>
+
+<br>
+
+<br>
+
+<% if (Student.where(c_pere: nil)).or(Student.where(c_mere: nil)).or(Student.where(c_tuteur: nil)).empty? %>
+
+
+<% else %>
+
+  <div class="flex items-center justify-between mb-4 mt-8">
+    <h2 class="text-xl font-bold text-gray-800 mb-6">Dossiers apprenants incomplet</h2>
+    <%= link_to 'Tout voir', course_all_path, class: 'hover:bg-transparent text-blue-600 hover:text-blue-500 font-medium' %>
+  </div>
+
+  <div class="flex flex-col">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+        <table class="min-w-full">
+          <thead>
+          <tr>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Nom complèt
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Etablissement
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Père
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Mère
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Tuteur
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+          </tr>
+          </thead>
+          <tbody class="bg-white">
+          <% (Student.where(c_pere: nil)).or(Student.where(c_mere: nil)).or(Student.where(c_tuteur: nil)).each do |student| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10">
+                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm leading-5 font-medium text-gray-900"><%= student.name.upcase %></div>
+                    <div class="text-sm leading-5 text-gray-500"><%= student.salle_de_class.name %></div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="text-sm leading-5 text-gray-900"><%= student.matricule %></div>
+                <div class="text-sm leading-5 text-gray-500"><%= Structure.find(student.structure.to_i).name %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="text-sm leading-5 text-gray-900"><%= student.pere.nil? ? "Aucun contact" : student.pere.upcase %></div>
+                <div class="text-sm leading-5 text-gray-500"><%= student.c_pere.nil? ? "Aucun" : student.c_pere %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="text-sm leading-5 text-gray-900"><%= student.mere.nil? ? "Aucun contact" : student.mere.upcase %></div>
+                <div class="text-sm leading-5 text-gray-500"><%= student.c_mere.nil? ? "Aucun" : student.c_mere %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="text-sm leading-5 text-gray-900"><%= student.tuteur.nil? ? "Aucun contact" : student.tuteur.upcase %></div>
+                <div class="text-sm leading-5 text-gray-500"><%= student.c_tuteur.nil? ? "Aucun" : student.c_tuteur %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                <a href="#" class="text-indigo-600 hover:text-indigo-900">Modifier</a>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
 
 <br>
 

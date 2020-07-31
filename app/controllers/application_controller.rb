@@ -39,8 +39,10 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     added_attrs = [:matricule, :password, :remember_me]
+    added_upt_ttrs = [:matricule, :email, :name, :second_name, :date_naissance, :lieu_naissance, :cni, :sexe]
     # devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :sign_in, keys: added_attrs
+    devise_parameter_sanitizer.permit :account_update, except: :password
   end
 
   # check if the user have default password

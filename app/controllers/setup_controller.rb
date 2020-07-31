@@ -351,6 +351,13 @@ class SetupController < ApplicationController
     @students = Student.where(structure: current_structure).page(params[:page]).per(20)
   end
 
+
+  # liste des apprenants incomplet
+  def liste_incomplet_apprenants
+    current_structure = current_user.structure.id #Structure.find_by_token(params[:token])
+    @students = (Student.where(c_pere: nil, structure: current_structure)).or(Student.where(c_mere: nil, structure: current_structure)).or(Student.where(c_tuteur: nil, structure: current_structure)).page(params[:page]).per(20)
+  end
+
   # details d'un apprenant
   def detail_apprenant
     mat = params[:matricule]

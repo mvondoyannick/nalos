@@ -402,7 +402,12 @@
         <g>
         </g>
       </svg>
-      Leçons publiées
+      Leçons publiées &nbsp;
+      <% unless Course.where(structure_id: current_user.structure_id, course_status_id: CourseStatus.find_by_name('waiting').id).empty? %>
+        <span title="Leçon en attente de validation" class="text-xs pull-right font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 uppercase last:mr-0 mr-1">
+          <%= Course.where(structure_id: current_user.structure_id, course_status_id: CourseStatus.find_by_name('waiting').id).count %>
+        </span>
+      <% end %>
     <% end %>
   </li>
 
@@ -453,6 +458,17 @@
         </g>
       </svg>
       Documents importés
+      <div class="hidden bg-pink-600 border-0 ml-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg" id="popover-id">
+        <div>
+          <div class="bg-pink-600 text-white opacity-75 font-semibold p-3 mb-0 border-b border-solid border-gray-200 uppercase rounded-t-lg">
+            teal tooltip title
+          </div>
+          <div class="text-white p-3">
+            And here's some amazing content. It's very engaging. Right?
+          </div>
+        </div>
+      </div>
+
     <% end %>
   </li>
 
@@ -587,7 +603,12 @@
         <g>
         </g>
       </svg>
-      Apprenants
+      Apprenants &nbsp;
+      <% unless (Student.where(c_pere: nil)).or(Student.where(c_mere: nil)).or(Student.where(c_tuteur: nil)).empty? %>
+        <span title="Dossiers apprenants incomplet" class="text-xs inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 uppercase last:mr-0 mr-1">
+          <%= (Student.where(c_pere: nil)).or(Student.where(c_mere: nil)).or(Student.where(c_tuteur: nil)).count %>
+        </span>
+      <% end %>
     <% end %>
   </li>
 

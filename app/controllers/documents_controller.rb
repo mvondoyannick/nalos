@@ -106,6 +106,6 @@ class DocumentsController < ApplicationController
     end
 
   def course_params
-    params.permit(:user_id, :document_id, :file_id, :matiere_id, :chapter, :classes_ids, :categorie, :tag, :extrait, :course_status_id)
+    params.permit(:user_id, :document_id, :file_id, :matiere_id, :chapter, :classes_ids, :categorie, :tag, :extrait, :course_status_id, :structure_id)
   end
 end

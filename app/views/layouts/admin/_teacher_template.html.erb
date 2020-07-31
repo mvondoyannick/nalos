@@ -97,9 +97,8 @@
 
       <div class="bg-red-200 text-red-700 px-6 py-4 rounded-lg relative mb-5" role="alert" x-data="{ open: true }" x-show.transition="open">
         <div class="mr-4">
-          Bonjour
-          <strong class="font-bold"><%= current_user.name.nil? ? current_user.email : current_user.name %></strong>
-          <span class="block sm:inline">Bienvenue sur votre assistant d'enseignement.</span>
+          Respectons les mesures barrières afin de barrer la route au COVID-19, plus d'informations sur cette page de l'<%= link_to "OMS", "http://www.emro.who.int/fr/health-topics/corona-virus/protect-yourself-and-others.html", target: "_blank" %>
+<!--          <span class="block sm:inline">Bienvenue sur votre assistant d'enseignement.</span>-->
         </div>
 
         <span class="cursor-pointer absolute top-0 bottom-0 right-0 hover:bg-red-100 hover:text-red-600 w-10 h-10 rounded-full inline-flex items-center justify-center mt-2 mr-3" x-on:click="open = false">

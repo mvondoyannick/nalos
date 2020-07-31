@@ -27,9 +27,10 @@ class Course < ApplicationRecord
 
   #set status
   before_save :set_status, if: :new_record?
+  before_save :send_notification, if: :new_record?
 
   # send SMS after submit cours
-  after_save :send_notification, if: :new_record? #:persisted?
+  #after_save :send_notification, if: :new_record? #:persisted?
 
   # including activeStorage
   has_one_attached :file, dependent: :destroy
@@ -39,9 +40,11 @@ class Course < ApplicationRecord
 
   # send notification to admin that new course is been published
   def send_notification
-    User.where(role_id: 2) do |admin|
-      SmsJob.set(wait: 10.seconds).perform_later(691451189, msg: "#{current_user.complete_name} vient de publier une nouvelle leçon est #{self.chapter}. Ce cours est attente de validation.")
-    end
+    SmsJob.set(wait: 2.seconds).perform_later(phone: 696468953, msg: "Bonjour Admin, #{self.user.complete_name} vient de publier une nouvelle leçon avec pour titre :#{self.chapter.upcase} pour la classe #{self.salle_de_class.name}. Ce cours est attente de validation.", structure: Structure.find(self.structure_id).name.delete(' '))
+    # User.where(role_id: Role.find_by_name('admin').id) do |admin|
+    #   puts "SMS notification send to 696468953"
+    #   SmsJob.set(wait: 2.seconds).perform_later(691451189, msg: "#{current_user.complete_name} vient de publier une nouvelle leçon est #{self.chapter} pour la classe #{self.salle_de_class.name}. Ce cours est attente de validation.", structure: self.structure.name)
+    # end
   end
 
   # set course status

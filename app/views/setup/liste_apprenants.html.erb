@@ -13,6 +13,18 @@
   </div>
 <% end %>
 
+<div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-pink-500">
+  <span class="text-xl inline-block mr-5 align-middle">
+    <i class="fa fa-bell" />
+  </span>
+  <span class="inline-block align-middle mr-8">
+    <b class="capitalize">Verification dossiers | </b> Certain dossiers d'apprenants semble etre incomplet. <%= link_to "Voulez-vous les vérifier?", setup_incomplete_students_path %>
+  </span>
+  <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none">
+    <span>×</span>
+  </button>
+</div>
+
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
@@ -69,10 +81,13 @@
               Classe
             </th>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Status
+              Père
             </th>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Etablissement
+              Mère
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Tuteur
             </th>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
           </tr>
@@ -96,12 +111,16 @@
               <div class="text-sm leading-5 text-gray-500"><%= student.salle_de_class.cycle_ecole.name %></div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
-              </span>
+              <div class="text-sm leading-5 text-gray-900"><%= student.pere.nil? ? "Aucun" : student.pere.upcase %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= student.c_pere.nil? ? "Aucun contact" : student.c_pere.upcase %></div>
             </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-              <%= Structure.find(student.structure).name %>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= student.mere.nil? ? "Aucun" : student.mere.upcase %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= student.c_mere.nil? ? "Aucun contact" : student.c_mere.upcase %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-900"><%= student.tuteur.nil? ? "Aucun" : student.tuteur.upcase %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= student.c_tuteur.nil? ? "Aucun contact" : student.tuteur.upcase %></div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
               <%= link_to "Details", detail_apprenant_path(matricule: student.matricule), class: "text-indigo-600 hover:text-indigo-900" %>
