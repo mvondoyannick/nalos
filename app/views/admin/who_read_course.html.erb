@@ -58,7 +58,7 @@
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= data.course.chapter %></div>
+                <div class="text-sm leading-5 text-gray-900"><%= link_to data.course.chapter, course_detail_path(course_id: data.course_id, document_id: Document.find(Course.find(data.course_id).document_id).file.find(Course.find(data.course_id).file_id)) %></div>
                 <div class="text-sm leading-5 text-gray-500"><%= data.student.salle_de_class.name %></div>
               </td>
             </tr>
