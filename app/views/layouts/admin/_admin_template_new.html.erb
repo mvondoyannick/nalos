@@ -1,0 +1,513 @@
+<!-- This example requires Tailwind CSS v1.4.0+ -->
+<div class="relative bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div x-data="{ open: false }" class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+      <div class="lg:w-0 lg:flex-1">
+        <%= link_to(image_tag('heroku-logotype-horizontal-purple.png', alt: "Heroku logo", class: "h-8 w-auto sm:h-10"), root_path, class: "flex hover:bg-transparent hover:text-indigo-500") %>
+      </div>
+      <div class="-mr-2 -my-2 md:hidden">
+        <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+      <nav class="hidden md:flex space-x-10">
+        <div class="relative">
+          <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
+          <button @click="open = true" type="button" class="text-gray-500 group inline-flex items-center space-x-2 text-base leading-6 font-medium hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
+            <span>Leçons & publications</span>
+            <!-- Item active: "text-gray-600", Item inactive: "text-gray-400" -->
+            <svg class="text-gray-400 h-5 w-5 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <!--
+              'Solutions' flyout menu, show/hide based on flyout menu state.
+
+              Entering: "transition ease-out duration-200"
+              From: "opacity-0 translate-y-1"
+              To: "opacity-100 translate-y-0"
+              Leaving: "transition ease-in duration-150"
+              From: "opacity-100 translate-y-0"
+              To: "opacity-0 translate-y-1"
+           -->
+          <div x-show.transition.opacity="open" @click.away="open = false" class="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
+            <div class="rounded-lg shadow-lg">
+              <div class="rounded-lg shadow-xs overflow-hidden">
+                <div class="z-20 relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                  <%= link_to course_all_path, class: "-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150" do %>
+                    <svg height="32" class="flex-shrink-0 h-6 w-6 text-indigo-600" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <g id="_x35_10_x2C__language_x2C__course_x2C__language_course__x2C__education">
+                        <g>
+                          <path d="M371.68,183.46c3.69-2.01,7.82-3.14,12.181-3.14c13.05,0,24.12,10.28,27.319,24.08    c0.28,1.63,0.551,3.28,0.79,4.93c0,0,0,0,0,0.01c0.101,1.07,0.15,2.17,0.15,3.27c0,17.72-12.72,32.28-28.26,32.28    c-1.82,0-3.591-0.2-5.32-0.58c-13.11-2.85-23.05-16.04-23.05-31.7C355.49,199.82,362.11,188.68,371.68,183.46z" style="fill:#34495E;"/>
+                          <path d="M360.341,222.994c0-12.79,6.62-23.93,16.189-29.15c3.69-2.01,7.82-3.14,12.181-3.14    c8.917,0,16.908,4.802,22.098,12.246c-3.616-13.063-14.36-22.63-26.948-22.63c-4.36,0-8.49,1.13-12.181,3.14    c-9.569,5.22-16.189,16.36-16.189,29.15c0,7.531,2.303,14.486,6.147,19.999C360.798,229.567,360.341,226.338,360.341,222.994z" style="fill:#2C3E50;"/>
+                          <path d="M415.28,253.81l0.1,47.4H396.9v20.54c0-12.77-7.551-23.82-18.41-28.93l0.04-0.09v-48.38l0.01-0.04    c1.729,0.38,3.5,0.58,5.32,0.58c15.54,0,28.26-14.56,28.26-32.28c0-1.1-0.05-2.2-0.15-3.27    C414.14,223.74,415.28,238.61,415.28,253.81z" style="fill:#FEBE76;"/>
+                          <g>
+                            <g>
+                              <g>
+                                <path d="M384.864,251.85l0.01-0.04c1.729,0.38,3.5,0.58,5.32,0.58c10.484,0,19.678-6.632,24.555-16.385       c-0.534-9.04-1.465-17.939-2.779-26.665c0.101,1.07,0.15,2.17,0.15,3.27c0,17.72-12.72,32.28-28.26,32.28       c-1.82,0-3.591-0.2-5.32-0.58l-0.01,0.04v48.38l-0.04,0.09c2.289,1.077,4.419,2.432,6.374,3.996V251.85z" style="fill:#E8A664;"/>
+                              </g>
+                              <g>
+                                <path d="M392.201,305.135c2.97,4.847,4.699,10.531,4.699,16.615v-11.554       C395.519,308.345,393.943,306.647,392.201,305.135z" style="fill:#E8A664;"/>
+                              </g>
+                            </g>
+                          </g>
+                          <path d="M415.38,301.21c10.11,0,18.38,8.26,18.38,18.37v80.87c0,10.109-8.27,18.38-18.38,18.38H396.9    v-20.55v-76.53v-20.54H415.38z" style="fill:#34495E;"/>
+                          <path d="M405.719,407.405v-76.53v-20.54h18.479c2.863,0,5.569,0.682,7.991,1.861    c-2.858-6.454-9.324-10.986-16.81-10.986H396.9v20.54v76.53v20.55h8.818V407.405z" style="fill:#2C3E50;"/>
+                          <path d="M396.9,321.75v76.53c0,17.609-14.351,32.069-31.96,32.069h-31.96V289.79h31.96    c4.84,0,9.43,1.08,13.55,3.03C389.35,297.93,396.9,308.98,396.9,321.75z" style="fill:#57606F;"/>
+                          <path d="M343.049,300.04h31.96c4.84,0,9.43,1.08,13.55,3.03c1.25,0.588,2.45,1.264,3.605,2.002    c-3.262-5.297-8.011-9.587-13.674-12.252c-4.12-1.95-8.71-3.03-13.55-3.03h-31.96v140.56h10.068V300.04z" style="fill:#414A56;"/>
+                          <path d="M239.52,128c46.94,0,85,38.05,85,85c0,46.94-38.06,85-85,85c-46.95,0-85-38.06-85-85    C154.52,166.05,192.57,128,239.52,128z" style="fill:#FF7979;"/>
+                          <path d="M161.52,227.333c0-46.95,38.05-85,85-85c30.708,0,57.612,16.289,72.549,40.697    C306.948,150.875,275.91,128,239.52,128c-46.95,0-85,38.05-85,85c0,16.233,4.556,31.4,12.451,44.303    C163.457,247.98,161.52,237.884,161.52,227.333z" style="fill:#D65B5B;"/>
+                          <polygon points="276.52,210 216.52,242 216.52,182   " style="fill:#FFD8A8;"/>
+                          <polygon points="224.834,196 266.4,215.397 276.52,210 216.52,182 216.52,242 224.834,237.566   " style="fill:#EABD8C;"/>
+                          <path d="M411.18,204.4c-3.199-13.8-14.27-24.08-27.319-24.08c-4.36,0-8.49,1.13-12.181,3.14    c-7.609-31.85-20.979-60.1-38.59-82.17c-24.56-30.87-57.07-49.68-92.61-49.68c-35.55,0-68.06,18.81-92.62,49.68    c-17.58,22.15-31.05,50.46-38.66,82.47c-3.77-2.2-8.03-3.44-12.54-3.44c-12.82,0-23.73,10.18-26.96,23.88    C87.08,101.42,157.22,24,240.48,24C323.78,24,393.89,101.52,411.18,204.4z" style="fill:#FEBE76;"/>
+                          <g>
+                            <g>
+                              <g>
+                                <path d="M81.909,185.248C106.215,96.598,170.98,32.8,246.56,32.8c49.45,0,94.251,27.318,126.114,71.043       C340.568,55.019,293.166,24,240.48,24c-83.26,0-153.4,77.42-170.78,180.2C71.569,196.272,76.014,189.528,81.909,185.248z" style="fill:#E8A664;"/>
+                              </g>
+                              <g>
+                                <path d="M343.177,115.342c12.658,19.535,22.424,42.671,28.503,68.118       c1.083-0.59,2.208-1.094,3.361-1.526C367.844,156.707,356.952,134.051,343.177,115.342z" style="fill:#E8A664;"/>
+                              </g>
+                              <g>
+                                <path d="M408.737,197.374c1.042,2.205,1.87,4.558,2.442,7.026c-0.304-1.809-0.629-3.608-0.965-5.4       C409.739,198.438,409.247,197.896,408.737,197.374z" style="fill:#E8A664;"/>
+                              </g>
+                            </g>
+                          </g>
+                          <path d="M102.42,244.2c-1.86,0.45-3.78,0.69-5.76,0.69c-15.33,0-27.94-14.56-27.94-32.28    c0-1.07,0.05-2.12,0.14-3.16c0.27-1.76,0.54-3.51,0.84-5.25c3.23-13.7,14.14-23.88,26.96-23.88c4.51,0,8.77,1.24,12.54,3.44    c9.13,5.35,15.39,16.31,15.39,28.85C124.59,228.06,115.08,241.11,102.42,244.2z" style="fill:#34495E;"/>
+                          <path d="M74.496,222.61c0-1.07,0.05-2.12,0.14-3.16c0.27-1.76,0.54-3.51,0.84-5.25    c3.23-13.7,14.14-23.88,26.96-23.88c4.51,0,8.77,1.24,12.54,3.44c2.756,1.615,5.245,3.749,7.385,6.276    c-2.591-7.036-7.272-12.826-13.16-16.276c-3.77-2.2-8.03-3.44-12.54-3.44c-12.82,0-23.73,10.18-26.96,23.88    c-0.3,1.74-0.57,3.49-0.84,5.25c-0.09,1.04-0.14,2.09-0.14,3.16c0,8.712,3.053,16.655,7.973,22.485    C75.28,231.247,74.496,227.027,74.496,222.61z" style="fill:#2C3E50;"/>
+                          <path d="M65.67,301.21c-0.02,0-0.05,0-0.07,0l-0.03-1.42v-45.98c0-15.16,1.13-30,3.29-44.36    c-0.09,1.04-0.14,2.09-0.14,3.16c0,17.72,12.61,32.28,27.94,32.28c1.98,0,3.9-0.24,5.76-0.69v49.069l0.01,0.011    c-10.8,5.42-18.27,16.59-18.27,29.45V301.21H65.67z" style="fill:#FEBE76;"/>
+                          <g>
+                            <g>
+                              <g>
+                                <path d="M66.981,224.711c1.232,16.442,13.306,29.512,27.829,29.512c1.98,0,3.9-0.24,5.76-0.69v40.762       c0.609-0.356,1.228-0.697,1.86-1.015l-0.01-0.011V244.2c-1.86,0.45-3.78,0.69-5.76,0.69c-15.33,0-27.94-14.56-27.94-32.28       c0-1.07,0.05-2.12,0.14-3.16C68.104,214.479,67.481,219.571,66.981,224.711z" style="fill:#E8A664;"/>
+                              </g>
+                              <g>
+                                <path d="M84.16,321.262v1.469c0-0.554,0.032-1.1,0.06-1.647       C84.199,321.143,84.181,321.202,84.16,321.262z" style="fill:#E8A664;"/>
+                              </g>
+                            </g>
+                          </g>
+                          <path d="M84.16,322.73V397.3v21.53H65.67c-10.1,0-18.48-8.271-18.48-18.48V319.69    c0-10.101,8.34-18.44,18.41-18.48c0.02,0,0.05,0,0.07,0h18.49V322.73z" style="fill:#34495E;"/>
+                          <path d="M53.523,408.35V327.69c0-10.101,8.34-18.44,18.41-18.48c0.02,0,0.05,0,0.07,0H84.16v-8H65.67    c-0.02,0-0.05,0-0.07,0c-10.07,0.04-18.41,8.38-18.41,18.48v80.659c0,6.167,3.069,11.612,7.717,14.969    C54.021,413.167,53.523,410.817,53.523,408.35z" style="fill:#2C3E50;"/>
+                          <path d="M150.25,289.79v140.56H117.2c-18.15,0-33.04-14.89-33.04-33.05V322.73    c0-12.86,7.47-24.03,18.27-29.45c4.45-2.23,9.47-3.49,14.77-3.49H150.25z" style="fill:#57606F;"/>
+                          <path d="M91.16,405.51V330.94c0-12.86,7.47-24.03,18.27-29.45c4.45-2.23,9.47-3.49,14.77-3.49h26.05v-8.21    H117.2c-5.3,0-10.32,1.26-14.77,3.49c-10.8,5.42-18.27,16.59-18.27,29.45V397.3c0,10.062,4.576,19.114,11.74,25.192    C92.896,417.519,91.16,411.705,91.16,405.51z" style="fill:#414A56;"/>
+                          <rect height="20" width="20" x="294.52" y="448"/>
+                          <rect height="20" width="20" x="264.52" y="448"/>
+                          <rect height="20" width="20" x="234.52" y="448"/>
+                          <rect height="20" width="20" x="204.52" y="448"/>
+                          <rect height="20" width="20" x="174.52" y="448"/>
+                          <path d="M364.94,435.35h-31.96c-2.762,0-5-2.238-5-5V289.79c0-2.762,2.238-5,5-5h31.96c5.488,0,10.767,1.182,15.688,3.511    c12.918,6.078,21.271,19.209,21.271,33.449c0,2.762-2.238,5-5,5s-5-2.238-5-5c0-10.385-6.1-19.964-15.539-24.405    c-3.584-1.697-7.424-2.555-11.421-2.555h-26.96v130.56h26.96c14.866,0,26.96-12.144,26.96-27.069c0-2.762,2.238-5,5-5s5,2.238,5,5    C401.9,418.721,385.32,435.35,364.94,435.35z"/>
+                          <path d="M415.38,423.83H396.9c-2.762,0-5-2.238-5-5V301.21c0-2.762,2.238-5,5-5h18.479c12.892,0,23.38,10.483,23.38,23.37v80.87    C438.76,413.342,428.271,423.83,415.38,423.83z M401.9,413.83h13.479c7.378,0,13.38-6.002,13.38-13.38v-80.87    c0-7.372-6.002-13.37-13.38-13.37H401.9V413.83z"/>
+                          <path d="M150.25,435.35H117.2c-20.976,0-38.04-17.069-38.04-38.05c0-2.762,2.239-5,5-5s5,2.238,5,5    c0,15.467,12.579,28.05,28.04,28.05h28.05V294.79H117.2c-4.396,0-8.611,0.996-12.529,2.96    c-9.566,4.801-15.511,14.373-15.511,24.98c0,2.762-2.239,5-5,5s-5-2.238-5-5c0-14.413,8.057-27.41,21.027-33.919    c5.324-2.669,11.047-4.021,17.013-4.021h33.05c2.761,0,5,2.238,5,5v140.56C155.25,433.111,153.011,435.35,150.25,435.35z"/>
+                          <path d="M84.16,423.83H65.67c-12.947,0-23.48-10.533-23.48-23.48V319.69c0-12.896,10.493-23.429,23.39-23.48h18.58    c2.761,0,5,2.238,5,5v117.62C89.16,421.592,86.921,423.83,84.16,423.83z M65.67,306.21c-7.33,0.029-13.48,6.202-13.48,13.48    v80.659c0,7.434,6.047,13.48,13.48,13.48h13.49V306.21H65.67z"/>
+                          <path d="M102.42,298.27c-2.761,0-5-2.238-5-5V244.2c0-2.761,2.239-5.035,5-5.035s5,2.204,5,4.965v49.14    C107.42,296.031,105.181,298.27,102.42,298.27z"/>
+                          <path d="M109.166,188.909c-0.316,0-0.637-0.03-0.959-0.093c-2.71-0.527-4.48-3.149-3.954-5.859    c0.026-0.136,0.064-0.314,0.125-0.523c7.672-32.171,21.352-61.302,39.567-84.252c26.46-33.258,60.743-51.572,96.537-51.572    c35.788,0,70.067,18.313,96.523,51.567c18.153,22.751,31.828,51.841,39.54,84.121c0.091,0.381,0.137,0.771,0.137,1.162    c0,2.761-2.238,5.01-5,5.01c-2.441,0-4.475-1.743-4.913-4.055c-7.381-30.776-20.376-58.439-37.585-80.006    C304.657,73.583,273.157,56.61,240.48,56.61c-32.684,0-64.188,16.973-88.708,47.793c-17.339,21.847-30.38,49.69-37.708,80.513    c-0.017,0.07-0.034,0.139-0.054,0.208C113.449,187.37,111.424,188.909,109.166,188.909z"/>
+                          <path d="M378.53,297.73c-2.762,0-5-2.238-5-5v-48.38c0-2.761,2.238-5,5-5s5,2.239,5,5v48.38    C383.53,295.492,381.292,297.73,378.53,297.73z"/>
+                          <path d="M65.57,304.79c-2.761,0-5-2.238-5-5v-45.98c0-15.167,1.125-30.342,3.346-45.104c0.277-1.806,0.552-3.586,0.857-5.357    c8.645-51.125,30.651-97.728,61.96-131.208C158.781,37.873,199.177,19,240.48,19c41.323,0,81.723,18.896,113.758,53.208    c31.296,33.52,53.269,80.172,61.872,131.364c0.332,1.927,0.589,3.535,0.808,5.041c0.396,2.733-1.498,5.27-4.23,5.666    c-2.742,0.392-5.27-1.499-5.666-4.23c-0.233-1.606-0.496-3.213-0.77-4.801C389.088,103.115,319.372,29,240.48,29    c-78.852,0-148.602,74.033-165.85,176.034c-0.298,1.726-0.563,3.445-0.828,5.175c-2.144,14.256-3.232,28.93-3.232,43.602v45.98    C70.57,302.552,68.331,304.79,65.57,304.79z"/>
+                          <path d="M415.38,306.21c-2.757,0-4.994-2.231-5-4.989l-0.1-47.4c0-14.692-1.095-29.403-3.255-43.736    c-0.411-2.73,1.469-5.278,4.199-5.689c2.733-0.411,5.277,1.469,5.689,4.199c2.233,14.824,3.366,30.037,3.366,45.215l0.1,47.389    c0.006,2.762-2.229,5.005-4.989,5.011C415.387,306.21,415.383,306.21,415.38,306.21z"/>
+                          <path d="M383.86,249.89c-2.138,0-4.289-0.234-6.393-0.696c-15.628-3.397-26.978-18.784-26.978-36.584    c0-14.146,7.378-27.311,18.795-33.539c4.571-2.49,9.474-3.751,14.575-3.751c15.138,0,28.375,11.494,32.19,27.951    c0.424,1.786,0.729,3.685,0.899,5.619c0.002,0.024,0.004,0.049,0.006,0.074c0.109,1.188,0.164,2.415,0.164,3.646    C417.12,233.167,402.2,249.89,383.86,249.89z M383.86,185.32c-3.411,0-6.705,0.852-9.789,2.531    c-8.249,4.5-13.581,14.219-13.581,24.759c0,13.13,8.038,24.407,19.112,26.814c1.411,0.31,2.84,0.466,4.258,0.466    c12.825,0,23.26-12.238,23.26-27.28c0-0.953-0.043-1.895-0.129-2.802c-0.003-0.038-0.006-0.077-0.009-0.115    c-0.13-1.427-0.354-2.819-0.668-4.138C403.551,193.63,394.319,185.32,383.86,185.32z"/>
+                          <path d="M96.66,249.89c-18.163,0-32.94-16.724-32.94-37.28c0-1.184,0.052-2.358,0.158-3.59c0.169-2.03,0.493-4.052,0.961-5.993    c3.843-16.303,16.931-27.708,31.82-27.708c5.231,0,10.439,1.425,15.06,4.121c11.025,6.461,17.87,19.169,17.87,33.169    c0,17.444-10.928,32.772-25.984,36.448C101.317,249.611,98.984,249.89,96.66,249.89z M96.66,185.32    c-10.228,0-19.313,8.236-22.093,20.028c-0.355,1.47-0.596,2.981-0.724,4.518c-0.083,0.958-0.123,1.852-0.123,2.745    c0,15.042,10.291,27.28,22.94,27.28c1.533,0,3.076-0.185,4.584-0.55c10.625-2.594,18.345-13.836,18.345-26.73    c0-10.307-5.07-19.938-12.917-24.536C103.543,186.248,100.172,185.32,96.66,185.32z"/>
+                          <path d="M383.32,493H334.52c-2.762,0-5-2.238-5-5s2.238-5,5-5h48.801c2.5,0,4.859-0.978,6.642-2.753    c1.761-1.768,2.738-4.127,2.738-6.627c0-10.687,8.693-19.38,19.38-19.38h38.35c5.172,0,9.38-4.208,9.38-9.38v-76.7    c0-5.172-4.208-9.38-9.38-9.38h-14.39c-2.762,0-5-2.238-5-5s2.238-5,5-5h14.39c10.687,0,19.38,8.693,19.38,19.38v76.7    c0,10.687-8.693,19.38-19.38,19.38h-38.35c-5.172,0-9.38,4.208-9.38,9.38c0,5.164-2.013,10.028-5.667,13.698    C393.349,490.987,388.484,493,383.32,493z"/>
+                          <path d="M239.52,303c-49.626,0-90-40.374-90-90s40.374-90,90-90c49.625,0,90,40.374,90,90S289.146,303,239.52,303z M239.52,133    c-44.112,0-80,35.888-80,80s35.888,80,80,80c44.112,0,80-35.888,80-80S283.632,133,239.52,133z"/>
+                          <path d="M216.52,247c-0.892,0-1.782-0.238-2.572-0.712c-1.506-0.904-2.428-2.531-2.428-4.288v-60c0-1.709,0.873-3.299,2.314-4.217    c1.442-0.919,3.252-1.036,4.8-0.313l60,28c1.717,0.801,2.833,2.503,2.884,4.397s-0.974,3.653-2.646,4.545l-59.999,32    C218.137,246.805,217.328,247,216.52,247z M221.52,189.851v43.815l43.815-23.368L221.52,189.851z"/>
+                        </g>
+                      </g>
+                      <g id="Layer_1"/>
+                    </svg>
+                    <div class="space-y-1">
+                      <p class="text-base leading-6 font-medium text-gray-900">
+                        Toutes les leçons
+                      </p>
+                      <p class="text-sm leading-5 text-gray-500">
+                        Toutes les leçons et même celles publiés, en attentes ou rejetées.
+                      </p>
+                    </div>
+                  <% end %>
+                  <%= link_to stats_path, class: "-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150" do %>
+                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <div class="space-y-1">
+                      <p class="text-base leading-6 font-medium text-gray-900">
+                        Statistiques
+                      </p>
+                      <p class="text-sm leading-5 text-gray-500">
+                        Statistiques consultations des leçons publiés par les apprenants.
+                      </p>
+                    </div>
+                  <% end %>
+                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">
+                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <div class="space-y-1">
+                      <p class="text-base leading-6 font-medium text-gray-900">
+                        Toutes les leçons
+                      </p>
+                      <p class="text-sm leading-5 text-gray-500">
+                        Get a better understanding of where your traffic is coming from.
+                      </p>
+                    </div>
+                  </a>
+                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">
+                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <div class="space-y-1">
+                      <p class="text-base leading-6 font-medium text-gray-900">
+                        Statistiques consultations
+                      </p>
+                      <p class="text-sm leading-5 text-gray-500">
+                        Get a better understanding of where your traffic is coming from.
+                      </p>
+                    </div>
+                  </a>
+<!--                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">-->
+<!--                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />-->
+<!--                    </svg>-->
+<!--                    <div class="space-y-1">-->
+<!--                      <p class="text-base leading-6 font-medium text-gray-900">-->
+<!--                        Engagement-->
+<!--                      </p>-->
+<!--                      <p class="text-sm leading-5 text-gray-500">-->
+<!--                        Speak directly to your customers in a more meaningful way.-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">-->
+<!--                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />-->
+<!--                    </svg>-->
+<!--                    <div class="space-y-1">-->
+<!--                      <p class="text-base leading-6 font-medium text-gray-900">-->
+<!--                        Security-->
+<!--                      </p>-->
+<!--                      <p class="text-sm leading-5 text-gray-500">-->
+<!--                        Your customers data will be safe and secure.-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">-->
+<!--                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />-->
+<!--                    </svg>-->
+<!--                    <div class="space-y-1">-->
+<!--                      <p class="text-base leading-6 font-medium text-gray-900">-->
+<!--                        Integrations-->
+<!--                      </p>-->
+<!--                      <p class="text-sm leading-5 text-gray-500">-->
+<!--                        Connect with third-party tools that you’re already using.-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">-->
+<!--                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
+<!--                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />-->
+<!--                    </svg>-->
+<!--                    <div class="space-y-1">-->
+<!--                      <p class="text-base leading-6 font-medium text-gray-900">-->
+<!--                        Automations-->
+<!--                      </p>-->
+<!--                      <p class="text-sm leading-5 text-gray-500">-->
+<!--                        Build strategic funnels that will drive your customers to convert-->
+<!--                      </p>-->
+<!--                    </div>-->
+<!--                  </a>-->
+                </div>
+                <div class="px-5 py-5 bg-gray-100 space-y-6 sm:flex sm:space-y-0 sm:space-x-10 sm:px-8">
+                  <div class="flow-root">
+                    <a href="#" class="-m-3 p-3 flex items-center space-x-3 rounded-md text-base leading-6 font-medium text-gray-900 hover:bg-gray-100 transition ease-in-out duration-150">
+                      <svg class="flex-shrink-0 h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>Watch Demo</span>
+                    </a>
+                  </div>
+                  <div class="flow-root">
+                    <a href="#" class="-m-3 p-3 flex items-center space-x-3 rounded-md text-base leading-6 font-medium text-gray-900 hover:bg-gray-100 transition ease-in-out duration-150">
+                      <svg class="flex-shrink-0 h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                      <span>Contact Sales</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" class="text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
+          Apprenants
+        </a>
+        <a href="#" class="text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
+          Enseignants
+        </a>
+
+        <div x-data="{ fylo: false }" class="relative">
+          <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
+          <button @click="fylo = true" type="button" class="text-gray-500 inline-flex items-center space-x-2 text-base leading-6 font-medium hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150">
+            <span>Paramètres</span>
+            <!-- Item active: "text-gray-600", Item inactive: "text-gray-400" -->
+            <svg class="text-gray-400 h-5 w-5 group-hover:text-gray-500 group-focus:text-gray-500 transition ease-in-out duration-150" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+
+          <!--
+              'More' flyout menu, show/hide based on flyout menu state.
+
+              Entering: "transition ease-out duration-200"
+              From: "opacity-0 translate-y-1"
+              To: "opacity-100 translate-y-0"
+              Leaving: "transition ease-in duration-150"
+              From: "opacity-100 translate-y-0"
+              To: "opacity-0 translate-y-1"
+              x-data="{ open: false }"
+              x-show="open"
+              @click.away="open = false"
+              @click="open=true"
+            -->
+          <div x-show.transition.opacity="fylo" @click.away="fylo = false" class="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0">
+            <div class="rounded-lg shadow-lg">
+              <div class="rounded-lg shadow-xs overflow-hidden">
+                <div class="z-20 relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">
+                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <div class="space-y-1">
+                      <p class="text-base leading-6 font-medium text-gray-900">
+                        Help Center
+                      </p>
+                      <p class="text-sm leading-5 text-gray-500">
+                        Get all of your questions answered in our forums or contact support.
+                      </p>
+                    </div>
+                  </a>
+                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">
+                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <div class="space-y-1">
+                      <p class="text-base leading-6 font-medium text-gray-900">
+                        Guides
+                      </p>
+                      <p class="text-sm leading-5 text-gray-500">
+                        Learn how to maximize our platform to get the most out of it.
+                      </p>
+                    </div>
+                  </a>
+                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">
+                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <div class="space-y-1">
+                      <p class="text-base leading-6 font-medium text-gray-900">
+                        Events
+                      </p>
+                      <p class="text-sm leading-5 text-gray-500">
+                        See what meet-ups and other events we might be planning near you.
+                      </p>
+                    </div>
+                  </a>
+                  <a href="#" class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-gray-50 transition ease-in-out duration-150">
+                    <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <div class="space-y-1">
+                      <p class="text-base leading-6 font-medium text-gray-900">
+                        Security
+                      </p>
+                      <p class="text-sm leading-5 text-gray-500">
+                        Understand how we take your privacy seriously.
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <div class="px-5 py-5 bg-gray-100 space-y-5 sm:px-8 sm:py-8">
+                  <div class="space-y-4">
+                    <h3 class="text-sm leading-5 tracking-wide font-medium text-gray-500 uppercase">
+                      Recent Posts
+                    </h3>
+                    <ul class="space-y-4">
+                      <li class="text-base leading-6 truncate">
+                        <a href="#" class="font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+                          Boost your conversion rate
+                        </a>
+                      </li>
+                      <li class="text-base leading-6 truncate">
+                        <a href="#" class="font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+                          How to use search engine optimization to drive traffic to your site
+                        </a>
+                      </li>
+                      <li class="text-base leading-6 truncate">
+                        <a href="#" class="font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+                          Improve your customer experience
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="text-sm leading-5">
+                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 transition ease-in-out duration-150">
+                      View all posts &rarr;
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <% if user_signed_in? %>
+        <div class="hidden md:flex items-center justify-end space-x-8 md:flex-1 lg:w-0">
+          <a href="#" class="whitespace-no-wrap text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900">
+            <%= link_to "Paramètres", "#", class: "hover:bg-transparent hover:text-indigo-500 text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition ease-in-out duration-150" %>
+          </a>
+          <span class="inline-flex rounded-md shadow-sm">
+              <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, data: {confirm: "Se déconnecter?"}, class: "whitespace-no-wrap inline-flex items-center justify-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150" %>
+          </span>
+        </div>
+      <% else %>
+        <div class="hidden md:flex items-center justify-end space-x-8 md:flex-1 lg:w-0">
+          <a href="#" class="whitespace-no-wrap text-base leading-6 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900">
+            Se connecter
+          </a>
+          <span class="inline-flex rounded-md shadow-sm">
+            <a href="#" class="whitespace-no-wrap inline-flex items-center justify-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+              Creer mon compte
+            </a>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+
+  <!--
+Mobile menu, show/hide based on mobile menu state.
+
+Entering: "duration-200 ease-out"
+From: "opacity-0 scale-95"
+To: "opacity-100 scale-100"
+Leaving: "duration-100 ease-in"
+From: "opacity-100 scale-100"
+To: "opacity-0 scale-95"
+-->
+  <div class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
+    <div class="rounded-lg shadow-lg">
+      <div class="rounded-lg shadow-xs bg-white divide-y-2 divide-gray-50">
+        <div class="pt-5 pb-6 px-5 space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <img class="hover:bg-transparent h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg" alt="Workflow">
+            </div>
+            <div class="-mr-2">
+              <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div x-data="{ open: false }">
+            <nav class="grid row-gap-8">
+              <a href="#" class="-m-3 p-3 flex items-center space-x-3 rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <div class="text-base leading-6 font-medium text-gray-900">
+                  En attentes
+                </div>
+              </a>
+              <a href="#" class="-m-3 p-3 flex items-center space-x-3 rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                </svg>
+                <div class="text-base leading-6 font-medium text-gray-900">
+                  Engagement
+                </div>
+              </a>
+              <a href="#" class="-m-3 p-3 flex items-center space-x-3 rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                <div class="text-base leading-6 font-medium text-gray-900">
+                  Security
+                </div>
+              </a>
+              <a href="#" class="-m-3 p-3 flex items-center space-x-3 rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+                <div class="text-base leading-6 font-medium text-gray-900">
+                  Integrations
+                </div>
+              </a>
+              <a href="#" class="-m-3 p-3 flex items-center space-x-3 rounded-md hover:bg-gray-50 transition ease-in-out duration-150">
+                <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <div class="text-base leading-6 font-medium text-gray-900">
+                  Automations
+                </div>
+              </a>
+            </nav>
+          </div>
+        </div>
+        <div class="py-6 px-5 space-y-6">
+          <div class="grid grid-cols-2 row-gap-4 col-gap-8">
+            <a href="#" class="text-base leading-6 font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+              Pricing
+            </a>
+            <a href="#" class="text-base leading-6 font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+              Docs
+            </a>
+            <a href="#" class="text-base leading-6 font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+              Enterprise
+            </a>
+            <a href="#" class="text-base leading-6 font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+              Blog
+            </a>
+            <a href="#" class="text-base leading-6 font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+              Help Center
+            </a>
+            <a href="#" class="text-base leading-6 font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+              Guides
+            </a>
+            <a href="#" class="text-base leading-6 font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+              Security
+            </a>
+            <a href="#" class="text-base leading-6 font-medium text-gray-900 hover:text-gray-700 transition ease-in-out duration-150">
+              Events
+            </a>
+          </div>
+          <div class="space-y-6">
+            <span class="w-full flex rounded-md shadow-sm">
+                <a href="#" class="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                    Créer compte
+                </a>
+            </span>
+            <p class="text-center text-base leading-6 font-medium text-gray-500">
+              Existing customer?
+              <a href="#" class="text-indigo-600 hover:text-indigo-500 transition ease-in-out duration-150">
+                Se connecter
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main max-w-7xl mx-auto px-4 sm:px-6">
+
+    <%= yield %>
+
+  </div>
+
+</div>

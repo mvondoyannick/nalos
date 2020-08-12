@@ -44,12 +44,22 @@
                   <br/>
                   <span class="text-indigo-600">attentes de validation</span>
                 </h2>
-                <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-                  <div class="inline-flex rounded-md shadow">
-                    <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
-                  </div>
-                  <div class="ml-3 inline-flex rounded-md shadow">
-                    <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
+                <div x-data="{ lorem: false }" class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+<!--                  <div class="inline-flex rounded-md shadow">-->
+                    <%#= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
+<!--                  </div>-->
+<!--                  <div class="ml-3 inline-flex rounded-md shadow">-->
+                    <%#= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
+<!--                  </div>-->
+                  <div class="ml-3 rounded-md shadow">
+                    <button @click="lorem = true" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                      Actions leçons
+                    </button>
+
+                    <div x-show="lorem" @click.away="lorem = false" class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                      <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" unless @waiting_course.empty? %>
+                      <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"}, method: :post, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" unless @waiting_course.empty? %>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -65,7 +75,7 @@
 
               <%= paginate Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).page(params[:page]).per(10) %>
               <br>
-              <div class="overflow-x-auto bg-white rounded-lg shadow">
+              <div class="overflow-x-auto bg-white rounded-lg shadow mb-20">
                 <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
                   <thead>
                   <tr class="text-left">
@@ -73,7 +83,7 @@
                     <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
                     <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe & Matière</th>
                     <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
-                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Statut</th>
+                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs bg-green-200">Statut</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -99,21 +109,10 @@
                         <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 20), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
                         <div class="text-sm leading-5 text-gray-500"><%= course.created_at.strftime("%d %b %Y, %Hh:%M") %></div>
                       </td>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                          <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:text-indigo-500 hover:bg-transparent" %>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-green-200">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold text-yellow-800">
+                          <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:bg-transparent text-white font-bold text-xl py-2 -px-2" %>
                         </span>
-                        <div class="text-sm leading-5 text-gray-500">
-                          <% if course.course_status.name == "validate" %>
-                            Validée
-                          <% elsif course.course_status.name == "waiting" %>
-                            Attente
-                          <% elsif course.course_status.name == "rejected" %>
-                            Rejetée
-                          <% elsif course.deleted == true %>
-                            Supprimée
-                          <% end %>
-                        </div>
                       </td>
                     </tr>
 
@@ -237,30 +236,28 @@
                   <table class="min-w-full divide-y divide-gray-200">
                     <thead>
                     <tr>
-                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Enseignant
                       </th>
-                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Matière
+                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        Discipline
                       </th>
-                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Leçons validées
+                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        Consultation
                       </th>
-                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Leçons en attentes
+                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        Publiés
                       </th>
-                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        Salle de classe
+                      </th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <% Course.where(structure_id: current_user.structure_id, course_status_id: CourseStatus.find_by_name('waiting').id).each do |teacher| %>
-
+                    <% Course.where(structure_id: current_user.structure_id, course_status_id: CourseStatus.find_by_name('validate').id).each do |teacher| %>
                       <tr>
                       <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                         <div class="flex items-center">
-                          <div class="flex-shrink-0 h-10 w-10">
-                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
-                          </div>
                           <div class="ml-4">
                             <div class="text-sm leading-5 font-medium text-gray-900">
                               <%= teacher.user.name %>
@@ -272,21 +269,24 @@
                         </div>
                       </td>
                       <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="text-sm leading-5 text-gray-900"><%= teacher.chapter %></div>
+                        <div class="text-sm leading-5 text-gray-900"><%= teacher.matiere.name %></div>
                         <div class="text-sm leading-5 text-gray-500"><%= teacher.matiere.name %></div>
                       </td>
                       <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                          <%= Course.where(user_id: teacher.id, course_status_id: CourseStatus.find_by_name('validate').id).count %>
+                        <div class="text-sm leading-5 text-gray-900"><%= Statistic.where(course_id: teacher.id).count %></div>
+                        <div class="text-sm leading-5 text-gray-500">Apprenants consultés</div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold text-green-800">
+                          <%= Course.where(user_id: teacher.user_id, course_status_id: CourseStatus.find_by_name('validate').id).count %>
                         </span>
                       </td>
                       <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                          <%= Course.where(user_id: teacher.id, course_status_id: CourseStatus.find_by_name('waiting').id).count %>
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold text-green-800">
+                          <% Course.where(user_id: teacher.user_id, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:matiere_id).uniq.each do |content| %>
+                            <%= SalleDeClass.find(content).name %>,<br>
+                          <% end %>
                         </span>
-                      </td>
-                      <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Details</a>
                       </td>
                     </tr>
 

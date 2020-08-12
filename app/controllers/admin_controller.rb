@@ -11,6 +11,29 @@ class AdminController < ApplicationController
 
     # action cable push notifications
     ActionCable.server.broadcast('notification_channel', "Vous etes actuellement à #{action_name.upcase}.")
+
+    # render new view template
+    #render layout: 'application_new'
+  end
+
+  def index_new
+    @course = Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
+    @new_account = User.where(structure_id: current_user.structure_id, created_at: Date.today.beginning_of_week..Date.today.end_of_week).page(params[:page]).per(10)
+    @course_stats = Course.where(structure_id: current_user.structure_id, deleted: false).group(:chapter).count
+    @course_view_stat = Course.group(:counter).count
+    @documents = ActiveStorage::Blob.all.limit(10).order(created_at: :desc) #Document.last(2).limit(5)
+
+    # action cable push notifications
+    ActionCable.server.broadcast('notification_channel', "Vous etes actuellement à #{action_name.upcase}.")
+    #render layout: 'application_new'
+  end
+
+  def stats_index
+
+    @course_stats = Course.where(structure_id: current_user.structure_id, deleted: false).group(:chapter).count
+    @classes = SalleDeClass.all.order(name: :asc)
+
+    #render layout: 'application_new'
   end
 
   # import excel file
@@ -28,6 +51,8 @@ class AdminController < ApplicationController
     @waiting_course = Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
     @validated_course = Course.where(course_status_id: CourseStatus.find_by_name('validate').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
     @course = Course.where(deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
+
+    #render layout: 'application_new'
   end
 
   # valider ou suspendre tous les cours

@@ -27,16 +27,10 @@ class DocumentsController < ApplicationController
     # current_course = ManageCourse.save_course(course_params)
 
     # send to activeJob
+    puts "Data received : #{course_params}"
     CourseSaveJob.set(wait: 2.seconds).perform_later(classes_ids: params[:classes_ids], data: course_params, user_id: current_user.id, structure_id: current_user.structure_id)
 
     redirect_to courses_path, notice: "Vos leçons sont en cours de traitement, merci de patienter ..."
-
-    # if current_course[0]
-    #   puts "enregistré"
-    #   redirect_to courses_path, notice: "Nouveau cours enregistré"
-    # else
-    #   redirect_to courses_path, notice: "Impossible d'enregistrer cette leçon : #{current_course[1]}"
-    # end
 
   end
 

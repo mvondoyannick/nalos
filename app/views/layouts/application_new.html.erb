@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NAL Online School | Welcome</title>
+  <%= favicon_link_tag asset_path("logo.png") %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href=https://stitches.hyperyolo.com/output.css rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js" defer></script>
+
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.6.2/plyr.min.js" integrity="sha512-5HcOw3x/g3GAUpNNyvKYB2/f8ivVNBVebdqCxz3Mmdftx7vXOdbYvonB2Det6RVcA1IDxYeYWTAzxRg+c6uvYQ==" crossorigin="anonymous"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
+
+  <style>
+      /* only for dropdown */
+      a:hover{
+          background-color: transparent;
+          background: transparent;
+          color: indigo;
+      }
+  </style>
+
+</head>
+
+<body class="antialiased bg-gray-100">
+
+<%= render 'layouts/admin/admin_template_new' %>
+<% unless (Student.where(c_pere: nil)).or(Student.where(c_mere: nil)).or(Student.where(c_tuteur: nil)).empty? %>
+  <footer class="h-28">
+    <div x-data="{ show: false }" x-init="setTimeout(() => show = true, 500)" x-show="show" x-transition:enter="ease-out duration-500" x-transition:enter-start="opacity-0 scale-98 translate-y-2" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="ease-in duration-500" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-100 translate-y-2" class="transition transform fixed bottom-0 inset-x-0 px-2 pb-10 sm:px-0 sm:pb-6">
+      <a href="/pricing" class="flex items-center justify-between rounded-lg shadow-lg pl-6 pr-4 py-3 bg-gray-900 sm:hidden">
+        <p class="text-gray-200">
+          <strong class="font-medium text-white">
+            Get early access
+          </strong>
+          to Tailwind UI
+        </p>
+        <span class="flex items-center justify-center px-3 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-white hover:text-gray-600 focus:outline-none focus:shadow-outline transition ease-in-out duration-150">
+        →
+      </span>
+      </a>
+      <div class="hidden sm:block max-w-8xl mx-auto px-4 lg:px-6">
+        <div class="py-3 pl-6 pr-3 rounded-lg bg-red-500 shadow-lg">
+          <div class="flex items-center justify-between flex-wrap">
+            <div class="w-full flex-1 flex items-center sm:w-0">
+              <p class="text-white text-xl truncate">
+<!--                <strong class="font-medium text-white md:hidden">-->
+<!--                  Get the HTML-->
+<!--                </strong>-->
+<!--                <strong class="hidden md:inline font-medium text-white">-->
+<!--                  Get the responsive HTML-->
+<!--                </strong>-->
+<!--                <span class="lg:hidden">-->
+<!--                  for all of these components-->
+<!--                </span>-->
+                <!-- <span class="hidden md:inline lg:hidden">
+                  to all of the components in Tailwind UI
+                </span> -->
+                <span class="hidden lg:inline">
+                  Certines information sont corrompus et demandent votre attention
+                </span>
+              </p>
+            </div>
+            <div class="flex-shrink-0">
+              <div class="rounded-md shadow-sm">
+                <%= link_to "Vérifier & Corriger", setup_incomplete_students_path, class: "flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded text-gray-900 bg-white hover:text-gray-600 focus:outline-none focus:shadow-outline transition ease-in-out duration-150" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+<!--  <span title="Dossiers apprenants incomplet" class="text-xs inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 uppercase last:mr-0 mr-1">-->
+    <%#= (Student.where(c_pere: nil)).or(Student.where(c_mere: nil)).or(Student.where(c_tuteur: nil)).count %>
+<!--  </span>-->
+<% end %>
+
+
+<script type="text/javascript" charset="utf-8">
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        console.log("loaded ...!");
+        $('#matiere_id').select2();
+    });
+</script>
+
+</body>
+
+
+</html>

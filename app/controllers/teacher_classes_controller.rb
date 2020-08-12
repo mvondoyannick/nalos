@@ -6,7 +6,12 @@ class TeacherClassesController < ApplicationController
   # GET /teacher_classes.json
   def index
     current_structure = Structure.find_by_token(params[:token])
-    @teacher_classes = TeacherClasse.where(structure_id: current_structure.id).group(:user_id).distinct.page(params[:page]).per(100)
+    if TeacherClasse.where(structure_id: current_user.structure.id).nil?
+      @teacher_classes = [] #TeacherClasse.where(structure_id: current_structure.id).group(:user_id).distinct.page(params[:page]).per(100)
+    else
+      @teacher_classes = TeacherClasse.where(structure_id: current_user.structure.id).group(:user_id).distinct.page(params[:page]).per(100)
+    end
+
   end
 
   # details of one teacher

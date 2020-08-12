@@ -1,0 +1,157 @@
+<div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+  <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+    Dashboard
+    <br/>
+    <span class="text-indigo-600">administrateur</span>
+  </h2>
+</div>
+</div>
+
+<div class="mb-12">
+  <!-- Card stats -->
+  <div class="flex flex-wrap">
+    <div class="w-full lg:w-6/12 xl:w-3/12 px-4 transition ease-in-out duration-150">
+      <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+        <div class="flex-auto p-4">
+          <div class="flex flex-wrap">
+            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+              <h5 class="text-gray-500 uppercase font-bold text-xs">
+                Statistiques des
+              </h5>
+              <span class="font-semibold text-xl text-gray-800">
+                leçons
+                <%#= number_to_currency(Commission.where(created_at: Date.today.beginning_of_month..Date.today.end_of_month).sum(:commission), unit: "F", separator: ",", delimiter: ".", format: "%n %u") %>
+              </span>
+            </div>
+            <div class="relative w-auto pl-4 flex-initial">
+              <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-green-500">
+                <i class="fa fa-book"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 mt-4">
+            <span class="text-green-500 mr-2">
+              <i class="fa fa-arrow-up"></i> <%= Course.where(course_status_id: CourseStatus.find_by_name('validate').id).count %> Leçons publiés & validées
+            </span>
+<!--            <span class="whitespace-no-wrap">-->
+<!--              obex-->
+<!--            </span>-->
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+      <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+        <div class="flex-auto p-4">
+          <div class="flex flex-wrap">
+            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+              <h5 class="text-gray-500 uppercase font-bold text-xs">
+                Statiques des
+              </h5>
+              <span class="font-semibold text-xl text-gray-800">
+                enseignants
+                <%#= number_to_currency(Commission.where(created_at: Date.today.prev_month.beginning_of_month..Date.today.prev_month.end_of_month).sum(:commission), unit: "F", separator: ",", delimiter: ".", format: "%n %u") %>
+              </span>
+            </div>
+            <div class="relative w-auto pl-4 flex-initial">
+              <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-yellow-500">
+                <i class="fa fa-shield"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 mt-4">
+            <span class="text-red-500 mr-2">
+              <i class="fa fa-arrow-down"></i> <%= User.where(role_id: Role.find_by_name('teacher').id).count %> enseignants enregistrés
+            </span>
+            <span class="whitespace-no-wrap">
+              <%# if Commission.where(created_at: Date.today.prev_month.beginning_of_month..Date.today.prev_month.end_of_month).sum(:commission).to_i.zero? %>
+                <%#= link_to "Impossible de valider", "#" %>
+              <%# else %>
+                <%#= link_to "Valider cette commission", "#" %>
+              <%# end %>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+      <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+        <div class="flex-auto p-4">
+          <div class="flex flex-wrap">
+            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+              <h5 class="text-gray-500 uppercase font-bold text-xs">
+                Statistiques sur les
+              </h5>
+              <span class="font-semibold text-xl text-gray-800">
+                apprenants
+                <%#= number_to_currency(Commission.where(created_at: Date.today.prev_month(2).beginning_of_month..Date.today.prev_month(2).end_of_month).sum(:commission), unit: "F", separator: ",", delimiter: ".", format: "%n %u") %>
+              </span>
+            </div>
+            <div class="relative w-auto pl-4 flex-initial">
+              <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-purple-500">
+                <i class="fa fa-users"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 mt-4">
+            <span class="text-orange-500 mr-2">
+              <i class="fa fa-arrow-down"></i> <%= Student.all.count %> apprenants
+            </span>
+            <span class="whitespace-no-wrap">
+              <%# if Commission.where(created_at: Date.today.prev_month(2).beginning_of_month..Date.today.prev_month(2).end_of_month).sum(:commission).to_i.zero? %>
+                <%#= link_to "Impossible de valider", "#" %>
+              <%# else %>
+                <%#= link_to "Valider cette commission", "#" %>
+              <%# end %>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+      <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+        <div class="flex-auto p-4">
+          <div class="flex flex-wrap">
+            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+              <h5 class="text-gray-500 uppercase font-bold text-xs">
+                Statistiques
+              </h5>
+              <span class="font-semibold text-xl text-gray-800">
+                générales
+                <%#= number_to_currency(Commission.where(created_at: Date.today.prev_month(3).beginning_of_month..Date.today.prev_month(3).end_of_month).sum(:commission), unit: "F", separator: ",", delimiter: ".", format: "%n %u") %>
+              </span>
+            </div>
+            <div class="relative w-auto pl-4 flex-initial">
+              <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-blue-800">
+                <i class="fa fa-percent"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 mt-4">
+            <span class="text-green-500 mr-2">
+              <i class="fa fa-arrow-up"></i> Statistiques générale
+            </span>
+            <span class="whitespace-no-wrap">
+              <%# if Commission.where(created_at: Date.today.prev_month(3).beginning_of_month..Date.today.prev_month(3).end_of_month).sum(:commission).to_i.zero? %>
+                <%#= link_to "Impossible de valider", "#" %>
+              <%# else %>
+                <%#= link_to "Valider cette commission", "#" %>
+              <%# end %>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="items-center justify-between mb-4">
+  <h2 class="text-xl font-bold text-gray-800 mb-6">
+    <%= column_chart @course_stats, message: {empty: "Aucune données disponibles."}, refresh: 60, xtitle: 'Libellé leçons', ytitle: "Nombre de consultations" %>
+    <p class="text-center mt-8">
+      Statistique cours lus | <%= link_to 'Imprimer', "#", class: 'font-light' %> | <%= link_to 'Plus de statistiques', "#", class: 'font-light' %>
+    </p>
+  </h2>
+</div>

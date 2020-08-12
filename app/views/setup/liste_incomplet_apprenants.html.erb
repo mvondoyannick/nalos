@@ -15,10 +15,10 @@
 
 <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-pink-500">
   <span class="text-xl inline-block mr-5 align-middle">
-    <i class="fa fa-bell" />
+    <i class="fa fa-bell"></i>
   </span>
   <span class="inline-block align-middle mr-8">
-    <b class="capitalize">Verification dossiers | </b> Certain dossiers d'apprenants semble etre incomplet. Voulez-vous les vérifier?
+    <b class="capitalize">Verification dossiers | </b> Certains dossiers d'apprenants semblent être incomplet. Souhaitez-vous les vérifier?
   </span>
   <button class="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none">
     <span>×</span>
@@ -113,7 +113,6 @@
               <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                 <%= link_to "Details", detail_apprenant_path(matricule: student.matricule), class: "text-indigo-600 hover:text-indigo-900" %>
                 <a href="#" class="text-indigo-600 hover:text-indigo-900 ml-4">Contacter</a>
-                <a href="#" class="text-indigo-600 hover:text-indigo-900 ml-4">Statistiques</a>
               </td>
             </tr>
           <% end %>
