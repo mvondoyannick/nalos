@@ -123,7 +123,6 @@
               </div>
 
             <% end %>
-            </p>
           </div>
           <div class="hidden" id="tab-settings">
             <p>
@@ -204,7 +203,6 @@
               </div>
 
             <% end %>
-            </p>
           </div>
           <div class="hidden" id="tab-options">
             <p>
@@ -215,18 +213,6 @@
                   <br>
                   <span class="text-indigo-600">enseignants</span>
                 </h2>
-<!--                <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">-->
-<!--                  <div class="inline-flex rounded-md shadow">-->
-<!--                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">-->
-<!--                      Get started-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  <div class="ml-3 inline-flex rounded-md shadow">-->
-<!--                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">-->
-<!--                      Learn more-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                </div>-->
               </div>
             </div>
 
@@ -243,50 +229,43 @@
                         Discipline
                       </th>
                       <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Consultation
-                      </th>
-                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Publiés
                       </th>
                       <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Salle de classe
                       </th>
+                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <% Course.where(structure_id: current_user.structure_id, course_status_id: CourseStatus.find_by_name('validate').id).each do |teacher| %>
+                    <% Course.where(structure_id: current_user.structure_id, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:user_id).each do |teacher| %>
                       <tr>
                       <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                         <div class="flex items-center">
                           <div class="ml-4">
                             <div class="text-sm leading-5 font-medium text-gray-900">
-                              <%= teacher.user.name %>
+                              <%= link_to User.find(teacher).name, course_all_detail_path(t: User.find(teacher).token) %>
                             </div>
                             <div class="text-sm leading-5 text-gray-500">
-                              <%= Structure.find(teacher.structure_id).name.upcase %>
+                              <%= Structure.find(User.find(teacher).structure_id).name.upcase %>
                             </div>
                           </div>
                         </div>
                       </td>
                       <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="text-sm leading-5 text-gray-900"><%= teacher.matiere.name %></div>
-                        <div class="text-sm leading-5 text-gray-500"><%= teacher.matiere.name %></div>
+                        <div class="text-sm leading-5 text-gray-900"><%= Course.where(user_id: teacher, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:matiere_id).uniq.count %></div>
+                        <div class="text-sm leading-5 text-gray-500">Disciplines enseignées</div>
                       </td>
                       <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="text-sm leading-5 text-gray-900"><%= Statistic.where(course_id: teacher.id).count %></div>
-                        <div class="text-sm leading-5 text-gray-500">Apprenants consultés</div>
+                        <div class="text-sm leading-5 text-gray-900"><%= Course.where(user_id: teacher, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:id).uniq.count %></div>
+                        <div class="text-sm leading-5 text-gray-500">Cours différents publiés</div>
                       </td>
                       <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold text-green-800">
-                          <%= Course.where(user_id: teacher.user_id, course_status_id: CourseStatus.find_by_name('validate').id).count %>
-                        </span>
+                        <div class="text-sm leading-5 text-gray-900"><%= Course.where(user_id: teacher, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:salle_de_class_id).uniq.count %></div>
+                        <div class="text-sm leading-5 text-gray-500">Salles de classe</div>
                       </td>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold text-green-800">
-                          <% Course.where(user_id: teacher.user_id, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:matiere_id).uniq.each do |content| %>
-                            <%= SalleDeClass.find(content).name %>,<br>
-                          <% end %>
-                        </span>
+                      <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                        <%= link_to "Detail", course_all_detail_path(t: User.find(teacher).token), class: "text-indigo-600 hover:text-indigo-900" %>
                       </td>
                     </tr>
 

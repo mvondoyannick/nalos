@@ -55,6 +55,27 @@ class AdminController < ApplicationController
     #render layout: 'application_new'
   end
 
+  # details des statistique des cours
+  def course_all_detail
+    c_teacher = params[:t]
+    if User.exists?(token: c_teacher)
+      @current_user = User.find_by_token(c_teacher)
+    else
+      # throw an error
+      redirect_to course_all_path, notice: "Enseignant inexistant"
+    end
+  end
+
+  # student who read teacher course
+  def who_read_course
+    course_t = params[:course_token]
+    if Course.exists?(token: course_t)
+      @current_course = Course.find_by_token(course_t)
+    else
+      redirect_to course_all_path, notice: "Leçon inexistante!"
+    end
+  end
+
   # valider ou suspendre tous les cours
   def course_validate_or_suspend_all
     current_structure = Structure.find(params[:plateform])

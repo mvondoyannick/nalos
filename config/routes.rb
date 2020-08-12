@@ -183,6 +183,8 @@ Rails.application.routes.draw do
 
     scope :courses do
       get "course_all", to: "admin#course_all"
+      get "course_all_detail", to: "admin#course_all_detail"
+      get "who_read_course", to: "admin#who_read_course"
       get "course_detail", to: 'admin#course_detail'
       get "course_detail_contact_teacher", to: "admin#course_detail_contact_teacher"
       get "course_send_teacher_note", to: "admin#course_send_teacher_note"

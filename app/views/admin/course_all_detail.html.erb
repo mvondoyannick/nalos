@@ -1,0 +1,70 @@
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Statstiques des leçons
+      <br>
+      <span class="text-indigo-600"><%= @current_user.name %>.</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="ml-3 inline-flex rounded-md shadow">
+        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+          Exporter les données
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="flex flex-col">
+  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead>
+        <tr>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Discipline
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Nbr. de fois concultée
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Classe
+          </th>
+        </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+        <% Course.where(user_id: @current_user.id, course_status_id: CourseStatus.find_by_name('validate').id).each do |data| %>
+          <tr>
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div class="flex items-center">
+              <div class="flex-shrink-0 h-10 w-10">
+                <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+              </div>
+              <div class="ml-4">
+                <div class="text-sm leading-5 font-medium text-gray-900">
+                  <%= data.matiere.name %>
+                </div>
+                <div class="text-sm leading-5 text-gray-500">
+                  <%= data.created_at %>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div class="text-sm leading-5 text-gray-900"><%= Statistic.where(course_id: data.id).sum(:counter) %></div>
+            <div class="text-sm leading-5 text-gray-500"><%= link_to "Voir apprenants", who_read_course_path(course_token: data.token) %></div>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold text-green-800">
+                <%= data.salle_de_class.name %>
+              </span>
+          </td>
+        </tr>
+        <% end %>
+        <!-- More rows... -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
