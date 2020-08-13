@@ -166,7 +166,9 @@ class HomeStudentController < ApplicationController
   end
 
   def update_course_statitics
-    Statistic.where(course_id: params[:course_id], student_id: current_student.id).first_or_create(counter: 0).increment!(:counter) #new(course_id: params[:course_id, student_id: current_student.id, ])
+    #Statistic.where(course_id: params[:course_id], student_id: current_student.id).first_or_create(counter: 0).increment!(:counter) #new(course_id: params[:course_id, student_id: current_student.id, ])
+    # new approche
+    Statistic.new(course_id: params[:course_id], student_id: current_student.id, counter: 1).save
   end
 
   def comment_params
