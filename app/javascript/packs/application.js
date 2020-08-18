@@ -23,7 +23,7 @@ require("channels")
 
 //= require select_all.js
 //= require plyr
-
+require("alpinejs")
 require("chartkick")
 require("chart.js")
 require("plyr")
