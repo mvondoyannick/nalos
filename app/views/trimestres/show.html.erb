@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @trimestre.name %>
+</p>
+
+<p>
+  <strong>Date debut:</strong>
+  <%= @trimestre.date_debut %>
+</p>
+
+<p>
+  <strong>Date fin:</strong>
+  <%= @trimestre.date_fin %>
+</p>
+
+<p>
+  <strong>Annee scolaire:</strong>
+  <%= @trimestre.annee_scolaire_id %>
+</p>
+
+<%= link_to 'Edit', edit_trimestre_path(@trimestre) %> |
+<%= link_to 'Back', trimestres_path %>

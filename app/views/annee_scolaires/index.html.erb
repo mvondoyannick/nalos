@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Annee Scolaires</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date debut</th>
+      <th>Date fin</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @annee_scolaires.each do |annee_scolaire| %>
+      <tr>
+        <td><%= annee_scolaire.name %></td>
+        <td><%= annee_scolaire.date_debut %></td>
+        <td><%= annee_scolaire.date_fin %></td>
+        <td><%= link_to 'Show', annee_scolaire %></td>
+        <td><%= link_to 'Edit', edit_annee_scolaire_path(annee_scolaire) %></td>
+        <td><%= link_to 'Destroy', annee_scolaire, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Annee Scolaire', new_annee_scolaire_path %>

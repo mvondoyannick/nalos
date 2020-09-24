@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @sequence.name %>
+</p>
+
+<p>
+  <strong>Date debut:</strong>
+  <%= @sequence.date_debut %>
+</p>
+
+<p>
+  <strong>Date fin:</strong>
+  <%= @sequence.date_fin %>
+</p>
+
+<p>
+  <strong>Trimestre:</strong>
+  <%= @sequence.trimestre_id %>
+</p>
+
+<%= link_to 'Edit', edit_sequence_path(@sequence) %> |
+<%= link_to 'Back', sequences_path %>

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Trimestres</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date debut</th>
+      <th>Date fin</th>
+      <th>Annee scolaire</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trimestres.each do |trimestre| %>
+      <tr>
+        <td><%= trimestre.name %></td>
+        <td><%= trimestre.date_debut %></td>
+        <td><%= trimestre.date_fin %></td>
+        <td><%= trimestre.annee_scolaire_id %></td>
+        <td><%= link_to 'Show', trimestre %></td>
+        <td><%= link_to 'Edit', edit_trimestre_path(trimestre) %></td>
+        <td><%= link_to 'Destroy', trimestre, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Trimestre', new_trimestre_path %>

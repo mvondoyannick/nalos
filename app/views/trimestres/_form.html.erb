@@ -1,0 +1,37 @@
+<%= form_with(model: trimestre, local: true) do |form| %>
+  <% if trimestre.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trimestre.errors.count, "error") %> prohibited this trimestre from being saved:</h2>
+
+      <ul>
+        <% trimestre.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_debut %>
+    <%= form.date_select :date_debut %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_fin %>
+    <%= form.date_select :date_fin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :annee_scolaire_id %>
+    <%= form.text_field :annee_scolaire_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

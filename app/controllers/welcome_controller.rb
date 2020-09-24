@@ -1,7 +1,8 @@
 class WelcomeController < ApplicationController
 
   def index
-    render layout: 'student'
+    #render layout: 'student'
+    render file: "#{Rails.root}/public/landing.html"
   end
 
   def services

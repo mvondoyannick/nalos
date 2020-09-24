@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # before_action :check_default_password
   # before_action :add_log if user_signed_in?
   # before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :check_password
+  # before_action :check_password
 
   puts "Aucune structure définie ..." if Structure.all.count.zero?
 

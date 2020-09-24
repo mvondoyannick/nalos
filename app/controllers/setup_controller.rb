@@ -5,6 +5,33 @@ class SetupController < ApplicationController
   def index
   end
 
+  # ##################################################################################################
+  # ############################################ ACADEMIC YEAR #######################################
+  #
+  # presentation du module année academique
+  def academic_year
+    @elements = %w(apprenants lecons enseignants matieres classes affectations)
+  end
+
+  # Adademic year, show apprenants
+  def academic_section
+    @cycles = CycleEcole.where(structure_id: current_user.structure_id)
+  end
+
+  # lister les salles de classe par cycle d'enseignement
+  def academic_salle_de_class
+    section_id = params[:section_id]
+    @salles = SalleDeClass.where(cycle_ecole_id: section_id, structure_id: current_user.structure_id)
+  end
+
+  # liste des etudians par section academique
+  def academic_students_section
+    section = params[:section_id]
+    @students = Student.where(structure_id: current_user.structure_id)
+  end
+  #
+  ################################################## END ############################################
+
   # enseignant update, create form
   def enseignant_index
     current_role_id = Role.find_by_name('teacher').id

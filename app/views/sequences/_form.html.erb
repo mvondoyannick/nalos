@@ -1,0 +1,37 @@
+<%= form_with(model: sequence, local: true) do |form| %>
+  <% if sequence.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sequence.errors.count, "error") %> prohibited this sequence from being saved:</h2>
+
+      <ul>
+        <% sequence.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_debut %>
+    <%= form.date_select :date_debut %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_fin %>
+    <%= form.date_select :date_fin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :trimestre_id %>
+    <%= form.text_field :trimestre_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

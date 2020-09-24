@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sequences</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date debut</th>
+      <th>Date fin</th>
+      <th>Trimestre</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sequences.each do |sequence| %>
+      <tr>
+        <td><%= sequence.name %></td>
+        <td><%= sequence.date_debut %></td>
+        <td><%= sequence.date_fin %></td>
+        <td><%= sequence.trimestre_id %></td>
+        <td><%= link_to 'Show', sequence %></td>
+        <td><%= link_to 'Edit', edit_sequence_path(sequence) %></td>
+        <td><%= link_to 'Destroy', sequence, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sequence', new_sequence_path %>

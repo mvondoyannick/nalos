@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :sequences
+  resources :trimestres
+  resources :annee_scolaires
   mount Notifications::Engine => "/notifications"
   #get 'share/title:string'
   devise_for :tuteurs
@@ -131,6 +134,11 @@ Rails.application.routes.draw do
       get 'setup_incomplete_students', to: 'setup#liste_incomplet_apprenants'
       get 'detail_apprenant', to: 'setup#detail_apprenant'
       match 'update_apprenant', to: 'setup#update_apprenant', via: [:post, :get, :put]
+
+      # academic year
+      get 'academic_year', to: 'setup#academic_year'
+      get 'academic_section', to: 'setup#academic_section'
+      get 'academic_salle_de_class', to: 'setup#academic_salle_de_class'
 
       # setup index
       get 'setup_index', to: "setup#index"
