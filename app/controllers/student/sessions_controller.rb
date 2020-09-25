@@ -2,7 +2,6 @@
 
 class Student::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-  puts "lorem ..."
   # GET /resource/sign_in
   # def new
   #   super

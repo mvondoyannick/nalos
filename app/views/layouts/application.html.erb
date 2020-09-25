@@ -17,8 +17,6 @@
 
 <body class="antialiased bg-gray-100">
 
-<%= yield %>
-
 <% admin_role = %w(admin principale) %>
 
 <% if user_signed_in? %>
@@ -67,6 +65,8 @@
   <%#= yield %>
   <!--    </div>-->
   <!--  </div>-->
+
+  <%= yield %>
 
 
 <% end %>
