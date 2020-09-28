@@ -12,6 +12,13 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.6.2/plyr.min.js" integrity="sha512-5HcOw3x/g3GAUpNNyvKYB2/f8ivVNBVebdqCxz3Mmdftx7vXOdbYvonB2Det6RVcA1IDxYeYWTAzxRg+c6uvYQ==" crossorigin="anonymous"></script>
+  <style>
+    a:hover{
+        background: transparent;
+    }
+  </style>
 
 </head>
 
@@ -27,7 +34,7 @@
 
   <% elsif current_user.role.name.in?(admin_role) %>
 
-    <%= render 'layouts/admin/admin_template' %>
+    <%= render 'layouts/admin/admin_template_2' %>
 
   <% end %>
 

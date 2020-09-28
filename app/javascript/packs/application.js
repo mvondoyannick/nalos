@@ -26,7 +26,7 @@ require("channels")
 require("alpinejs")
 require("chartkick")
 require("chart.js")
-require("plyr")
+require("jquery")
 
 require("trix")
 require("@rails/actiontext")
