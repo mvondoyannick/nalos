@@ -4,7 +4,7 @@
 <% elsif data.audio? %>
   <%= video_tag url_for(data), width: "100%", controls: true, id: "player", class: 'shadow' %>
 <% elsif data.image? %>
-  <%= image_tag url_for(data) %>
+  <%= image_tag url_for(data), class: "object-cover object-center object-center" %>
 <% elsif data.content_type.end_with?("pdf") %>
   <object data="<%= rails_blob_path(data) %>" type="<%= data.content_type %>" height="1000" width="100%"></object>
 <% elsif data.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
@@ -13,3 +13,5 @@
   <%= image_tag('document.png', size: "1000x1000") %>
   <%= link_to "Télécharger ce document", rails_blob_path(data, disposition: "attachment") %>
 <% end %>
+
+<div class="object-cover object-center object-center"></div>

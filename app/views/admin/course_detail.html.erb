@@ -1,45 +1,59 @@
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+<div class="bg-gray-50 -mt-64">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:py-0 lg:px-0 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Détail de la leçon
       <br/>
       <span class="text-indigo-600"><%= @course.chapter %></span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow">
-        <%= link_to "Ecrire", course_send_teacher_note_path, title: "Ecrire à #{@course.user.name.upcase}", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to "Supprimer leçon", course_delete_path(course_token: @course.token), data: {confirm: "Supprimer cette lecon #{@course.chapter.upcase}?"}, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white hover:text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <% if @course.course_status.name == "validate" %>
-          <%= link_to "Suspendre", course_suspension_path(course_id: @course.id), data: {confirm: "Confirmer la suspension de cette leçon? \nElle ne sera plus disponible aux apprenants de #{current_user.structure.name.upcase}."}, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-        <% else %>
-          <%= link_to "Valider", course_validation_path(course_id: @course.id), data: {confirm: "Confirmer la validation de cette leçon? \nUn SMS sera envoyé à tous les apprenants en relation avec ce cours."}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-        <% end %>
+      <!-- component -->
+      <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+      <div class="flex justify-center h-screen">
+        <div class="flex items-center my-32">
+          <button class="py-2 px-4 capitalize tracking-wide bg-gray-800 text-white font-medium rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700">Actions</button>
+
+          <span class="border"></span>
+
+          <div x-data="{ dropdownOpen: true }" class="relative">
+            <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block bg-gray-800 rounded p-2 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+              <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+              </svg>
+            </button>
+
+            <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+
+            <div x-show="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-20">
+              <%= link_to "Ecrire à l'enseignant", course_send_teacher_note_path, title: "Ecrire à #{@course.user.name.upcase}", class: "block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200" %>
+              <% if @course.course_status.name == "validate" %>
+                <%= link_to "Suspendre", course_suspension_path(course_id: @course.id), data: {confirm: "Confirmer la suspension de cette leçon? \nElle ne sera plus disponible aux apprenants de #{current_user.structure.name.upcase}."}, class: "block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200" %>
+              <% else %>
+                <%= link_to "Valider", course_validation_path(course_id: @course.id), data: {confirm: "Confirmer la validation de cette leçon? \nUn SMS sera envoyé à tous les apprenants en relation avec ce cours."}, method: :post, class: "block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200" %>
+              <% end %>
+              <%= link_to "Supprimer leçon", course_delete_path(course_token: @course.token), data: {confirm: "Supprimer cette lecon #{@course.chapter.upcase}?"}, class: "block px-4 py-2 text-sm text-gray-800 border-b hover:bg-red-200" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="bg-white hover:shadow-2xl">
-  <div class="bg-white shadow overflow-hidden">
-
-  </div>
-  <h3 class="text-lg leading-6 font-medium text-gray-900">
-    <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-      <h3 class="text-lg leading-6 font-medium text-gray-900">
-        Aperçu du fichier
-      </h3>
-      <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-        <%= @course.chapter %> <br>
-        <%= @course.user.complete_name %>
-      </p>
+<section class="text-gray-700 body-font">
+  <div class="container mx-auto -mt-10 flex px-5 md:flex-row flex-col items-center">
+    <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+      <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900 leading-normal">Before they sold out
+        <br class="hidden lg:inline-block">readymade gluten
+      </h1>
+      <p class="mb-8 leading-relaxed">
+        Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard chambray.</p>
     </div>
-  </h3>
-  <%= render 'layouts/previewer', data: @document %>
-</div>
+    <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+      <%= render 'layouts/previewer', data: @document, class: "object-cover object-center rounded" %>
+    </div>
+  </div>
+</section>
 <br>
 <hr>
 <div class="bg-gray-500">

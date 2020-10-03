@@ -463,7 +463,7 @@
                 aria-hidden="true"
                 />
             </button>
-            <div x-if="isProfileMenuOpen">
+            <template x-if="isProfileMenuOpen">
               <ul
                 x-transition:leave="transition ease-in duration-150"
                 x-transition:leave-start="opacity-100"
@@ -536,7 +536,7 @@
                   </a>
                 </li>
               </ul>
-            </div>
+            </template>
           </li>
         </ul>
       </div>

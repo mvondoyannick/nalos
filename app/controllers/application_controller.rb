@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # before_action :add_log if user_signed_in?
   # before_action :configure_permitted_parameters, if: :devise_controller?
   # before_action :check_password
+  before_action :redirect_user
 
   puts "Aucune structure définie ..." if Structure.all.count.zero?
 
@@ -21,6 +22,19 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def redirect_user
+    # def automatic redirection
+    if user_signed_in?
+      if current_user.role.name == "admin"
+        admin_index_path
+      else
+        home_index_path
+      end
+    elsif student_signed_in?
+      home_student_index_path
+    end
+  end
 
   # check user_student password
   def check_password

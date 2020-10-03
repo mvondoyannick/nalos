@@ -1,4 +1,5 @@
 <% if notice.present? %>
+  <%= render 'layouts/notification_success' %>
   <div class="-m-2 text-center mb-8" id="notice">
 
     <div class="p-2">
@@ -36,74 +37,108 @@
   </div>
 </div>
 
-<section data-section-id="3" data-category="admin" data-component-id="73a6_15_02_awz" class="py-8 px-4">
-  <div class="flex flex-wrap -mx-4">
-    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
-      <div class="h-full">
-        <div class="flex justify-between items-end mb-2">
-          <h3 class="text-lg font-heading font-light" data-config-id="02-col1-header">Enseignants</h3>
-          <span class="text-5xl leading-none text-blue-700" data-config-id="02-col1-number">
-            <%= link_to User.where(role_id: Role.find_by_name('teacher').id, structure_id: current_user.structure_id).count, setup_manage_enseignant_index_path %>
-          </span>
-        </div>
-        <div class="w-full h-4 bg-gray-300 rounded">
-          <div class="h-full bg-blue-500" style="width: 62%;"></div>
+<section class="text-gray-700 body-font">
+  <div class="container px-5 mx-auto">
+    <div class="flex flex-wrap -m-2">
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
+          <img alt="team" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="https://dummyimage.com/80x80">
+          <div class="flex-grow">
+            <h2 class="text-gray-900 title-font font-medium"><%= Course.where(course_status_id: CourseStatus.find_by_name('validate').id, structure_id: current_user.structure_id).count %></h2>
+            <p class="text-gray-500">Leçons validées</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
-      <div class="h-full">
-        <div class="flex justify-between items-end mb-2">
-          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col2-header">Leçons publiés</h3>
-          <span class="text-5xl leading-none text-red-500" data-config-id="02-col2-number">
-            <%= Course.where(course_status_id: CourseStatus.find_by_name('validate').id, structure_id: current_user.structure_id).count %>
-          </span>
-        </div>
-        <div class="w-full h-4 bg-gray-300 rounded">
-          <div class="h-full bg-red-500" style="width: 62%;"></div>
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
+          <img alt="team" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="https://dummyimage.com/84x84">
+          <div class="flex-grow">
+            <h2 class="text-gray-900 title-font font-medium"><%= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %></h2>
+            <p class="text-gray-500">Leçons en attente de validation</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
-      <div class="h-full">
-        <div class="flex justify-between items-end mb-2">
-          <h3 class="text-lg font-heading font-light" data-config-id="02-col3-header">Leçons attentes</h3>
-          <span class="text-5xl leading-none text-purple-500" data-config-id="02-col3-number">
-            <%= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %>
-          </span>
-        </div>
-        <div class="w-full h-4 bg-gray-300 rounded">
-          <div class="h-full bg-purple-500" style="width: 62%;"></div>
-        </div>
-      </div>
-    </div>
-    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">
-      <div class="h-full">
-        <div class="flex justify-between items-end mb-2">
-          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col4-header">Apprenants</h3>
-          <span class="text-5xl leading-none text-green-500" data-config-id="02-col4-number">
-            <%= Student.where(structure: current_user.structure_id).count %>
-          </span>
-        </div>
-        <div class="w-full h-4 bg-gray-300 rounded">
-          <div class="h-full bg-green-500" style="width: 62%;"></div>
+      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
+          <img alt="team" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="https://dummyimage.com/88x88">
+          <div class="flex-grow">
+            <h2 class="text-gray-900 title-font font-medium"><%= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %></h2>
+            <p class="text-gray-500">Apprenants imcomplets</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!--<section data-section-id="3" data-category="admin" data-component-id="73a6_15_02_awz" class="py-8 px-4">-->
+<!--  <div class="flex flex-wrap -mx-4">-->
+<!--    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">-->
+<!--      <div class="h-full">-->
+<!--        <div class="flex justify-between items-end mb-2">-->
+<!--          <h3 class="text-lg font-heading font-light" data-config-id="02-col1-header">Enseignants</h3>-->
+<!--          <span class="text-5xl leading-none text-blue-700" data-config-id="02-col1-number">-->
+<%#= link_to User.where(role_id: Role.find_by_name('teacher').id, structure_id: current_user.structure_id).count, setup_manage_enseignant_index_path %>
+<!--          </span>-->
+<!--        </div>-->
+<!--        <div class="w-full h-4 bg-gray-300 rounded">-->
+<!--          <div class="h-full bg-blue-500" style="width: 62%;"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">-->
+<!--      <div class="h-full">-->
+<!--        <div class="flex justify-between items-end mb-2">-->
+<!--          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col2-header">Leçons publiés</h3>-->
+<!--          <span class="text-5xl leading-none text-red-500" data-config-id="02-col2-number">-->
+<%#= Course.where(course_status_id: CourseStatus.find_by_name('validate').id, structure_id: current_user.structure_id).count %>
+<!--          </span>-->
+<!--        </div>-->
+<!--        <div class="w-full h-4 bg-gray-300 rounded">-->
+<!--          <div class="h-full bg-red-500" style="width: 62%;"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">-->
+<!--      <div class="h-full">-->
+<!--        <div class="flex justify-between items-end mb-2">-->
+<!--          <h3 class="text-lg font-heading font-light" data-config-id="02-col3-header">Leçons attentes</h3>-->
+<!--          <span class="text-5xl leading-none text-purple-500" data-config-id="02-col3-number">-->
+<%#= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %>
+<!--          </span>-->
+<!--        </div>-->
+<!--        <div class="w-full h-4 bg-gray-300 rounded">-->
+<!--          <div class="h-full bg-purple-500" style="width: 62%;"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">-->
+<!--      <div class="h-full">-->
+<!--        <div class="flex justify-between items-end mb-2">-->
+<!--          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col4-header">Apprenants</h3>-->
+<!--          <span class="text-5xl leading-none text-green-500" data-config-id="02-col4-number">-->
+<%#= Student.where(structure: current_user.structure_id).count %>
+<!--          </span>-->
+<!--        </div>-->
+<!--        <div class="w-full h-4 bg-gray-300 rounded">-->
+<!--          <div class="h-full bg-green-500" style="width: 62%;"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
 <br>
 <br>
 
-<div class="items-center justify-between mb-4">
-  <h2 class="text-xl font-bold text-gray-800 mb-6">
-    <%= column_chart @course_stats, message: {empty: "Aucune données disponibles."}, refresh: 60, xtitle: 'Libellé leçons', ytitle: "Nombre de consultations" %>
-    <p class="text-center mt-8">
-      Statistique cours lus | <%= link_to 'Imprimer', "#", class: 'font-light' %> | <%= link_to 'Plus de statistiques', "#", class: 'font-light' %>
-    </p>
-  </h2>
-</div>
+<!--<div class="items-center justify-between mb-4">-->
+<!--  <h2 class="text-xl font-bold text-gray-800 mb-6">-->
+<%#= column_chart @course_stats, message: {empty: "Aucune données disponibles."}, refresh: 60, xtitle: 'Libellé leçons', ytitle: "Nombre de consultations" %>
+<!--    <p class="text-center mt-8">-->
+<!--      Statistique cours lus | <%#= link_to 'Imprimer', "#", class: 'font-light' %> | <%#= link_to 'Plus de statistiques', "#", class: 'font-light' %>-->
+<!--    </p>-->
+<!--  </h2>-->
+<!--</div>-->
 
 <% if @new_account.empty? %>
 
@@ -192,57 +227,34 @@
     </div>
   </div>
 <% else %>
-  <div x-data="{detail: false}"  class="overflow-x-auto bg-white rounded-lg shadow">
-    <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped" id="table">
-      <thead>
-      <tr class="text-left">
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date publication</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe & Matière</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre leçon</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs bg-green-200">Statut</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc).each do |course| %>
-        <% unless course.user.statut == 'inactive' %>
-          <tr>
 
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <%= image_tag 'course.png' %>
-                </div>
-                <div class="ml-4">
-                  <div><%= course.created_at.strftime("%d %b %Y") %></div>
-                  <div class="text-sm leading-5 text-gray-500"> <%= course.created_at.strftime("%Hh:%M") %></div>
+  <section class="text-gray-700 body-font">
+    <div class="container px-5 mx-auto">
+      <div class="flex flex-wrap -m-2">
+        <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc).each do |course| %>
+          <% unless course.user.statut == 'inactive' %>
+            <%= link_to course_detail_path(course_id: course.id, document_id: course.document_id), "x-click": {detail: true} do %>
+              <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+                <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl hover:bg-blue-100">
+                  <svg class="w-10 h-10 lex-shrink-0 rounded-full mr-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path>
+                  </svg>
+                  <div class="flex-grow">
+                    <h2 class="text-gray-900 title-font font-bold">
+                      <%= link_to excerpt(course.chapter.upcase, '', radius: 30), course_detail_path(course_id: course.id, document_id: course.document_id) %>
+                    </h2>
+                    <p class="text-gray-500"><%= course.user.complete_name %></p>
+                    <p class="text-gray-500"><%= course.salle_de_class.name %></p>
+                    <p class="text-gray-500"><%= course.created_at.strftime("%d %b %Y - %HH:%Mmin") %></p>
+                  </div>
                 </div>
               </div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= course.user.complete_name %></div>
-              <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= course.salle_de_class.name %></div>
-              <div class="text-sm leading-5 text-gray-500"><%= excerpt(course.matiere.name, '', radius: 20) %></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 30), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
-              <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
-            </td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-green-200">
-              <div @click="detail = true" @click.away="detail = false" class="px-2 inline-flex text-xs leading-5 font-semibold text-yellow-800">
-                <%= link_to "Details", course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:bg-transparent text-white font-bold text-xl py-2 -px-2", "x-click": {detail: true} %>
-              </div>
-            </td>
-          </tr>
+            <% end %>
+          <% end %>
         <% end %>
-      <% end %>
-
-      </tbody>
-    </table>
-  </div>
+      </div>
+    </div>
+  </section>
 <% end %>
 
 <br>
@@ -251,41 +263,41 @@
   <div class="flex flex-wrap -mx-1 lg:-mx-4">
 
     <%# @course.each do |course| %>
-<!--      <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">-->
+    <!--      <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">-->
 
-<!--        <article class="overflow-hidden rounded-lg shadow-lg">-->
+    <!--        <article class="overflow-hidden rounded-lg shadow-lg">-->
 
-<!--          <a href="#">-->
-<!--            <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
-<!--          </a>-->
+    <!--          <a href="#">-->
+    <!--            <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
+    <!--          </a>-->
 
-<!--          <header class="flex items-center justify-between leading-tight p-2 md:p-4">-->
-<!--            <h1 class="text-lg">-->
-<!--              <a class="no-underline hover:underline text-black" href="#">-->
-                <%#= excerpt(course.chapter, '', radius: 15) %>
-<!--              </a>-->
-<!--            </h1>-->
-<!--            <p class="text-grey-darker text-sm">-->
-              <%#= course.created_at.strftime("%d %b %Y") %>
-<!--            </p>-->
-<!--          </header>-->
+    <!--          <header class="flex items-center justify-between leading-tight p-2 md:p-4">-->
+    <!--            <h1 class="text-lg">-->
+    <!--              <a class="no-underline hover:underline text-black" href="#">-->
+    <%#= excerpt(course.chapter, '', radius: 15) %>
+    <!--              </a>-->
+    <!--            </h1>-->
+    <!--            <p class="text-grey-darker text-sm">-->
+    <%#= course.created_at.strftime("%d %b %Y") %>
+    <!--            </p>-->
+    <!--          </header>-->
 
-<!--          <footer class="flex items-center justify-between leading-none p-2 md:p-4">-->
-            <%#= link_to "#", class: "hover:bg-transparent hover:text-indigo-500 flex items-center no-underline hover:underline text-black" do %>
-<!--              <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">-->
-<!--              <p class="ml-2 text-sm">-->
-                <%#= course.user.complete_name %>
-<!--              </p>-->
-            <%# end %>
-<!--            <a class="no-underline text-grey-darker hover:text-red-dark" href="#">-->
-<!--              <span class="hidden">Like</span>-->
-<!--              <i class="fa fa-heart"></i>-->
-<!--            </a>-->
-<!--          </footer>-->
+    <!--          <footer class="flex items-center justify-between leading-none p-2 md:p-4">-->
+    <%#= link_to "#", class: "hover:bg-transparent hover:text-indigo-500 flex items-center no-underline hover:underline text-black" do %>
+    <!--              <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">-->
+    <!--              <p class="ml-2 text-sm">-->
+    <%#= course.user.complete_name %>
+    <!--              </p>-->
+    <%# end %>
+    <!--            <a class="no-underline text-grey-darker hover:text-red-dark" href="#">-->
+    <!--              <span class="hidden">Like</span>-->
+    <!--              <i class="fa fa-heart"></i>-->
+    <!--            </a>-->
+    <!--          </footer>-->
 
-<!--        </article>-->
+    <!--        </article>-->
 
-<!--      </div>-->
+    <!--      </div>-->
     <%# end %>
 
   </div>
@@ -391,100 +403,24 @@
     </div>
   </div>
 <% else %>
-  <div class="flex flex-col">
-    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-        <table class="min-w-full" id="afb">
-          <thead>
-          <tr>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Date importation
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Propriétaire
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
-          </tr>
-          </thead>
-          <tbody class="bg-white">
-          <% @documents.each do |document| %>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10">
-<!--                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"-->
-<!--                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-<!--                         stroke-linecap="round" stroke-linejoin="round">-->
-<!--                      <path stroke="none" d="M0 0h24v24H0z"/>-->
-<!--                      course<path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"/>-->
-<!--                      <circle cx="12" cy="14" r="2"/>-->
-<!--                      <polyline points="14 4 14 8 8 8 8 4"/>-->
-<!--                    </svg>-->
-                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                         viewBox="0 0 510.946 510.946" class="mr-4" width="40" height="40" style="enable-background:new 0 0 510.946 510.946;" xml:space="preserve">
-                      <g>
-                        <path style="fill:#FF4F19;" d="M112.246,483.246c-0.121,0-0.238,0-0.359,0l-48.289-0.305C28.531,482.723,0,454.02,0,418.949
-		v-47.734c0-14.953,5.824-29.016,16.395-39.594L303.918,44.105c10.566-10.578,24.629-16.406,39.598-16.406h103.43
-		c35.289,0,64,28.711,64,64v103.43c0,14.953-5.824,29.016-16.395,39.594L346.854,382.416c-6.242,6.25-16.375,6.25-22.625,0
-		s-6.25-16.375,0-22.625l147.689-147.685c4.527-4.539,7.027-10.57,7.027-16.977V91.699c0-17.648-14.355-32-32-32h-103.43
-		c-6.414,0-12.438,2.492-16.965,7.023L39.027,354.238C34.5,358.777,32,364.809,32,371.215v47.734
-		c0,17.531,14.266,31.883,31.797,31.992l48.297,0.305c6.324,0.328,12.613-2.523,17.121-7.023l217.281-217.281l-30.082-30.086
-		L127.312,385.957c-6.242,6.25-16.375,6.25-22.625,0s-6.25-16.375,0-22.625L293.785,174.23c12.477-12.477,32.777-12.492,45.254,0
-		l30.086,30.086c6.043,6.047,9.371,14.078,9.371,22.625s-3.328,16.578-9.375,22.625L151.84,466.848
-		C141.406,477.285,126.992,483.246,112.246,483.246z"/>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                      <g>
-                      </g>
-                    </svg>
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900"><%= document.filename %></div>
-                    <div class="text-sm leading-5 text-gray-500"><%= document.content_type %>, <%= document.byte_size / 1024 %> Ko</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= document.created_at.strftime("%d-%b-%Y") %></div>
-                <div class="text-sm leading-5 text-gray-500"><%= document.created_at.strftime("%Hh:%M") %></div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
-              </span>
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+  <section class="text-gray-700 body-font">
+    <div class="container px-5 mx-auto">
+      <div class="flex flex-wrap -m-2">
+        <% @documents.each do |document| %>
+          <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
+              <svg class="w-6 h-6 flex-shrink-0 rounded-full mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+              </svg>
+              <div class="flex-grow">
+                <h2 class="text-gray-900 title-font font-medium"><%= document.filename %>Holden Caulfield</h2>
+                <p class="text-gray-500"><%= document.content_type %></p>
+                <p class="text-gray-500"><%= document.created_at %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
-  </div>
+  </section>
 <% end %>
