@@ -18,14 +18,14 @@
           <div x-data="{ dropdownOpen: true }" class="relative">
             <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block bg-gray-800 rounded p-2 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
               <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
               </svg>
             </button>
 
             <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
             <div x-show="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-20">
-              <%= link_to "Ecrire à l'enseignant", course_send_teacher_note_path, title: "Ecrire à #{@course.user.name.upcase}", class: "block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200" %>
+              <%= link_to "Ecrire à l'enseignant", course_send_teacher_note_path(teacher: @course.user.token, course_token: @course.token), title: "Ecrire à #{@course.user.name.upcase}", class: "block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200" %>
               <% if @course.course_status.name == "validate" %>
                 <%= link_to "Suspendre", course_suspension_path(course_id: @course.id), data: {confirm: "Confirmer la suspension de cette leçon? \nElle ne sera plus disponible aux apprenants de #{current_user.structure.name.upcase}."}, class: "block px-4 py-2 text-sm text-gray-800 border-b hover:bg-gray-200" %>
               <% else %>
@@ -47,7 +47,9 @@
         <br class="hidden lg:inline-block">readymade gluten
       </h1>
       <p class="mb-8 leading-relaxed">
-        Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard chambray.</p>
+        Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote
+        bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard
+        chambray.</p>
     </div>
     <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
       <%= render 'layouts/previewer', data: @document, class: "object-cover object-center rounded" %>
@@ -72,8 +74,8 @@
           <dt class="text-sm leading-5 font-medium text-gray-500 flex inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-selector mr-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z"/>
-              <polyline points="8 9 12 5 16 9" />
-              <polyline points="16 15 12 19 8 15" />
+              <polyline points="8 9 12 5 16 9"/>
+              <polyline points="16 15 12 19 8 15"/>
             </svg>
             Classe
           </dt>
@@ -85,7 +87,7 @@
           <dt class="text-sm leading-5 font-medium text-gray-500 flex inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-puzzle mr-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z"/>
-              <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1" />
+              <path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"/>
             </svg>
             Matiere
           </dt>
@@ -97,8 +99,8 @@
           <dt class="text-sm leading-5 font-medium text-gray-500 flex inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-check mr-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z"/>
-              <circle cx="12" cy="12" r="9" />
-              <path d="M9 12l2 2l4 -4" />
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M9 12l2 2l4 -4"/>
             </svg>
             Statut du cours
           </dt>
@@ -110,8 +112,8 @@
           <dt class="text-sm leading-5 font-medium text-gray-500 flex inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user mr-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z"/>
-              <circle cx="12" cy="7" r="4" />
-              <path d="M5.5 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2" />
+              <circle cx="12" cy="7" r="4"/>
+              <path d="M5.5 21v-2a4 4 0 0 1 4 -4h5a4 4 0 0 1 4 4v2"/>
             </svg>
             Enseignant
           </dt>
@@ -123,12 +125,12 @@
           <dt class="text-sm leading-5 font-medium text-gray-500 flex inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar mr-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z"/>
-              <rect x="4" y="5" width="16" height="16" rx="2" />
-              <line x1="16" y1="3" x2="16" y2="7" />
-              <line x1="8" y1="3" x2="8" y2="7" />
-              <line x1="4" y1="11" x2="20" y2="11" />
-              <line x1="11" y1="15" x2="12" y2="15" />
-              <line x1="12" y1="15" x2="12" y2="18" />
+              <rect x="4" y="5" width="16" height="16" rx="2"/>
+              <line x1="16" y1="3" x2="16" y2="7"/>
+              <line x1="8" y1="3" x2="8" y2="7"/>
+              <line x1="4" y1="11" x2="20" y2="11"/>
+              <line x1="11" y1="15" x2="12" y2="15"/>
+              <line x1="12" y1="15" x2="12" y2="18"/>
             </svg>
             Date publication
           </dt>
@@ -140,11 +142,11 @@
           <dt class="text-sm leading-5 font-medium text-gray-500 flex inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text mr-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z"/>
-              <polyline points="14 3 14 8 19 8" />
-              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-              <line x1="9" y1="9" x2="10" y2="9" />
-              <line x1="9" y1="13" x2="15" y2="13" />
-              <line x1="9" y1="17" x2="15" y2="17" />
+              <polyline points="14 3 14 8 19 8"/>
+              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/>
+              <line x1="9" y1="9" x2="10" y2="9"/>
+              <line x1="9" y1="13" x2="15" y2="13"/>
+              <line x1="9" y1="17" x2="15" y2="17"/>
             </svg>
             Format de fichier
           </dt>
@@ -156,11 +158,11 @@
           <dt class="text-sm leading-5 font-medium text-gray-500 flex inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-invoice mr-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z"/>
-              <polyline points="14 3 14 8 19 8" />
-              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-              <line x1="9" y1="7" x2="10" y2="7" />
-              <line x1="9" y1="13" x2="15" y2="13" />
-              <line x1="13" y1="17" x2="15" y2="17" />
+              <polyline points="14 3 14 8 19 8"/>
+              <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/>
+              <line x1="9" y1="7" x2="10" y2="7"/>
+              <line x1="9" y1="13" x2="15" y2="13"/>
+              <line x1="13" y1="17" x2="15" y2="17"/>
             </svg>
             Nom du fichiers
           </dt>
@@ -172,12 +174,12 @@
           <dt class="text-sm leading-5 font-medium text-gray-500 flex inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar mr-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z"/>
-              <rect x="4" y="5" width="16" height="16" rx="2" />
-              <line x1="16" y1="3" x2="16" y2="7" />
-              <line x1="8" y1="3" x2="8" y2="7" />
-              <line x1="4" y1="11" x2="20" y2="11" />
-              <line x1="11" y1="15" x2="12" y2="15" />
-              <line x1="12" y1="15" x2="12" y2="18" />
+              <rect x="4" y="5" width="16" height="16" rx="2"/>
+              <line x1="16" y1="3" x2="16" y2="7"/>
+              <line x1="8" y1="3" x2="8" y2="7"/>
+              <line x1="4" y1="11" x2="20" y2="11"/>
+              <line x1="11" y1="15" x2="12" y2="15"/>
+              <line x1="12" y1="15" x2="12" y2="18"/>
             </svg>
             Date importation fichier
           </dt>
@@ -189,9 +191,9 @@
           <dt class="text-sm leading-5 font-medium text-gray-500 flex inline-block">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-floppy mr-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z"/>
-              <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-              <circle cx="12" cy="14" r="2" />
-              <polyline points="14 4 14 8 8 8 8 4" />
+              <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"/>
+              <circle cx="12" cy="14" r="2"/>
+              <polyline points="14 4 14 8 8 8 8 4"/>
             </svg>
             Autre contenu
           </dt>

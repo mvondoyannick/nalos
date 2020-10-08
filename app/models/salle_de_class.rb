@@ -5,7 +5,7 @@ class SalleDeClass < ApplicationRecord
   has_many :users
 
   # for epreuves
-  has_many :epreuves
+  # has_many :epreuves
 
   before_create :generate_token
 

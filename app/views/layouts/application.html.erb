@@ -9,20 +9,111 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script src="https://windmill-dashboard.vercel.app/assets/css/tailwind.output.css" defer ></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script src="https://windmill-dashboard.vercel.app/assets/js/init-alpine.js" defer ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/focus-trap@6.1.3/dist/focus-trap.min.js" defer ></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.6.2/plyr.min.js" integrity="sha512-5HcOw3x/g3GAUpNNyvKYB2/f8ivVNBVebdqCxz3Mmdftx7vXOdbYvonB2Det6RVcA1IDxYeYWTAzxRg+c6uvYQ==" crossorigin="anonymous"></script>
+
+  <!--Regular Datatables CSS-->
+  <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!--Responsive Extension Datatables CSS-->
+  <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+
+  <style>
+
+      /*Overrides for Tailwind CSS */
+
+      /*Form fields*/
+      .dataTables_wrapper select,
+      .dataTables_wrapper .dataTables_filter input {
+          color: #4a5568; 			/*text-gray-700*/
+          padding-left: 1rem; 		/*pl-4*/
+          padding-right: 1rem; 		/*pl-4*/
+          padding-top: .5rem; 		/*pl-2*/
+          padding-bottom: .5rem; 		/*pl-2*/
+          line-height: 1.25; 			/*leading-tight*/
+          border-width: 2px; 			/*border-2*/
+          border-radius: .25rem;
+          border-color: #edf2f7; 		/*border-gray-200*/
+          background-color: #edf2f7; 	/*bg-gray-200*/
+          margin-top: 10px;
+          margin-right: 10px;
+          margin-left: 10px;
+      }
+
+      /* result list*/
+      .dataTables_length label {
+          margin-left: 10px;
+      }
+
+      /*info bottom*/
+      .dataTables_info {
+          margin-left: 10px;
+      }
+
+      /*Row Hover*/
+      table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+          background-color: #ebf4ff;	/*bg-indigo-100*/
+      }
+
+      /*Pagination Buttons*/
+      .dataTables_wrapper .dataTables_paginate .paginate_button		{
+          font-weight: 700;				/*font-bold*/
+          border-radius: .25rem;			/*rounded*/
+          border: 1px solid transparent;	/*border border-transparent*/
+      }
+
+      /*Pagination Buttons - Current selected */
+      .dataTables_wrapper .dataTables_paginate .paginate_button.current	{
+          color: #fff !important;				/*text-white*/
+          box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06); 	/*shadow*/
+          font-weight: 700;					/*font-bold*/
+          border-radius: .25rem;				/*rounded*/
+          background: #667eea !important;		/*bg-indigo-500*/
+          margin-bottom: 20px;
+          border: 1px solid transparent;		/*border border-transparent*/
+      }
+
+      /*Pagination Buttons - Hover */
+      .dataTables_wrapper .dataTables_paginate .paginate_button:hover		{
+          color: #fff !important;				/*text-white*/
+          box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);	 /*shadow*/
+          font-weight: 700;					/*font-bold*/
+          border-radius: .25rem;				/*rounded*/
+          background: #667eea !important;		/*bg-indigo-500*/
+          border: 1px solid transparent;		/*border border-transparent*/
+      }
+
+      /*Add padding to bottom border */
+      table.dataTable.no-footer {
+          border-bottom: 1px solid #e2e8f0;	/*border-b-1 border-gray-300*/
+          margin-top: 0.75em;
+          margin-bottom: 0.75em;
+      }
+
+      /*Change colour of responsive icon*/
+      table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+          background-color: #667eea !important; /*bg-indigo-500*/
+      }
+
+  </style>
+
   <style>
     a:hover{
         background: transparent;
+        color: #000000;
     }
   </style>
 
 </head>
 
-<body class="antialiased bg-gray-100">
+<body>
 
 <% admin_role = %w(admin principale) %>
 
@@ -78,19 +169,25 @@
 
 <% end %>
 
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!--Datatables -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
 <script type="text/javascript" charset="utf-8">
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
 
         // adding datatable
-        var table = $('#example, #table, #afb, #abonne, #marchand').DataTable( {
+        var table = $('#example, #table, #table1, #table2, #afb, #abonne, #marchand').DataTable( {
             responsive: true
         } )
             .columns.adjust()
             .responsive.recalc();
 
-        $('#matiere_id').select2();
+        $('#matiere_id').select2;
     });
 </script>
 

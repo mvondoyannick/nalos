@@ -667,3 +667,142 @@ from student
 
 
           , multiple: true, direct_upload: true, accept: 'image/*, video/*, application/pdf, audio/*, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+
+
+          <div class="mb-12">
+            <!-- Card stats -->
+            <div class="flex flex-wrap">
+              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                  <div class="flex-auto p-4">
+                    <div class="flex flex-wrap">
+                      <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                        <h5 class="text-gray-500 uppercase font-bold text-xs">
+                          Commission en cours (<%= DateTime.now.strftime("%B") %>)
+                        </h5>
+                        <span class="font-semibold text-xl text-gray-800">
+                          <%= number_to_currency(Commission.where(created_at: Date.today.beginning_of_month..Date.today.end_of_month).sum(:commission), unit: "F", separator: ",", delimiter: ".", format: "%n %u") %>
+                        </span>
+                      </div>
+                      <div class="relative w-auto pl-4 flex-initial">
+                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-green-500">
+                          <i class="far fa-chart-bar"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">
+                      <!--            <span class="text-green-500 mr-2">-->
+                      <!--              <i class="fas fa-arrow-up"></i> 3.48%-->
+                      <!--            </span>-->
+                      <span class="whitespace-no-wrap">
+                        <% if Commission.where(created_at: Date.today.beginning_of_month..Date.today.end_of_month).sum(:commission).to_i.zero? %>
+                          <%= link_to "Impossible de valider", "#" %>
+                        <% else %>
+                          <%= link_to "Valider cette commission", "#" %>
+                        <% end %>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                  <div class="flex-auto p-4">
+                    <div class="flex flex-wrap">
+                      <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                        <h5 class="text-gray-500 uppercase font-bold text-xs">
+                          Commission de <%= Date.today.prev_month.strftime("%B") %>
+                        </h5>
+                        <span class="font-semibold text-xl text-gray-800">
+                          <%= number_to_currency(Commission.where(created_at: Date.today.prev_month.beginning_of_month..Date.today.prev_month.end_of_month).sum(:commission), unit: "F", separator: ",", delimiter: ".", format: "%n %u") %>
+                        </span>
+                      </div>
+                      <div class="relative w-auto pl-4 flex-initial">
+                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-yellow-500">
+                          <i class="fas fa-chart-pie"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">
+                      <!--            <span class="text-red-500 mr-2">-->
+                      <!--              <i class="fas fa-arrow-down"></i> 3.48%-->
+                      <!--            </span>-->
+                      <span class="whitespace-no-wrap">
+                        <% if Commission.where(created_at: Date.today.prev_month.beginning_of_month..Date.today.prev_month.end_of_month).sum(:commission).to_i.zero? %>
+                          <%= link_to "Impossible de valider", "#" %>
+                        <% else %>
+                          <%= link_to "Valider cette commission", "#" %>
+                        <% end %>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                  <div class="flex-auto p-4">
+                    <div class="flex flex-wrap">
+                      <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                        <h5 class="text-gray-500 uppercase font-bold text-xs">
+                          Commission de <%= Date.today.prev_month(2).strftime("%B") %>
+                        </h5>
+                        <span class="font-semibold text-xl text-gray-800">
+                          <%= number_to_currency(Commission.where(created_at: Date.today.prev_month(2).beginning_of_month..Date.today.prev_month(2).end_of_month).sum(:commission), unit: "F", separator: ",", delimiter: ".", format: "%n %u") %>
+                        </span>
+                      </div>
+                      <div class="relative w-auto pl-4 flex-initial">
+                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-purple-500">
+                          <i class="fas fa-users"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">
+                      <!--            <span class="text-orange-500 mr-2">-->
+                      <!--              <i class="fas fa-arrow-down"></i> 1.10%-->
+                      <!--            </span>-->
+                      <span class="whitespace-no-wrap">
+                        <% if Commission.where(created_at: Date.today.prev_month(2).beginning_of_month..Date.today.prev_month(2).end_of_month).sum(:commission).to_i.zero? %>
+                          <%= link_to "Impossible de valider", "#" %>
+                        <% else %>
+                          <%= link_to "Valider cette commission", "#" %>
+                        <% end %>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
+                <div class="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+                  <div class="flex-auto p-4">
+                    <div class="flex flex-wrap">
+                      <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+                        <h5 class="text-gray-500 uppercase font-bold text-xs">
+                          Commission de <%= Date.today.prev_month(3).strftime("%B") %>
+                        </h5>
+                        <span class="font-semibold text-xl text-gray-800">
+                          <%= number_to_currency(Commission.where(created_at: Date.today.prev_month(3).beginning_of_month..Date.today.prev_month(3).end_of_month).sum(:commission), unit: "F", separator: ",", delimiter: ".", format: "%n %u") %>
+                        </span>
+                      </div>
+                      <div class="relative w-auto pl-4 flex-initial">
+                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-blue-800">
+                          <i class="fas fa-percent"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">
+                      <!--            <span class="text-green-500 mr-2">-->
+                      <!--              <i class="fas fa-arrow-up"></i> 12%-->
+                      <!--            </span>-->
+                      <span class="whitespace-no-wrap">
+                        <% if Commission.where(created_at: Date.today.prev_month(3).beginning_of_month..Date.today.prev_month(3).end_of_month).sum(:commission).to_i.zero? %>
+                          <%= link_to "Impossible de valider", "#" %>
+                        <% else %>
+                          <%= link_to "Valider cette commission", "#" %>
+                        <% end %>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>

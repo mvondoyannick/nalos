@@ -1,1 +1,40 @@
-send teacher note
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Envoyer un message à
+      <br>
+      <span class="text-indigo-600">un enseignant</span>
+    </h2>
+
+<!-- component -->
+<%= form_with(url: course_send_teacher_note_path) do |form| %>
+
+      <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+        <div class="inline-flex rounded-md shadow">
+          <%= form.submit "Envoyer le message", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        </div>
+        <div class="ml-3 inline-flex rounded-md shadow">
+          <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+            Quitter
+          </a>
+        </div>
+      </div>
+      </div>
+      </div>
+
+  <%= form.hidden_field :course, value: @course %>
+  <%= form.hidden_field :teacher, value: @teacher %>
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="-mx-3 md:flex mb-6">
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-full px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-password">
+          Message à envoyer
+        </label>
+        <%= form.text_area :message, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", placeholder: "Saisir votre message", rows: 10, required: true %>
+        <p class="text-grey-dark text-xs italic">160 caractères maximum</p>
+      </div>
+    </div>
+  </div>
+<% end %>

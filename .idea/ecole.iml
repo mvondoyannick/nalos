@@ -17,6 +17,14 @@
       <sourceFolder url="file://$MODULE_DIR$/features" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/.bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/public/packs" />
+      <excludeFolder url="file://$MODULE_DIR$/solr/development/data/tlog" />
+      <excludeFolder url="file://$MODULE_DIR$/storage" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp/pids" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp/storage" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -405,20 +413,20 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="capybara (vbundled(3.32.2)) [path][gem]" type="rubylib">
+      <library name="capybara (vbundled(3.33.0)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.32.2/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.32.2/spec" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.33.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.33.0/spec" />
         </CLASSES>
         <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.32.2/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.32.2/spec" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.33.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.33.0/spec" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.32.2/spec" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/capybara-3.33.0/spec" />
         </excluded>
       </library>
     </orderEntry>
@@ -528,6 +536,27 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
+      <library name="discard (vbundled(1.2.0)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/discard-1.2.0/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/discard-1.2.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/discard-1.2.0/.github" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/discard-1.2.0/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/discard-1.2.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/discard-1.2.0/.github" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/discard-1.2.0/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/discard-1.2.0/.github" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
       <library name="erubi (vbundled(1.9.0)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -590,45 +619,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="font-awesome-sass (vbundled(5.13.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/font-awesome-sass-5.13.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/font-awesome-sass-5.13.0/assets" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/font-awesome-sass-5.13.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/font-awesome-sass-5.13.0/assets" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/font-awesome-sass-5.13.0/assets" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="friendly_id (vbundled(5.3.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/friendly_id-5.3.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/friendly_id-5.3.0/test" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/friendly_id-5.3.0/gemfiles" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/friendly_id-5.3.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/friendly_id-5.3.0/test" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/friendly_id-5.3.0/gemfiles" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/friendly_id-5.3.0/test" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/friendly_id-5.3.0/gemfiles" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="globalid (vbundled(0.4.2)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -639,24 +629,6 @@
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/globalid-0.4.2/lib" />
         </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="gravatar_image_tag (vbundled(1.2.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/gravatar_image_tag-1.2.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/gravatar_image_tag-1.2.0/spec" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/gravatar_image_tag-1.2.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/gravatar_image_tag-1.2.0/spec" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/gravatar_image_tag-1.2.0/spec" />
-        </excluded>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -680,6 +652,29 @@
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/highline-2.0.3/doc" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/highline-2.0.3/site" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/highline-2.0.3/examples" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="honeybadger (vbundled(4.7.0)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/vendor" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/resources" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/vendor" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/resources" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/honeybadger-4.7.0/resources" />
         </excluded>
       </library>
     </orderEntry>
@@ -1292,23 +1287,46 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="onebox (vbundled(1.9.28.4)) [path][gem]" type="rubylib">
+      <library name="notifications (vbundled(0.6.1)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.28.4/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.28.4/.github" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.28.4/templates" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/db" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/app" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/config" />
         </CLASSES>
         <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.28.4/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.28.4/.github" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.28.4/templates" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/db" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/app" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/config" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.28.4/.github" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.28.4/templates" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/db" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/notifications-0.6.1/config" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="onebox (vbundled(1.9.29)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.29/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.29/.github" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.29/templates" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.29/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.29/.github" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.29/templates" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.29/.github" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/onebox-1.9.29/templates" />
         </excluded>
       </library>
     </orderEntry>
@@ -1351,6 +1369,26 @@
         <excluded>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/orm_adapter-0.5.0/spec" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/orm_adapter-0.5.0/gemfiles" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="plyr-rails (vbundled(3.5.6)) [path][gem]" type="rubylib">
+        <properties>
+          <option name="version" value="4" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.5.6/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.5.6/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.5.6/vendor" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.5.6/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.5.6/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.5.6/vendor" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/plyr-rails-3.5.6/bin" />
         </excluded>
       </library>
     </orderEntry>
@@ -1897,57 +1935,28 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="simple_calendar (vbundled(2.4.0)) [path][gem]" type="rubylib">
+      <library name="simple_calendar (vbundled(2.4.1)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
         </properties>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/app" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/.github" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/app" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/spec" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/.github" />
         </CLASSES>
         <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/app" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/.github" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/app" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/spec" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/.github" />
         </SOURCES>
         <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/spec" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.0/.github" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="simple_discussion (vbundled(1.2.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/db" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/app" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/config" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/.github" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/db" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/app" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/config" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/.github" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/db" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/bin" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/config" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_discussion-1.2.0/.github" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/spec" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/simple_calendar-2.4.1/.github" />
         </excluded>
       </library>
     </orderEntry>
@@ -2282,24 +2291,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="will_paginate (vbundled(3.3.0)) [path][gem]" type="rubylib">
-        <properties>
-          <option name="version" value="4" />
-        </properties>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/will_paginate-3.3.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/will_paginate-3.3.0/spec" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/will_paginate-3.3.0/lib" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/will_paginate-3.3.0/spec" />
-        </SOURCES>
-        <excluded>
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/2.6.0/gems/will_paginate-3.3.0/spec" />
-        </excluded>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="xpath (vbundled(3.2.0)) [path][gem]" type="rubylib">
         <properties>
           <option name="version" value="4" />
@@ -2331,6 +2322,8 @@
       </library>
     </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, ruby-2.6.5-p105) [gem]" level="application" />
+    <orderEntry type="library" name="popper.js" level="application" />
+    <orderEntry type="library" name="jquery-3.5.1.slim" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />

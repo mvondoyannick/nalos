@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_many :blogs, dependent: :delete_all
 
   # for epreuve
-  has_many :epreuves, dependent: :destroy
+  # has_many :epreuves, dependent: :delete_all
 
   # has_many :documents
   has_one :salle_de_class, dependent: :delete

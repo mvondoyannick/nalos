@@ -62,7 +62,7 @@ class AdminController < ApplicationController
       @current_user = User.find_by_token(c_teacher)
     else
       # throw an error
-      redirect_to course_all_path, notice: "Enseignant inexistant"
+      redirect_to course_all_path, notice: 'Enseignant inexistant'
     end
   end
 
@@ -72,21 +72,21 @@ class AdminController < ApplicationController
     if Course.exists?(token: course_t)
       @current_course = Course.find_by_token(course_t)
     else
-      redirect_to course_all_path, notice: "Leçon inexistante!"
+      redirect_to course_all_path, notice: 'Leçon inexistante!'
     end
   end
 
   # valider ou suspendre tous les cours
   def course_validate_or_suspend_all
     current_structure = Structure.find(params[:plateform])
-    if params[:a] == "suspend"
+    if params[:a] == 'suspend'
       User.where(structure_id: params[:plateform]).each do |user|
         user.courses.each do |course|
           course.update(course_status_id: CourseStatus.find_by_name('waiting').id)
         end
       end
       redirect_to course_all_path, notice: "Tous les leçons de #{current_structure.name} ont été suspendues."
-    elsif params[:a] == "validate"
+    elsif params[:a] == 'validate'
       User.where(structure_id: params[:plateform]).each do |user|
         user.courses.each do |course|
           course.update(course_status_id: CourseStatus.find_by_name('validate').id)
@@ -112,7 +112,7 @@ class AdminController < ApplicationController
     current_course = Course.find(params[:course_id])
 
     # current_course.course_status_id = 1
-    current_waiting_id = CourseStatus.find_by_name("waiting").id
+    current_waiting_id = CourseStatus.find_by_name('waiting').id
     if current_course.update(course_status_id: current_waiting_id)
       # admin notification
       # Sms.send(phone: current_user.phone1, msg: "Vous venez de suspendre le cours #{current_course.chapter} de Mr/Mme #{current_course.user.complete_name.upcase}.")
@@ -130,9 +130,34 @@ class AdminController < ApplicationController
 
   end
 
+  # crm interface
+  def crm
+
+  end
+
+  # le calendrier scolaire
+  def calendar
+    
+  end
+
   # send note to teacher
   def course_send_teacher_note
-    
+    if request.get?
+      if params[:teacher].present? && params[:course_token].present?
+        t = params[:teacher]
+        c = params[:course_token]
+        if User.exists?(token: t)
+          @teacher = User.find_by_token(t).phone1
+          @course = Course.find_by_token(c)
+        else
+          redirect_to course_all_path, notice: 'Impossible de trouver cet enseignant ou cours invalide.'
+        end
+      else
+        redirect_to course_all_path, notice: 'Paramètres manquant'
+      end
+    elsif request.post?
+      SmsJob.set(wait: 2.seconds).perform_now(phone: params[:teacher], message: 'lorem', structure: current_user.structure.name.upcase)
+    end
   end
 
   # course validation
@@ -142,7 +167,7 @@ class AdminController < ApplicationController
     current_course = Course.find(course_id)
     #current_course.course_status_id = 2
     #if current_course.save
-    current_validation_id = CourseStatus.find_by_name("validate").id
+    current_validation_id = CourseStatus.find_by_name('validate').id
     if current_course.update(course_status_id: current_validation_id)
 
       # activeJob notification admin validation
@@ -191,16 +216,16 @@ class AdminController < ApplicationController
         if c_lecon.save
           redirect_to course_all_path, notice: "La leçon #{c_lecon.chapter.upcase} à été correctement supprimée."
         else
-          redirect_to course_all_path, notice: "Impossible de supprimer la leçon demandée."
+          redirect_to course_all_path, notice: 'Impossible de supprimer la leçon demandée.'
         end
 
       else
 
-        redirect_to course_all_path, notice: "Impossible de trouver la leçon demandée."
+        redirect_to course_all_path, notice: 'Impossible de trouver la leçon demandée.'
 
       end
     else
-      redirect_to course_all_path, notice: "Certaines informations sont manquantes. Action annulée."
+      redirect_to course_all_path, notice: 'Certaines informations sont manquantes. Action annulée.'
     end
   end
 
@@ -268,7 +293,7 @@ class AdminController < ApplicationController
 
       respond_to do |format|
         if current_data.save
-          format.html {redirect_to index_matiere_path, notice: "Nouvelle matiere correctement importéés!"}
+          format.html {redirect_to index_matiere_path, notice: 'Nouvelle matiere correctement importéés!'}
         else
           format.html {render import_matiere_form}
         end
@@ -296,26 +321,26 @@ class AdminController < ApplicationController
   def set_role
     next_role = params[:type]
     current_enseignant = User.find(params[:user_id])
-    if next_role == "admin"
+    if next_role == 'admin'
       # set user role to admin
-      if current_enseignant.update(role_id: Role.find_by_name("admin").id)
+      if current_enseignant.update(role_id: Role.find_by_name('admin').id)
         redirect_to teachers_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé administrateur"
       else
-        redirect_to teachers_path, notice: "Impossible de nommer un nouvel administrateur"
+        redirect_to teachers_path, notice: 'Impossible de nommer un nouvel administrateur'
       end
-    elsif next_role == "enseignant"
+    elsif next_role == 'enseignant'
       # set user role to admin
-      if current_enseignant.update(role_id: Role.find_by_name("teacher").id)
+      if current_enseignant.update(role_id: Role.find_by_name('teacher').id)
         redirect_to teachers_path, notice: "L'enseignant #{current_enseignant.complete_name} a été reclassé en simple enseignant"
       else
-        redirect_to teachers_path, notice: "Impossible de reclasser cet enseignant"
+        redirect_to teachers_path, notice: 'Impossible de reclasser cet enseignant'
       end
-    elsif next_role == "ap"
+    elsif next_role == 'ap'
       # set user role to admin
-      if current_enseignant.update(role_id: Role.find_by_name("admin").id)
+      if current_enseignant.update(role_id: Role.find_by_name('admin').id)
         redirect_to teachers_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé Animateur Pédagogique"
       else
-        redirect_to teachers_path, notice: "Impossible de nommer un nouvel Animateur Pédagogique"
+        redirect_to teachers_path, notice: 'Impossible de nommer un nouvel Animateur Pédagogique'
       end
     end
 
@@ -325,32 +350,32 @@ class AdminController < ApplicationController
   def set_role_root
     next_role = params[:type]
     current_enseignant = User.find(params[:user_id])
-    if next_role == "admin"
+    if next_role == 'admin'
       # set user role to admin
       # the max admin is 6 and the less is 1
-      admin_number = User.find_by(role_id: Role.find_by_name("admin").id)
+      admin_number = User.find_by(role_id: Role.find_by_name('admin').id)
       if admin_number.to_i.between?(1..6)
-        if current_enseignant.update(role_id: Role.find_by_name("admin").id)
+        if current_enseignant.update(role_id: Role.find_by_name('admin').id)
           redirect_to setup_root_structure_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé administrateur"
         else
-          redirect_to setup_root_structure_path, notice: "Impossible de nommer un nouvel administrateur"
+          redirect_to setup_root_structure_path, notice: 'Impossible de nommer un nouvel administrateur'
         end
       else
         redirect_to setup_root_structure_path, notice: "Impossible d'ajouter comme admin, le nombre maximum d'admin atteint!"
       end
-    elsif next_role == "enseignant"
+    elsif next_role == 'enseignant'
       # set user role to admin
-      if current_enseignant.update(role_id: Role.find_by_name("teacher").id)
+      if current_enseignant.update(role_id: Role.find_by_name('teacher').id)
         redirect_to setup_root_structure_path, notice: "L'enseignant #{current_enseignant.complete_name} a été reclassé en simple enseignant"
       else
-        redirect_to setup_root_structure_path, notice: "Impossible de reclasser cet enseignant"
+        redirect_to setup_root_structure_path, notice: 'Impossible de reclasser cet enseignant'
       end
-    elsif next_role == "ap"
+    elsif next_role == 'ap'
       # set user role to admin
-      if current_enseignant.update(role_id: Role.find_by_name("admin").id)
+      if current_enseignant.update(role_id: Role.find_by_name('admin').id)
         redirect_to setup_root_structure_path, notice: "L'enseignant #{current_enseignant.complete_name} a été nommé Animateur Pédagogique"
       else
-        redirect_to setup_root_structure_path, notice: "Impossible de nommer un nouvel Animateur Pédagogique"
+        redirect_to setup_root_structure_path, notice: 'Impossible de nommer un nouvel Animateur Pédagogique'
       end
     end
 
@@ -360,17 +385,17 @@ class AdminController < ApplicationController
   def enseignant_root_role
     if params[:action].present?
       if params[:user_id].nil?
-        redirect_to setup_new_root_select_path, notice: "Certaines informations semblement etre absencetes."
+        redirect_to setup_new_root_select_path, notice: 'Certaines informations semblement etre absencetes.'
       else
         # current_structure = current_user.structure_id
         # begin
         params[:user_id].each do |u|
-          User.find(u).update(role_id: Role.find_by_name("admin").id)
+          User.find(u).update(role_id: Role.find_by_name('admin').id)
         end
         redirect_to setup_new_root_select_path, notice: "Tous les #{params[:user_id].count} enseignant ont été nommés ADMIN avec succès."
       end
     else
-      redirect_to setup_new_root_select_path, notice: "Des données manquent dans votre requête!"
+      redirect_to setup_new_root_select_path, notice: 'Des données manquent dans votre requête!'
     end
   end
 

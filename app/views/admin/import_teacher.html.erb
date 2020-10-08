@@ -35,14 +35,23 @@
 <div class="flex flex-col">
   <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
     <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-      <table class="min-w-full">
+      <table class="min-w-full" id="example">
         <thead>
         <tr>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
             Nom et prénom
           </th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-            Propriétaire
+            Matricule
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Contacts
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Classe d'enseignement
+          </th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+            Matiere enseignée
           </th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
         </tr>
@@ -53,29 +62,29 @@
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
                 <div class="flex-shrink-0 h-10 w-10">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="40" height="40"
-                       viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                       stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z"/>
-                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-                    <circle cx="12" cy="14" r="2" />
-                    <polyline points="14 4 14 8 8 8 8 4" />
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
                 </div>
                 <div class="ml-4">
                   <div class="text-sm leading-5 font-medium text-gray-900"><%= enseignant.complete_name %></div>
-                  <div class="text-sm leading-5 text-gray-500"><%= enseignant.email %> Fichier(s)</div>
+                  <div class="text-sm leading-5 text-gray-500"><%= enseignant.email %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= enseignant.role.name %></div>
                 </div>
               </div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="text-sm leading-5 text-gray-900"><%= enseignant.matricule %></div>
               <div class="text-sm leading-5 text-gray-500"><%= enseignant.created_at.strftime("%d %b %Y") %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= enseignant.structure.name %></div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                Active
-              </span>
+              <div class="text-sm leading-5 text-gray-900"><%= enseignant.phone1.nil? ? 'Aucune données' : enseignant.phone1 %></div>
+              <div class="text-sm leading-5 text-gray-500"><%= enseignant.phone2.nil? ? 'Aucune données' : enseignant.phone2 %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+              <div class="text-sm leading-5 text-gray-500"><%= link_to "#{TeacherClasse.where(user_id: enseignant.id).count} Salle(s) de classe", "#" %></div>
+              <div class="text-sm leading-5 text-gray-900"><%= enseignant.cycle_ecole.name %></div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Administrateur', set_role_path(type: 'admin', user_id: enseignant.id), data: { confirm: "Etes vous certain de donner le role ADMIN à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'AP', set_role_path(type: 'ap', user_id: enseignant.id), data: { confirm: "Etes vous certain de vouloir donner le role de AP à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>

@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
   # before_action :check_password
   before_action :redirect_user
 
-  puts "Aucune structure définie ..." if Structure.all.count.zero?
-
   def after_sign_in_path_for(user)
     if user_signed_in?
       if current_user.role.name == "teacher"

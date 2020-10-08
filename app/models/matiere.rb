@@ -1,6 +1,6 @@
 class Matiere < ApplicationRecord
   has_many :courses, dependent: :delete_all
-  has_many :teacher_classes
+  # has_many :teacher_classes
   belongs_to :structure
 
   before_create :set_token, if: :new_record?
@@ -8,7 +8,7 @@ class Matiere < ApplicationRecord
   validates :name, presence: {message: "%{value} à deja été utilisé."}
 
   # for epreuves
-  has_many :epreuves
+  # has_many :epreuves
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|

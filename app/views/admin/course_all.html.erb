@@ -167,7 +167,7 @@
               <%= paginate Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).page(params[:page]).per(10) %>
               <br>
               <div class="overflow-x-auto bg-white rounded-lg shadow mb-20">
-                <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped">
+                <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped" id="example">
                   <thead>
                   <tr class="text-left">
                     <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
@@ -235,7 +235,7 @@
               <div class="flex flex-col">
                 <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                   <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                    <table class="min-w-full">
+                    <table class="min-w-full" id="table">
                       <thead>
                       <tr>
                         <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>

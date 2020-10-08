@@ -1,0 +1,102 @@
+<%= form_with(model: yr, local: true) do |form| %>
+  <% if yr.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(yr.errors.count, "error") %> prohibited this yr from being saved:</h2>
+
+      <ul>
+        <% yr.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- component -->
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          Debut année scolaire
+        </label>
+        <%= form.number_field :name, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" %>
+        <p class="text-red text-xs italic">Année au format de Quatre chiffres : 2020</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Fin année scolaire
+        </label>
+        <%= form.number_field :end, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" %>
+      </div>
+    </div>
+    <div class="inline-flex rounded-md right-0 mt-4">
+      <%= form.submit "Enregistrer nouvelle année", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+    </div>
+  </div>
+<% end %>
+
+<br>
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Liste des années scolaires
+      <br>
+      <span class="text-indigo-600">enregistreés</span>
+    </h2>
+  </div>
+</div>
+
+
+<div class="flex flex-col">
+  <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200" id="table">
+          <thead>
+          <tr>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Date début
+            </th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Date fin
+            </th>
+            <th class="px-6 py-3 bg-gray-50"></th>
+          </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+          <% Yr.all.each do |yr| %>
+            <tr>
+              <td class="px-6 py-4 whitespace-no-wrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10">
+                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm leading-5 font-medium text-gray-900">
+                      <%= yr.name %>
+                    </div>
+                    <div class="text-sm leading-5 text-gray-500">
+                      jane.cooper@example.com
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap">
+                <div class="text-sm leading-5 text-gray-900"><%= yr.end %></div>
+                <div class="text-sm leading-5 text-gray-500">Optimization</div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-green-800">
+                  <%= link_to "Details", yr %>
+                </span>
+              </td>
+            </tr>
+          <% end %>
+
+          <!-- More rows... -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

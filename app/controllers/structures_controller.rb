@@ -62,6 +62,17 @@ class StructuresController < ApplicationController
     end
   end
 
+  # gestion de la structure index
+  def manage_structure
+    # Afficher le menu globale pour la gestion de la structure
+    token = params[:token]
+    if Structure.exists?(token: token)
+      @structure = Structure.find_by_token(token)
+    else
+      redirect_to setup_index_path, notice: "Impossible de trouver votre établissement"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_structure

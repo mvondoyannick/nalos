@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @tr.name %>
+</p>
+
+<p>
+  <strong>Debut:</strong>
+  <%= @tr.debut %>
+</p>
+
+<p>
+  <strong>Fin:</strong>
+  <%= @tr.fin %>
+</p>
+
+<p>
+  <strong>Yr:</strong>
+  <%= @tr.yr_id %>
+</p>
+
+<%= link_to 'Edit', edit_tr_path(@tr) %> |
+<%= link_to 'Back', trs_path %>

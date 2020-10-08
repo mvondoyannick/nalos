@@ -65,7 +65,5 @@ Rails.application.configure do
   config.assets.paths << "#{Rails.root}/app/assets/videos"
 
   # remote access,
-  # config.hosts << "4da151d2.ngrok.io"
-  # config.hosts << 'e5d9947287d9.ngrok.io'
   config.hosts << "elearning.nalschool.com"
 end

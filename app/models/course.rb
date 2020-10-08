@@ -3,10 +3,10 @@ class Course < ApplicationRecord
 
   belongs_to :salle_de_class
   belongs_to :matiere
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   belongs_to :course_status, dependent: :destroy
-  has_one :document#, dependent: :nullify
-  has_many :statistics#, dependent: :nullify
+  has_one :document, dependent: :destroy
+  has_many :statistics, dependent: :delete_all
 
   #include sunspot
   # searchable do
@@ -14,16 +14,16 @@ class Course < ApplicationRecord
   # end
   validates :chapter, presence: true
 
-  after_commit :create_notifications, on: [:create]
-  def create_notifications
-    Notification.create(
-      notify_type: 'course',
-      actor: self.user,
-      user: User.find_by_matricule('05I022IU'),
-      target: self,
-      second_target: self
-    )
-  end
+  #after_commit :create_notifications, on: [:create]
+  # def create_notifications
+  #   Notification.create(
+  #     notify_type: 'course',
+  #     actor: self.user,
+  #     user: User.find_by_matricule('05I022IU'),
+  #     target: self,
+  #     second_target: self
+  #   )
+  # end
 
   #set status
   before_save :set_status, if: :new_record?

@@ -1,0 +1,53 @@
+<%= form_with(model: tr, local: true) do |form| %>
+  <% if tr.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tr.errors.count, "error") %> prohibited this tr from being saved:</h2>
+
+      <ul>
+        <% tr.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- component -->
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          Nom trimestre
+        </label>
+        <%= form.text_field :name, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3", required: true%>
+        <p class="text-red text-xs italic">Please fill out this field.</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Année academique
+        </label>
+        <%= form.collection_select :yr_id, Yr.where(structure_id: current_user.structure_id), :id, :trimestre_with_initial, {prompt: "Selectionner une année academique"}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true} %>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          Date de debut
+        </label>
+        <%= form.date_field :debut, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3", required: true %>
+        <p class="text-red text-xs italic">Please fill out this field.</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Date de fin
+        </label>
+        <%= form.date_field :fin, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3", required: true %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Border-->
+  <button class="border-2 border-blue-500 px-4 py-2 text-blue-500 hover:text-white hover:bg-blue-500 rounded">
+    <%= form.submit "Enregistrer" %>
+  </button>
+
+<% end %>

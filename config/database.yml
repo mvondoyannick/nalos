@@ -19,17 +19,12 @@ default: &default
   port: 3306
 
 development:
-<<<<<<< HEAD
-  # <<: *default
-  #  database: ecole_development
-=======
- # <<: *default
- # database: ecole_development
->>>>>>> 11cb5e64910b0409fc4aae76e288464f34893fa3
-  adapter: mysql2
-  encoding: utf8
-  pool: <%#= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: "mysql2://ba197897831052:0f96daf7@us-cdbr-iron-east-01.cleardb.net/heroku_e2d7169f68f56da?reconnect=true"
+  <<: *default
+  database: ecole_development
+  #adapter: mysql2
+  #encoding: utf8
+  #pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  #url: "mysql2://ba197897831052:0f96daf7@us-cdbr-iron-east-01.cleardb.net/heroku_e2d7169f68f56da?reconnect=true"
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
