@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
 
+  get 'enseignant/index'
+  get 'enseignant/import'
+  get 'enseignant/list'
+  get 'enseignant/affectation'
+  get 'enseignant/statistic'
+  get 'student/index'
+  get 'student/import'
+  get 'demo/index'
+  get 'demo/form'
+  get 'demo/fuse'
+  resources :trs
+  resources :yrs
   resources :sequences
   resources :trimestres
   resources :annee_scolaires
-  mount Notifications::Engine => "/notifications"
+  mount Notifications::Engine => '/notifications'
   #get 'share/title:string'
   devise_for :tuteurs
   resources :blogs
@@ -29,7 +41,7 @@ Rails.application.routes.draw do
   end
 
   # for help
-  get 'yelp', to: "home_student#help"
+  get 'yelp', to: 'home_student#help'
 
   scope :nalos do
     get 'services', to: 'welcome#services'
@@ -76,22 +88,22 @@ Rails.application.routes.draw do
     get 'discuss', to: 'home#discuss'
 
     scope :discus do
-      get "discus_chat", to: "home#discus_chat"
-      get "discus_video", to: "home#discus_video"
-      get "discus_schedul", to: "home#discus_schedul"
+      get 'discus_chat', to: 'home#discus_chat'
+      get 'discus_video', to: 'home#discus_video'
+      get 'discus_schedul', to: 'home#discus_schedul'
     end
 
     scope :blog do
-      get "blog_index", to: "home#blog_index"
+      get 'blog_index', to: 'home#blog_index'
     end
 
     get 'planning', to: 'home#planning'
 
     # gestion des elements du dashboard
     scope :dashboard do
-      get 'course_dash', to: "home#course_dash"
-      get 'epreuves_dash', to: "home#epreuve_dash"
-      get 'documents_dash', to: "home#document_dash"
+      get 'course_dash', to: 'home#course_dash'
+      get 'epreuves_dash', to: 'home#epreuve_dash'
+      get 'documents_dash', to: 'home#document_dash'
     end
 
     #gestion des epreuves
@@ -120,11 +132,11 @@ Rails.application.routes.draw do
   end
   # admin scope
   scope :admin do
-    get "index", to: "admin#index"
-    get "index_new", to: "admin#index_new"
-    get "stats", to: "admin#stats_index"
-    root "admin#index", as: 'admin_route'
-    get 'set_role', to: "admin#set_role"
+    get 'index', to: 'admin#index'
+    get 'index_new', to: 'admin#index_new'
+    get 'stats', to: 'admin#stats_index'
+    root 'admin#index', as: 'admin_route'
+    get 'set_role', to: 'admin#set_role'
     get 'set_role_root', to: 'admin#set_role_root'
 
     # setup plateforme
@@ -134,6 +146,12 @@ Rails.application.routes.draw do
       get 'setup_incomplete_students', to: 'setup#liste_incomplet_apprenants'
       get 'detail_apprenant', to: 'setup#detail_apprenant'
       match 'update_apprenant', to: 'setup#update_apprenant', via: [:post, :get, :put]
+      get 'manage_structure', to: "structures#manage_structure"
+      get 'manage_student', to: 'students#index'
+      get 'list_students', to: 'student#list'
+
+      # gestion des ensiengnats
+      get 'manage_enseignant', to: 'enseignant#index'
 
       # academic year
       get 'academic_year', to: 'setup#academic_year'
@@ -141,24 +159,24 @@ Rails.application.routes.draw do
       get 'academic_salle_de_class', to: 'setup#academic_salle_de_class'
 
       # setup index
-      get 'setup_index', to: "setup#index"
-      get 'setup_enseignant_index', to: "setup#enseignant_index"
+      get 'setup_index', to: 'setup#index'
+      get 'setup_enseignant_index', to: 'setup#enseignant_index'
       get 'setup_manage_enseignant_index', to: 'setup#manage_enseignant_index'
-      get 'deleted_teachers_list', to: "setup#manage_enseignant_deleted"
+      get 'deleted_teachers_list', to: 'setup#manage_enseignant_deleted'
       match 'setup_new_teacher', to: 'setup#new_teacher', via: [:post, :patch, :delete] # ajuoter un nouvel enseignant
-      get 'setup_student_index', to: "setup#student_idenx"
-      get 'setup_notification_index', to: "setup#notification_index"
-      get 'setup_course_index', to: "setup#course_index"
+      get 'setup_student_index', to: 'setup#student_idenx'
+      get 'setup_notification_index', to: 'setup#notification_index'
+      get 'setup_course_index', to: 'setup#course_index'
       match 'manage_matiere', to: 'setup#manage_matiere', via: [:post, :get, :delete]
-      get 'setup_structure_list'  , to: "setup#structure_list"
-      get 'setup_structure_index', to: "setup#structure_index"
+      get 'setup_structure_list'  , to: 'setup#structure_list'
+      get 'setup_structure_index', to: 'setup#structure_index'
       get 'setup_manage_structure_index', to: 'setup#manage_structure_index' # permet de manager un structure
 
       # update teacher password
-      match 'update_my_t_pwd', to: "setup#update_password", via: [:get, :post]
+      match 'update_my_t_pwd', to: 'setup#update_password', via: [:get, :post]
 
       # restaure teacher from deleted
-      get "restaure_teacher", to: "setup#restaure_teacher_account"
+      get 'restaure_teacher', to: 'setup#restaure_teacher_account'
 
       # manage API
       get 'setup_manage_api', to: 'setup#manage_api'
@@ -167,10 +185,10 @@ Rails.application.routes.draw do
       get 'document_powerpoint_server', to: 'setup#document_powerpoint_server'
       # end managing API
 
-      match 'setup_add_new_structure', to: "setup#new_structure", via: [:post, :get, :delete] # ajout d'une nouvelle strcture
+      match 'setup_add_new_structure', to: 'setup#new_structure', via: [:post, :get, :delete] # ajout d'une nouvelle strcture
       post 'setup_update_structure', to: 'setup#update_structure' # update structure
-      get 'setup_droits_index', to: "setup#droits_index"
-      get 'setup_root_structure', to: "setup#root_structure" # gestion des utilisateurs root
+      get 'setup_droits_index', to: 'setup#droits_index'
+      get 'setup_root_structure', to: 'setup#root_structure' # gestion des utilisateurs root
       get 'setup_new_root_select', to: 'setup#new_root_select' # lister les utilisateurs qui seront les prochains root
       post 'setup_enseignant_root_role', to: 'admin#enseignant_root_role'
 
@@ -190,18 +208,22 @@ Rails.application.routes.draw do
     end
 
     scope :courses do
-      get "course_all", to: "admin#course_all"
-      get "course_all_detail", to: "admin#course_all_detail"
-      get "who_read_course", to: "admin#who_read_course"
-      get "course_detail", to: 'admin#course_detail'
-      get "course_detail_contact_teacher", to: "admin#course_detail_contact_teacher"
-      get "course_send_teacher_note", to: "admin#course_send_teacher_note"
+      get 'course_all', to: 'admin#course_all'
+      get 'course_all_detail', to: 'admin#course_all_detail'
+      get 'who_read_course', to: 'admin#who_read_course'
+      get 'course_detail', to: 'admin#course_detail'
+      get 'course_detail_contact_teacher', to: 'admin#course_detail_contact_teacher'
+      match 'course_send_teacher_note', to: 'admin#course_send_teacher_note', via: [:get, :post]
+
+      # CRM interface
+      get 'crm', to: 'admin#crm'
+      get 'calendar', to: 'admin#calendar'
 
       # course validation
       scope :validation do
         post 'course_validation', to: 'admin#course_validation'
-        get 'course_suspension', to: "admin#course_suspension"
-        post 'course_validate_or_suspend_all', to: "admin#course_validate_or_suspend_all"
+        get 'course_suspension', to: 'admin#course_suspension'
+        post 'course_validate_or_suspend_all', to: 'admin#course_validate_or_suspend_all'
         get 'course_delete', to: 'admin#course_delete'
       end
     end
@@ -238,7 +260,7 @@ Rails.application.routes.draw do
 
         # matiere import
         post 'import_matiere_intent', to: 'admin#import_matiere_intent'
-        match 'import_matiere_form', to: "admin#import_matiere_form", via: [:get, :post]
+        match 'import_matiere_form', to: 'admin#import_matiere_form', via: [:get, :post]
 
         # enseignant import
         post 'import_enseignant_intent', to: 'admin#import_enseignant_intent'
@@ -255,20 +277,20 @@ Rails.application.routes.draw do
     get 'course_tags', to: 'courses#list_course_tags'
 
     # students actions
-    get "read_course", to: "home_student#read_course"
-    get 'read_course_file', to: "home_student#read_course_file"
-    get "list_course", to: "home_student#list_course"
-    get "read_matiere", to: "home_student#read_matiere"
-    get "my_dashboard", to: "home_student#dashboard"
-    get "exercice", to: "home_student#exercice"
-    get "synthese", to: "home_student#synthese"
-    get 'documents', to: "home_student#documents"
-    get 'ma_classe', to: "home_student#salle_de_classe"
-    get 'my_courses', to: "home_student#student_course" # list student course
-    get 'my_courses_files', to: "home_student#student_course_files" #list student course files
-    get 'my_teachers', to: "home_student#my_teachers"
+    get 'read_course', to: 'home_student#read_course'
+    get 'read_course_file', to: 'home_student#read_course_file'
+    get 'list_course', to: 'home_student#list_course'
+    get 'read_matiere', to: 'home_student#read_matiere'
+    get 'my_dashboard', to: 'home_student#dashboard'
+    get 'exercice', to: 'home_student#exercice'
+    get 'synthese', to: 'home_student#synthese'
+    get 'documents', to: 'home_student#documents'
+    get 'ma_classe', to: 'home_student#salle_de_classe'
+    get 'my_courses', to: 'home_student#student_course' # list student course
+    get 'my_courses_files', to: 'home_student#student_course_files' #list student course files
+    get 'my_teachers', to: 'home_student#my_teachers'
     get 'student_ressources', to: 'home_student#student_ressources'
-    get 'student_discuss', to: "home_student#discuss"
+    get 'student_discuss', to: 'home_student#discuss'
     get 'time_table', to: 'home_student#time_table'
     post 'student_comment', to: 'home_student#student_comment'
 
@@ -278,14 +300,14 @@ Rails.application.routes.draw do
 
     # gestion des epreuves
     scope :epreuves do
-      get 'index_epreuves', to: "home_student#student_epreuves"
+      get 'index_epreuves', to: 'home_student#student_epreuves'
       get 'read_epreuve', to: 'home_student#read_epreuve'
       get 'read_response', to: 'home_student#read_response'
     end
 
     # gestion des matieres
     scope :matieres do
-      get 'index_matiere', to: "home_student#student_matires"
+      get 'index_matiere', to: 'home_student#student_matires'
     end
   end
 
@@ -294,5 +316,22 @@ Rails.application.routes.draw do
     post 'import', to: 'admin#import'
     post 'set_import', to: 'admin#set_import'
   end
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      get 'courses', to: 'api#index'
+    end
+  end
+
+  # demo for developer formations
+  scope :demo, defaults: {format: :json} do
+    get 'index', to: 'demo#index'
+    post 'form', to: 'demo#form'
+    post 'fuse', to: 'demo#fuse'
+    post 'token_auth', to: 'demo#token_auth'
+    get 'list_teacher', to: 'demo#list_teacher'
+    get 'list_last_course', to: 'demo#list_last_course'
+  end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
