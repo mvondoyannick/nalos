@@ -1,0 +1,75 @@
+/* line 1, app/assets/stylesheets/notifications.scss */
+.notifications {
+  padding: 10px;
+  margin: 20px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+}
+
+/* line 7, app/assets/stylesheets/notifications.scss */
+.notifications .heading {
+  border-bottom: 1px solid #eee;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+/* line 14, app/assets/stylesheets/notifications.scss */
+.notifications .notification-group {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+/* line 18, app/assets/stylesheets/notifications.scss */
+.notifications .notification-group .group-title {
+  padding: 5px 0;
+  color: #999;
+  border-bottom: 1px solid #eee;
+}
+
+/* line 25, app/assets/stylesheets/notifications.scss */
+.notifications .notification {
+  margin: 0;
+  padding: 10px 0px;
+  color: #999;
+}
+
+/* line 30, app/assets/stylesheets/notifications.scss */
+.notifications .notification a {
+  color: #555;
+}
+
+/* line 32, app/assets/stylesheets/notifications.scss */
+.notifications .notification.unread {
+  color: #444;
+}
+
+/* line 35, app/assets/stylesheets/notifications.scss */
+.notifications .notification.unread .media-heading {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* line 40, app/assets/stylesheets/notifications.scss */
+.notifications .notification.unread a {
+  color: #222;
+  text-decoration: underline;
+}
+
+/* line 45, app/assets/stylesheets/notifications.scss */
+.notifications .notification .media-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* line 51, app/assets/stylesheets/notifications.scss */
+.notifications .notification .user-avatar img {
+  width: 32px;
+  height: 32px;
+  border-radius: 120px;
+}
+
+/* line 54, app/assets/stylesheets/notifications.scss */
+.notifications .notification .media-right {
+  min-width: 100px;
+  color: #AAA;
+  font-size: 13px;
+}

@@ -1,6 +1,6 @@
 <% if notice.present? %>
   <%= render 'layouts/notification_success' %>
-  <div class="-m-2 text-center mb-8" id="notice">
+  <div class="-m-2 text-center mt-8 mb-8" id="notice">
 
     <div class="p-2">
       <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
@@ -30,12 +30,69 @@
 <div class="bg-gray-50 -mt-12">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Dashboard
+      Etablissement
       <br/>
-      <span class="text-indigo-600">administrateur</span>
+      <span class="text-indigo-600"><%= current_user.structure.name %></span>
     </h2>
   </div>
 </div>
+
+<!-- spécial zone -->
+<section class="text-gray-700 body-font mb-4">
+  <div class="container px-5 mx-auto">
+    <div class="flex flex-wrap -m-2">
+      <% if SalleDeClass.where(structure_id: current_user.structure_id).count.zero? %>
+        <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+          <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
+            <svg class="w-10 h-10 flex-shrink-0 rounded-full mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            <div class="flex-grow">
+              <h2 class="text-gray-900 title-font font-medium">
+                <%= link_to 'Aucune salle de classe trouvées', new_salle_de_class_path %>
+              </h2>
+              <p class="text-gray-500 text-sm">Commencer à importer une salle de classe</p>
+              <p class="text-gray-500">
+                <%= link_to 'Importer des salles de classes', new_salle_de_class_path %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if Matiere.where(structure_id: current_user.structure_id).count.zero? %>
+        <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+          <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
+            <svg class="w-10 h-10 flex-shrink-0 rounded-full mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+            </svg>
+            <div class="flex-grow">
+              <h2 class="text-gray-900 title-font font-medium">Aucune matière trouvées</h2>
+              <p class="text-gray-500">sdkfjlsdkf</p>
+              <p class="text-gray-500">Importer les matières</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if Student.where(structure: current_user.structure_id).count.zero? %>
+        <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+          <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
+            <svg class="w-10 h-10 flex-shrink-0 rounded-full mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            <div class="flex-grow">
+              <h2 class="text-gray-900 title-font font-medium">Aucun apprenants trouvés</h2>
+              <p class="text-gray-500">sdkfjlsdkf</p>
+              <p class="text-gray-500">Importer des apprenants</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</section>
 
 <section class="text-gray-700 body-font">
   <div class="container px-5 mx-auto">
@@ -148,59 +205,78 @@
     <%= link_to 'Tout voir', "#", class: 'hover:bg-transparent text-blue-600 hover:text-blue-500 font-medium' %>
   </div>
 
-  <div class="overflow-x-auto bg-white rounded-lg shadow">
-    <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped" id="example">
-      <thead>
-      <tr class="text-left">
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Nom complèt & mat.</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Email & Date ajout</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">User Role & structure</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Cycle & classe</th>
-        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs bg-blue-200">Statut</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @new_account.each do |account| %>
-        <tr>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="flex items-center">
-              <div class="flex-shrink-0 h-10 w-10">
-                <%= image_tag 'teacher.png', class: "" %>
-              </div>
-              <div class="ml-4">
-                <div><%= account.complete_name %></div>
-                <div class="text-sm leading-5 text-gray-500"> <%= account.matricule %></div>
+  <section class="text-gray-700 body-font">
+    <div class="container px-5 mx-auto">
+      <div class="flex flex-wrap -m-2">
+        <% @new_account.limit(6).each do |account| %>
+          <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
+              <%= image_tag 'teacher.png', class: "w-12 h-12 flex-shrink-0 rounded-full mr-4" %>
+              <div class="flex-grow">
+                <h2 class="text-gray-900 title-font font-medium"><%= account.complete_name %> | <%= account.role.name %></h2>
+                <p class="text-gray-500"><%= account.matricule %></p>
+                <p class="text-gray-500"><%= account.created_at.strftime("%d %b %Y") %></p>
               </div>
             </div>
-          </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="text-sm leading-5 text-gray-900"><%= account.email %></div>
-            <div class="text-sm leading-5 text-gray-500"><%= account.created_at.strftime("%d %b %Y") %></div>
-          </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="text-sm leading-5 text-gray-900"><%= account.role.name %></div>
-            <div class="text-sm leading-5 text-gray-500"><%= account.structure.name %></div>
-          </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-            <div class="text-sm leading-5 text-gray-900"><%= account.cycle_ecole.name %></div>
-            <div class="text-sm leading-5 text-gray-500">
-              <% TeacherClasse.where(user_id: account.id).each do |classe| %>
-                <%= SalleDeClass.find(classe.salle_de_class_id).name %> <br>
-              <% end %>
-            </div>
-          </td>
-          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-blue-300">
-          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-            <%= link_to "Details", "#", data: {confirm: "Aucuns details disponible pour le moment. \nMerci de patienter."} %>
-          </span>
-          </td>
-        </tr>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
 
-      <% end %>
+<!--  <div class="overflow-x-auto bg-white rounded-lg shadow">-->
+<!--    <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped" id="example">-->
+<!--      <thead>-->
+<!--      <tr class="text-left">-->
+<!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Nom complèt & mat.</th>-->
+<!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Email & Date ajout</th>-->
+<!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">User Role & structure</th>-->
+<!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Cycle & classe</th>-->
+<!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs bg-blue-200">Statut</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+      <%# @new_account.each do |account| %>
+<!--        <tr>-->
+<!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
+<!--            <div class="flex items-center">-->
+<!--              <div class="flex-shrink-0 h-10 w-10">-->
+                <%#= image_tag 'teacher.png', class: "" %>
+<!--              </div>-->
+<!--              <div class="ml-4">-->
+<!--                <div><%#= account.complete_name %></div>-->
+<!--                <div class="text-sm leading-5 text-gray-500"> <%#= account.matricule %></div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
+<!--            <div class="text-sm leading-5 text-gray-900"><%#= account.email %></div>-->
+<!--            <div class="text-sm leading-5 text-gray-500"><%#= account.created_at.strftime("%d %b %Y") %></div>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
+<!--            <div class="text-sm leading-5 text-gray-900"><%#= account.role.name %></div>-->
+<!--            <div class="text-sm leading-5 text-gray-500"><%#= account.structure.name %></div>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
+<!--            <div class="text-sm leading-5 text-gray-900"><%##= account.cycle_ecole.name %></div>-->
+<!--            <div class="text-sm leading-5 text-gray-500">-->
+              <%# TeacherClasse.where(user_id: account.id).each do |classe| %>
+<!--                <%#= SalleDeClass.find(classe.salle_de_class_id).name %> <br>-->
+              <%# end %>
+<!--            </div>-->
+<!--          </td>-->
+<!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-blue-300">-->
+<!--          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">-->
+            <%#= link_to "Details", "#", data: {confirm: "Aucuns details disponible pour le moment. \nMerci de patienter."} %>
+<!--          </span>-->
+<!--          </td>-->
+<!--        </tr>-->
 
-      </tbody>
-    </table>
-  </div>
+      <%# end %>
+
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
 <% end %>
 
 <br>
@@ -403,6 +479,63 @@
     </div>
   </div>
 <% else %>
+  <div class="container my-12 mx-auto px-4 md:px-12">
+    <div class="flex flex-wrap -mx-1 lg:-mx-4">
+
+      <% @documents.limit(9).each do |document| %>
+        <!-- Column -->
+        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+          <!-- Article -->
+          <article class="overflow-hidden rounded-lg shadow-lg">
+
+            <a href="#">
+              <% if document.image? %>
+                <%= image_tag 'photo.png', class: 'block h-auto w-full' %>
+              <% elsif document.content_type.end_with?('pdf') %>
+                <%#= image_tag rails_blob_path(document), class: "block h-auto w-full" %>
+                <%#= image_tag document.preview(resize: "500x500") %>
+                <%= image_tag 'pdf.png', class: 'block h-auto w-full' %>
+              <% elsif document.video? %>
+                <%= image_tag 'video.png', class: 'block h-auto w-full' %>
+              <% else %>
+                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">
+              <% end %>
+            </a>
+
+            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+              <h1 class="text-lg">
+                <a class="no-underline hover:underline text-black" href="#">
+                  <%= document.filename %>
+                </a>
+              </h1>
+              <p class="text-grey-darker text-sm">
+                11/1/19
+              </p>
+            </header>
+
+            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+              <a class="flex items-center no-underline hover:underline text-black" href="#">
+                <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">
+                <p class="ml-2 text-sm">
+                  Author Name
+                </p>
+              </a>
+              <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
+                <span class="hidden">Like</span>
+                <i class="fa fa-heart"></i>
+              </a>
+            </footer>
+
+          </article>
+          <!-- END Article -->
+
+        </div>
+        <!-- END Column -->
+      <% end %>
+
+    </div>
+  </div>
   <section class="text-gray-700 body-font">
     <div class="container px-5 mx-auto">
       <div class="flex flex-wrap -m-2">

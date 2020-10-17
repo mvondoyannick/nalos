@@ -3,9 +3,9 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Ready to dive in?
+      Calendrier scolaire etablissement
       <br>
-      <span class="text-indigo-600">Start your free trial today.</span>
+      <span class="text-indigo-600"><%= current_user.structure.name.upcase %>.</span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
@@ -30,6 +30,9 @@
         <table class="min-w-full divide-y divide-gray-200">
           <thead>
           <tr>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Libellé calendrier
+            </th>
             <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
               Date début
             </th>
@@ -59,6 +62,10 @@
                     </div>
                   </div>
                 </div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap">
+                <div class="text-sm leading-5 text-gray-900"><%= yr.debut %></div>
+                <div class="text-sm leading-5 text-gray-500"><%= yr.structure.name %></div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap">
                 <div class="text-sm leading-5 text-gray-900"><%= yr.end %></div>

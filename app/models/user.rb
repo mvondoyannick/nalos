@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   belongs_to :role
   belongs_to :structure
-  belongs_to :cycle_ecole
+  # belongs_to :cycle_ecole
   has_many :courses, dependent: :delete_all
   has_many :comments, dependent: :delete_all
   has_many :messages, dependent: :delete_all

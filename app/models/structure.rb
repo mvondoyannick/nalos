@@ -10,6 +10,7 @@ class Structure < ApplicationRecord
   validates :fixe, :name, :mobile, :email, presence: {message: '%{value} est obligatoire'}, uniqueness: {message: "%{value} à déja été utilisée."}
 
   has_one_attached :logo
+  has_one_attached :rccm
 
   # trigger
   before_create :set_token, if: :new_record?

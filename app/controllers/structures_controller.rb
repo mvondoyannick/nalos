@@ -1,5 +1,5 @@
 class StructuresController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:new, :create]
   before_action :set_structure, only: [:show, :edit, :update, :destroy]
 
   # GET /structures
@@ -29,8 +29,19 @@ class StructuresController < ApplicationController
 
     respond_to do |format|
       if @structure.save
-        format.html { redirect_to @structure, notice: 'Structure was successfully created.' }
-        format.json { render :show, status: :created, location: @structure }
+
+        # redirection
+        if request.referer.include?('new')
+
+          # send notifications
+          CreateUserJob.set(wait: 10.seconds).perform_later(name: @structure.name, email: @structure.email, structure_id: @structure.id)
+          # make redirections
+          format.html { redirect_to root_path, notice: 'Structure was successfully created.' }
+          # format.json { render :show, status: :created, location: @structure }
+        else
+          format.html { redirect_to @structure, notice: 'Structure was successfully created.' }
+          format.json { render :show, status: :created, location: @structure }
+        end
       else
         format.html { render :new }
         format.json { render json: @structure.errors, status: :unprocessable_entity }
@@ -43,7 +54,7 @@ class StructuresController < ApplicationController
   def update
     respond_to do |format|
       if @structure.update(structure_params)
-        format.html { redirect_to @structure, notice: 'Structure was successfully updated.' }
+        format.html { redirect_to request.referer, notice: 'Structure was successfully updated.' }
         format.json { render :show, status: :ok, location: @structure }
       else
         format.html { render :edit }
@@ -81,6 +92,12 @@ class StructuresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def structure_params
-      params.fetch(:structure, {})
+      # params.fetch(:structure, {:name, })
+      params.require(:structure).permit(:name, :email, :slogan, :mobile, :fixe, :region, :pays, :logo, :rccm, :creation)
     end
+
+  # only accept user params
+  def user_params
+    params.permit(:user_name, :user_email, :user_main_phone, :user_second_phone, :user_date_delivrance, :user_cni, :cycle_name)
+  end
 end

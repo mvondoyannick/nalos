@@ -3,20 +3,18 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Gestion des
+      Trimestres scolaire de
       <br>
-      <span class="text-indigo-600">trimestres scolaires.</span>
+      <span class="text-indigo-600"><%= current_user.structure.name.upcase %>.</span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Get started
-        </a>
-      </div>
+<!--      <div class="inline-flex rounded-md shadow">-->
+<!--        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">-->
+<!--          Get started-->
+<!--        </a>-->
+<!--      </div>-->
       <div class="ml-3 inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Learn more
-        </a>
+        <%= link_to 'Nouveau  trimestre', new_tr_path, class: "nline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
     </div>
   </div>
@@ -40,8 +38,9 @@
               Status
             </th>
             <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Role
+              Etablissement
             </th>
+            <th class="px-6 py-3 bg-gray-50"></th>
             <th class="px-6 py-3 bg-gray-50"></th>
           </tr>
           </thead>
@@ -55,28 +54,31 @@
                   </div>
                   <div class="ml-4">
                     <div class="text-sm leading-5 font-medium text-gray-900">
-                      Jane Cooper
+                      <%= tr.name %>
                     </div>
                     <div class="text-sm leading-5 text-gray-500">
-                      jane.cooper@example.com
+                      <%= tr.created_at %>
                     </div>
                   </div>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap">
-                <div class="text-sm leading-5 text-gray-900">Regional Paradigm Technician</div>
-                <div class="text-sm leading-5 text-gray-500">Optimization</div>
+                <div class="text-sm leading-5 text-gray-900"><%= tr.debut %></div>
+                <div class="text-sm leading-5 text-gray-500"><%= tr.fin %></div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                  Active
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-green-800">
+                  <%= tr.yr.name %>
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                Admin
+                <%= current_user.structure.name %>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                <%= link_to 'Editer', edit_tr_path(tr), class: 'text-indigo-600 hover:text-indigo-900' %>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                <%= link_to 'Supprimer', tr, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-indigo-600 hover:text-indigo-900' %>
               </td>
             </tr>
           <% end %>
@@ -89,32 +91,4 @@
   </div>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Debut</th>
-      <th>Fin</th>
-      <th>Yr</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @trs.each do |tr| %>
-      <tr>
-        <td><%= tr.name %></td>
-        <td><%= tr.debut %></td>
-        <td><%= tr.fin %></td>
-        <td><%= tr.yr_id %></td>
-        <td><%= link_to 'Show', tr %></td>
-        <td><%= link_to 'Edit', edit_tr_path(tr) %></td>
-        <td><%= link_to 'Destroy', tr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <br>
-
-<%= link_to 'New Tr', new_tr_path %>

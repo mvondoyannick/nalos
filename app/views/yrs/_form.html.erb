@@ -16,16 +16,31 @@
     <div class="-mx-3 md:flex mb-6">
       <div class="md:w-1/2 px-3 mb-6 md:mb-0">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          Libellé année scolaire
+        </label>
+        <%= form.text_field :name, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" %>
+        <p class="text-red text-xs italic">Année au format de Quatre chiffres : 2020</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Etablissement
+        </label>
+        <%= form.text_field :structure_id, value: current_user.structure.name.upcase, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3", readonly: true %>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
           Debut année scolaire
         </label>
-        <%= form.number_field :name, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" %>
+        <%= form.date_field :debut, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" %>
         <p class="text-red text-xs italic">Année au format de Quatre chiffres : 2020</p>
       </div>
       <div class="md:w-1/2 px-3">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
           Fin année scolaire
         </label>
-        <%= form.number_field :end, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" %>
+        <%= form.date_field :end, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" %>
       </div>
     </div>
     <div class="inline-flex rounded-md right-0 mt-4">
@@ -54,6 +69,9 @@
           <thead>
           <tr>
             <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Libelle calendrier
+            </th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
               Date début
             </th>
             <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
@@ -79,6 +97,10 @@
                     </div>
                   </div>
                 </div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap">
+                <div class="text-sm leading-5 text-gray-900"><%= yr.debut %></div>
+                <div class="text-sm leading-5 text-gray-500">Optimization</div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap">
                 <div class="text-sm leading-5 text-gray-900"><%= yr.end %></div>

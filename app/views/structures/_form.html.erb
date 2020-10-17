@@ -1,23 +1,9 @@
-<%= form_with(model: structure, local: true) do |form| %>
+<%= form_with(model: structure, local: true, html: {class: "ml-24 mr-24"}) do |form| %>
 
   <!--
   Tailwind UI components require Tailwind CSS v1.8 and the @tailwindcss/ui plugin.
   Read the documentation to get started: https://tailwindui.com/documentation
 -->
-  <div class="bg-gray-50">
-    <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-      <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-        Mettre à jour des données de
-        <br>
-        <span class="text-indigo-600"><%= @structure.name %>.</span>
-      </h2>
-      <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-        <div class="ml-3 inline-flex rounded-md shadow">
-          <%= link_to 'Enregistrer/Mettre à jour', form.submit, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out", data: {confirm: "Confirmer l'enregistrement de cet établissement?"} %>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
   <% if structure.errors.any? %>
@@ -32,12 +18,15 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="ml-3 inline-flex rounded-md shadow">
+    <%= form.submit "Enregistrer mon établissement", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
   </div>
 
   <!-- component -->
-  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+  <div class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <p class="mb-10 mt-10 text-2xl">
+      Informations sur l'établissement
+    </p>
     <div class="-mx-3 md:flex mb-6">
       <div class="md:w-1/2 px-3 mb-6 md:mb-0">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
@@ -50,7 +39,8 @@
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
           Adresse email
         </label>
-        <%= form.email_field :email, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true %>
+        <%= form.email_field :email, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", required: true %>
+        <p class="text-red text-xs italic">Nous vous contacterons via cette adresse.</p>
       </div>
     </div>
     <div class="-mx-3 md:flex mb-6">
@@ -58,14 +48,14 @@
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
           Date creation
         </label>
-        <%= form.date_field :date_creation, class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3' %>
+        <%= form.date_field :creation, class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3' %>
         <p class="text-red text-xs italic">Date de création de l'établissement.</p>
       </div>
       <div class="md:w-1/2 px-3">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
           Document administration (RCCM)
         </label>
-        <%= form.file_field :rccm, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true %>
+        <%= form.file_field :rccm, accept: 'application/pdf', class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true %>
       </div>
     </div>
     <div class="-mx-3 md:flex mb-6">
@@ -80,7 +70,7 @@
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
           Logo établissement
         </label>
-        <%= form.file_field :logo, required: true, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true %>
+        <%= form.file_field :logo, accept: 'image/*', class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true %>
       </div>
     </div>
     <div class="-mx-3 md:flex mb-6">
@@ -89,14 +79,30 @@
           Numéro de téléphone fixe
         </label>
         <%= form.number_field :fixe, required: true, class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3' %>
-        <p class="text-red text-xs italic">Numéro de téléphone fixe.</p>
+        <p class="text-red text-xs italic">vous serez contactez via ce numéro de téléphone.</p>
       </div>
       <div class="md:w-1/2 px-3">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
           Numéro de téléphone mobile
         </label>
-        <%= form.number_field :mobile, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true %>
-        <p class="text-red text-xs italic">Numéro de téléphone mobile.</p>
+        <%= form.number_field :mobile, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", required: true %>
+        <p class="text-red text-xs italic">vous serez contactez via cet autre numéro de téléphone.</p>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          Région
+        </label>
+        <%= form.text_field :region, required: true, class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3' %>
+        <p class="text-red text-xs italic">Région de localisation de l'établissement.</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Pays de localisation
+        </label>
+        <%= form.text_field :pays, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true %>
+        <p class="text-red text-xs italic">Pays de localisation de l'établissement.</p>
       </div>
     </div>
   </div>

@@ -32,6 +32,7 @@ class YrsController < ApplicationController
         format.html { redirect_to @yr, notice: 'Yr was successfully created.' }
         format.json { render :show, status: :created, location: @yr }
       else
+        puts @yr.errors.details
         format.html { render :new }
         format.json { render json: @yr.errors, status: :unprocessable_entity }
       end
@@ -70,6 +71,6 @@ class YrsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def yr_params
-      params.require(:yr).permit(:name, :end)
+      params.require(:yr).permit(:name, :end, :debut)
     end
 end
