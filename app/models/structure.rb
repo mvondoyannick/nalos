@@ -15,6 +15,10 @@ class Structure < ApplicationRecord
   # trigger
   before_create :set_token, if: :new_record?
 
+  def structure_with_initial
+    name.to_s.upcase
+  end
+
   private
 
   # generate auto token

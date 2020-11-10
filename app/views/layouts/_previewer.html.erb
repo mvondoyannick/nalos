@@ -2,7 +2,8 @@
 <% if data.video? %>
   <%= video_tag url_for(data), width: "100%", controls: true, class: 'shadow', preload: "auto", id: "player", height: 1000, width: "100%" %>
 <% elsif data.audio? %>
-  <%= video_tag url_for(data), width: "100%", controls: true, id: "player", class: 'shadow' %>
+  <%#= video_tag url_for(data), width: "100%", controls: true, class: 'shadow' %>
+  <%= audio_tag url_for(data), controls: true %>
 <% elsif data.image? %>
   <%= image_tag url_for(data), class: "object-cover object-center object-center" %>
 <% elsif data.content_type.end_with?("pdf") %>

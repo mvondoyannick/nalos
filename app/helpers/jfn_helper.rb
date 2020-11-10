@@ -1,0 +1,2 @@
+module JfnHelper
+end

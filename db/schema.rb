@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_17_171114) do
+ActiveRecord::Schema.define(version: 2020_11_10_100405) do
 
   create_table "action_mailbox_inbound_emails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -126,6 +126,8 @@ ActiveRecord::Schema.define(version: 2020_10_17_171114) do
     t.string "detail"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "structure_id", null: false
+    t.index ["structure_id"], name: "index_cycle_ecoles_on_structure_id"
   end
 
   create_table "documents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -160,6 +162,15 @@ ActiveRecord::Schema.define(version: 2020_10_17_171114) do
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "jfn_support_courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_jfn_support_courses_on_user_id"
   end
 
   create_table "journals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -387,6 +398,7 @@ ActiveRecord::Schema.define(version: 2020_10_17_171114) do
     t.string "statut"
     t.boolean "deleted"
     t.datetime "discarded_at"
+    t.boolean "is_jfn"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -418,10 +430,12 @@ ActiveRecord::Schema.define(version: 2020_10_17_171114) do
   add_foreign_key "courses", "salle_de_classes"
   add_foreign_key "courses", "structures"
   add_foreign_key "courses", "users"
+  add_foreign_key "cycle_ecoles", "structures"
   add_foreign_key "documents", "users"
   add_foreign_key "epreuves", "matieres"
   add_foreign_key "epreuves", "salle_de_classes"
   add_foreign_key "epreuves", "users"
+  add_foreign_key "jfn_support_courses", "users"
   add_foreign_key "matieres", "structures"
   add_foreign_key "messages", "students"
   add_foreign_key "messages", "users"

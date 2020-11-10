@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @jfn_support_course.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @jfn_support_course.description %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @jfn_support_course.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_jfn_support_course_path(@jfn_support_course) %> |
+<%= link_to 'Back', jfn_support_courses_path %>

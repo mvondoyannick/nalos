@@ -29,6 +29,7 @@ class SetupController < ApplicationController
     section = params[:section_id]
     @students = Student.where(structure_id: current_user.structure_id)
   end
+
   #
   ################################################## END ############################################
 
@@ -111,7 +112,7 @@ class SetupController < ApplicationController
     t_token = params[:t_token]
     if User.exists?(token: t_token, deleted: true)
       c_teacher = User.find_by_token(t_token)
-      if c_teacher.update(deleted: nil )
+      if c_teacher.update(deleted: nil)
         redirect_to setup_manage_enseignant_index_path, notice: "#{c_teacher.name.upcase} restauré avec succès"
       else
         redirect_to setup_manage_enseignant_index_path, notice: "Impossible de restaurer cet enseignant"
@@ -150,7 +151,7 @@ class SetupController < ApplicationController
           # send sms to all admin team
           User.where(structure_id: current_structure.id, role_id: current_role_id.id).each do |admin|
             SmsJob.set(wait: 5.seconds).perform_later(phone: admin.phone1, structure: current_user.structure.name.upcase, msg: "Nouvel utilisateur ajouté #{teacher.complete_name} dans la structure #{current_structure.name.upcase} par l'administrateur #{current_user.complete_name}")
-          end
+          end if !current_user.role.name == "root"
           redirect_to setup_manage_enseignant_index_path(token: token), notice: "Nouvel enseignant ajouté"
         else
           redirect_to setup_manage_enseignant_index_path(token: token), notice: "Impossible d'ajouter cet utilisateur : #{teacher.errors.messages}"
@@ -447,7 +448,7 @@ class SetupController < ApplicationController
 
   # user enseignant params
   def enseignant_params
-    params.permit(:email, :name, :second_name, :matricule, :date_naissance, :lieu_naissance, :cni, :sexe, :phone1, :phone2, :password, :role_id, :structure_id, :cycle_ecole_id, :salle_de_class_id)
+    params.permit(:email, :name, :second_name, :matricule, :date_naissance, :lieu_naissance, :cni, :sexe, :phone1, :phone2, :password, :role_id, :structure_id, :salle_de_class_id)
   end
 
   # user update data

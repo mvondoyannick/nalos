@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'su/index'
+  resources :jfn_support_courses
+  get 'jfn/index'
+  get 'jfn/admin_index'
   get 'enseignant/index'
   get 'enseignant/import'
   get 'enseignant/list'
@@ -331,6 +335,27 @@ Rails.application.routes.draw do
     post 'token_auth', to: 'demo#token_auth'
     get 'list_teacher', to: 'demo#list_teacher'
     get 'list_last_course', to: 'demo#list_last_course'
+  end
+
+  # special routes for JFNIT
+  scope :jfn, defauljfnts: {format: :json} do
+    scope :api do
+
+      # a scope for teachers
+      scope :teachers do
+        post 'auth', to: 'jfn#auth_teachers'
+      end
+
+      # super admin scope
+      scope :su do
+        get 'etablissements', to: 'su#etablissements'
+      end
+
+      # a scope for student
+      scope :students do
+
+      end
+    end
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

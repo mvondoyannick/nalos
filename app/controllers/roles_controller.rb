@@ -4,6 +4,7 @@ class RolesController < ApplicationController
   # GET /roles
   # GET /roles.json
   def index
+    @title = "Liste des rôles enregistrés"
     @roles = Role.all
   end
 

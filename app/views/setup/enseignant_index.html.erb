@@ -1,49 +1,3 @@
-<!--<div class="container my-12 mx-auto px-4 md:px-12">-->
-<!--  <div class="flex flex-wrap -mx-1 lg:-mx-4">-->
-
-<%# @enseignants.each do |enseignant| %>
-<!--      <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">-->
-
-<!--        <article class="overflow-hidden rounded-lg shadow-lg">-->
-
-<!--          <a href="#">-->
-<!--            <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
-<!--          </a>-->
-
-<!--          <header class="flex items-center justify-between leading-tight p-2 md:p-4">-->
-<!--            <h1 class="text-lg">-->
-<!--              <a class="no-underline hover:underline text-black" href="#">-->
-<!--                Article Title-->
-<!--              </a>-->
-<!--            </h1>-->
-<!--            <p class="text-grey-darker text-sm">-->
-<!--              11/1/19-->
-<!--            </p>-->
-<!--          </header>-->
-
-<!--          <footer class="flex items-center justify-between leading-none p-2 md:p-4">-->
-<!--            <a class="flex items-center no-underline hover:underline text-black" href="#">-->
-<!--              <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">-->
-<!--              <p class="ml-2 text-sm">-->
-<%#= enseignant.complete_name %>
-<!--              </p>-->
-<!--            </a>-->
-<!--            <a class="no-underline text-grey-darker hover:text-red-dark" href="#">-->
-<!--              <span class="hidden">Like</span>-->
-<!--              <i class="fa fa-heart"></i>-->
-<!--            </a>-->
-<!--          </footer>-->
-
-<!--        </article>-->
-
-
-<!--      </div>-->
-
-<%# end %>
-
-<!--  </div>-->
-<!--</div>-->
-
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
@@ -55,9 +9,9 @@
       <div class="inline-flex rounded-md shadow">
         <%= link_to "Précédent", :back, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
-<!--      <div class="ml-3 inline-flex rounded-md shadow">-->
-        <%#= link_to "Formulaire de saisie", setup_add_new_structure_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-<!--      </div>-->
+      <!--      <div class="ml-3 inline-flex rounded-md shadow">-->
+      <%#= link_to "Formulaire de saisie", setup_add_new_structure_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      <!--      </div>-->
     </div>
   </div>
 </div>
@@ -126,11 +80,12 @@
     </main>
   <% end %>
 
-  <% elsif params[:sms].present? %>
+<% elsif params[:sms].present? %>
 
   <main class="flex-1 md:p-0 lg:pt-8 lg:px-8 md:ml-0 flex flex-col">
     <section class="bg-white p-4 shadow">
-      <label class="block uppercase tracking-wide text-xs font-bold mb-8">Formulaire d'envoi du SMS à <%= User.find_by_token(params[:e_token]).complete_name %></label>
+      <label class="block uppercase tracking-wide text-xs font-bold mb-8">Formulaire d'envoi du SMS
+        à <%= User.find_by_token(params[:e_token]).complete_name %></label>
       <%= form_with(url: setup_new_teacher_path) do |form| %>
         <%= form.hidden_field :e_token, value: params[:e_token] %>
         <%= form.hidden_field :token, value: params[:token] %>
@@ -216,7 +171,11 @@
               </div>
               <div class="mb-4">
                 <label class="block uppercase tracking-wide text-xs font-bold">Role utilisateur</label>
-                <%= form.collection_select(:role_id, Role.all.group(:name).distinct, :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+                <% if current_user.role.name == "root" %>
+                  <%= form.collection_select(:role_id, Role.all, :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+                <% else %>
+                  <%= form.collection_select(:role_id, Role.all.group(:name).distinct, :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+                <% end %>
               </div>
 
             </div>
@@ -235,7 +194,8 @@
                 <%= form.telephone_field :phone2, class: "w-full shadow-inner p-4 border-0  bg-gray-100", placeholder: "Numéro de téléphone secondaire" %>
               </div>
               <div class="mb-4">
-                <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Adresse email</label>
+                <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Adresse
+                  email</label>
                 <%= form.email_field :email, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Adresse email enseignant", required: true %>
               </div>
               <div class="mb-4">
@@ -247,7 +207,8 @@
                 <%= form.text_field :region, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Région de localisation" %>
               </div>
               <div class="mb-4">
-                <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Site web link</label>
+                <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Site web
+                  link</label>
                 <%= form.url_field :url, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Adresse site web" %>
               </div>
               <!--            <div class="mb-4">-->
@@ -261,21 +222,14 @@
               <legend class="uppercase tracking-wide text-sm">Affectation</legend>
             </div>
             <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
-              <!--            <div class="mb-4">-->
-              <!--              <label class="block uppercase tracking-wide text-xs font-bold">Section principale</label>-->
-              <%#= form.collection_select(:cycle_id, CycleEcole.all, :id, :cycle_with_initial, {prompt: "Selectionner un cycle..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-              <!--            </div>-->
-              <!--            <div class="mb-4">-->
-              <!--              <label class="block uppercase tracking-wide text-xs font-bold mb-4">Salle de classe</label>-->
-              <%#= form.collection_check_boxes(:cycle_id, CycleEcole.all, :id, :cycle_with_initial, {prompt: "Selectionner un cycle..."}, {class: "inline-block bg-gray-200"}) %>
-              <!--            </div>-->
-              <!--            <div class="mb-4">-->
-              <!--              <label class="block uppercase tracking-wide text-xs font-bold">Numéro de téléphone secondaire</label>-->
-              <%#= form.telephone_field :phone1, class: "w-full shadow-inner p-4 border-0  bg-gray-100", placeholder: "Numéro de téléphone mobile" %>
-              <!--            </div>-->
               <div class="mb-4">
                 <label class="block uppercase tracking-wide text-xs font-bold">Structure d'affectation</label>
-                <%= form.text_field :structure_id, value: @current_structure.id, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Structure d'affectation", readonly: true %>
+                <%#= form.text_field :structure_id, value: @current_structure.id, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Structure d'affectation", readonly: true %>
+                <% if current_user.role.name == "root" %>
+                  <%= form.collection_select(:structure_id, Structure.all, :id, :structure_with_initial, {prompt: "Selectionner un établissement..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+                <% else %>
+                  <%= form.collection_select(:role_id, Role.all.group(:name).distinct, :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+                <% end %>
               </div>
               <div class="mb-4">
                 <label class="block uppercase tracking-wide text-xs font-bold">Salle de classe</label>

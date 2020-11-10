@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :delete_all
   has_many :messages, dependent: :delete_all
   has_many :blogs, dependent: :delete_all
+  has_many :jfn_support_courses, dependent: :restrict_with_error
 
   # for epreuve
   # has_many :epreuves, dependent: :delete_all
@@ -36,6 +37,10 @@ class User < ApplicationRecord
 
   def complete_name
     "#{self.name} " + "#{self.second_name}"
+  end
+
+  def complete_name_classe
+    "#{self.name} " + "#{self.second_name}" + " -- #{Structure.find(self.structure_id).name.upcase}"
   end
 
   private
