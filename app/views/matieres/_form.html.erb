@@ -11,17 +11,60 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <!-- component -->
+  <div class="bg-white shadow-lg rounded px-8 ml-12 mr-12 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          Libellé matière/Unité enseignement
+        </label>
+        <%= form.text_field :name, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3", required: true %>
+        <p class="text-red text-xs italic">Quel nom porte cette unité d'enseignement.</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Description
+        </label>
+        <%= form.text_field :descriptioin, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: false %>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-full px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-password">
+          Etablissement/Structure
+        </label>
+        <%= form.collection_select(:structure_id, Structure.all, :id, :name, {prompt: "Selectionner un etablissement..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", required: true}) %>
+        <p class="text-grey-dark text-xs italic">Selectionner l'établissement</p>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-2">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-city">
+
+        </label>
+        <div class="inline-flex rounded-md shadow">
+          <%= form.submit "Enregistrer cette nouvelle information", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :descriptioin %>
-    <%= form.text_field :descriptioin %>
-  </div>
+<!--  <div class="field">-->
+    <%#= form.label :name %>
+    <%#= form.text_field :name %>
+<!--  </div>-->
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<!--  <div class="field">-->
+    <%#= form.label :descriptioin %>
+    <%#= form.text_field :descriptioin %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :etablissement %>
+    <%#= form.collection_select(:structure_id, Structure.all, :id, :name, {prompt: "Selectionner un etablissement..."}, {class: "select2 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500", required: true}) %>
+<!--  </div>-->
+
+<!--  <div class="actions">-->
+    <%#= form.submit %>
+<!--  </div>-->
 <% end %>

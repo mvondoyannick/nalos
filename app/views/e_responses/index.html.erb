@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>E Responses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Epreuve</th>
+      <th>Student</th>
+      <th>User</th>
+      <th>Salle de class</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @e_responses.each do |e_response| %>
+      <tr>
+        <td><%= e_response.epreuve_id %></td>
+        <td><%= e_response.student_id %></td>
+        <td><%= e_response.user_id %></td>
+        <td><%= e_response.salle_de_class_id %></td>
+        <td><%= link_to 'Show', e_response %></td>
+        <td><%= link_to 'Edit', edit_e_response_path(e_response) %></td>
+        <td><%= link_to 'Destroy', e_response, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New E Response', new_e_response_path %>

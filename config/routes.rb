@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :e_responses
+  resources :time_tables
   get 'su/index'
   resources :jfn_support_courses
   get 'jfn/index'
@@ -306,7 +308,9 @@ Rails.application.routes.draw do
     scope :epreuves do
       get 'index_epreuves', to: 'home_student#student_epreuves'
       get 'read_epreuve', to: 'home_student#read_epreuve'
-      get 'read_response', to: 'home_student#read_response'
+      match 'read_response', to: 'home_student#read_response', via: [:get, :post]
+      get 'my_responses', to: 'home_student#my_responses'
+      match 'verif_epreuve', to: 'epreuves#verif_epreuve', via: [:get, :post]
     end
 
     # gestion des matieres
@@ -349,6 +353,9 @@ Rails.application.routes.draw do
       # super admin scope
       scope :su do
         get 'etablissements', to: 'su#etablissements'
+        get 'su_teachers', to: 'su#teachers'
+        get 'su_students', to: 'su#students'
+        get 'su_wait_courses', to: 'su#wait_courses'
       end
 
       # a scope for student

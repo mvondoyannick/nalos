@@ -7,12 +7,12 @@
 
 <p>
   <strong>Content:</strong>
-  <%= @filiere.content %>
+  <%= @filiere.content.nil? ? "Aucune description supplementaire" : @filiere.content %>
 </p>
 
 <p>
-  <strong>Salle de class:</strong>
-  <%= @filiere.salle_de_class_id %>
+  <strong>Etablissement:</strong>
+  <%= @filiere.structure.name %>
 </p>
 
 <%= link_to 'Edit', edit_filiere_path(@filiere) %> |

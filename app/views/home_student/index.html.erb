@@ -164,7 +164,7 @@
           </tr>
           </thead>
           <tbody class="bg-white">
-          <% @last_course.distinct.pluck(:matiere_id).uniq.each do |content| %>
+          <% @last_course.each do |content| %> <!-- .distinct.pluck(:matiere_id).uniq -->
             <tr>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                 <div class="flex items-center">
@@ -172,7 +172,7 @@
                     <%= image_tag 'logo.png', style: 'h-10 w-10 rounded-full' %>
                   </div>
                   <div class="ml-4">
-                    <div class="text-sm leading-5 font-semibold text-gray-900"><%= Matiere.find(content).name %></div>
+                    <div class="text-sm leading-5 font-semibold text-gray-900"><%= content.matiere.name  %></div>
                   </div>
                 </div>
               </td>

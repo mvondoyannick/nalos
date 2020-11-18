@@ -35,8 +35,16 @@
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
           Salle de classe
         </label>
-        <%= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id), :id, :class_with_initial, {prompt: "Selectionner une salle de classe..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"}) %>
+        <%= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id), :salle_de_class_id, :class_with_initial, {prompt: "Selectionner une salle de classe..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"}) %>
       </div>
+
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          Filière
+        </label>
+        <%= form.collection_select(:filiere_id, Filiere.all, :id, :name, {prompt: "Selectionner une filiere..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"}) %>
+      </div>
+
     </div>
 
     <div class="-mx-3 md:flex mb-6">

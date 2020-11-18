@@ -69,6 +69,6 @@ class FilieresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def filiere_params
-      params.require(:filiere).permit(:name, :content, :salle_de_class_id)
+      params.require(:filiere).permit(:name, :content, :structure_id)
     end
 end

@@ -48,6 +48,11 @@ class HomeStudentController < ApplicationController
     @epreuves = Epreuve.where(salle_de_class_id: current_student.salle_de_class_id).page(params[:page]).per(10)
   end
 
+  # my student responses
+  def my_responses
+    @responses = current_student.e_responses.all
+  end
+
   # read epreuves
   def read_epreuve
     @epreuve = Epreuve.find_by_token(params[:token])
@@ -55,7 +60,17 @@ class HomeStudentController < ApplicationController
 
   # read epreuve response
   def read_response
-    @epreuve_response = Epreuve.find_by_token(params[:token])
+    if request.get?
+      @epreuve_response = Epreuve.find_by_token(params[:token])
+    elsif request.post?
+      epr = Epreuve.find_by_token(params[:epreuve_token])
+      new_response = current_student.e_responses.new(epreuve_id: epr.id, user_id: epr.user_id, salle_de_class_id: epr.salle_de_class_id, fichier: params[:fichier], description: params[:descriptioin])
+      if new_response.save
+        redirect_to index_epreuves_path, notice: "Reponse correctement transmis"
+      else
+        redirect_to index_epreuves_path, notice: "Une erreur est survenu durant le traitement : #{new_response.errors.details}"
+      end
+    end
   end
 
   # gestion des matières de l'eleve
@@ -126,7 +141,7 @@ class HomeStudentController < ApplicationController
   end
 
   def my_teacher_course
-    @courses = Course.where(user_id: params[:current_teacher], salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2)
+    @courses = User.find(params[:current_teacher]).courses #.where(salle_de_class_id: current_student.salle_de_class_id) #Course.where(user_id: params[:current_teacher], salle_de_class_id: current_student.salle_de_class_id, course_status_id: 2)
   end
 
   # ressource de l'apprenant

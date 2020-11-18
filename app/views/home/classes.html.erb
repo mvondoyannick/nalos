@@ -16,7 +16,7 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Salles de classe
+      Salles de classes
       <br/>
       <span class="text-indigo-600">& affectations.</span>
     </h2>
@@ -61,7 +61,11 @@
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                 <div class="flex items-center">
                   <div class="flex-shrink-0 h-10 w-10">
-                    <%= image_tag 'logo.png', class: "h-10 w-10 rounded-full" %>
+                    <% if current_user.structure.logo.attached? %>
+                      <%= image_tag current_user.structure.logo, class: "h-10 w-10 rounded-full" %>
+                    <% else %>
+                      <%= image_tag 'logo.png', class: "h-10 w-10 rounded-full" %>
+                    <% end %>
                   </div>
                   <div class="ml-4">
                     <div class="text-sm leading-5 font-medium text-gray-900 font-semibold"><%= classe.salle_de_class.name %></div>
@@ -81,8 +85,12 @@
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= Student.where(salle_de_class_id: classe.id).count %> Apprenant(s)</div>
-                <div class="text-sm leading-5 text-gray-500"><%= User.where(salle_de_class_id: classe.id).count %> Enseigneant(s)</div>
+                <div class="text-sm leading-5 text-gray-900"><%= Student.where(salle_de_class_id: classe.id).count %>
+                  Apprenant(s)
+                </div>
+                <div class="text-sm leading-5 text-gray-500"><%= User.where(salle_de_class_id: classe.id).count %>
+                  Enseigneant(s)
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                 <%= link_to "Accèder à la classe", inside_classe_path(token: classe.salle_de_class.token), class: "text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline hover:bg-transparent" %>

@@ -16,13 +16,13 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Mes leçons
+      Mes leçons ou supports de cours
       <br/>
       <span class="text-indigo-600">publiées.</span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to 'Nouvelle leçon', documents_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        <%= link_to 'Nouvelle leçon/Nouveau support de cours', documents_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
     </div>
 
@@ -56,64 +56,188 @@
       <div class="flex flex-wrap -mx-1 lg:-mx-4">
 
 
-        <% @courses.each do |course| %>
-          <!-- Column -->
-          <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+        <div class="element">
 
-            <!-- Article -->
-            <% if course.nil? %>
-              Aucune publication trouvée
-            <% else %>
 
-              <article class="overflow-hidden rounded-lg shadow-lg bg-white">
+          <% @courses.each do |course| %>
 
-                <a href="#">
-
-                  <%= link_to(image_tag('course.png', size: '1000x1000'), course_path(course), class: "hover:bg-transparent block h-auto w-full") %>
-
-                </a>
-
-                <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                  <h1 class="text-lg">
-                    <p class="text-red-500 font-bold">
-                      <%= course.categorie.nil? ? "Aucune catégorie" : course.categorie.upcase %>
-                    </p>
-                    <a class="hover:bg-transparent hover:text-indigo-500 no-underline hover:underline text-black" href="#">
-                      <%= course.chapter %>
-                    </a>
-                    <p>
-                      <%= course.salle_de_class.name %>
-                    </p>
-                  </h1>
-                  <p class="text-grey-darker text-sm">
-                    <%= course.created_at.strftime("%d %b %Y") %>
-                  </p>
-                </header>
-
-                <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                  <%= link_to "#", class: "hover:bg-transparent hover:text-indigo-500 flex items-center no-underline hover:underline text-black" do %>
-                    <%= image_tag 'teacher.png', class: "block rounded-full h-10 w-10" %>
-                    <p class="ml-2 text-sm">
-                      <%= course.user.complete_name %>
-                    </p>
-                  <% end %>
-                  <a class="hover:bg-transparent hover:text-indigo-500 no-underline text-grey-darker hover:text-red-dark" href="#">
-                    <span class="hidden">Like</span>
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </footer>
-
-              </article>
-
+            <%= link_to course_path(course) do %>
+              <div class="card">
+              <div class="card-image"></div>
+              <div class="card-text">
+                <span class="date"><%= course.created_at.strftime("%d %b %Y") %></span>
+                <h2><%= course.chapter %></h2>
+                <p style="width: 100%;">
+                  Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
+                  deserunt eligendi dolor
+                </p>
+              </div>
+              <div class="card-stats">
+                <div class="stat">
+                  <div class="value">4<sup>m</sup></div>
+                  <div class="type">Lire</div>
+                </div>
+                <div class="stat border">
+                  <div class="value">5123</div>
+                  <div class="type">views</div>
+                </div>
+                <div class="stat">
+                  <div class="value"><%= course.salle_de_class.name %></div>
+                  <div class="type"><%= course.matiere.name %></div>
+                </div>
+              </div>
+            </div>
             <% end %>
-            <!-- END Article -->
 
-          </div>
-          <!-- END Column -->
-        <% end %>
+          <% end %>
+
+        </div>
 
       </div>
     </div>
   </div>
 
 <% end %>
+
+<style>
+    .element {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-column-gap: 6px;
+        grid-row-gap:6px;
+
+    }
+
+    .card {
+        display: grid;
+        /*grid-template-columns: 300px;*/
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-rows: 210px 210px 80px;
+        grid-template-areas: "image" "text" "stats";
+
+        grid-column-gap: 6px;
+        grid-row-gap:6px;
+
+        border-radius: 18px;
+        background: white;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+        font-family: roboto;
+        text-align: center;
+
+
+        transition: 0.5s ease;
+        cursor: pointer;
+        margin: 30px;
+    }
+
+    .card-image {
+        grid-area: image;
+        background: url(<%= asset_path('pdf.png') %>);
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        background-size: cover;
+    }
+
+    .card-text {
+        grid-area: text;
+        margin: 25px;
+    }
+
+    .card-text .date {
+        color: rgb(255, 7, 110);
+        font-size: 13px;
+    }
+
+    .card-text p {
+        color: grey;
+        font-size: 15px;
+        font-weight: 300;
+    }
+
+    .card-text h2 {
+        margin-top: 0px;
+        font-size: 28px;
+    }
+
+    .card-stats {
+        grid-area: stats;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background: rgb(255, 7, 110);
+    }
+
+    .card-stats .stat {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: white;
+    }
+
+    .card-stats .border {
+        border-left: 1px solid rgb(172, 26, 87);
+        border-right: 1px solid rgb(172, 26, 87);
+    }
+
+    .card-stats .value {
+        font-size: 22px;
+        font-weight: 500;
+    }
+
+    .card-stats .value sup {
+        font-size: 12px;
+    }
+
+    .card-stats .type {
+        font-size: 11px;
+        font-weight: 300;
+        text-transform: uppercase;
+    }
+
+    .card:hover {
+        transform: scale(1.15);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+    }
+
+    /*card2*/
+    .card-image.card2 {
+        background: url("img2.jpg");
+        background-size: cover;
+    }
+
+    .card-text.card2 .date {
+        color: rgb(255, 77, 7);
+    }
+
+    .card-stats.card2 .border {
+        border-left: 1px solid rgb(185, 67, 20);
+        border-right: 1px solid rgb(185, 67, 20);
+    }
+
+    .card-stats.card2 {
+        background: rgb(255, 77, 7);
+    }
+
+    /*card3*/
+    .card-image.card3 {
+        background: url("img3.jpg");
+        background-size: cover;
+    }
+
+    .card-text.card3 .date {
+        color: rgb(0, 189, 63);
+    }
+
+    .card-stats.card3 .border {
+        border-left: 1px solid rgb(14, 122, 50);
+        border-right: 1px solid rgb(14, 122, 50);
+    }
+
+    .card-stats.card3 {
+        background: rgb(0, 189, 63);
+    }
+</style>

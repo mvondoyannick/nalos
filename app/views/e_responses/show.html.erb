@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Epreuve:</strong>
+  <%= @e_response.epreuve_id %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @e_response.student_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @e_response.user_id %>
+</p>
+
+<p>
+  <strong>Salle de class:</strong>
+  <%= @e_response.salle_de_class_id %>
+</p>
+
+<%= link_to 'Edit', edit_e_response_path(@e_response) %> |
+<%= link_to 'Back', e_responses_path %>

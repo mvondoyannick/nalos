@@ -1,5 +1,6 @@
 class SetupController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: []
+  before_action :authenticate_user!, except: [:document_calc_server, :document_powerpoint_server, :document_word_server]
 
   # index of setup plateforme
   def index

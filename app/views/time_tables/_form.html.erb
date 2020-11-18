@@ -1,0 +1,104 @@
+<%= form_with(model: time_table, local: true) do |form| %>
+  <% if time_table.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(time_table.errors.count, "error") %> prohibited this time_table from being saved:</h2>
+
+      <ul>
+        <% time_table.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- component -->
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          <%= form.label :periode_debut %>
+        </label>
+        <%= form.date_field :periode_debut, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3", required: true %>
+        <p class="text-red text-xs italic">Please fill out this field.</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          <%= form.label :periode_fin %>
+        </label>
+        <%= form.date_field :periode_fin, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true %>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          <%= form.label :filiere_id %>
+        </label>
+        <%= form.collection_select(:filiere_id, Filiere.all, :id, :name, {prompt: "Selectionner une filière..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true}) %>
+        <p class="text-red text-xs italic">Please fill out this field.</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          <%= form.label :salle_de_class_id %>
+        </label>
+        <%= form.collection_select(:salle_de_class_id, SalleDeClass.all, :id, :name, {prompt: "Selectionner une salle de classe..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true}) %>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          <%= form.label :fichier %>
+        </label>
+        <%= form.file_field :file, class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", accept: "application/pdf", required: true %>
+        <p class="text-red text-xs italic">Please fill out this field.</p>
+      </div>
+      <div class="md:w-1/2 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
+          <%= form.label :etablissement %>
+        </label>
+        <%= form.collection_select(:structure_id, Structure.all, :id, :name, {prompt: "Selectionner un etablissement..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true}) %>
+      </div>
+    </div>
+    <div class="-mx-3 md:flex mb-2">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-city">
+
+        </label>
+        <%= form.submit "Enregistrer un nouvelle emploi du temps", class: "px-6 py-4"%>
+      </div>
+    </div>
+  </div>
+
+<!--  <div class="field">-->
+    <%#= form.label :periode_debut %>
+    <%#= form.date_field :periode_debut %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :periode_fin %>
+    <%#= form.date_field :periode_fin %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :filiere_id %>
+    <%#= form.collection_select(:filiere_id, Filiere.all, :id, :name, {prompt: "Selectionner une filière..."}, {class: "select2 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500", required: true}) %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :salle_de_class_id %>
+    <%#= form.collection_select(:salle_de_class_id, SalleDeClass.all, :id, :name, {prompt: "Selectionner une salle classe..."}, {class: "select2 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500", required: true}) %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :structure_id %>
+    <%#= form.collection_select(:structure_id, Structure.all, :id, :name, {prompt: "Selectionner un etablissement..."}, {class: "select2 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500", required: true}) %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :file %>
+    <%#= form.file_field :file %>
+<!--  </div>-->
+
+<!--  <div class="actions">-->
+    <%#= form.submit %>
+<!--  </div>-->
+<% end %>

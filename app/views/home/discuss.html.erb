@@ -72,6 +72,12 @@
                 <div class="text-sm leading-5 text-gray-500">Apprenants dispo.</div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                <%= link_to discus_chat_path(token: classe.salle_de_class.token, room: @room, etablissement: @etablissement), title: "Générer un lien de discussion", class: "inline-block text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline hover:bg-transparent" do %>
+                  <svg class="mr-4 opacity-50 w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                  </svg>
+                <% end %>
+
                 <%= link_to discus_chat_path(token: classe.salle_de_class.token), class: "inline-block text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline hover:bg-transparent" do %>
                   <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="50" height="50"
                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"

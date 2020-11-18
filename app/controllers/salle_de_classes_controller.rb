@@ -4,8 +4,12 @@ class SalleDeClassesController < ApplicationController
   # GET /salle_de_classes
   # GET /salle_de_classes.json
   def index
-    current_structure = current_user.structure #Structure.find_by_token(params[:token])
-    @salle_de_classes = SalleDeClass.where(structure_id: current_structure.id).order(name: :desc).page(params[:page]).per(20)
+    if current_user.role.name == "root"
+      @salle_de_classes = SalleDeClass.all.order(name: :desc).page(params[:page]).per(20)
+    else
+      current_structure = current_user.structure #Structure.find_by_token(params[:token])
+      @salle_de_classes = SalleDeClass.where(structure_id: current_structure.id).order(name: :desc).page(params[:page]).per(20)
+    end
   end
 
   # GET /salle_de_classes/1

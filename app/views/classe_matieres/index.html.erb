@@ -1,26 +1,131 @@
 <p id="notice"><%= notice %></p>
 
+<!--
+  Tailwind UI components require Tailwind CSS v1.8 and the @tailwindcss/ui plugin.
+  Read the documentation to get started: https://tailwindui.com/documentation
+-->
+<div class="bg-gray-50">
+  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+      Matières enseignée dans
+      <br>
+      <span class="text-indigo-600">chaque salle de classe</span>
+    </h2>
+    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Ajouter nouvelle matière", new_classe_matiere_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @classe_matieres.empty? %>
+
+  <div class="mt-8 max-w-3xl lg:max-w-none lg:flex lg:justify-center lg:mt-12">
+    <div class="rounded-md bg-blue-50 px-4 py-3 flex items-start lg:justify-center lg:px-12 lg:py-4">
+      <div class="flex-shrink-0">
+        <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <div class="ml-3 flex-1 md:flex md:justify-between">
+        <p class="text-sm leading-6 font-medium text-blue-700">Il semblerait qu'aucune matiere n'a encore été enregistrée.</p>
+        <p class="mt-2 text-sm leading-6 md:mt-0 md:ml-4">
+          <%= link_to "Nouvelle matiere pour une classe →", new_classe_matiere_path, class: "hover:bg-transparent font-medium text-blue-700 hover:underline hover:text-blue-500 transition ease-in-out duration-150" %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+
+  <div class="flex flex-col">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+            <tr>
+              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Salle de classe
+              </th>
+              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Matiere
+              </th>
+              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th class="px-6 py-3 bg-gray-50"></th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            <% @classe_matieres.each do |classe_matiere| %>
+
+              <tr>
+                <td class="px-6 py-4 whitespace-no-wrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10">
+                      <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+                    </div>
+                    <div class="ml-4">
+                      <div class="text-sm leading-5 font-medium text-gray-900">
+                        <%= classe_matiere.salle_de_class.name %>
+                      </div>
+                      <div class="text-sm leading-5 text-gray-500">
+                        jane.cooper@example.com
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap">
+                  <div class="text-sm leading-5 text-gray-900">Regional Paradigm Technician</div>
+                  <div class="text-sm leading-5 text-gray-500">Optimization</div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  Active
+                </span>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                </td>
+              </tr>
+
+            <% end %>
+
+            <!-- More rows... -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+
+
 <h1>Classe Matieres</h1>
 
 <table>
   <thead>
-    <tr>
-      <th>Salle de class</th>
-      <th>Matiere</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>Salle de class</th>
+    <th>Matiere</th>
+    <th colspan="3"></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @classe_matieres.each do |classe_matiere| %>
-      <tr>
-        <td><%= classe_matiere.salle_de_class_id %></td>
-        <td><%= classe_matiere.matiere_id %></td>
-        <td><%= link_to 'Show', classe_matiere %></td>
-        <td><%= link_to 'Edit', edit_classe_matiere_path(classe_matiere) %></td>
-        <td><%= link_to 'Destroy', classe_matiere, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @classe_matieres.each do |classe_matiere| %>
+    <tr>
+      <td><%= classe_matiere.salle_de_class_id %></td>
+      <td><%= classe_matiere.matiere_id %></td>
+      <td><%= link_to 'Show', classe_matiere %></td>
+      <td><%= link_to 'Edit', edit_classe_matiere_path(classe_matiere) %></td>
+      <td><%= link_to 'Destroy', classe_matiere, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 

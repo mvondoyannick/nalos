@@ -74,6 +74,6 @@ class MatieresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def matiere_params
-      params.require(:matiere).permit(:name, :descriptioin)
+      params.require(:matiere).permit(:name, :descriptioin, :structure_id)
     end
 end

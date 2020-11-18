@@ -17,7 +17,7 @@
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
       Matières
       <br/>
-      <span class="text-indigo-600">disponibles <%= current_user.structure.name %></span>
+      <span class="text-indigo-600">disponibles</span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
@@ -59,6 +59,9 @@
             </th>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
               description
+            </th>
+            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Entablissement
             </th>
             <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
           </tr>
@@ -171,7 +174,10 @@
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= matiere.descriptioin %></div>
+                <div class="text-sm leading-5 text-gray-900"><%= matiere.descriptioin.nil? ? "Aucune description" : matiere.descriptioin %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                <div class="text-sm leading-5 text-gray-900"><%= matiere.structure_id.nil? ? "Aucune description" : matiere.structure.name %></div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Voir', matiere %></td>
               <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Editer', edit_matiere_path(matiere) %></td>

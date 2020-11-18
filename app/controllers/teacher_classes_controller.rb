@@ -72,7 +72,11 @@ class TeacherClassesController < ApplicationController
     end
 
     # send user to new interface
-    redirect_to admin_index_path(token: token), notice: "Toutes les Affectations ont été effectuées"
+    if current_user.role.name == "root"
+      redirect_to teacher_classes_path(token: token), notice: "Toutes les Affectations ont été effectuées"
+    else
+      redirect_to admin_index_path(token: token), notice: "Toutes les Affectations ont été effectuées"
+    end
 
     # p = params[:matiere_id].reject!(&:blank?)
     # p.each do |matiere|

@@ -11,6 +11,25 @@ class EpreuvesController < ApplicationController
   # GET /epreuves/1
   # GET /epreuves/1.json
   def show
+    @data = current_user.e_responses
+  end
+
+  # verifier une épreuve
+  def verif_epreuve
+    if request.get?
+      resp = params[:e_id]
+      @response = EResponse.find(resp)
+    elsif request.post?
+      rep = params[:responde_id]
+      current_response = EResponse.find(rep)
+      if current_response.update(statut: true)
+        # send SMS to sutudent
+        redirect_to epreuves_path, notice: "Epreuve validé, correction en cours de transmission via email et SMS"
+      else
+        redirect_to epreuves_path, notice: "Impossible de valide cette epreuve"
+      end
+    end
+
   end
 
   # GET /epreuves/new
@@ -32,6 +51,7 @@ class EpreuvesController < ApplicationController
         format.html { redirect_to @epreufe, notice: 'Epreuve was successfully created.' }
         format.json { render :show, status: :created, location: @epreufe }
       else
+        puts @epreufe.errors.details
         format.html { render :new }
         format.json { render json: @epreufe.errors, status: :unprocessable_entity }
       end

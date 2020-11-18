@@ -22,7 +22,7 @@
     <div class="-mx-3 md:flex mb-6">
       <div class="md:w-1/2 px-3 mb-6 md:mb-0">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
-          Nom de la salle de classe
+          Nom de la salle de classe/Filière
         </label>
         <%= form.text_field :name, placeholder: 'Nom salle de classe', class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3' %>
         <p class="text-red text-xs italic">Libellé de la salle de classe.</p>
@@ -35,12 +35,19 @@
       </div>
     </div>
     <div class="-mx-3 md:flex mb-6">
-      <div class="md:w-full px-3">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0 px-3">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-password">
           Cycle de la salle de classe
         </label>
         <%= form.collection_select(:cycle_ecole_id, CycleEcole.all, :id, :name, {:include_blank => "Selectionner un cycle (francophone/Anglophone)"}, {class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3'}) %>
         <p class="text-grey-dark text-xs italic">Anglophone, Francophone ou bilingue</p>
+      </div>
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0 px-3">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-password">
+          Etablissement concerné
+        </label>
+        <%= form.collection_select(:structure_id, Structure.all, :id, :name, {:include_blank => "Selectionner un etablissement"}, {class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3'}) %>
+        <p class="text-grey-dark text-xs italic">Selectionner l'établissement ayant cette salle de classe</p>
       </div>
     </div>
     <p class="text-2xl mt-8 mb-8">

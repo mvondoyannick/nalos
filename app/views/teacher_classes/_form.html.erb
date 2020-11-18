@@ -13,11 +13,12 @@
 
   <%= form.hidden_field :structure_id, value: current_user.structure_id %>
 
+
   <div class="p-10 bg-white shadow">
 
-    <div class="flex-wrap -mx-3 mb-6">
+    <div class="-mx-3 md:flex mb-6">
 
-      <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 shadow p-5">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
         <label class="block uppercase tracking-wide text-2xl text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
           <%= form.label 'Enseignant' %>
         </label>
@@ -29,14 +30,33 @@
         <p class="text-gray-500 text-xs italic">Selectionner un enseignant</p>
       </div>
 
-      <div class="shadow mt-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-2xl text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+          <%= form.label 'Matière' %>
+        </label>
+        <% if current_user.role.name == "root" %>
+
+          <%= form.collection_select(:matiere_id, Matiere.all.order(name: :asc), :id, :name, {prompt: "Selectionner une matière"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+
+        <% else %>
+
+          <%= form.collection_select(:matiere_id, Matiere.where(structure_id: current_user.structure.id).order(name: :asc), :id, :name, {prompt: "Selectionner une matière"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+
+        <% end %>
+        <p class="text-gray-500 text-xs italic">Selectionner une matière</p>
+      </div>
+
+    </div>
+
+
+      <div class="mt-6">
         <p>
           <%= form.label :salle_de_class_id, class: "block uppercase tracking-wide p-5 mb-5 rounded-all text-gray-700 text-2xl font-bold mb-2" %>
         </p>
         <div class="flex inline-block flex-wrap">
           <% if current_user.role.name == "root" %>
             <%= form.collection_check_boxes(:salle_de_class_id, SalleDeClass.all.order(name: :asc), :id, :salle_de_class_with_initial) do |b| %>
-              <%= b.label(class: "my-#{ b.object.class.name.parameterize } p-2 flex m-2 pb-4 pl-6 pr-6 hover:bg-gray-200 shadow inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
+              <%= b.label(class: "my-#{ b.object.class.name.parameterize } hover:bg-indigo-500 hover:text-white uppercase p-2 flex m-2 pb-4 pl-6 pr-6 hover:bg-gray-200 shadow inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
             <% end %>
           <% else %>
             <%= form.collection_check_boxes(:salle_de_class_id, SalleDeClass.where(structure_id: current_user.structure.id).order(name: :asc).group(:id).distinct, :id, :salle_de_class_with_initial) do |b| %>
@@ -51,26 +71,8 @@
 
     </div>
 
-    <div class="field flex inline-block flex-wrap">
-      <%= form.label 'Matières' %>
-      <% if current_user.role.name == "root" %>
-
-        <%= form.collection_select(:matiere_id, Matiere.all.order(name: :asc), :id, :name, {prompt: "Selectionner une matière"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-
-      <% else %>
-
-        <%= form.collection_select(:matiere_id, Matiere.where(structure_id: current_user.structure.id).order(name: :asc), :id, :name, {prompt: "Selectionner une matière"}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-
-      <% end %>
-
-
-      <%#= form.collection_check_boxes(:matiere_id, Matiere.where(structure_id: current_user.structure.id).group(:id).distinct, :id, :matiere_with_initial) do |b| %>
-      <%#= b.label(class: "my-#{ b.object.class.name.parameterize } p-2 flex inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
-      <%# end %>
-    </div>
-
     <div class="actions">
-      <%= form.submit "Valider l'affectation", class: "bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" %>
+      <%= form.submit "Valider l'affectation de l'enseignant", class: "mt-10 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" %>
     </div>
 
   </div>

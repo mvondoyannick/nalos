@@ -62,20 +62,20 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Du même enseignant
+      Autres cours publiés par
       <br />
-      <span class="text-indigo-600">Cours du même enseignant.</span>
+      <span class="text-indigo-600"><%= @current_course.user.complete_name %>.</span>
     </h2>
   </div>
 </div>
 <br>
-<% @teacher_course = Course.where(user_id: @current_course.user_id, salle_de_class_id: current_student.salle_de_class_id).limit(8) %>
+<% @teacher_course = Course.where(user_id: @current_course.user_id).limit(8) %>
 <% if @teacher_course.nil? %>
   <p class="text-center text-gray-600 font-semibold">Aucun cours produit par cet enseignant</p>
 <% else %>
   <div class="grid grid-cols-4 gap-4 mb-4">
     <% @teacher_course.each do |cours| %>
-      <div class="bg-white overflow-hidden border-b-4 border-blue-500">
+      <div class="bg-white overflow-hidden border-b-4 border-blue-500 shadow-md hover:shadow-lg">
         <% if cours.file.nil? %>
           Aucune publication trouvée
         <% else %>

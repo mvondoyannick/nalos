@@ -1,11 +1,12 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:discus_chat]
   before_action :update_comment_readed, only: :read_message
   def index
     if current_user.role.name == 'teacher'
 
       @current_course = Course.where(user_id: current_user.id, deleted: false).order(created_at: :desc)
       @local_news = LocalNews.all.order(created_at: :desc)
+      @time_table = TimeTable.all
 
     elsif current_user.role.name == 'principale'
 
@@ -44,14 +45,25 @@ class HomeController < ApplicationController
   end
 
   def discuss
-    salle_id = current_user.salle_de_class_id
-    @classe = TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id)
+    if current_user.role.name == "root"
+
+    else
+      salle_id = current_user.salle_de_class_id
+      @room = SecureRandom.hex(10)
+      @etablissement = current_user.structure.name
+      @classe = TeacherClasse.where(user_id: current_user.id)#.group(:salle_de_class_id)
+    end
   end
 
   # discus text actionCable
   def discus_chat
-    @current_classe = SalleDeClass.find_by_token(params[:token])
-    @current_students = Student.where(salle_de_class_id: @current_classe.id).page(params[:page]).per(10)
+    if user_signed_in?
+      @url = request.url
+      @current_classe = SalleDeClass.find_by_token(params[:token])
+      @current_students = Student.where(salle_de_class_id: @current_classe.id).page(params[:page]).per(10)
+    else
+      render layout: false
+    end
   end
 
   # discus video actionCable + webRTC
@@ -95,7 +107,7 @@ class HomeController < ApplicationController
 
   def classes
     salle_id = current_user.salle_de_class_id
-    @classe = TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id)
+    @classe = TeacherClasse.where(user_id: current_user.id) #.group(:salle_de_class_id)
   end
 
   # acceder à une salle de classe

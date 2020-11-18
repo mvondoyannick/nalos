@@ -20,7 +20,9 @@
       </label>
       <%= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id), :id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+        </svg>
       </div>
       <p class="text-red-500 text-xs italic">Selectionner une matière</p>
     </div>
@@ -38,15 +40,22 @@
         <%= form.label "Fichier à joindre" %>
       </label>
       <%= form.file_field :file, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" %>
-      <p class="text-red-500 text-xs italic">Le titre de votre cours</p>
+      <p class="text-red-500 text-xs italic">
+        Le titre de votre cours
+        <% if @course.file.attached? %>
+          | <%= link_to "Lorem", "#" %>
+        <% end %>
+      </p>
     </div>
     <div class="w-full md:w-1/2 px-3">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
         <%= form.label "Classe concernée" %>
       </label>
-      <%= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id), :id, :class_with_initial, {prompt: "Selectionner une classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+      <%= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id), :id, :class_with_initial, {prompt: "Selectionner une classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+        </svg>
       </div>
       <p class="text-green-500 text-xs italic">Classe concernée par ce cours</p>
     </div>
@@ -59,7 +68,9 @@
       <div class="inline-block relative w-84">
         <%= form.select(:categorie, [%w(Cours cours), %w(TD td), %w(Exercices exercice), %w(Documents document)], {}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+          </svg>
         </div>
       </div>
       <p class="text-green-500 text-xs italic">Sélectionner une categorie</p>
