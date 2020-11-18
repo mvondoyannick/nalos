@@ -3,6 +3,8 @@ class Structure < ApplicationRecord
   has_many :cycle_ecoles
   has_many :salle_de_classes
   has_many :matieres
+  has_many :filieres
+  has_many :courses
   # has_many :teacher_classes
   has_many :yrs, dependent: :delete_all
 

@@ -10,6 +10,7 @@ class Student < ApplicationRecord
   has_many :problemes
   has_many :messages
   # belongs_to :filiere
+  has_many :e_responses, dependent: :delete_all
 
   def self.import_bak(file)
     CSV.foreach(file.path, headers: true) do |row|

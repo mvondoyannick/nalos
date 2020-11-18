@@ -3,6 +3,7 @@ class Course < ApplicationRecord
 
   belongs_to :salle_de_class
   belongs_to :matiere
+  belongs_to :structure
   belongs_to :user, dependent: :destroy
   belongs_to :course_status, dependent: :destroy
   has_one :document, dependent: :destroy

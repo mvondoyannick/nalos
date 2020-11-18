@@ -4,7 +4,7 @@ class Epreuve < ApplicationRecord
 
   belongs_to :salle_de_class
   belongs_to :matiere
-  # belongs_to :user
+  belongs_to :user
 
   # enable activeStorage
   has_one_attached :file

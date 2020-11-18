@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_10_100405) do
+ActiveRecord::Schema.define(version: 2020_11_17_124421) do
 
   create_table "action_mailbox_inbound_emails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -137,6 +137,21 @@ ActiveRecord::Schema.define(version: 2020_11_10_100405) do
     t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
+  create_table "e_responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "epreuve_id", null: false
+    t.bigint "student_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "salle_de_class_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "statut"
+    t.string "description"
+    t.index ["epreuve_id"], name: "index_e_responses_on_epreuve_id"
+    t.index ["salle_de_class_id"], name: "index_e_responses_on_salle_de_class_id"
+    t.index ["student_id"], name: "index_e_responses_on_student_id"
+    t.index ["user_id"], name: "index_e_responses_on_user_id"
+  end
+
   create_table "enseignements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.string "content"
@@ -162,6 +177,8 @@ ActiveRecord::Schema.define(version: 2020_11_10_100405) do
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "structure_id"
+    t.index ["structure_id"], name: "index_filieres_on_structure_id"
   end
 
   create_table "jfn_support_courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -342,6 +359,19 @@ ActiveRecord::Schema.define(version: 2020_11_10_100405) do
     t.index ["user_id"], name: "index_teacher_classes_on_user_id"
   end
 
+  create_table "time_tables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "periode_debut"
+    t.string "periode_fin"
+    t.bigint "filiere_id", null: false
+    t.bigint "salle_de_class_id", null: false
+    t.bigint "structure_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["filiere_id"], name: "index_time_tables_on_filiere_id"
+    t.index ["salle_de_class_id"], name: "index_time_tables_on_salle_de_class_id"
+    t.index ["structure_id"], name: "index_time_tables_on_structure_id"
+  end
+
   create_table "trs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "debut"
@@ -432,9 +462,14 @@ ActiveRecord::Schema.define(version: 2020_11_10_100405) do
   add_foreign_key "courses", "users"
   add_foreign_key "cycle_ecoles", "structures"
   add_foreign_key "documents", "users"
+  add_foreign_key "e_responses", "epreuves", column: "epreuve_id"
+  add_foreign_key "e_responses", "salle_de_classes"
+  add_foreign_key "e_responses", "students"
+  add_foreign_key "e_responses", "users"
   add_foreign_key "epreuves", "matieres"
   add_foreign_key "epreuves", "salle_de_classes"
   add_foreign_key "epreuves", "users"
+  add_foreign_key "filieres", "structures"
   add_foreign_key "jfn_support_courses", "users"
   add_foreign_key "matieres", "structures"
   add_foreign_key "messages", "students"
@@ -449,6 +484,9 @@ ActiveRecord::Schema.define(version: 2020_11_10_100405) do
   add_foreign_key "teacher_classes", "salle_de_classes"
   add_foreign_key "teacher_classes", "structures"
   add_foreign_key "teacher_classes", "users"
+  add_foreign_key "time_tables", "filieres"
+  add_foreign_key "time_tables", "salle_de_classes"
+  add_foreign_key "time_tables", "structures"
   add_foreign_key "trs", "yrs"
   add_foreign_key "users", "salle_de_classes"
   add_foreign_key "users", "structures"
