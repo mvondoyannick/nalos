@@ -5,7 +5,7 @@ class CycleEcolesController < ApplicationController
   # GET /cycle_ecoles
   # GET /cycle_ecoles.json
   def index
-    @cycle_ecoles = CycleEcole.all
+    @cycle_ecoles = CycleEcole.where(structure_id: current_user.structure_id)
   end
 
   # GET /cycle_ecoles/1
