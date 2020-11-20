@@ -234,10 +234,28 @@
           <div class="flex-grow">
             <h2 class="text-gray-900 title-font font-medium"><%= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %></h2>
             <p class="text-gray-500">
-              <% if current_user.structure.structure_type.name == "univerite".downcase %>Cours
-              <% else %> Lecons
-              <% end %> en attente de validation</p>
-          </div>
+              <% if StructureType.any? %>
+
+                <% if current_user.structure.structure_type.name == "univerite".downcase %>
+
+                  Cours
+
+                <% else %>
+
+                  Lecons
+
+                <% end %>
+
+                en attente de validation
+
+                </p>
+
+              <% else %>
+
+                En attente de validation
+
+              <% end %>
+              </div>
         </div>
       </div>
       <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
@@ -971,7 +989,7 @@
         </div>
         <div class="flex justify-center">
           <div class="flex rounded-md mt-8">
-            <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</a></a>
+            <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a></a>
             <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>1</span></a>
             <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>2</span></a>
             <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>3</span></a>
