@@ -234,7 +234,7 @@
           <div class="flex-grow">
             <h2 class="text-gray-900 title-font font-medium"><%= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %></h2>
             <p class="text-gray-500">
-              <% if StructureType.any? %>
+              <% if !StructureType.all.count.zero? %>
 
                 <% if current_user.structure.structure_type.name == "univerite".downcase %>
 
