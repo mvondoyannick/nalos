@@ -105,6 +105,15 @@
         <p class="text-red text-xs italic">Pays de localisation de l'établissement.</p>
       </div>
     </div>
+    <div class="-mx-3 md:flex mb-6">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+          Type établissement
+        </label>
+        <%= form.collection_select(:structure_type_id, StructureType.all, :id, :name, {prompt: "Selectionner le type d'etablissement"}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3", required: true}) %>
+        <p class="text-red text-xs italic">Selectionner le type d'établissement.</p>
+      </div>
+    </div>
   </div>
 
 <% end %>

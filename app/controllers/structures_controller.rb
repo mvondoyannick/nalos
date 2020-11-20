@@ -98,6 +98,6 @@ class StructuresController < ApplicationController
 
   # only accept user params
   def user_params
-    params.permit(:user_name, :user_email, :user_main_phone, :user_second_phone, :user_date_delivrance, :user_cni, :cycle_name)
+    params.permit(:user_name, :user_email, :user_main_phone, :user_second_phone, :user_date_delivrance, :user_cni, :cycle_name, :structure_type_id)
   end
 end
