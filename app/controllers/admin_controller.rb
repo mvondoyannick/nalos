@@ -199,7 +199,11 @@ class AdminController < ApplicationController
   end
 
   def document_all
-    @documents = Document.all
+    if current_user.role.name == "root"
+      @documents = Document.all
+    else
+      @documents = Document.where(structure_id: current_user.structure_id)
+    end
   end
 
   # delete course
@@ -235,14 +239,25 @@ class AdminController < ApplicationController
   end
 
   def documents
-    @documents = Document.all
+    if current_user.role.name == "root"
+      @documents = Document.all
+    else
+      @documents = Document.where(structure_id: current_user.structure_id)
+    end
+    #@documents = Document.all
   end
 
   # Managing teacher, student, admin and administration account
   def accounts
-    @users = User.where(role_id: 1)
-    @admins = User.where(role_id: 2)
-    @students = Student.all
+    if current_user.role.name == "root"
+      @users = User.all
+      @admins = User.all
+      @students = Student.all
+    else
+      @users = User.where(role_id: Role.find_by_name('teacher').id, structure_id: current_user.structure_id)
+      @admins = User.where(role_id: Role.find_by_name('admin').id, structure_id: current_user.structure_id)
+      @students = Student.where(structure: current_user.structure_id)
+    end
   end
 
   # gestion des enseignants
@@ -315,7 +330,7 @@ class AdminController < ApplicationController
 
   # importe teacher
   def import_teacher
-    @enseignants = User.where(role_id: 1).page(params[:page]).per(20)
+    @enseignants = User.where(role_id: Role.find_by_name('teacher').id).page(params[:page]).per(20)
   end
 
   def set_role

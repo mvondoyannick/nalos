@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_013402) do
+ActiveRecord::Schema.define(version: 2020_11_20_123445) do
 
   create_table "action_mailbox_inbound_emails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -134,6 +134,8 @@ ActiveRecord::Schema.define(version: 2020_11_19_013402) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.bigint "document_id"
+    t.index ["document_id"], name: "index_documents_on_document_id"
     t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
@@ -224,8 +226,10 @@ ActiveRecord::Schema.define(version: 2020_11_19_013402) do
     t.string "token"
     t.bigint "structure_id"
     t.bigint "filiere_id"
+    t.bigint "user_id"
     t.index ["filiere_id"], name: "index_matieres_on_filiere_id"
     t.index ["structure_id"], name: "index_matieres_on_structure_id"
+    t.index ["user_id"], name: "index_matieres_on_user_id"
   end
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -472,6 +476,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_013402) do
   add_foreign_key "courses", "structures"
   add_foreign_key "courses", "users"
   add_foreign_key "cycle_ecoles", "structures"
+  add_foreign_key "documents", "documents"
   add_foreign_key "documents", "users"
   add_foreign_key "e_responses", "epreuves", column: "epreuve_id"
   add_foreign_key "e_responses", "salle_de_classes"
@@ -484,6 +489,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_013402) do
   add_foreign_key "jfn_support_courses", "users"
   add_foreign_key "matieres", "filieres"
   add_foreign_key "matieres", "structures"
+  add_foreign_key "matieres", "users"
   add_foreign_key "messages", "students"
   add_foreign_key "messages", "users"
   add_foreign_key "problemes", "students"

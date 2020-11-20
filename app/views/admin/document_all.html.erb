@@ -23,6 +23,7 @@
               <h2 class="text-gray-900 title-font font-medium"><%= link_to document.created_at.strftime("%d %b %Y"), document %></h2>
               <p class="text-gray-500"><%= User.find(document.user_id).complete_name unless document.user_id.nil? %></p>
               <p class="text-gray-500"><%= document.file.count %> Fichier(s)</p>
+              <p class="text-green-500"><%= document.structure_id.nil? ? "No school" : document.structure.name.upcase %></p>
             </div>
           </div>
         </div>
