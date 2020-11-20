@@ -228,12 +228,12 @@
                 <% if current_user.role.name == "root" %>
                   <%= form.collection_select(:structure_id, Structure.all, :id, :structure_with_initial, {prompt: "Selectionner un établissement..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
                 <% else %>
-                  <%= form.collection_select(:role_id, Role.all, :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+                  <%= form.collection_select(:structure_id, Structure.where(id: current_user.structure_id), :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
                 <% end %>
               </div>
               <div class="mb-4">
                 <label class="block uppercase tracking-wide text-xs font-bold">Salle de classe</label>
-                <%= form.collection_select(:salle_de_class_id, SalleDeClass.all, :id, :salle_de_class_with_initial, {prompt: "Selectionner une salle de classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+                <%= form.collection_select(:salle_de_class_id, SalleDeClass.where(structure_id: current_user.structure_id), :id, :salle_de_class_with_initial, {prompt: "Selectionner une salle de classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
               </div>
               <div class="mb-4">
                 <label class="block uppercase tracking-wide text-xs font-bold">Cycle d'enseignement</label>
