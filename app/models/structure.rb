@@ -7,6 +7,7 @@ class Structure < ApplicationRecord
   has_many :courses
   # has_many :teacher_classes
   has_many :yrs, dependent: :delete_all
+  belongs_to :structure_type
 
   validates :region, :pays, :logo, presence: {message: "%{value} est obligatoire."}
   validates :fixe, :name, :mobile, :email, presence: {message: '%{value} est obligatoire'}, uniqueness: {message: "%{value} à déja été utilisée."}

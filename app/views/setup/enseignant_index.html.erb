@@ -174,7 +174,7 @@
                 <% if current_user.role.name == "root" %>
                   <%= form.collection_select(:role_id, Role.all, :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
                 <% else %>
-                  <%= form.collection_select(:role_id, Role.all.group(:name).distinct, :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+                  <%= form.collection_select(:role_id, Role.all, :id, :name, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
                 <% end %>
               </div>
 
@@ -228,7 +228,7 @@
                 <% if current_user.role.name == "root" %>
                   <%= form.collection_select(:structure_id, Structure.all, :id, :structure_with_initial, {prompt: "Selectionner un établissement..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
                 <% else %>
-                  <%= form.collection_select(:role_id, Role.all.group(:name).distinct, :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+                  <%= form.collection_select(:role_id, Role.all, :id, :role_with_initial, {prompt: "Un role d'utilisateur..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
                 <% end %>
               </div>
               <div class="mb-4">

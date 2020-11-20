@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
   <!-- component -->
   <div class="bg-white shadow-lg rounded px-8 ml-12 mr-12 pt-6 pb-8 mb-4 flex flex-col my-2">
     <div class="-mx-3 md:flex mb-6">
@@ -29,11 +31,18 @@
       </div>
     </div>
     <div class="-mx-3 md:flex mb-6">
-      <div class="md:w-full px-3">
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-password">
+          Filière concernée
+        </label>
+        <%= form.collection_select(:filiere_id, Filiere.where(structure_id: current_user.structure_id), :id, :name, {prompt: "Selectionner un etablissement..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", required: true}) %>
+        <p class="text-grey-dark text-xs italic">Selectionner la filière</p>
+      </div>
+      <div class="md:w-1/2 px-3 mb-6 md:mb-0">
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-password">
           Etablissement/Structure
         </label>
-        <%= form.collection_select(:structure_id, Structure.all, :id, :name, {prompt: "Selectionner un etablissement..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", required: true}) %>
+        <%= form.collection_select(:structure_id, Structure.where(id: current_user.structure_id), :id, :name, {prompt: "Selectionner un etablissement..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3", required: true}) %>
         <p class="text-grey-dark text-xs italic">Selectionner l'établissement</p>
       </div>
     </div>

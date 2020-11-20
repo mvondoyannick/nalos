@@ -17,6 +17,7 @@ class CourseSaveJob < ApplicationJob
     # current user
     @u_id = args[:user_id]
     args[:classes_ids].each do |classe_id|
+      puts "liste des classe #{classe_id}"
       unless classe_id.nil?
         @course = Course.new(
           user_id: @current_user,
@@ -34,7 +35,7 @@ class CourseSaveJob < ApplicationJob
         if @course.save
           # enregistrer une notification dans la bd
           puts "Saved new course"
-          ActionCable.server.broadcast('notification_channel', "La leçon #{@course.chapter} à été correctement publiée")
+          # ActionCable.server.broadcast('notification_channel', "La leçon #{@course.chapter} à été correctement publiée")
           # CoursesController.render :index , assigns: { course: Course.last }
 
           @comment = Comment.new(
@@ -55,7 +56,7 @@ class CourseSaveJob < ApplicationJob
         else
 
           # une erreur est survenu durant la publicatioin
-          ActionCable.server.broadcast('notification_channel', "La leçon #{@course.chapter} n'à pas été correctement publiée \nL'erreur est #{@course.errors.details}")
+          # ActionCable.server.broadcast('notification_channel', "La leçon #{@course.chapter} n'à pas été correctement publiée \nL'erreur est #{@course.errors.details}")
           puts "Une erreur est survenue : #{@course.errors.details}"
           @comment = Comment.new(
             course_id: @course.id,

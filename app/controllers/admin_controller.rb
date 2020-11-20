@@ -10,7 +10,7 @@ class AdminController < ApplicationController
     @documents = ActiveStorage::Blob.all.limit(10).order(created_at: :desc) #Document.last(2).limit(5)
 
     # action cable push notifications
-    ActionCable.server.broadcast('notification_channel', "Vous etes actuellement à #{action_name.upcase}.")
+    # ActionCable.server.broadcast('notification_channel', "Vous etes actuellement à #{action_name.upcase}.")
 
     # render new view template
     #render layout: 'application_new'

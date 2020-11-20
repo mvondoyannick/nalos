@@ -50,7 +50,7 @@ class Course < ApplicationRecord
 
   # set course status
   def set_status
-    self.course_status_id = CourseStatus.first.id
+    self.course_status_id = CourseStatus.find_by_name('waiting').id
     self.token = SecureRandom.hex(12)
     self.deleted = false
 

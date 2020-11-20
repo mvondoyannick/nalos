@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @structure_type.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @structure_type.description %>
+</p>
+
+<%= link_to 'Edit', edit_structure_type_path(@structure_type) %> |
+<%= link_to 'Back', structure_types_path %>

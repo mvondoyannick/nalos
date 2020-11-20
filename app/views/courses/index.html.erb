@@ -16,9 +16,9 @@
 <div class="bg-gray-50">
   <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
     <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Mes leçons ou supports de cours
+      Mes leçons ou supports
       <br/>
-      <span class="text-indigo-600">publiées.</span>
+      <span class="text-indigo-600">de cours publiées.</span>
     </h2>
     <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
       <div class="inline-flex rounded-md shadow">
@@ -47,55 +47,8 @@
 
 <% else %>
 
-  <div class="py-8">
 
-    <div class="container my-12 mx-auto px-4 md:px-12">
-      <%= paginate @courses %>
-
-      <br>
-      <div class="flex flex-wrap -mx-1 lg:-mx-4">
-
-
-        <div class="element">
-
-
-          <% @courses.each do |course| %>
-
-            <%= link_to course_path(course) do %>
-              <div class="card">
-              <div class="card-image"></div>
-              <div class="card-text">
-                <span class="date"><%= course.created_at.strftime("%d %b %Y") %></span>
-                <h2><%= course.chapter %></h2>
-                <p style="width: 100%;">
-                  Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod
-                  deserunt eligendi dolor
-                </p>
-              </div>
-              <div class="card-stats">
-                <div class="stat">
-                  <div class="value">4<sup>m</sup></div>
-                  <div class="type">Lire</div>
-                </div>
-                <div class="stat border">
-                  <div class="value">5123</div>
-                  <div class="type">views</div>
-                </div>
-                <div class="stat">
-                  <div class="value"><%= course.salle_de_class.name %></div>
-                  <div class="type"><%= course.matiere.name %></div>
-                </div>
-              </div>
-            </div>
-            <% end %>
-
-          <% end %>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
+  <%= render 'layouts/course_template', courses: @courses %>
 
 <% end %>
 
@@ -104,7 +57,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         grid-column-gap: 6px;
-        grid-row-gap:6px;
+        grid-row-gap: 6px;
 
     }
 
@@ -116,7 +69,7 @@
         grid-template-areas: "image" "text" "stats";
 
         grid-column-gap: 6px;
-        grid-row-gap:6px;
+        grid-row-gap: 6px;
 
         border-radius: 18px;
         background: white;

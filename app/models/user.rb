@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :blogs, dependent: :delete_all
   has_many :jfn_support_courses, dependent: :restrict_with_error
   has_many :e_responses, dependent: :delete_all
+  has_many :matieres
 
   # for epreuve
   has_many :epreuves, dependent: :delete_all

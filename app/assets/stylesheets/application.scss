@@ -11,11 +11,13 @@
  * It is generally better to create a new file per style scope.
  *
  *= require font-awesome
+ *= require actiontext
  *= require simple_calendar
  *= require_tree .
  *= require_self
  */
 
+@import "trix/dist/trix";
 @import url("https://cdnjs.cloudflare.com/ajax/libs/plyr/3.6.2/plyr.min.js");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/plyr/3.5.10/plyr.css");
 @import url("https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css");

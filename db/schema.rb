@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_124421) do
+ActiveRecord::Schema.define(version: 2020_11_19_013402) do
 
   create_table "action_mailbox_inbound_emails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -223,6 +223,8 @@ ActiveRecord::Schema.define(version: 2020_11_17_124421) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "token"
     t.bigint "structure_id"
+    t.bigint "filiere_id"
+    t.index ["filiere_id"], name: "index_matieres_on_filiere_id"
     t.index ["structure_id"], name: "index_matieres_on_structure_id"
   end
 
@@ -300,6 +302,13 @@ ActiveRecord::Schema.define(version: 2020_11_17_124421) do
     t.index ["student_id"], name: "index_statistics_on_student_id"
   end
 
+  create_table "structure_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "structures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -312,6 +321,8 @@ ActiveRecord::Schema.define(version: 2020_11_17_124421) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "token"
+    t.bigint "structure_type_id"
+    t.index ["structure_type_id"], name: "index_structures_on_structure_type_id"
   end
 
   create_table "students", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -471,6 +482,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_124421) do
   add_foreign_key "epreuves", "users"
   add_foreign_key "filieres", "structures"
   add_foreign_key "jfn_support_courses", "users"
+  add_foreign_key "matieres", "filieres"
   add_foreign_key "matieres", "structures"
   add_foreign_key "messages", "students"
   add_foreign_key "messages", "users"
@@ -479,6 +491,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_124421) do
   add_foreign_key "salle_de_classes", "structures"
   add_foreign_key "statistics", "courses"
   add_foreign_key "statistics", "students"
+  add_foreign_key "structures", "structure_types"
   add_foreign_key "students", "salle_de_classes"
   add_foreign_key "teacher_classes", "matieres"
   add_foreign_key "teacher_classes", "salle_de_classes"

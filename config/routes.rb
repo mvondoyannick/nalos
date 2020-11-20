@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :structure_types
   resources :e_responses
   resources :time_tables
   get 'su/index'
@@ -58,6 +59,9 @@ Rails.application.routes.draw do
   resources :local_news
   resources :teacher_classes
   resources :matieres
+  scope :matiere  do
+    get 'filieres_mat', to: 'matieres#filieres'
+  end
   get 'admin/index'
   resources :courses
   resources :filieres
@@ -311,6 +315,7 @@ Rails.application.routes.draw do
       match 'read_response', to: 'home_student#read_response', via: [:get, :post]
       get 'my_responses', to: 'home_student#my_responses'
       match 'verif_epreuve', to: 'epreuves#verif_epreuve', via: [:get, :post]
+      match 'verif_epreuve', to: 'epreuves#verif_epreuve', via: [:get, :post]
     end
 
     # gestion des matieres
@@ -339,6 +344,7 @@ Rails.application.routes.draw do
     post 'token_auth', to: 'demo#token_auth'
     get 'list_teacher', to: 'demo#list_teacher'
     get 'list_last_course', to: 'demo#list_last_course'
+    get 'auth_user_by_token/:token', to: 'demo#auth_user_by_token'
   end
 
   # special routes for JFNIT

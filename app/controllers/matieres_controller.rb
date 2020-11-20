@@ -8,7 +8,7 @@ class MatieresController < ApplicationController
       @matieres = Matiere.all.page(params[:page]).per(20)
     else
       current_structure = current_user.structure #Structure.find_by_token(params[:token])
-      #@matieres = Matiere.where(structure_id: current_structure.id).page(params[:page]).per(20)
+      @matieres = Matiere.where(structure_id: current_structure.id).page(params[:page]).per(20)
     end
   end
 
@@ -56,6 +56,11 @@ class MatieresController < ApplicationController
     end
   end
 
+  # liste matiere par filiere
+  def filieres
+    @filieres = Filiere.where(structure_id: current_user.structure_id)
+  end
+
   # DELETE /matieres/1
   # DELETE /matieres/1.json
   def destroy
@@ -74,6 +79,6 @@ class MatieresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def matiere_params
-      params.require(:matiere).permit(:name, :descriptioin, :structure_id)
+      params.require(:matiere).permit(:name, :descriptioin, :structure_id, :user_id, :filiere_id)
     end
 end

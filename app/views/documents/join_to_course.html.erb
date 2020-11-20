@@ -66,7 +66,7 @@
             <%#= b.label(class: "my-#{ b.object.class.name.parameterize } p-2 flex inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
           <%# end %>
           <!-- Bugs corrections -->
-          <%= form.collection_check_boxes(:classes_ids, TeacherClasse.where(user_id: current_user.id), :salle_de_class_id, :class_with_initial) do |b| %>
+          <%= form.collection_check_boxes(:classes_ids, TeacherClasse.where(user_id: current_user.id), :salle_de_class_id, :class_with_initial, include_hidden: false) do |b| %>
             <%= b.label(class: "my-#{ b.object.class.name.parameterize } p-2 flex inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
           <% end %>
           <div class="inline-flex">

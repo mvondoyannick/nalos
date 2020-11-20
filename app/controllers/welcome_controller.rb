@@ -2,7 +2,32 @@ class WelcomeController < ApplicationController
 
   def index
     #render layout: 'student'
-    render file: "#{Rails.root}/public/landing.html"
+    if user_signed_in? || student_signed_in?
+      if user_signed_in?
+
+        if current_user.role.name == "teacher"
+          home_index_path
+        elsif current_user.role.name == "admin_jfnit"
+          # jfn admin user
+          jfn_admin_index_path
+        elsif current_user.role.name == "jfnit"
+          # jfn teacher user
+          jfn_index_path
+        elsif current_user.role.name == "root"
+          # super user of the platform
+          su_index_path
+        else
+          admin_route_path
+        end
+
+      elsif student_signed_in?
+
+        home_student_index_path
+
+      end
+    else
+      render file: "#{Rails.root}/public/landing.html"
+    end
   end
 
   def services

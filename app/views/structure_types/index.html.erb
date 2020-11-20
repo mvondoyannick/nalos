@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Structure Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @structure_types.each do |structure_type| %>
+      <tr>
+        <td><%= structure_type.name %></td>
+        <td><%= structure_type.description %></td>
+        <td><%= link_to 'Show', structure_type %></td>
+        <td><%= link_to 'Edit', edit_structure_type_path(structure_type) %></td>
+        <td><%= link_to 'Destroy', structure_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Structure Type', new_structure_type_path %>

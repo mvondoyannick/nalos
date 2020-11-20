@@ -84,7 +84,7 @@
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="text-sm leading-5 text-gray-500"><%= link_to "#{TeacherClasse.where(user_id: enseignant.id).count} Salle(s) de classe", "#" %></div>
-              <div class="text-sm leading-5 text-gray-900"><%= enseignant.cycle_ecole.name %></div>
+              <div class="text-sm leading-5 text-gray-900"><%#= enseignant.cycle_ecole.name %></div>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Administrateur', set_role_path(type: 'admin', user_id: enseignant.id), data: { confirm: "Etes vous certain de donner le role ADMIN à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>
             <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'AP', set_role_path(type: 'ap', user_id: enseignant.id), data: { confirm: "Etes vous certain de vouloir donner le role de AP à #{enseignant.complete_name}" }, class: "hover:bg-transparent text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline" %></td>

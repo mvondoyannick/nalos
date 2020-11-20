@@ -12,6 +12,7 @@
 
   <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag "application" %>
   <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" integrity="sha512-VTd65gL0pCLNPv5Bsf5LNfKbL8/odPq0bLQ4u226UNmT7SzE4xk+5ckLNMuksNTux/pDLMtxYuf0Copz8zMsSA==" crossorigin="anonymous"></script>
   <script src="https://windmill-dashboard.vercel.app/assets/css/tailwind.output.css" defer></script>
@@ -125,9 +126,9 @@
 
     <%= render "layouts/admin/teacher_template" %>
 
-  <% elsif current_user.role.name.in?(admin_role) %>
+  <% elsif current_user.role.name == "admin" %>
 
-    <%= render 'layouts/admin/admin_template_2' %>
+    <%= render 'layouts/admin/admin_template' %>
 
   <% elsif current_user.role.name == "root" %>
 
@@ -196,7 +197,8 @@
 
         // adding datatable
         var table = $('#example, #table, #table1, #table2, #afb, #abonne, #marchand').DataTable({
-            responsive: true
+            responsive: true,
+            searching: false
         })
             .columns.adjust()
             .responsive.recalc();
