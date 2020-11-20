@@ -93,11 +93,11 @@ class StructuresController < ApplicationController
     # Only allow a list of trusted parameters through.
     def structure_params
       # params.fetch(:structure, {:name, })
-      params.require(:structure).permit(:name, :email, :slogan, :mobile, :fixe, :region, :pays, :logo, :rccm, :creation)
+      params.require(:structure).permit(:name, :email, :slogan, :mobile, :fixe, :region, :pays, :logo, :rccm, :creation, :structure_type_id)
     end
 
   # only accept user params
   def user_params
-    params.permit(:user_name, :user_email, :user_main_phone, :user_second_phone, :user_date_delivrance, :user_cni, :cycle_name, :structure_type_id)
+    params.permit(:user_name, :user_email, :user_main_phone, :user_second_phone, :user_date_delivrance, :user_cni, :cycle_name)
   end
 end
