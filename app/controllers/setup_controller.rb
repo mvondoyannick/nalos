@@ -288,7 +288,7 @@ class SetupController < ApplicationController
 
   # list all strcture
   def structure_list
-    if current_user.role.name == "admin"
+    if current_user.role.name == "root"
       @structures = Structure.all.page(params[:page]).per(10)
     else
       @structure = Structure.find(current_user.structure_id)
