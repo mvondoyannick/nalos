@@ -1,16 +1,7 @@
 <% if notice.present? %>
-  <div class="-m-2 text-center mb-8" id="notice">
 
-    <div class="p-2">
-      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
-        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
-        <span class="inline-flex px-2">
-          <%= notice %>
-        </span>
-      </div>
-    </div>
+  <%= render 'layouts/notification_success' %>
 
-  </div>
 <% end %>
 
 <div class="text-white px-6 py-4 border-0 rounded relative mb-4 bg-pink-500">
@@ -50,7 +41,7 @@
 <div class="flex flex-col">
   <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
     <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-      <table class="min-w-full" id="table">
+      <table class="min-w-full" id="tables">
         <thead>
         <tr>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">

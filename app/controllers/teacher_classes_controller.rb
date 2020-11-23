@@ -12,7 +12,7 @@ class TeacherClassesController < ApplicationController
       if TeacherClasse.where(structure_id: current_user.structure.id).nil?
         @teacher_classes = [] #TeacherClasse.where(structure_id: current_structure.id).group(:user_id).distinct.page(params[:page]).per(100)
       else
-        @teacher_classes = TeacherClasse.where(structure_id: current_user.structure.id).group(:user_id).distinct.page(params[:page]).per(100)
+        @teacher_classes = TeacherClasse.where(structure_id: current_user.structure.id).page(params[:page]).per(100) #group(:user_id).distinct.page(params[:page]).per(100)
       end
     end
 

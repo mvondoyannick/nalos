@@ -16,6 +16,11 @@ class AdminController < ApplicationController
     #render layout: 'application_new'
   end
 
+  # read activestorage content
+  def read_active_document
+    @document = ActiveStorage::Blob.all.find(params[:document_id])
+  end
+
   def index_new
     @course = Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
     @new_account = User.where(structure_id: current_user.structure_id, created_at: Date.today.beginning_of_week..Date.today.end_of_week).page(params[:page]).per(10)

@@ -143,6 +143,7 @@ Rails.application.routes.draw do
   # admin scope
   scope :admin do
     get 'index', to: 'admin#index'
+    get 'read_active_document', to: 'admin#read_active_document'
     get 'index_new', to: 'admin#index_new'
     get 'stats', to: 'admin#stats_index'
     root 'admin#index', as: 'admin_route'
