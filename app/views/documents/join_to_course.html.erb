@@ -23,126 +23,262 @@
   </div>
 </div>
 
-<div class="flex md:flex-row-reverse flex-wrap rounded shadow">
-  <div class="w-full md:w-3/4 bg-white p-4 text-left text-gray-200 ">
-    <%= form_with(url: create_course_from_document_path, class: "w-full mt-8") do |form| %>
 
-      <%= form.hidden_field :user_id, value: current_user.id %>
-      <%= form.hidden_field :file_id, value: @current_file.id %>
-      <%= form.hidden_field :document_id, value: params[:document_id] %>
-      <%= form.hidden_field :course_status_id, value: 1 %>
-      <%= form.hidden_field :structure_id, value: current_user.structure_id %>
+<!--
+  This example requires Tailwind CSS v2.0+
 
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-            <%= form.label :matiere %>
-          </label>
-          <%= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id), :matiere_id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "select2 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500", required: true}) %>
-          <%#= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id).group(:matiere_id).distinct, :matiere_id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "select2 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500", required: true}) %>
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-            </svg>
-          </div>
-          <p class="text-gray-500 text-xs italic">Selectionner une matière</p>
-        </div>
-        <div class="w-full md:w-1/2 px-3">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-            <%= form.label "Libellé leçon" %>
-          </label>
-          <%= form.text_field :chapter, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", required: true %>
-          <p class="text-gray-500 text-xs italic">Chapitre de la leçon</p>
+  This example requires some changes to your config:
+
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ]
+  }
+  ```
+-->
+<div>
+  <div class="md:grid md:grid-cols-3 md:gap-6">
+    <div class="md:col-span-1">
+      <div class="px-4 sm:px-0">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Profile</h3>
+        <p class="mt-1 text-sm text-gray-600">
+          This information will be displayed publicly so be careful what you share.
+        </p>
+      </div>
+    </div>
+    <div class="mt-5 md:mt-0 md:col-span-2">
+      <% if @current_file.audio? %>
+        <%= video_tag url_for(@current_file), controls: true, width: "100%", poster: "poster.jpg" %>
+      <% elsif @current_file.video? %>
+        <%= video_tag url_for(@current_file), controls: true, width: "100%", poster: "https://images.unsplash.com/photo-1498940757830-82f7813bf178?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80", class: "object-cover object-center object-center" %>
+      <% elsif @current_file.image? %>
+        <%= image_tag(@current_file, size: '500x500') %>
+      <% elsif @current_file.content_type.end_with?("pdf") %>
+        <object data="<%= rails_blob_path(@current_file) %>" height="500" width="100%"></object>
+        <%#= image_tag @current_file.preview(resize: "500x500") %>
+      <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+        <%= image_tag @current_file.preview(resize: "500x500") %>
+      <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+        <%= image_tag @current_file.preview(resize: "500x500") %>
+      <% elsif @current_file.content_type.end_with?("msword") %>
+        <%= image_tag @current_file.preview(resize: "500x500") %>
+      <% elsif @current_file.content_type.end_with?("msword") %>
+        <%= image_tag @current_file.preview(resize: "500x500") %>
+      <% elsif @current_file.content_type.end_with?("vnd.ms-excel") %>
+        <%= image_tag @current_file.preview(resize: "500x500") %>
+      <% else %>
+        <%= image_tag 'document.png', size: '500x500' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="hidden sm:block" aria-hidden="true">
+  <div class="py-5">
+    <div class="border-t border-gray-200"></div>
+  </div>
+</div>
+
+<%= form_with(url: create_course_from_document_path) do |form| %>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :file_id, value: @current_file.id %>
+  <%= form.hidden_field :document_id, value: params[:document_id] %>
+  <%= form.hidden_field :course_status_id, value: 1 %>
+  <%= form.hidden_field :structure_id, value: current_user.structure_id %>
+
+  <div class="mt-10 sm:mt-0">
+    <div class="md:grid md:grid-cols-3 md:gap-6">
+      <div class="md:col-span-1">
+        <div class="px-4 sm:px-0">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
+          <p class="mt-1 text-sm text-gray-600">
+            Use a permanent address where you can receive mail.
+          </p>
         </div>
       </div>
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-            <%= form.label "Classe concernée" %>
-          </label>
+      <div class="mt-5 md:mt-0 md:col-span-2">
+        <form action="#" method="POST">
+          <div class="shadow overflow-hidden sm:rounded-md">
+            <div class="px-4 py-5 bg-white sm:p-6">
+              <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-12 sm:col-span-3">
+                  <label for="first_name" class="block text-sm font-medium text-gray-700">Matière</label>
+                  <%= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id), :matiere_id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", required: true}) %>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                  <label for="last_name" class="block text-sm font-medium text-gray-700">Libellé leçon/support de
+                    cours</label>
+                  <%= form.text_field :chapter, class: "py-2 border border-gray-400 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md", required: true %>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                  <label for="email_address" class="block text-sm font-medium text-gray-700">Catégorie</label>
+                  <%= form.select(:categorie, [%w(Cours cours), %w(TD td), %w(Exercices exercice), %w(Documents document)], {}, {class: "mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"}) %>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                  <label for="country" class="block text-sm font-medium text-gray-700">Classe concernées</label>
+                  <%= form.collection_check_boxes(:classes_ids, TeacherClasse.where(user_id: current_user.id), :salle_de_class_id, :class_with_initial, include_hidden: false) do |b| %>
+                    <%= b.label(class: "my-#{ b.object.class.name.parameterize } mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
+                  <% end %>
+                </div>
+
+                <div class="col-span-6">
+                  <label for="street_address" class="block text-sm font-medium text-gray-700">Tags (séparer une une virgule)</label>
+                  <%= form.text_field :tag, class: "py-2 border border-gray-400 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %>
+                </div>
+
+                <div class="col-span-6">
+                  <label for="street_address" class="block text-sm font-medium text-gray-700">Descriptions supplementaires</label>
+                  <%= form.rich_text_area :extrait %>
+                </div>
+
+              </div>
+            </div>
+            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+              <%= form.submit "Enregistrer et publier", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden sm:block" aria-hidden="true">
+    <div class="py-5">
+      <div class="border-t border-gray-200"></div>
+    </div>
+  </div>
+
+<% end %>
+
+
+<!--<div class="flex md:flex-row-reverse flex-wrap rounded shadow">-->
+<!--  <div class="w-full md:w-3/4 bg-white p-4 text-left text-gray-200 ">-->
+    <%#= form_with(url: create_course_from_document_path, class: "w-full mt-8") do |form| %>
+
+      <%#= form.hidden_field :user_id, value: current_user.id %>
+      <%#= form.hidden_field :file_id, value: @current_file.id %>
+      <%#= form.hidden_field :document_id, value: params[:document_id] %>
+      <%#= form.hidden_field :course_status_id, value: 1 %>
+      <%#= form.hidden_field :structure_id, value: current_user.structure_id %>
+
+<!--      <div class="flex flex-wrap -mx-3 mb-6">-->
+<!--        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">-->
+<!--          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">-->
+            <%#= form.label :matiere %>
+<!--          </label>-->
+          <%#= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id), :matiere_id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "select2 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500", required: true}) %>
+          <%#= form.collection_select(:matiere_id, TeacherClasse.where(user_id: current_user.id).group(:matiere_id).distinct, :matiere_id, :name_with_initial, {prompt: "Selectionner une matière..."}, {class: "select2 block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500", required: true}) %>
+<!--          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">-->
+<!--            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">-->
+<!--              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--          <p class="text-gray-500 text-xs italic">Selectionner une matière</p>-->
+<!--        </div>-->
+<!--        <div class="w-full md:w-1/2 px-3">-->
+<!--          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">-->
+            <%#= form.label "Libellé leçon" %>
+<!--          </label>-->
+          <%#= form.text_field :chapter, class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", required: true %>
+<!--          <p class="text-gray-500 text-xs italic">Chapitre de la leçon</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="flex flex-wrap -mx-3 mb-6">-->
+<!--        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">-->
+<!--          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">-->
+            <%#= form.label "Classe concernée" %>
+<!--          </label>-->
           <%#= form.collection_select(:salle_de_class_id, TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id).distinct, :salle_de_class_id, :class_with_initial, {prompt: "Selectionner une classe..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
 
           <%#= form.collection_check_boxes(:classes_ids, TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id).distinct, :salle_de_class_id, :class_with_initial) do |b| %>
+          <%#= b.label(class: "my-#{ b.object.class.name.parameterize } p-2 flex inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
+          <%# end %>
+
+          <%#= form.collection_check_boxes(:classes_ids, TeacherClasse.where(user_id: current_user.id), :salle_de_class_id, :class_with_initial, include_hidden: false) do |b| %>
             <%#= b.label(class: "my-#{ b.object.class.name.parameterize } p-2 flex inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
           <%# end %>
-          <!-- Bugs corrections -->
-          <%= form.collection_check_boxes(:classes_ids, TeacherClasse.where(user_id: current_user.id), :salle_de_class_id, :class_with_initial, include_hidden: false) do |b| %>
-            <%= b.label(class: "my-#{ b.object.class.name.parameterize } p-2 flex inline-block text-black", 'data-value': b.value) { b.check_box(class: "mr-2") + b.text } %>
-          <% end %>
-          <div class="inline-flex">
+<!--          <div class="inline-flex">-->
             <%#= form.collection_check_boxes("salle_de_class_ids[]", TeacherClasse.where(user_id: current_user.id).group(:salle_de_class_id).distinct, :id, :class_with_initial, {class: "inline-block text-indigo-500 mr-8"}) %>
-          </div>
+<!--          </div>-->
 
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-            </svg>
-          </div>
-          <p class="text-green-500 text-xs italic">Classe concernée par cette leçon</p>
-        </div>
-        <div class="w-full md:w-1/2 px-3">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-            <%= form.label :categorie %>
-          </label>
-          <div class="inline-block relative w-84">
-            <%= form.select(:categorie, [%w(Cours cours), %w(TD td), %w(Exercices exercice), %w(Documents document)], {}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-              </svg>
-            </div>
-          </div>
-          <p class="text-green-500 text-xs italic">Sélectionner une categorie</p>
-        </div>
-      </div>
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full px-3 mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-            <%= form.label :tag %>
-          </label>
-          <%= form.text_field :tag, class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
-          <p class="text-green-500 text-xs italic">Séparer les tags avec une virgule</p>
-        </div>
-      </div>
+<!--          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">-->
+<!--            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">-->
+<!--              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--          <p class="text-green-500 text-xs italic">Classe concernée par cette leçon</p>-->
+<!--        </div>-->
+<!--        <div class="w-full md:w-1/2 px-3">-->
+<!--          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">-->
+            <%#= form.label :categorie %>
+<!--          </label>-->
+<!--          <div class="inline-block relative w-84">-->
+            <%#= form.select(:categorie, [%w(Cours cours), %w(TD td), %w(Exercices exercice), %w(Documents document)], {}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
+<!--            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">-->
+<!--              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">-->
+<!--                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>-->
+<!--              </svg>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <p class="text-green-500 text-xs italic">Sélectionner une categorie</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="flex flex-wrap -mx-3 mb-6">-->
+<!--        <div class="w-full px-3 mb-6 md:mb-0">-->
+<!--          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">-->
+            <%#= form.label :tag %>
+<!--          </label>-->
+          <%#= form.text_field :tag, class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
+<!--          <p class="text-green-500 text-xs italic">Séparer les tags avec une virgule</p>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full px-3 mb-6 md:mb-0">
-          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-            <%= form.label "Details supplémentaires sur le cours" %>
-          </label>
+<!--      <div class="flex flex-wrap -mx-3 mb-6">-->
+<!--        <div class="w-full px-3 mb-6 md:mb-0">-->
+<!--          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">-->
+            <%#= form.label "Details supplémentaires sur le cours" %>
+<!--          </label>-->
           <%#= form.rich_text_area :extrait %>
-          <%= form.text_area :extrait, cols: "50", rows: 10, class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
-          <p class="text-red-500 text-xs italic">Details supplémentaire</p>
-        </div>
-      </div>
+          <%#= form.text_area :extrait, cols: "50", rows: 10, class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" %>
+<!--          <p class="text-red-500 text-xs italic">Details supplémentaire</p>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <div class="actions">
-        <%= form.submit "Enregistrer cette leçon", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-      </div>
-    <% end %>
-  </div>
-  <div class="w-full md:w-1/4 bg-white p-4 text-center text-gray-700">
-    <% if @current_file.audio? %>
-      <%= video_tag url_for(@current_file), controls: true, width: "100%", poster: "poster.jpg" %>
-    <% elsif @current_file.video? %>
-      <%= video_tag url_for(@current_file), controls: true, width: "100%", poster: "poster.jpg" %>
-    <% elsif @current_file.image? %>
-      <%= image_tag(@current_file, size: '500x500') %>
-    <% elsif @current_file.content_type.end_with?("pdf") %>
-      <object data="<%= rails_blob_path(@current_file) %>" height="500" width="100%"></object>
+<!--      <div class="actions">-->
+        <%#= form.submit "Enregistrer cette leçon", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<!--      </div>-->
+    <%# end %>
+<!--  </div>-->
+<!--  <div class="w-full md:w-1/4 bg-white p-4 text-center text-gray-700">-->
+    <%# if @current_file.audio? %>
+      <%#= video_tag url_for(@current_file), controls: true, width: "100%", poster: "poster.jpg" %>
+    <%# elsif @current_file.video? %>
+      <%#= video_tag url_for(@current_file), controls: true, width: "100%", poster: "poster.jpg", class: "object-cover object-center object-center" %>
+    <%# elsif @current_file.image? %>
+      <%#= image_tag(@current_file, size: '500x500') %>
+    <%# elsif @current_file.content_type.end_with?("pdf") %>
+<!--      <object data="<%#= rails_blob_path(@current_file) %>" height="500" width="100%"></object>-->
       <%#= image_tag @current_file.preview(resize: "500x500") %>
-    <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
-      <%= image_tag @current_file.preview(resize: "500x500") %>
-    <% elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
-      <%= image_tag @current_file.preview(resize: "500x500") %>
-    <% elsif @current_file.content_type.end_with?("msword") %>
-      <%= image_tag @current_file.preview(resize: "500x500") %>
-    <% elsif @current_file.content_type.end_with?("msword") %>
-      <%= image_tag @current_file.preview(resize: "500x500") %>
-    <% elsif @current_file.content_type.end_with?("vnd.ms-excel") %>
-      <%= image_tag @current_file.preview(resize: "500x500") %>
-    <% else %>
-      <%= image_tag 'document.png', size: '500x500' %>
-    <% end %>
-  </div>
-</div>
+    <%# elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+      <%#= image_tag @current_file.preview(resize: "500x500") %>
+    <%# elsif @current_file.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+      <%#= image_tag @current_file.preview(resize: "500x500") %>
+    <%# elsif @current_file.content_type.end_with?("msword") %>
+      <%#= image_tag @current_file.preview(resize: "500x500") %>
+    <%# elsif @current_file.content_type.end_with?("msword") %>
+      <%#= image_tag @current_file.preview(resize: "500x500") %>
+    <%# elsif @current_file.content_type.end_with?("vnd.ms-excel") %>
+      <%#= image_tag @current_file.preview(resize: "500x500") %>
+    <%# else %>
+      <%#= image_tag 'document.png', size: '500x500' %>
+    <%# end %>
+<!--  </div>-->
+<!--</div>-->

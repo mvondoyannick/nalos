@@ -96,7 +96,7 @@ class DocumentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def document_params
-      params.fetch(:document, {}).permit(:user_id, file: [])
+      params.fetch(:document, {}).permit(:user_id, :structure_id, file: [])
     end
 
   def course_params

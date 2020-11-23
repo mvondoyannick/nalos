@@ -4,6 +4,7 @@
 // that code so it'll be compiled.
 
 //= require plyr
+//= require jquery_ujs
 
 // import ActiveStorageDragAndDrop from 'active_storage_drag_and_drop'
 
