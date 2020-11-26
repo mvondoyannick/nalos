@@ -320,11 +320,11 @@
             <img class="w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
             <h3 class="mt-6 text-gray-900 text-sm font-medium"><%= account.complete_name %></h3>
             <dl class="mt-1 flex-grow flex flex-col justify-between">
-              <dt class="sr-only">Title</dt>
-              <dd class="text-gray-500 text-sm">Paradigm Representative</dd>
+              <dt class="sr-only"><%= account.email %></dt>
+              <dd class="text-gray-500 text-sm"><%= account.email %></dd>
               <dt class="sr-only">Role</dt>
               <dd class="mt-3">
-                <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">Admin</span>
+                <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full"><%= account.role.name %></span>
               </dd>
             </dl>
           </div>
@@ -362,11 +362,11 @@
 
 <!-- Statistiques à la volée -->
 <div class="px-4 mt-12 sm:px-6 lg:px-8">
-  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Documents, fichiers récements ajoutés</h2>
+  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide mt-4 mb-4">Statistiques générales</h2>
   <!-- This example requires Tailwind CSS v2.0+ -->
   <div>
     <h3 class="text-lg leading-6 font-medium text-gray-900">
-      Last 30 days
+      Derniers 30 jours
     </h3>
     <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <div class="bg-white overflow-hidden shadow rounded-lg">
@@ -379,8 +379,8 @@
               </svg>
             </div>
             <div class="ml-5 w-0 flex-1">
-              <dt class="text-sm font-medium text-gray-500 truncate">
-                Total Subscribers
+              <dt class="text-sm font-medium text-gray-500 truncate mt-2">
+                Total inscrits
               </dt>
               <dd class="flex items-baseline">
                 <div class="text-2xl font-semibold text-gray-900">
@@ -417,8 +417,8 @@
               </svg>
             </div>
             <div class="ml-5 w-0 flex-1">
-              <dt class="text-sm font-medium text-gray-500 truncate">
-                Avg. Open Rate
+              <dt class="text-sm font-medium text-gray-500 truncate mb-4">
+                Present cette semaine
               </dt>
               <dd class="flex items-baseline">
                 <div class="text-2xl font-semibold text-gray-900">
@@ -455,8 +455,8 @@
               </svg>
             </div>
             <div class="ml-5 w-0 flex-1">
-              <dt class="text-sm font-medium text-gray-500 truncate">
-                Avg. Click Rate
+              <dt class="text-sm font-medium text-gray-500 truncate mb-4">
+                Présent ce mois
               </dt>
               <dd class="flex items-baseline">
                 <div class="text-2xl font-semibold text-gray-900">
@@ -489,7 +489,7 @@
 
 <!-- Documents recements importés -->
 <div class="px-4 mt-12 sm:px-6 lg:px-8 mb-8">
-  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Comptes recements crées</h2>
+  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide mb-4">Documents, fichiers récements ajoutés</h2>
   <!-- This example requires Tailwind CSS v2.0+ -->
   <div>
     <ul class="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -526,35 +526,35 @@
 </div>
 
 
-<% if @new_account.empty? %>
+<%# if @new_account.empty? %>
 
-<% else %>
-  <div class="flex items-center justify-between mb-4">
-    <h2 class="text-xl font-bold text-gray-800 mb-6">Nouveaux comptes</h2>
-    <%= link_to 'Tout voir', "#", class: 'hover:bg-transparent text-blue-600 hover:text-blue-500 font-medium' %>
-  </div>
+<%# else %>
+<!--  <div class="flex items-center justify-between mb-4">-->
+<!--    <h2 class="text-xl font-bold text-gray-800 mb-6">Nouveaux comptes</h2>-->
+    <%#= link_to 'Tout voir', "#", class: 'hover:bg-transparent text-blue-600 hover:text-blue-500 font-medium' %>
+<!--  </div>-->
 
-  <section class="text-gray-700 body-font">
-    <div class="container px-5 mx-auto">
-      <div class="flex flex-wrap -m-2">
-        <% @new_account.limit(6).each do |account| %>
-          <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
-              <%= image_tag 'teacher.png', class: "w-12 h-12 flex-shrink-0 rounded-full mr-4" %>
-              <div class="flex-grow">
-                <h2 class="text-gray-900 title-font font-medium"><%= account.complete_name %>
-                  | <%= account.role.name %></h2>
-                <p class="text-gray-500"><%= account.matricule %></p>
-                <p class="text-gray-500"><%= account.created_at.strftime("%d %b %Y") %></p>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </section>
+<!--  <section class="text-gray-700 body-font">-->
+<!--    <div class="container px-5 mx-auto">-->
+<!--      <div class="flex flex-wrap -m-2">-->
+        <%# @new_account.limit(6).each do |account| %>
+<!--          <div class="p-2 lg:w-1/3 md:w-1/2 w-full">-->
+<!--            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">-->
+              <%#= image_tag 'teacher.png', class: "w-12 h-12 flex-shrink-0 rounded-full mr-4" %>
+<!--              <div class="flex-grow">-->
+<!--                <h2 class="text-gray-900 title-font font-medium"><%#= account.complete_name %>-->
+<!--                  | <%#= account.role.name %></h2>-->
+<!--                <p class="text-gray-500"><%#= account.matricule %></p>-->
+<!--                <p class="text-gray-500"><%#= account.created_at.strftime("%d %b %Y") %></p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+        <%# end %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
 
-<% end %>
+<%# end %>
 
 
 <%# if Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).empty? %>
