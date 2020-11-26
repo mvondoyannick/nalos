@@ -13,399 +13,161 @@
   </div>
 <% end %>
 
-<!--
-  Tailwind UI components require Tailwind CSS v1.8 and the @tailwindcss/ui plugin.
-  Read the documentation to get started: https://tailwindui.com/documentation
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Content goes here -->
+
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="md:flex md:items-center md:justify-between mt-8 mb-8">
+    <div class="flex-1 min-w-0">
+      <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+        Leçons disponibles
+      </h2>
+    </div>
+
+  </div>
+
+  <!--
+  This example requires Tailwind CSS v2.0+
+
+  This example requires some changes to your config:
+
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ]
+  }
+  ```
 -->
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Toutes les leçons
-      <br>
-      <span class="text-indigo-600">disponible.</span>
-    </h2>
-    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Get started
-        </a>
-      </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Learn more
-        </a>
+  <div>
+    <div class="sm:hidden">
+      <label for="tabs" class="sr-only">Select a tab</label>
+      <select id="tabs" class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+        <option>My Account</option>
+        <option>Company</option>
+        <option selected>Team Members</option>
+        <option>Billing</option>
+      </select>
+    </div>
+    <div class="hidden sm:block">
+      <div class="border-b border-gray-200">
+        <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+          <a href="#" class="group inline-flex items-center py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <!-- Heroicon name: user -->
+            <svg class="-ml-0.5 mr-2 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            <span>My Account</span>
+          </a>
+          <a href="<%= "#{request.original_url}#waiting" %>" class="group inline-flex items-center py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <!-- Heroicon name: office-building -->
+            <svg class="-ml-0.5 mr-2 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
+            </svg>
+            <span>Leçons en attente de validation</span>
+          </a>
+          <a href="#" class="group inline-flex items-center py-4 px-1 border-b-2 border-indigo-500 font-medium text-sm text-indigo-600" aria-current="page">
+            <!-- Heroicon name: users -->
+            <svg class="-ml-0.5 mr-2 h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+            </svg>
+            <span>Leçons validées</span>
+          </a>
+          <a href="#" class="group inline-flex items-center py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            <!-- Heroicon name: credit-card -->
+            <svg class="-ml-0.5 mr-2 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+              <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
+            </svg>
+            <span>Enseignants/Editeurs</span>
+          </a>
+        </nav>
       </div>
     </div>
   </div>
-</div>
 
-<section class="text-gray-700 body-font">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="flex flex-wrap -m-4">
-      <div class="p-4 md:w-1/3 hover:shadow-xl">
-        <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-          <div class="flex items-center mb-3">
-            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-            </div>
-            <h2 class="text-gray-900 text-lg title-font font-medium">Leçons validées</h2>
-          </div>
-          <div class="flex-grow">
-            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-            <a class="mt-3 text-indigo-500 inline-flex items-center">Learn More
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 md:w-1/3 hover:shadow-xl">
-        <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-          <div class="flex items-center mb-3">
-            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-            </div>
-            <h2 class="text-gray-900 text-lg title-font font-medium">Leçons en attentes</h2>
-          </div>
-          <div class="flex-grow">
-            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-            <a class="mt-3 text-indigo-500 inline-flex items-center">Learn More
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="p-4 md:w-1/3 hover:shadow-xl">
-        <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-          <div class="flex items-center mb-3">
-            <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-indigo-500 text-white flex-shrink-0">
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                <circle cx="6" cy="6" r="3"></circle>
-                <circle cx="6" cy="18" r="3"></circle>
-                <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
-              </svg>
-            </div>
-            <h2 class="text-gray-900 text-lg title-font font-medium">Autres informations</h2>
-          </div>
-          <div class="flex-grow">
-            <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-            <a class="mt-3 text-indigo-500 inline-flex items-center">Learn More
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  <!-- content -->
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="flex flex-col mt-12">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+            <tr>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Enseignant
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Leçon
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Matière
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Date publication
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50">
+                <span class="sr-only">Details</span>
+              </th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            <!-- Odd row -->
+            <% @validated_course.each do |course| %>
 
-<div class="flex flex-wrap" id="tabs-id">
-  <div class="w-full">
-    <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
-      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-pink-600" onclick="changeAtiveTab(event,'tab-profile')">
-          En attente de validation
-        </a>
-      </li>
-      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-settings')">
-          Validés
-        </a>
-      </li>
-      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white" onclick="changeAtiveTab(event,'tab-options')">
-          Enseignants
-        </a>
-      </li>
-    </ul>
-    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-      <div class="px-4 py-5 flex-auto">
-        <div class="tab-content tab-space">
-          <div class="block" id="tab-profile">
-            <p>
-            <div class="bg-gray-50">
-              <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-                <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-                  Leçons en
-                  <br/>
-                  <span class="text-indigo-600">attentes de validation</span>
-                </h2>
-                <div x-data="{ lorem: false }" class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-<!--                  <div class="inline-flex rounded-md shadow">-->
-                    <%#= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
-<!--                  </div>-->
-<!--                  <div class="ml-3 inline-flex rounded-md shadow">-->
-                    <%#= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"}, method: :post, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" unless @waiting_course.empty? %>
-<!--                  </div>-->
-                  <div class="ml-3 rounded-md shadow">
-                    <button @click="lorem = true" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-                      Actions leçons
-                    </button>
-
-                    <div x-show="lorem" @click.away="lorem = false" class="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                      <%= link_to "Valider tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "validate"), data: {confirm: "Toutes les leçons affichées seront validés! \n Continuer?"}, method: :post, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" unless @waiting_course.empty? %>
-                      <%= link_to "Suspendre tous", course_validate_or_suspend_all_path(plateform: current_user.structure_id, a: "suspend"), data: {confirm: "Toutes les leçons affichées seront suspendus! \n Continuer?"}, method: :post, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" unless @waiting_course.empty? %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <% if Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).empty? %>
-
-              <p>
-                Aucunes leçon actuellement en attende de validation.
-              </p>
-
-            <% else %>
-
-              <%= paginate Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).page(params[:page]).per(10) %>
-              <br>
-              <div class="overflow-x-auto bg-white rounded-lg shadow mb-20">
-                <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped" id="example">
-                  <thead>
-                  <tr class="text-left">
-                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
-                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
-                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe & Matière</th>
-                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
-                    <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs bg-green-200">Statut</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc).each do |course| %>
-
-                    <tr class="
-                      <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 h-10 w-10">
-                            <%= image_tag 'course.png' %>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="text-sm leading-5 text-gray-900"><%= course.user.complete_name %></div>
-                        <div class="text-sm leading-5 text-gray-500"><%= course.user.cycle_ecole.name %></div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="text-sm leading-5 text-gray-900"><%= course.salle_de_class.name %></div>
-                        <div class="text-sm leading-5 text-gray-500"><%= course.matiere.name %></div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 20), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
-                        <div class="text-sm leading-5 text-gray-500"><%= course.created_at.strftime("%d %b %Y, %Hh:%M") %></div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-green-200">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold text-yellow-800">
-                          <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:bg-transparent text-white font-bold text-xl py-2 -px-2" %>
-                        </span>
-                      </td>
-                    </tr>
-
-                  <% end %>
-
-                  </tbody>
-                </table>
-              </div>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <%= course.user.complete_name %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <%= course.chapter.upcase %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <%= course.matiere.name %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <%= course.created_at.strftime("%d %b %y") %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Détails</a>
+                </td>
+              </tr>
 
             <% end %>
-          </div>
-          <div class="hidden" id="tab-settings">
-            <p>
-              <% if @validated_course.empty? %>
 
-              <% else %>
+            <!-- Even row -->
+            <tr class="bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                Cody Fisher
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                Product Directives Officer
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                cody.fisher@example.com
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                Owner
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+              </td>
+            </tr>
 
-              <div class="bg-gray-50">
-                <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-                  <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-                    Leçons publiées déja
-                    <br/>
-                    <span class="text-indigo-600">validés.</span>
-                  </h2>
-                </div>
-              </div>
-
-              <div class="flex flex-col">
-                <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                  <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                    <table class="min-w-full" id="table">
-                      <thead>
-                      <tr>
-                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Date</th>
-                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Enseignant</th>
-                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Classe &
-                          Matière
-                        </th>
-                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Titre</th>
-                        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Statut</th>
-                      </tr>
-                      </thead>
-                      <tbody class="bg-white">
-                      <% @validated_course.each do |course| %>
-                        <tr class="
-                           <% "bg-red-300" if course.course_status.name == "rejected" || course.deleted == true %> ">
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="flex items-center">
-                              <div class="flex-shrink-0 h-10 w-10">
-                                <%= image_tag 'course.png' %>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="text-sm leading-5 text-gray-900"><%= course.user.complete_name %></div>
-                            <div class="text-sm leading-5 text-gray-500"><%#= course.user.cycle_ecole.name %></div>
-                          </td>
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="text-sm leading-5 text-gray-900"><%= course.salle_de_class.name %></div>
-                            <div class="text-sm leading-5 text-gray-500"><%= course.matiere.name %></div>
-                          </td>
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div class="text-sm leading-5 text-gray-900"><%= link_to excerpt(course.chapter, '', radius: 20), course_detail_path(course_id: course.id, document_id: course.document_id) %></div>
-                            <div class="text-sm leading-5 text-gray-500"><%= course.created_at.strftime("%d %b %Y, %Hh:%M") %></div>
-                          </td>
-                          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-blue-300">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-yellow-800">
-                              <%= link_to course.course_status.name, course_detail_path(course_id: course.id, document_id: course.document_id), class: "hover:text-indigo-500 hover:bg-transparent" %>
-                            </span>
-                            <div class="text-sm leading-5 text-gray-500">
-                              <% if course.course_status.name == "validate" %>
-                                Leçon validée
-                              <% elsif course.course_status.name == "waiting" %>
-                                Leçon en attente
-                              <% elsif course.course_status.name == "rejected" %>
-                                Leçon rejetée
-                              <% elsif course.deleted == true %>
-                                Leçon supprimée
-                              <% end %>
-                            </div>
-                          </td>
-                        </tr>
-                      <% end %>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-            <% end %>
-          </div>
-          <div class="hidden" id="tab-options">
-            <p>
-            <div class="bg-gray-50">
-              <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-                <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-                  Détails sur les
-                  <br>
-                  <span class="text-indigo-600">enseignants</span>
-                </h2>
-              </div>
-            </div>
-
-            <div class="flex flex-col">
-              <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                  <table class="min-w-full divide-y divide-gray-200">
-                    <thead>
-                    <tr>
-                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Enseignant
-                      </th>
-                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Discipline
-                      </th>
-                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Publiés
-                      </th>
-                      <th class="px-3 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Salle de classe
-                      </th>
-                      <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-                    </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                    <% Course.where(structure_id: current_user.structure_id, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:user_id).each do |teacher| %>
-                      <tr>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="flex items-center">
-                          <div class="ml-4">
-                            <div class="text-sm leading-5 font-medium text-gray-900">
-                              <%= link_to User.find(teacher).name, course_all_detail_path(t: User.find(teacher).token) %>
-                            </div>
-                            <div class="text-sm leading-5 text-gray-500">
-                              <%= Structure.find(User.find(teacher).structure_id).name.upcase %>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="text-sm leading-5 text-gray-900"><%= Course.where(user_id: teacher, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:matiere_id).uniq.count %></div>
-                        <div class="text-sm leading-5 text-gray-500">Disciplines enseignées</div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="text-sm leading-5 text-gray-900"><%= Course.where(user_id: teacher, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:id).uniq.count %></div>
-                        <div class="text-sm leading-5 text-gray-500">Cours différents publiés</div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div class="text-sm leading-5 text-gray-900"><%= Course.where(user_id: teacher, course_status_id: CourseStatus.find_by_name('validate').id).distinct.pluck(:salle_de_class_id).uniq.count %></div>
-                        <div class="text-sm leading-5 text-gray-500">Salles de classe</div>
-                      </td>
-                      <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                        <%= link_to "Detail", course_all_detail_path(t: User.find(teacher).token), class: "text-indigo-600 hover:text-indigo-900" %>
-                      </td>
-                    </tr>
-
-                    <% end %>
-
-                    <!-- More rows... -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-
-            </p>
-          </div>
+            <!-- More rows... -->
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<section class="text-gray-700 body-font">
-  <div class="container px-5 mx-auto">
-    <div class="flex flex-wrap -m-2">
-      <% Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc).each do |course| %>
-        <% unless course.user.statut == 'inactive' %>
-          <%= link_to course_detail_path(course_id: course.id, document_id: course.document_id), "x-click": {detail: true} do %>
-            <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl hover:bg-blue-100">
-                <svg class="w-10 h-10 lex-shrink-0 rounded-full mr-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path>
-                </svg>
-                <div class="flex-grow">
-                  <h2 class="text-gray-900 title-font font-bold">
-                    <%= link_to excerpt(course.chapter.upcase, '', radius: 30), course_detail_path(course_id: course.id, document_id: course.document_id) %>
-                  </h2>
-                  <p class="text-gray-500"><%= course.user.complete_name %></p>
-                  <p class="text-gray-500"><%= course.salle_de_class.name %></p>
-                  <p class="text-gray-500"><%= course.created_at.strftime("%d %b %Y - %HH:%Mmin") %></p>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-</section>
+</div>
 
 
 <script type="text/javascript">

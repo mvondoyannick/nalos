@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-
+  #load_and_authorize_resource
   before_action :authenticate_user!
 
   def index
@@ -53,9 +53,23 @@ class AdminController < ApplicationController
 
   # show all course
   def course_all
+
     @waiting_course = Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
     @validated_course = Course.where(course_status_id: CourseStatus.find_by_name('validate').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
     @course = Course.where(deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
+
+    if request.original_url.include?('#waiting')
+      puts "waiting found"
+      @waiting_course = Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
+    elsif params[:validated].present?
+
+    else
+
+      @waiting_course = Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
+      @validated_course = Course.where(course_status_id: CourseStatus.find_by_name('validate').id, deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
+      @course = Course.where(deleted: false, structure_id: current_user.structure_id).order(created_at: :desc).page(params[:page]).per(20)
+
+    end
 
     #render layout: 'application_new'
   end

@@ -346,6 +346,7 @@ Rails.application.routes.draw do
     get 'list_teacher', to: 'demo#list_teacher'
     get 'list_last_course', to: 'demo#list_last_course'
     get 'auth_user_by_token/:token', to: 'demo#auth_user_by_token'
+    get 'documents', to: 'demo#documents'
   end
 
   # special routes for JFNIT

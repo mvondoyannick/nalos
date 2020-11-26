@@ -5,348 +5,526 @@
 <% end %>
 
 
-<%#= link_to 'Send Notification', admin_index_path, remote: true %>
+<!-- Pinned projects -->
+<div class="px-4 mt-6 sm:px-6 lg:px-8">
+  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Pinned Projects</h2>
+  <ul class="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-3">
+    <li x-data="{ open: false }" @keydown.escape="open = false" @click.away="open = false" class="relative col-span-1 flex shadow-sm rounded-md">
+      <div class="flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-sm font-medium rounded-l-md">
+        LD
+      </div>
+      <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
+        <div class="flex-1 px-4 py-2 text-sm truncate">
+          <a href="#" class="text-gray-900 font-medium hover:text-gray-600">
+            Leçons disponibles
+          </a>
+          <p class="text-gray-500"><%= Course.where(course_status_id: CourseStatus.find_by_name('validate').id).count %>
+            cours</p>
+        </div>
+        <div class="flex-shrink-0 pr-2">
+          <button @click="open = !open" id="pinned-project-options-menu-0" aria-has-popup="true" class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+            <span class="sr-only">Open options</span>
+            <!-- Heroicon name: dots-vertical -->
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+            </svg>
+          </button>
+          <!--
+            Dropdown panel, show/hide based on dropdown state.
 
-<div class="bg-gray-50 -mt-12">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Etablissement
-      <br/>
-      <span class="text-indigo-600"><%= current_user.structure.name %></span>
-    </h2>
+            Entering: "transition ease-out duration-100"
+              From: "transform opacity-0 scale-95"
+              To: "transform opacity-100 scale-100"
+            Leaving: "transition ease-in duration-75"
+              From: "transform opacity-100 scale-100"
+              To: "transform opacity-0 scale-95"
+          -->
+          <div x-show="open" class="z-10 mx-3 origin-top-right absolute right-10 top-3 w-48 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200" role="menu" aria-orientation="vertical" aria-labelledby="pinned-project-options-menu-0">
+            <div class="py-1" role="none">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">View</a>
+            </div>
+            <div class="py-1" role="none">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Removed
+                from pinned</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Share</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li x-data="{ open: false }" @keydown.escape="open = false" @click.away="open = false" class="relative col-span-1 flex shadow-sm rounded-md">
+      <div class="flex-shrink-0 flex items-center justify-center w-16 bg-purple-600 text-white text-sm font-medium rounded-l-md">
+        LNV
+      </div>
+      <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
+        <div class="flex-1 px-4 py-2 text-sm truncate">
+          <a href="#" class="text-gray-900 font-medium hover:text-gray-600">
+            Leçons Non Validées
+          </a>
+          <p class="text-gray-500"><%= Course.where(course_status_id: CourseStatus.find_by_name('waiting').id).count %>
+            cours</p>
+        </div>
+        <div class="flex-shrink-0 pr-2">
+          <button @click="open = !open" id="pinned-project-options-menu-0" aria-has-popup="true" class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+            <span class="sr-only">Open options</span>
+            <!-- Heroicon name: dots-vertical -->
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+            </svg>
+          </button>
+          <!--
+            Dropdown panel, show/hide based on dropdown state.
+
+            Entering: "transition ease-out duration-100"
+              From: "transform opacity-0 scale-95"
+              To: "transform opacity-100 scale-100"
+            Leaving: "transition ease-in duration-75"
+              From: "transform opacity-100 scale-100"
+              To: "transform opacity-0 scale-95"
+          -->
+          <div x-show="open" class="z-10 mx-3 origin-top-right absolute right-10 top-3 w-48 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200" role="menu" aria-orientation="vertical" aria-labelledby="pinned-project-options-menu-0">
+            <div class="py-1" role="none">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">View</a>
+            </div>
+            <div class="py-1" role="none">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Removed
+                from pinned</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Share</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li x-data="{ open: false }" @keydown.escape="open = false" @click.away="open = false" class="relative col-span-1 flex shadow-sm rounded-md">
+      <div class="flex-shrink-0 flex items-center justify-center w-16 bg-yellow-600 text-white text-sm font-medium rounded-l-md">
+        AP
+      </div>
+      <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
+        <div class="flex-1 px-4 py-2 text-sm truncate">
+          <a href="#" class="text-gray-900 font-medium hover:text-gray-600">
+            Apprenant Incomplets
+          </a>
+          <p class="text-gray-500"><%= Student.all.count %> Apprenants</p>
+        </div>
+        <div class="flex-shrink-0 pr-2">
+          <button @click="open = !open" id="pinned-project-options-menu-0" aria-has-popup="true" class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+            <span class="sr-only">Open options</span>
+            <!-- Heroicon name: dots-vertical -->
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+            </svg>
+          </button>
+          <!--
+            Dropdown panel, show/hide based on dropdown state.
+
+            Entering: "transition ease-out duration-100"
+              From: "transform opacity-0 scale-95"
+              To: "transform opacity-100 scale-100"
+            Leaving: "transition ease-in duration-75"
+              From: "transform opacity-100 scale-100"
+              To: "transform opacity-0 scale-95"
+          -->
+          <div x-show="open" class="z-10 mx-3 origin-top-right absolute right-10 top-3 w-48 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200" role="menu" aria-orientation="vertical" aria-labelledby="pinned-project-options-menu-0">
+            <div class="py-1" role="none">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">View</a>
+            </div>
+            <div class="py-1" role="none">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Removed
+                from pinned</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Share</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <!-- More project cards... -->
+  </ul>
+</div>
+
+<!-- Projects list (only on smallest breakpoint) -->
+<div class="mt-10 sm:hidden">
+  <div class="px-4 sm:px-6">
+    <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Libellés cours</h2>
+  </div>
+  <ul class="mt-3 border-t border-gray-200 divide-y divide-gray-100">
+
+    <% Course.all.each do |course| %>
+
+      <li>
+        <a href="#" class="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6">
+              <span class="flex items-center truncate space-x-3">
+                <span class="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-pink-600" aria-hidden="true"></span>
+                <span class="font-medium truncate text-sm leading-6">
+                  <%= course.chapter.upcase %>
+                  <span class="truncate font-normal text-gray-500"><%= course.matiere.name %></span>
+                </span>
+              </span>
+          <!-- Heroicon name: chevron-right -->
+          <svg class="ml-4 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+      </li>
+
+    <% end %>
+
+    <!-- More project rows... -->
+  </ul>
+</div>
+
+<!-- Projects table (small breakpoint and up) -->
+<div class="hidden mt-8 sm:block">
+  <div class="align-middle inline-block min-w-full border-b border-gray-200">
+    <table class="min-w-full">
+      <thead>
+      <tr class="border-t border-gray-200">
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <span class="lg:pl-2">Project</span>
+        </th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Apprenants
+        </th>
+        <th class="hidden md:table-cell px-12 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Date
+        </th>
+        <th class="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+      </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-100">
+
+      <% Course.all.each do |course| %>
+
+        <tr>
+          <td class="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
+            <div class="flex items-center space-x-3 lg:pl-2">
+              <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-pink-600" aria-hidden="true"></div>
+              <a href="#" class="truncate hover:text-gray-600">
+                <span>
+                  <%= course.chapter.upcase %>
+                  <span class="text-gray-500 font-normal"><%= course.matiere.name %></span>
+                </span>
+              </a>
+            </div>
+          </td>
+          <td class="px-6 py-3 text-sm text-gray-500 font-medium">
+            <div class="flex items-center space-x-2">
+              <div class="flex flex-shrink-0 -space-x-1">
+                <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+
+                <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+
+                <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+
+                <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              </div>
+
+              <span class="flex-shrink-0 text-xs leading-5 font-medium">+8</span>
+            </div>
+          </td>
+          <td class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
+            <%= course.created_at.strftime('%d %b %y') %>
+          </td>
+          <td class="pr-6">
+            <div x-data="{ open: false }" @keydown.escape="open = false" @click.away="open = false" class="relative flex justify-end items-center">
+              <button @click="open = !open" id="project-options-menu-0" aria-has-popup="true" type="button" class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                <span class="sr-only">Open options</span>
+                <!-- Heroicon name: dots-vertical -->
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                </svg>
+              </button>
+              <!--
+                Dropdown panel, show/hide based on dropdown state.
+
+                Entering: "transition ease-out duration-100"
+                  From: "transform opacity-0 scale-95"
+                  To: "transform opacity-100 scale-100"
+                Leaving: "transition ease-in duration-75"
+                  From: "transform opacity-100 scale-100"
+                  To: "transform opacity-0 scale-95"
+              -->
+              <div x-show="open" class="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200" role="menu" aria-orientation="vertical" aria-labelledby="project-options-menu-0">
+                <div class="py-1" role="none">
+                  <a href="<%= course.token %>" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                    <!-- Heroicon name: pencil-alt -->
+                    <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"/>
+                      <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"/>
+                    </svg>
+                    Voir + Editer
+                  </a>
+                  <a href="#" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                    <!-- Heroicon name: duplicate -->
+                    <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z"/>
+                      <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z"/>
+                    </svg>
+                    Duplicate
+                  </a>
+                  <a href="#" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                    <!-- Heroicon name: user-add -->
+                    <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+                    </svg>
+                    Share
+                  </a>
+                </div>
+                <div class="py-1" role="none">
+                  <a href="#" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                    <!-- Heroicon name: trash -->
+                    <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    Delete
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      <% end %>
+
+      <!-- More project rows... -->
+      </tbody>
+    </table>
   </div>
 </div>
 
-<!-- spécial zone -->
-<section class="text-gray-700 body-font mb-4">
-  <div class="container px-5 mx-auto">
-    <div class="flex flex-wrap -m-2">
-      <% if SalleDeClass.where(structure_id: current_user.structure_id).count.zero? %>
-        <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-          <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
-            <svg class="w-10 h-10 flex-shrink-0 rounded-full mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-            </svg>
-            <div class="flex-grow">
-              <h2 class="text-gray-900 title-font font-medium">
-                <%= link_to 'Aucune salle de classe trouvées', new_salle_de_class_path %>
-              </h2>
-              <p class="text-gray-500 text-sm">Commencer à importer une salle de classe</p>
-              <p class="text-gray-500">
-                <%= link_to 'Importer des salles de classes', new_salle_de_class_path %>
-              </p>
+
+<!-- Comptes recement crées -->
+<div class="px-4 mt-12 sm:px-6 lg:px-8">
+  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Comptes recements crées</h2>
+  <!-- This example requires Tailwind CSS v2.0+ -->
+
+  <% if @new_account.empty? %>
+
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <span class="inline-flex items-center px-3 m-8 py-4 rounded-full text-xl font-medium bg-indigo-100 text-indigo-800">
+      <svg class="-ml-1 mr-1.5 h-2 w-2 text-indigo-400" fill="currentColor" viewBox="0 0 8 8">
+        <circle cx="4" cy="4" r="3"/>
+      </svg>
+      Pas de comptes récents crées
+    </span>
+
+
+  <% else %>
+
+    <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <% @new_account.each do |account| %>
+        <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+          <div class="flex-1 flex flex-col p-8">
+            <img class="w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+            <h3 class="mt-6 text-gray-900 text-sm font-medium"><%= account.complete_name %></h3>
+            <dl class="mt-1 flex-grow flex flex-col justify-between">
+              <dt class="sr-only">Title</dt>
+              <dd class="text-gray-500 text-sm">Paradigm Representative</dd>
+              <dt class="sr-only">Role</dt>
+              <dd class="mt-3">
+                <span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">Admin</span>
+              </dd>
+            </dl>
+          </div>
+          <div>
+            <div class="-mt-px flex divide-x divide-gray-200">
+              <div class="w-0 flex-1 flex">
+                <a href="#" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
+                  <!-- Heroicon name: mail -->
+                  <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                  </svg>
+                  <span class="ml-3">Email</span>
+                </a>
+              </div>
+              <div class="-ml-px w-0 flex-1 flex">
+                <a href="#" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+                  <!-- Heroicon name: phone -->
+                  <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                  </svg>
+                  <span class="ml-3">Call</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+  <% end %>
+
+</div>
+
+
+<!-- Statistiques à la volée -->
+<div class="px-4 mt-12 sm:px-6 lg:px-8">
+  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Documents, fichiers récements ajoutés</h2>
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div>
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      Last 30 days
+    </h3>
+    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+              <!-- Heroicon name: users -->
+              <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dt class="text-sm font-medium text-gray-500 truncate">
+                Total Subscribers
+              </dt>
+              <dd class="flex items-baseline">
+                <div class="text-2xl font-semibold text-gray-900">
+                  71,897
+                </div>
+
+                <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                  <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="sr-only">
+                  Increased by
+                </span>
+                  122
+                </div>
+              </dd>
             </div>
           </div>
         </div>
-      <% end %>
+        <div class="bg-gray-50 px-4 py-4 sm:px-6">
+          <div class="text-sm">
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"> View all<span class="sr-only"> Total Subscribers stats</span></a>
+          </div>
+        </div>
+      </div>
 
-      <% if Matiere.where(structure_id: current_user.structure_id).count.zero? %>
-        <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-          <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
-            <svg class="w-10 h-10 flex-shrink-0 rounded-full mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-            </svg>
-            <div class="flex-grow">
-              <h2 class="text-gray-900 title-font font-medium">Aucune matière enregistrées</h2>
-              <p class="text-gray-500"><%= Matiere.all.count %></p>
-              <p class="text-gray-500"><%= link_to "Ajouter matières", new_matiere_path %></p>
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+              <!-- Heroicon name: mail-open -->
+              <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"/>
+              </svg>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dt class="text-sm font-medium text-gray-500 truncate">
+                Avg. Open Rate
+              </dt>
+              <dd class="flex items-baseline">
+                <div class="text-2xl font-semibold text-gray-900">
+                  58.16%
+                </div>
+
+                <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
+                  <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="sr-only">
+                  Increased by
+                </span>
+                  5.4%
+                </div>
+              </dd>
             </div>
           </div>
         </div>
-      <% end %>
+        <div class="bg-gray-50 px-4 py-4 sm:px-6">
+          <div class="text-sm">
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"> View all<span class="sr-only"> Avg. Open Rate stats</span></a>
+          </div>
+        </div>
+      </div>
 
-      <% if Student.where(structure: current_user.structure_id).count.zero? %>
-        <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-          <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
-            <svg class="w-10 h-10 flex-shrink-0 rounded-full mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-            </svg>
-            <div class="flex-grow">
-              <h2 class="text-gray-900 title-font font-medium">Aucune salle de classe trouvés</h2>
-              <p class="text-gray-500"><%= SalleDeClass.all.count %></p>
-              <p class="text-gray-500"><%=  %><%= link_to "Ajouter salle de classe", new_salle_de_class_path %></p>
+      <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+          <div class="flex items-center">
+            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+              <!-- Heroicon name: cursor-click -->
+              <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+              </svg>
+            </div>
+            <div class="ml-5 w-0 flex-1">
+              <dt class="text-sm font-medium text-gray-500 truncate">
+                Avg. Click Rate
+              </dt>
+              <dd class="flex items-baseline">
+                <div class="text-2xl font-semibold text-gray-900">
+                  24.57%
+                </div>
+
+                <div class="ml-2 flex items-baseline text-sm font-semibold text-red-600">
+                  <svg class="self-center flex-shrink-0 h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="sr-only">
+                  Decreased by
+                </span>
+                  3.2%
+                </div>
+              </dd>
             </div>
           </div>
         </div>
-      <% end %>
-
-    </div>
+        <div class="bg-gray-50 px-4 py-4 sm:px-6">
+          <div class="text-sm">
+            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500"> View all<span class="sr-only"> Avg. Click Rate stats</span></a>
+          </div>
+        </div>
+      </div>
+    </dl>
   </div>
-</section>
 
-<section class="text-gray-700 body-font">
-  <div class="container px-5 mx-auto">
-    <div class="flex flex-wrap -m-2">
-      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
-          <?xml version="1.0" ?>
-          <svg data-name="Layer 2" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" id="Layer_2" viewBox="0 0 2050 2050" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <style>.cls-1 {
-                  fill: #4d4c78;
-              }
+</div>
 
-              .cls-11, .cls-2 {
-                  fill: #323150;
-              }
+<!-- Documents recements importés -->
+<div class="px-4 mt-12 sm:px-6 lg:px-8 mb-8">
+  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Comptes recements crées</h2>
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div>
+    <ul class="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <% @documents.each do |document| %>
 
-              .cls-3 {
-                  fill: #67baeb;
-              }
-
-              .cls-4 {
-                  fill: #f44533;
-              }
-
-              .cls-5 {
-                  fill: #de3226;
-              }
-
-              .cls-6 {
-                  fill: #f4c23f;
-              }
-
-              .cls-7 {
-                  fill: #f4a93f;
-              }
-
-              .cls-8 {
-                  fill: #c8c2e9;
-              }
-
-              .cls-9 {
-                  fill: #b9b1e0;
-              }
-
-              .cls-10 {
-                  fill: #b11a31;
-              }
-
-              .cls-11 {
-                  opacity: 0.1;
-              }
-
-              .cls-12 {
-                  fill: #83d0fb;
-              }
-
-              .cls-13 {
-                  opacity: 0.2;
-              }
-
-              .cls-14 {
-                  fill: #fff;
-              }
-
-              .cls-15 {
-                  fill: #231f20;
-              }
-
-              .cls-16 {
-                  fill: #fad564;
-              }
-
-              .cls-17 {
-                  fill: #dfdafd;
-              }
-
-              .cls-18 {
-                  fill: #f46253;
-              }</style>
-            </defs>
-            <title/>
-            <rect class="cls-1" height="120.02" rx="60" ry="60" width="1911.2" x="69.4" y="1589.3"/>
-            <path class="cls-2" d="M1920.6,1589.3H154.9c-.1,1.3-.1,2.6-.1,3.9h0a60,60,0,0,0,60,60.1H1980.4c.1-1.4.2-2.7.2-4h0A60,60,0,0,0,1920.6,1589.3Z"/>
-            <rect class="cls-3" height="1158.16" transform="translate(-147.9 290.1) rotate(-10)" width="273.3" x="1440.7" y="408"/>
-            <rect class="cls-3" height="1252.55" width="295.6" x="237.1" y="340.7"/>
-            <rect class="cls-4" height="1252.55" width="295.6" x="1017.2" y="340.7"/>
-            <polygon class="cls-5" points="1017.2 1593.2 1312.8 1593.2 1312.8 340.7 1262.8 340.7 1262.8 1536.4 1017.2 1536.4 1017.2 1593.2"/>
-            <rect class="cls-6" height="1166.42" width="242.6" x="532.7" y="426.8"/>
-            <path class="cls-7" d="M711.9,426.8V1371c0,98.9-80.2,179.2-179.2,179.2h0v43H775.3V426.8Z"/>
-            <rect class="cls-8" height="1089.46" width="242.6" x="774.6" y="503.8"/>
-            <path class="cls-9" d="M970.7,503.8v854.9c0,108.3-87.8,196.1-196.1,196.1h0v38.4h242.6V503.8Z"/>
-            <rect class="cls-1" height="87.09" width="295.6" x="237.1" y="538.2"/>
-            <rect class="cls-1" height="87.09" width="295.6" x="237.1" y="1308.7"/>
-            <rect class="cls-7" height="847.15" width="60.7" x="618.1" y="600.4"/>
-            <path class="cls-1" d="M950.7,678.9H841.1a20,20,0,0,1,0-40H950.7a20,20,0,0,1,0,40Z"/>
-            <path class="cls-1" d="M950.7,780.2H841.1a20,20,0,0,1,0-40H950.7a20,20,0,0,1,0,40Z"/>
-            <path class="cls-1" d="M950.7,881.4H841.1a20,20,0,0,1,0-40H950.7a20,20,0,0,1,0,40Z"/>
-            <path class="cls-1" d="M931.9,1488.6h-72a20,20,0,0,1,0-40h72a20,20,0,1,1,0,40Z"/>
-            <path class="cls-10" d="M1110.3,1401.7a20.1,20.1,0,0,1-20-20V552.3a20,20,0,0,1,40,0v829.4A20,20,0,0,1,1110.3,1401.7Z"/>
-            <path class="cls-10" d="M1219.6,1401.7a20,20,0,0,1-20-20V552.3a20,20,0,0,1,40,0v829.4A20.1,20.1,0,0,1,1219.6,1401.7Z"/>
-            <polygon class="cls-1" points="1786.1 1382.3 1786.1 1382.3 1517 1430 1524 1469.4 1793.1 1421.7 1786.1 1382.3"/>
-            <rect class="cls-1" height="40" transform="translate(-72.6 269.8) rotate(-10)" width="273.3" x="1363" y="528.3"/>
-            <polygon class="cls-1" points="1682.1 794.6 1682.1 794.6 1675.1 755.3 1675.1 755.3 1406 802.9 1406 802.9 1413 842.3 1413 842.3 1682.1 794.6"/>
-            <polygon class="cls-1" points="1748.8 1171.2 1741.8 1131.8 1472.6 1179.5 1479.6 1218.9 1479.6 1218.9 1748.8 1171.2"/>
-            <path class="cls-11" d="M447.3,1319.3V340.7h85.4V1593.2H237.1v-63.7h0C353.2,1529.5,447.3,1435.4,447.3,1319.3Z"/>
-            <path class="cls-11" d="M1611,393l-68.5,12.2L1701.2,1302c18.8,106-51.9,207.2-158,225.9l-8.6,1.6,9.1,51.6,269.2-47.6Z"/>
-            <rect class="cls-12" height="524.76" rx="32.4" ry="32.4" width="64.8" x="237.1" y="720.7"/>
-            <g class="cls-13">
-              <rect class="cls-14" height="584.09" rx="36.1" ry="36.1" transform="translate(-143.8 271.3) rotate(-10)" width="72.2" x="1436.6" y="662.2"/>
-              <path class="cls-15" d="M1517.2,1242.9a36.6,36.6,0,0,1-36-30.3L1392,708.5a36.6,36.6,0,0,1,29.6-42.4,36.7,36.7,0,0,1,42.5,29.7l89.2,504.1a36.6,36.6,0,0,1-29.6,42.4v0A35.7,35.7,0,0,1,1517.2,1242.9ZM1428,666.6a33.4,33.4,0,0,0-6.2.6,35.4,35.4,0,0,0-28.7,41.2l89.2,504a35.6,35.6,0,0,0,41.2,28.8,35.4,35.4,0,0,0,28.7-41.1L1463,696A35.6,35.6,0,0,0,1428,666.6Z"/>
-            </g>
-            <rect class="cls-12" height="133.95" rx="32.4" ry="32.4" width="64.8" x="237.1" y="370.8"/>
-            <rect class="cls-16" height="586.49" rx="24.3" ry="24.3" width="48.6" x="532.7" y="446.9"/>
-            <rect class="cls-17" height="331.71" rx="23.2" ry="23.2" width="46.5" x="774.6" y="947.6"/>
-            <rect class="cls-17" height="57.13" rx="19.2" ry="19.2" width="121.3" x="774.6" y="503.8"/>
-            <rect class="cls-18" height="755.16" rx="19.4" ry="19.4" width="38.9" x="1017.2" y="503.8"/>
-          </svg>
-          <div class="flex-grow">
-            <h2 class="text-gray-900 title-font font-medium"><%= Course.where(course_status_id: CourseStatus.find_by_name('validate').id, structure_id: current_user.structure_id).count %></h2>
-            <p class="text-gray-500"><%= link_to "Leçons validées", course_all_path %></p>
+        <li class="col-span-1 flex shadow-sm rounded-md">
+          <div class="flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-sm font-medium rounded-l-md">
+            GA
           </div>
-        </div>
-      </div>
-      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
-          <?xml version="1.0" ?><svg id="Layer_1" style="enable-background:new 0 0 128 128;" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
-            .st0{fill:#382673;}
-            .st1{fill:#473080;}
-            .st2{fill:#007BC6;}
-            .st3{fill:#D44A90;}
-            .st4{fill:#A72973;}
-            .st5{fill:#F15A9E;}
-            .st6{opacity:0.4;fill:#0CAFE8;}
-            .st7{opacity:0.5;fill:#382673;}
-            .st8{fill:#0CAFE8;}
-            .st9{fill:#0B90D3;}
-            .st10{opacity:0.3;fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-            .st11{fill:#8F58B2;}
-            .st12{fill:#6E4CA0;}
-            .st13{fill:#F375AD;}
-            .st14{fill:#FFDE39;}
-            .st15{fill:#FEC632;}
-            .st16{fill:#F9A74E;}
-            .st17{fill:#DA6A2D;}
-            .st18{fill:#9EDD9A;}
-            .st19{fill:#00C2A9;}
-            .st20{fill:#00A58C;}
-            .st21{fill:#037C68;}
-            .st22{fill:#9AC0DB;}
-            .st23{fill:#FFFFFF;}
-            .st24{opacity:0.2;fill:#382673;}
-            .st25{opacity:0.4;fill:#473080;}
-            .st26{opacity:0.1;fill:#382673;}
-            .st27{fill:none;stroke:#FFDE39;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-            .st28{fill:none;stroke:#F9A74E;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-            .st29{fill:none;stroke:#FEC632;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-            .st30{fill:none;stroke:#00A58C;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-            .st31{fill:none;stroke:#D44A90;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-            .st32{fill:none;stroke:#007BC6;stroke-width:2.2439;stroke-miterlimit:10;}
-            .st33{fill:none;stroke:#F15A9E;stroke-width:3;stroke-linecap:round;stroke-miterlimit:10;}
-            .st34{opacity:0.2;fill:none;stroke:#382673;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-            .st35{fill:none;stroke:#F15A9E;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
-            .st36{fill:none;stroke:#F9A74E;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-            .st37{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
-            .st38{opacity:0.4;fill:#382673;}
-        </style><circle class="st0" cx="64" cy="64" r="60"/><circle class="st1" cx="64" cy="64" r="50"/><g><ellipse class="st32" cx="48.7" cy="25.9" rx="11.5" ry="11.5" transform="matrix(0.9397 -0.342 0.342 0.9397 -5.9073 18.2022)"/><rect class="st9" height="17" transform="matrix(0.9397 -0.342 0.342 0.9397 -9.2157 20.1123)" width="8" x="48.4" y="27.7"/><rect class="st2" height="17" transform="matrix(0.9397 -0.342 0.342 0.9397 -8.6079 21.165)" width="1" x="55.2" y="26.5"/><rect class="st2" height="7" transform="matrix(0.9397 -0.342 0.342 0.9397 -7.7119 19.2441)" width="8" x="46.7" y="28"/><rect class="st9" height="13.5" transform="matrix(0.9063 0.4226 -0.4226 0.9063 24.7698 -30.8982)" width="6" x="79.1" y="33.7"/><path class="st8" d="M88,38.1l-8-3.7l0.7-1.4c0.5-1,1.7-1.4,2.7-1l4.4,2c1,0.5,1.4,1.7,1,2.7L88,38.1z"/><rect class="st9" height="13.5" transform="matrix(-0.4226 0.9063 -0.9063 -0.4226 99.1383 53.8098)" width="6" x="29.4" y="51.8"/><path class="st8" d="M26.4,60.5l3.7-8l-1.4-0.7c-1-0.5-2.2,0-2.7,1l-2,4.4c-0.5,1,0,2.2,1,2.7L26.4,60.5z"/><ellipse class="st8" cx="66.3" cy="74.2" rx="38" ry="38" transform="matrix(0.9397 -0.342 0.342 0.9397 -21.3968 27.1451)"/><path class="st9" d="M91.5,45.8c3.8,3.8,6.9,8.5,8.8,13.9c7.2,19.7-3,41.5-22.7,48.7c-13.6,4.9-28.1,1.7-38.2-7.3   c10.1,10.1,25.5,14,39.9,8.8c19.7-7.2,29.9-29,22.7-48.7C99.7,55.1,96.1,49.9,91.5,45.8z"/><ellipse class="st23" cx="66.3" cy="74.2" rx="30" ry="30" transform="matrix(0.9397 -0.342 0.342 0.9397 -21.3968 27.1451)"/><path class="st24" d="M39.7,86C34,70.5,42.1,53.3,57.6,47.6c10.6-3.9,22.1-1.3,30,5.6c-8-8.1-20.3-11.3-31.7-7.2   c-15.6,5.7-23.6,22.9-17.9,38.5c1.8,4.9,4.7,9.1,8.4,12.3C43.6,93.8,41.2,90.2,39.7,86z"/><ellipse class="st24" cx="66.3" cy="74.2" rx="8" ry="8" transform="matrix(0.9397 -0.342 0.342 0.9397 -21.3968 27.1451)"/><path class="st14" d="M57.4,49.8l3.1,8.5c8.8-3.2,18.6,1.3,21.8,10.2l8.5-3.1C85.8,51.9,70.9,44.9,57.4,49.8z"/><path class="st15" d="M57.4,49.8l3.1,8.5c4.4-1.6,9.1-1.3,13,0.6l3.8-8.2C71.2,47.9,64.1,47.4,57.4,49.8z"/><line class="st33" x1="58.8" x2="90.7" y1="77" y2="65.4"/><ellipse class="st3" cx="66.3" cy="74.2" rx="4" ry="4" transform="matrix(0.9397 -0.342 0.342 0.9397 -21.3968 27.1451)"/><path class="st8" d="M56.9,30.8L45.6,35l-2.4-6.6c-0.6-1.6,0.2-3.3,1.8-3.8l5.6-2.1c1.6-0.6,3.3,0.2,3.8,1.8L56.9,30.8z"/><path class="st9" d="M50.6,22.5l-2.8,1c1.6-0.6,3.3,0.2,3.8,1.8l2.4,6.6l2.8-1l-2.4-6.6C53.9,22.7,52.2,21.9,50.6,22.5z"/><line class="st34" x1="74.5" x2="72.8" y1="96.8" y2="92.1"/><line class="st34" x1="56.1" x2="58.2" y1="96" y2="91.5"/><line class="st34" x1="43.7" x2="48.4" y1="82.5" y2="80.7"/><line class="st34" x1="83.5" x2="88" y1="82.3" y2="84.4"/><line class="st34" x1="44.5" x2="49.1" y1="64.1" y2="66.2"/></g><line class="st35" x1="87.7" x2="89.8" y1="29" y2="24.5"/><line class="st35" x1="82.9" x2="84.1" y1="26.8" y2="24.2"/><line class="st35" x1="92.5" x2="93.7" y1="31.3" y2="28.7"/></svg>
-          <div class="flex-grow">
-            <h2 class="text-gray-900 title-font font-medium"><%= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %></h2>
-            <p class="text-gray-500">En attente de validation</p>
+          <div class="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
+            <div class="flex-1 px-4 py-2 text-sm truncate">
+              <a href="#" class="text-gray-900 font-medium hover:text-gray-600">
+                <%= link_to document.filename, read_active_document_path(document_id: document) %>
+              </a>
+              <p class="text-gray-500"><%= document.created_at.strftime("%d %b %y") %></p>
+            </div>
+            <div class="flex-shrink-0 pr-2">
+              <button class="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <span class="sr-only">Open options</span>
+                <!-- Heroicon name: dots-vertical -->
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-        <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
-          <?xml version="1.0" ?><svg id="Layer_1" style="enable-background:new 0 0 512 512;" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
-            .st0{fill:#64B7B2;}
-            .st1{fill:#00A79D;}
-            .st2{fill:#DCC5A1;}
-            .st3{fill:#EDD9B4;}
-            .st4{fill-rule:evenodd;clip-rule:evenodd;fill:#BC9F82;}
-            .st5{fill-rule:evenodd;clip-rule:evenodd;fill:#4B1F0D;}
-            .st6{fill-rule:evenodd;clip-rule:evenodd;fill:#DCC5A1;}
-            .st7{fill-rule:evenodd;clip-rule:evenodd;fill:#EDD9B4;}
-            .st8{fill:#010101;}
-            .st9{opacity:0.3;}
-            .st10{clip-path:url(#SVGID_2_);fill:#5C3915;}
-            .st11{clip-path:url(#SVGID_4_);fill:#5C3915;}
-            .st12{fill-rule:evenodd;clip-rule:evenodd;fill:#EDEDED;}
-            .st13{opacity:0.1;}
-            .st14{clip-path:url(#SVGID_6_);fill-rule:evenodd;clip-rule:evenodd;fill:#010101;}
-            .st15{fill:#342214;}
-            .st16{fill:#FFFFFF;}
-            .st17{fill:#BE1E2D;}
-            .st18{fill:#200D45;}
-        </style><g><path class="st0" d="M90.4,379.5c10.5-9.3,37.1-30,125.5-68.8l81,0.5c88.5,38.8,114.1,58.9,124.6,68.2c4.1,3.6,7.7,9.6,10.9,17.4   c24.7-35.1,39.2-77.9,39.2-124.1C471.7,153.6,375.1,57,256,57C136.9,57,40.3,153.6,40.3,272.8c0,46.2,14.5,89,39.2,124.1   C82.8,389.1,86.4,383,90.4,379.5z"/><path class="st1" d="M142.9,456.5c1.2-9.6,2-15.4,2-15.4s0,6.2,0,16.7c26.5,15.9,56.6,26.3,88.9,29.6l14.1-98.6l-11.1-16.3   l19.4-19.7l18.5,19.5l-10.7,16.5l14.1,98.6c32.2-3.3,62.3-13.7,88.7-29.5c0-10.5,0-16.8,0-16.8s0.8,5.9,2,15.5   c25-15.4,46.7-35.8,63.6-59.8c-3.3-7.7-6.9-13.8-10.9-17.4c-10.5-9.3-36.1-29.4-124.6-68.2l-81-0.5   c-88.5,38.8-115.1,59.5-125.5,68.8c-4.1,3.6-7.6,9.6-10.9,17.4C96.4,420.8,117.9,441.1,142.9,456.5z"/><g><path class="st2" d="M213.3,236.5v97.2c11.7,13.8,27.1,21,42.6,21.1V197.1C234.6,197.1,213.3,210.2,213.3,236.5z"/><path class="st3" d="M255.9,197.1v157.7c15.4,0.1,30.9-6.8,42.6-21.1v-97.2C298.5,210.2,277.2,197.1,255.9,197.1z"/></g><path class="st4" d="M298.5,232.6v65.1c-16.1,11.7-31.6,18.3-42.6,18.3c-10.9,0-26.5-6.6-42.6-18.3v-65.1   C213.3,180.1,298.5,180.1,298.5,232.6"/><path class="st5" d="M318.8,111.5c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.3-33.9,33.9   C284.9,96.3,300.1,111.5,318.8,111.5"/><path class="st5" d="M285.5,96.6c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C251.6,81.4,266.8,96.6,285.5,96.6"/><path class="st5" d="M234.6,91.4c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C200.6,76.1,215.9,91.4,234.6,91.4"/><path class="st5" d="M188.9,108c18.7,0,33.9-15.3,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C155,92.8,170.3,108,188.9,108"/><path class="st5" d="M162.6,145.8c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C128.7,130.5,143.9,145.8,162.6,145.8"/><path class="st5" d="M347.8,146.6c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.3-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C313.9,131.4,329.1,146.6,347.8,146.6"/><path class="st5" d="M349.5,194c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C315.6,178.8,330.9,194,349.5,194"/><path class="st5" d="M325,251.1c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C291,235.8,306.3,251.1,325,251.1"/><path class="st5" d="M160,188.8c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C126.1,173.5,141.3,188.8,160,188.8"/><path class="st5" d="M184.6,255.5c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C150.6,240.2,165.9,255.5,184.6,255.5"/><path class="st5" d="M344.7,226.5c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C310.7,211.2,326,226.5,344.7,226.5"/><path class="st5" d="M164.9,224.1c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C131,208.8,146.2,224.1,164.9,224.1"/><g><path class="st6" d="M157.5,176.1c-3.4-2.5-7.1-3.5-10.3-2.5c-7.5,2.5-10.1,15-5.8,27.9c4.3,13,13.8,21.5,21.3,19    c0.5-0.2,1-0.4,1.5-0.7c3.6,14.8,7.6,25.4,9.7,28.4c10.3,15.2,59.1,55.3,82.2,55.3V62C170.6,62,154.5,123.6,157.5,176.1z"/><path class="st7" d="M366.3,173.7c-3.8-1.3-8.1,0.3-12.1,3.9C357.6,124.7,342,62,255.9,62h0v241.7h0c23.1,0,71.9-40.2,82.2-55.3    c2.1-3.1,6.3-14.1,9.9-29.4c0.9,0.7,1.8,1.3,2.9,1.6c7.5,2.5,17-6,21.3-19C376.4,188.7,373.8,176.2,366.3,173.7z"/></g><path class="st5" d="M244.2,120.3c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C210.3,105.1,225.5,120.3,244.2,120.3"/><path class="st5" d="M290.7,118.6c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C256.8,103.3,272.1,118.6,290.7,118.6"/><path class="st5" d="M210,130.9c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C176.1,115.6,191.3,130.9,210,130.9"/><path class="st5" d="M184.8,142.7c15.9,0,28.9-13,28.9-28.9c0-15.9-13-28.9-28.9-28.9c-15.9,0-28.9,13-28.9,28.9   C155.9,129.7,168.9,142.7,184.8,142.7"/><path class="st5" d="M318,139.6c18.7,0,33.9-15.2,33.9-33.9c0-18.7-15.2-33.9-33.9-33.9c-18.7,0-33.9,15.2-33.9,33.9   C284,124.4,299.3,139.6,318,139.6"/><path class="st5" d="M345.5,162.6c13.2,0,23.9-10.8,23.9-23.9c0-13.2-10.8-23.9-23.9-23.9c-13.2,0-23.9,10.8-23.9,23.9   C321.6,151.9,332.3,162.6,345.5,162.6"/><path class="st5" d="M169.4,167.2c12.8,0,23.2-10.4,23.2-23.2c0-12.8-10.4-23.2-23.2-23.2c-12.8,0-23.2,10.4-23.2,23.2   C146.2,156.8,156.6,167.2,169.4,167.2"/><path class="st5" d="M164.6,183c8.2,0,14.8-6.7,14.8-14.8c0-8.2-6.7-14.8-14.8-14.8c-8.2,0-14.8,6.7-14.8,14.8   C149.7,176.4,156.4,183,164.6,183"/><path class="st5" d="M349.7,184.8c8.2,0,14.8-6.7,14.8-14.8c0-8.2-6.7-14.8-14.8-14.8c-8.2,0-14.8,6.7-14.8,14.8   C334.9,178.1,341.6,184.8,349.7,184.8"/><path class="st5" d="M166.3,196.2c5.8,0,10.4-4.7,10.4-10.4c0-5.7-4.7-10.4-10.4-10.4c-5.7,0-10.4,4.7-10.4,10.4   C155.9,191.5,160.6,196.2,166.3,196.2"/><path class="st5" d="M348,195.3c5.8,0,10.4-4.7,10.4-10.4c0-5.7-4.7-10.4-10.4-10.4c-5.7,0-10.4,4.7-10.4,10.4   C337.6,190.6,342.2,195.3,348,195.3"/><path class="st8" d="M349.6,171.9c-2.7-2.1-27.9-10.8-37.5-11.1c0,0-21.6-2.6-32.3,2.4c-10.7,4.9-12.9,4.2-23.3,4.7c0,0-0.4,0-1,0   c-0.7,0-1,0-1,0c-10.4-0.5-12.6,0.2-23.3-4.7c-10.7-4.9-32.3-2.4-32.3-2.4c-9.6,0.2-34.8,8.9-37.5,11.1c-2.7,2.1,0,5.5,0,5.5   c10.9-0.9,12.3,17.5,12.3,17.5c1.3,5,3.1,9.5,6,13.7c3.6,5.2,8.7,9.4,14.7,11.6c5.7,2.1,11,2.2,17.1,2.2c7.9-0.1,15.2-2.1,21.2-7.2   c11.1-9.3,14.9-33.5,14.9-33.5c-1.5-0.7-1.6-3.5-1.6-3.5c-0.1-4.1,6.4-4.5,8.5-4.5c0.3,0,0.6,0,1,0c0.4,0,0.7,0,1,0   c2,0,8.6,0.4,8.5,4.5c0,0-0.1,2.8-1.6,3.5c0,0,3.9,24.2,14.9,33.5c6,5,13.4,7.1,21.2,7.2c6.1,0.1,11.4-0.1,17.1-2.2   c6-2.2,11.1-6.4,14.7-11.6c2.9-4.2,4.8-8.8,6-13.7c0,0,1.4-18.5,12.4-17.5C349.6,177.4,352.3,174,349.6,171.9 M240.5,190.7   c-2,14.1-5.7,21.5-14.7,25.7c-9.1,4.2-17,3.5-17,3.5s-7.7,0.7-16.8-3.5c-9.1-4.2-12.5-11.6-14.5-25.7c-0.3-2.4-0.6-4.8-0.6-7.2   c0.1-6.6,3.3-13.9,9.7-16.8c4-1.8,9.4-2.4,13.7-2.7c2.8-0.2,5.7-0.4,8.5-0.4c0.9,0,1.8,0.1,2.7,0.2c7.3,0.6,16.1,0.6,22.4,4.8   c1.1,0.8,2.2,1.6,3.2,2.7C241.8,176.5,241.5,184.1,240.5,190.7 M333.4,190.7c-2,14.1-5.4,21.5-14.5,25.7   c-9.1,4.2-16.8,3.5-16.8,3.5s-7.9,0.7-17-3.5c-9.1-4.2-12.7-11.6-14.7-25.7c-0.9-6.6-1.3-14.2,3.5-19.4c1-1.1,2-1.9,3.2-2.7   c6.3-4.2,15.1-4.2,22.4-4.8c0.9-0.1,1.8-0.2,2.6-0.2c2.8,0,5.7,0.2,8.5,0.4c4.3,0.3,9.8,0.9,13.7,2.7c6.3,2.9,9.6,10.2,9.7,16.8   C334,185.8,333.8,188.3,333.4,190.7"/><g class="st9"><g><defs><rect height="56.3" id="SVGID_1_" width="64.2" x="176.9" y="163.5"/></defs><clipPath id="SVGID_2_"><use style="overflow:visible;" xlink:href="#SVGID_1_"/></clipPath><path class="st10" d="M240.5,190.7c-2,14.1-5.7,21.5-14.7,25.7c-9.1,4.2-17,3.5-17,3.5s-7.7,0.7-16.8-3.5     c-9.1-4.2-12.5-11.6-14.5-25.7c-0.3-2.4-0.6-4.8-0.6-7.2c0.1-6.6,3.3-13.9,9.7-16.8c4-1.8,9.4-2.4,13.7-2.7     c2.8-0.2,5.7-0.4,8.5-0.4c0.9,0,1.8,0.1,2.7,0.2c7.3,0.6,16.1,0.6,22.4,4.8c1.1,0.8,2.2,1.6,3.2,2.7     C241.8,176.5,241.5,184.1,240.5,190.7"/></g></g><g class="st9"><g><defs><rect height="56.3" id="SVGID_3_" width="64.2" x="269.8" y="163.5"/></defs><clipPath id="SVGID_4_"><use style="overflow:visible;" xlink:href="#SVGID_3_"/></clipPath><path class="st11" d="M333.4,190.7c-2,14.1-5.4,21.5-14.5,25.7c-9.1,4.2-16.8,3.5-16.8,3.5s-7.9,0.7-17-3.5     c-9.1-4.2-12.7-11.6-14.7-25.7c-0.9-6.6-1.3-14.2,3.5-19.4c1-1.1,2-1.9,3.2-2.7c6.3-4.2,15.1-4.2,22.4-4.8     c0.9-0.1,1.8-0.2,2.6-0.2c2.8,0,5.7,0.2,8.5,0.4c4.3,0.3,9.8,0.9,13.7,2.7c6.3,2.9,9.6,10.2,9.7,16.8     C334,185.8,333.8,188.3,333.4,190.7"/></g></g><g><polygon class="st12" points="213.3,299.4 209.3,313.6 219.8,389.7 255.9,352.4   "/><polygon class="st12" points="298.5,299.7 301.9,313.4 292.1,390.5 255.9,352.4   "/></g><g class="st13"><g><defs><rect height="0.5" id="SVGID_5_" width="16.3" x="247.8" y="388.8"/></defs><clipPath id="SVGID_6_"><use style="overflow:visible;" xlink:href="#SVGID_5_"/></clipPath><polygon class="st14" points="247.9,388.8 264.1,388.8 264.1,389.3 247.9,389.3    "/></g></g><g><path class="st15" d="M213.4,177.2c5.9,0,10.7,5.4,10.7,12.1c0,6.7-4.8,12.1-10.7,12.1c-5.9,0-10.7-5.4-10.7-12.1    C202.8,182.6,207.6,177.2,213.4,177.2"/><path class="st15" d="M300,177.2c5.9,0,10.7,5.4,10.7,12.1c0,6.7-4.8,12.1-10.7,12.1c-5.9,0-10.7-5.4-10.7-12.1    C289.4,182.6,294.1,177.2,300,177.2"/><path class="st16" d="M234.7,253.7c3.8,8.4,12.2,14.2,22,14.2c9.8,0,18.2-5.8,22-14.2H234.7z"/></g><polygon class="st17" points="256,488.5 256,488.5 256,488.5  "/><path class="st18" d="M142.9,456.5c0.7,0.4,1.4,0.8,2,1.2c0-10.4,0-16.7,0-16.7S144.1,446.9,142.9,456.5z"/><path class="st18" d="M366.9,457.9c0.7-0.4,1.4-0.8,2.1-1.3c-1.2-9.6-2-15.5-2-15.5S366.9,447.4,366.9,457.9z"/><path d="M264.1,388.8l10.8-16.4l-18.9-20l-19.3,20l11.3,16.4l-14.1,98.6c7.3,0.7,14.7,1.1,22.2,1.1h0c7.5,0,14.9-0.4,22.2-1.1   L264.1,388.8z"/></g></svg>
-          <div class="flex-grow">
-            <h2 class="text-gray-900 title-font font-medium"><%= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %></h2>
-            <p class="text-gray-500">Apprenants imcomplets</p>
-          </div>
-        </div>
-      </div>
-    </div>
+        </li>
+
+      <% end %>
+
+    </ul>
   </div>
-</section>
 
-<!--<section data-section-id="3" data-category="admin" data-component-id="73a6_15_02_awz" class="py-8 px-4">-->
-<!--  <div class="flex flex-wrap -mx-4">-->
-<!--    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">-->
-<!--      <div class="h-full">-->
-<!--        <div class="flex justify-between items-end mb-2">-->
-<!--          <h3 class="text-lg font-heading font-light" data-config-id="02-col1-header">Enseignants</h3>-->
-<!--          <span class="text-5xl leading-none text-blue-700" data-config-id="02-col1-number">-->
-<%#= link_to User.where(role_id: Role.find_by_name('teacher').id, structure_id: current_user.structure_id).count, setup_manage_enseignant_index_path %>
-<!--          </span>-->
-<!--        </div>-->
-<!--        <div class="w-full h-4 bg-gray-300 rounded">-->
-<!--          <div class="h-full bg-blue-500" style="width: 62%;"></div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">-->
-<!--      <div class="h-full">-->
-<!--        <div class="flex justify-between items-end mb-2">-->
-<!--          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col2-header">Leçons publiés</h3>-->
-<!--          <span class="text-5xl leading-none text-red-500" data-config-id="02-col2-number">-->
-<%#= Course.where(course_status_id: CourseStatus.find_by_name('validate').id, structure_id: current_user.structure_id).count %>
-<!--          </span>-->
-<!--        </div>-->
-<!--        <div class="w-full h-4 bg-gray-300 rounded">-->
-<!--          <div class="h-full bg-red-500" style="width: 62%;"></div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">-->
-<!--      <div class="h-full">-->
-<!--        <div class="flex justify-between items-end mb-2">-->
-<!--          <h3 class="text-lg font-heading font-light" data-config-id="02-col3-header">Leçons attentes</h3>-->
-<!--          <span class="text-5xl leading-none text-purple-500" data-config-id="02-col3-number">-->
-<%#= link_to Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).count, course_all_path %>
-<!--          </span>-->
-<!--        </div>-->
-<!--        <div class="w-full h-4 bg-gray-300 rounded">-->
-<!--          <div class="h-full bg-purple-500" style="width: 62%;"></div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="w-full lg:w-1/4 px-4 mb-6 lg:mb-0">-->
-<!--      <div class="h-full">-->
-<!--        <div class="flex justify-between items-end mb-2">-->
-<!--          <h3 class="text-lg font-heading font-semibold" data-config-id="02-col4-header">Apprenants</h3>-->
-<!--          <span class="text-5xl leading-none text-green-500" data-config-id="02-col4-number">-->
-<%#= Student.where(structure: current_user.structure_id).count %>
-<!--          </span>-->
-<!--        </div>-->
-<!--        <div class="w-full h-4 bg-gray-300 rounded">-->
-<!--          <div class="h-full bg-green-500" style="width: 62%;"></div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
+</div>
 
-<br>
-<br>
-
-<!--<div class="items-center justify-between mb-4">-->
-<!--  <h2 class="text-xl font-bold text-gray-800 mb-6">-->
-<%#= column_chart @course_stats, message: {empty: "Aucune données disponibles."}, refresh: 60, xtitle: 'Libellé leçons', ytitle: "Nombre de consultations" %>
-<!--    <p class="text-center mt-8">-->
-<!--      Statistique cours lus | <%#= link_to 'Imprimer', "#", class: 'font-light' %> | <%#= link_to 'Plus de statistiques', "#", class: 'font-light' %>-->
-<!--    </p>-->
-<!--  </h2>-->
-<!--</div>-->
 
 <% if @new_account.empty? %>
 
@@ -376,336 +554,21 @@
     </div>
   </section>
 
-  <!--  <div class="overflow-x-auto bg-white rounded-lg shadow">-->
-  <!--    <table class="w-full whitespace-no-wrap bg-white overflow-hidden table-striped" id="example">-->
-  <!--      <thead>-->
-  <!--      <tr class="text-left">-->
-  <!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Nom complèt & mat.</th>-->
-  <!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Email & Date ajout</th>-->
-  <!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">User Role & structure</th>-->
-  <!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs">Cycle & classe</th>-->
-  <!--        <th class="px-6 py-3 text-gray-500 font-bold tracking-wider uppercase text-xs bg-blue-200">Statut</th>-->
-  <!--      </tr>-->
-  <!--      </thead>-->
-  <!--      <tbody>-->
-  <%# @new_account.each do |account| %>
-  <!--        <tr>-->
-  <!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
-  <!--            <div class="flex items-center">-->
-  <!--              <div class="flex-shrink-0 h-10 w-10">-->
-  <%#= image_tag 'teacher.png', class: "" %>
-  <!--              </div>-->
-  <!--              <div class="ml-4">-->
-  <!--                <div><%#= account.complete_name %></div>-->
-  <!--                <div class="text-sm leading-5 text-gray-500"> <%#= account.matricule %></div>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          </td>-->
-  <!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
-  <!--            <div class="text-sm leading-5 text-gray-900"><%#= account.email %></div>-->
-  <!--            <div class="text-sm leading-5 text-gray-500"><%#= account.created_at.strftime("%d %b %Y") %></div>-->
-  <!--          </td>-->
-  <!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
-  <!--            <div class="text-sm leading-5 text-gray-900"><%#= account.role.name %></div>-->
-  <!--            <div class="text-sm leading-5 text-gray-500"><%#= account.structure.name %></div>-->
-  <!--          </td>-->
-  <!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
-  <!--            <div class="text-sm leading-5 text-gray-900"><%##= account.cycle_ecole.name %></div>-->
-  <!--            <div class="text-sm leading-5 text-gray-500">-->
-  <%# TeacherClasse.where(user_id: account.id).each do |classe| %>
-  <!--                <%#= SalleDeClass.find(classe.salle_de_class_id).name %> <br>-->
-  <%# end %>
-  <!--            </div>-->
-  <!--          </td>-->
-  <!--          <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 bg-blue-300">-->
-  <!--          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">-->
-  <%#= link_to "Details", "#", data: {confirm: "Aucuns details disponible pour le moment. \nMerci de patienter."} %>
-  <!--          </span>-->
-  <!--          </td>-->
-  <!--        </tr>-->
-
-  <%# end %>
-
-  <!--      </tbody>-->
-  <!--    </table>-->
-  <!--  </div>-->
-<% end %>
-
-<br>
-<br>
-
-
-<br>
-<br>
-
-
-<div class="flex items-center justify-between mb-4 mt-8">
-  <h2 class="text-xl font-bold text-gray-800 mb-6">Publications en attentes de validation</h2>
-  <%= link_to 'Tout voir', course_all_path, class: 'hover:bg-transparent text-blue-600 hover:text-blue-500 font-medium' %>
-</div>
-
-<% if Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).empty? %>
-  <div class="bg-gray-50">
-    <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-      <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-        Aucun cours
-        <br/>
-        <span class="text-indigo-600">en attente de validation</span>
-      </h2>
-    </div>
-  </div>
-<% else %>
-
-  <%= render 'layouts/course_template', courses: Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc) %>
-
-<!--  <section class="text-gray-700 body-font">-->
-<!--    <div class="container px-5 mx-auto">-->
-<!--      <div class="flex flex-wrap -m-2">-->
-        <%# Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc).each do |course| %>
-          <%# unless course.user.statut == 'inactive' %>
-            <%#= link_to course_detail_path(course_id: course.id, document_id: course.document_id), "x-click": {detail: true} do %>
-<!--              <div class="p-2 lg:w-1/3 md:w-1/2 w-full">-->
-<!--                <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl hover:bg-blue-100">-->
-<!--                  <svg class="w-10 h-10 lex-shrink-0 rounded-full mr-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">-->
-<!--                    <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path>-->
-<!--                  </svg>-->
-<!--                  <div class="flex-grow">-->
-<!--                    <h2 class="text-gray-900 title-font font-bold">-->
-                      <%#= link_to excerpt(course.chapter.upcase, '', radius: 30), course_detail_path(course_id: course.id, document_id: course.document_id) %>
-<!--                    </h2>-->
-<!--                    <p class="text-gray-500"><%#= course.user.complete_name %></p>-->
-<!--                    <p class="text-gray-500"><%#= course.salle_de_class.name %></p>-->
-<!--                    <p class="text-gray-500"><%#= course.created_at.strftime("%d %b %Y - %HH:%Mmin") %></p>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-            <%# end %>
-          <%# end %>
-        <%# end %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
-
-<% end %>
-
-<br>
-
-<div class="container my-12 mx-auto px-4 md:px-12">
-  <div class="flex flex-wrap -mx-1 lg:-mx-4">
-
-    <%# @course.each do |course| %>
-    <!--      <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">-->
-
-    <!--        <article class="overflow-hidden rounded-lg shadow-lg">-->
-
-    <!--          <a href="#">-->
-    <!--            <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
-    <!--          </a>-->
-
-    <!--          <header class="flex items-center justify-between leading-tight p-2 md:p-4">-->
-    <!--            <h1 class="text-lg">-->
-    <!--              <a class="no-underline hover:underline text-black" href="#">-->
-    <%#= excerpt(course.chapter, '', radius: 15) %>
-    <!--              </a>-->
-    <!--            </h1>-->
-    <!--            <p class="text-grey-darker text-sm">-->
-    <%#= course.created_at.strftime("%d %b %Y") %>
-    <!--            </p>-->
-    <!--          </header>-->
-
-    <!--          <footer class="flex items-center justify-between leading-none p-2 md:p-4">-->
-    <%#= link_to "#", class: "hover:bg-transparent hover:text-indigo-500 flex items-center no-underline hover:underline text-black" do %>
-    <!--              <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">-->
-    <!--              <p class="ml-2 text-sm">-->
-    <%#= course.user.complete_name %>
-    <!--              </p>-->
-    <%# end %>
-    <!--            <a class="no-underline text-grey-darker hover:text-red-dark" href="#">-->
-    <!--              <span class="hidden">Like</span>-->
-    <!--              <i class="fa fa-heart"></i>-->
-    <!--            </a>-->
-    <!--          </footer>-->
-
-    <!--        </article>-->
-
-    <!--      </div>-->
-    <%# end %>
-
-  </div>
-</div>
-
-<br>
-
-<br>
-
-<% if (Student.where(c_pere: nil)).or(Student.where(c_mere: nil)).or(Student.where(c_tuteur: nil)).empty? %>
-
-
-<% else %>
-
-  <div class="flex items-center justify-between mb-4 mt-8">
-    <h2 class="text-xl font-bold text-gray-800 mb-6">Dossiers apprenants incomplet</h2>
-    <%= link_to 'Tout voir', course_all_path, class: 'hover:bg-transparent text-blue-600 hover:text-blue-500 font-medium' %>
-  </div>
-
-  <div class="flex flex-col">
-    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-        <table class="min-w-full" id="abonned">
-          <thead>
-          <tr>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Nom complèt
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Etablissement
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Père
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Mère
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Tuteur
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-          </tr>
-          </thead>
-          <tbody class="bg-white">
-          <% (Student.where(c_pere: nil, structure: current_user.structure_id)).or(Student.where(c_mere: nil, structure: current_user.structure_id)).or(Student.where(c_tuteur: nil, structure: current_user.structure_id)).each do |student| %>
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10">
-                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900"><%= student.name %></div>
-                    <div class="text-sm leading-5 text-gray-500"><%= student.salle_de_class.name %></div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= student.matricule %></div>
-                <div class="text-sm leading-5 text-gray-500"><%= Structure.find(student.structure.to_i).name %></div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= student.pere.nil? ? "Aucun contact" : student.pere.upcase %></div>
-                <div class="text-sm leading-5 text-gray-500"><%= student.c_pere.nil? ? "Aucun" : student.c_pere %></div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= student.mere.nil? ? "Aucun contact" : student.mere.upcase %></div>
-                <div class="text-sm leading-5 text-gray-500"><%= student.c_mere.nil? ? "Aucun" : student.c_mere %></div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= student.tuteur.nil? ? "Aucun contact" : student.tuteur.upcase %></div>
-                <div class="text-sm leading-5 text-gray-500"><%= student.c_tuteur.nil? ? "Aucun" : student.c_tuteur %></div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900">Modifier</a>
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
 <% end %>
 
 
-<br>
-
-<div class="flex items-center justify-between mb-4 mt-8">
-  <h2 class="text-xl font-bold text-gray-800 mb-6">Derniers documents importés</h2>
-  <%= link_to 'Tout voir', "#", class: 'hover:bg-transparent text-blue-600 hover:text-blue-500 font-medium' %>
-</div>
-
-<% if @documents.nil? %>
-  <div class="bg-gray-50">
-    <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-      <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-        Aucun document
-        <br/>
-        <span class="text-indigo-600">en attente.</span>
-      </h2>
-    </div>
-  </div>
-<% else %>
-
-<!--  <div class="container my-12 mx-auto px-4 md:px-12">-->
-<!--    <div class="flex flex-wrap -mx-1 lg:-mx-4">-->
-
-      <%# @documents.limit(9).each do |document| %>
-<!--        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">-->
-
-<!--          <article class="overflow-hidden rounded-lg shadow-lg hover:shadow-xl">-->
-
-<!--            <a href="#">-->
-              <%# if document.image? %>
-                <%#= image_tag 'photo.png', class: 'block h-auto w-full' %>
-              <%# elsif document.content_type.end_with?('pdf') %>
-                <%#= image_tag rails_blob_path(document), class: "block h-auto w-full" %>
-                <%#= image_tag document.preview(resize: "500x500") %>
-                <%#= image_tag 'pdf.png', class: 'block h-auto w-full' %>
-              <%# elsif document.video? %>
-                <%#= image_tag 'video.png', class: 'block h-auto w-full' %>
-              <%# else %>
-<!--                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
-              <%# end %>
-<!--            </a>-->
-
-<!--            <header class="flex items-center justify-between leading-tight p-2 md:p-4">-->
-<!--              <h1 class="text-lg">-->
-<!--                <a class="no-underline hover:underline text-black" href="#">-->
-                  <%#= document.filename %>
-<!--                </a>-->
-<!--              </h1>-->
-<!--              <p class="text-grey-darker text-sm">-->
-<!--                11/1/19-->
-<!--              </p>-->
-<!--            </header>-->
-
-<!--            <footer class="flex items-center justify-between leading-none p-2 md:p-4">-->
-<!--              <a class="flex items-center no-underline hover:underline text-black" href="#">-->
-<!--                <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">-->
-<!--                <p class="ml-2 text-sm">-->
-<!--                  Author Name-->
-<!--                </p>-->
-<!--              </a>-->
-<!--              <a class="no-underline text-grey-darker hover:text-red-dark" href="#">-->
-<!--                <span class="hidden">Like</span>-->
-<!--                <i class="fa fa-heart"></i>-->
-<!--              </a>-->
-<!--            </footer>-->
-
-<!--          </article>-->
-
-<!--        </div>-->
-      <%# end %>
-
+<%# if Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).empty? %>
+<!--  <div class="bg-gray-50">-->
+<!--    <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">-->
+<!--      <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">-->
+<!--        Aucun cours-->
+<!--        <br/>-->
+<!--        <span class="text-indigo-600">en attente de validation</span>-->
+<!--      </h2>-->
 <!--    </div>-->
 <!--  </div>-->
-  <section class="text-gray-700 body-font">
-    <div class="container px-5 mx-auto">
-      <div class="flex flex-wrap -m-2">
-        <% @documents.each do |document| %>
-          <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
-            <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg bg-white hover:shadow-xl">
-              <svg class="w-6 h-6 flex-shrink-0 rounded-full mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
-              </svg>
-              <div class="flex-grow">
-                <h2 class="text-gray-900 title-font font-medium"><%= link_to document.filename, read_active_document_path(document_id: document) %></h2>
-                <p class="text-gray-500"><%= document.content_type %></p>
-                <p class="text-gray-500"><%= document.created_at %></p>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </section>
-<% end %>
+<%# else %>
+
+  <%#= render 'layouts/course_template', courses: Course.where(course_status_id: CourseStatus.find_by_name('waiting').id, structure_id: current_user.structure_id).order(created_at: :desc) %>
+
+<%# end %>

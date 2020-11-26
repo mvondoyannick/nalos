@@ -68,6 +68,24 @@ class DemoController < ApplicationController
     end
   end
 
+  # list teacher validated course
+  def validated_courses
+
+  end
+
+  # List teacher documents
+  def documents
+    render json: {
+        data: ActiveStorage::Blob.all.each do |d|
+          {
+              filename: d.filename,
+              date: d.created_at,
+              content_type: d.content_type
+          }
+        end
+    }
+  end
+
   def fuse
     if params[:username].present? && params[:password].present?
       if User.exists?(matricule: params[:username].upcase)
@@ -229,7 +247,30 @@ class DemoController < ApplicationController
 
   # get last course
   def list_last_course
-    render json: Course.where(course_status_id: CourseStatus.find_by(name: 'waiting').id).as_json(only: [:chapter, :created_at, :token])
+    render json: {
+        data: Course.where(course_status_id: CourseStatus.find_by(name: 'validate').id).map do |c|
+          {
+              chapter: c.chapter,
+              salle_de_class: c.salle_de_class.name,
+              teacher: c.user.complete_name,
+              matiere: c.matiere.name,
+              categorie: c.categorie,
+              # fichier_join: ActiveStorage::Blob.all.find(c.file_id).map do |file|
+              #   {
+              #       file_id: file.id,
+              #       key: file.key,
+              #       filename: file.filename,
+              #       content_type: file.content_type,
+              #       taile: file.byte_size
+              #   }
+              # end,
+              fichier: "#{request.base_url}#{Rails.application.routes.url_helpers.rails_blob_path(Document.find(c.document_id).file.find(c.file_id), only_path: true)}", #c.file,
+              format: Document.find(c.document_id).file.find(c.file_id).content_type,
+              token: c.token,
+              date: c.created_at.strftime("%d %B %Y")
+          }
+        end
+    }
   end
 
   private

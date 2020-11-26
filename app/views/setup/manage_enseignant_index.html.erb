@@ -13,671 +13,258 @@
   </div>
 <% end %>
 
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Gestion des enseignants
-      <br/>
-      <span class="text-indigo-600">de <%= @current_structure.name %></span>
-    </h2>
-    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow">
-        <%= link_to "Nouvel enseignant", setup_enseignant_index_path(token: params[:token]), class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to "Précédent", :back, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between mt-8">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      Liste des enseignants
+    </h3>
+    <div class="mt-3 sm:mt-0 sm:ml-4">
+      <%= link_to "Nouvel enseignant", setup_enseignant_index_path, class: "items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
     </div>
   </div>
-</div>
 
-<% if @enseignants.empty? %>
-
-  <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+  <% if @enseignants.empty? %>
 
     <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-      <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+      <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-      <div class="text-center md:text-left">
-        <h2 class="text-lg mt-8">Aucuns enseignants pour le moment</h2> <br>
-        <%= link_to "Importer des enseignant?", "#", class: "hover:bg-transparent hover:text-indigo-500" %>
+        <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+
+        <div class="text-center md:text-left">
+          <h2 class="text-lg mt-8">Aucuns enseignants pour le moment</h2> <br>
+          <%= link_to "Importer des enseignant?", "#", class: "hover:bg-transparent hover:text-indigo-500" %>
+        </div>
+      </div>
+
+    </div>
+
+  <% else %>
+
+    <br>
+    <div class="grid grid-cols-5 gap-10">
+      <div class="col-span-1">
+        <%= paginate @enseignants %>
+      </div>
+      <div class="col-span-4">
+        <%= link_to "#{User.where(deleted: true).count} comptes suspendus ou supprimés. Regarder?", deleted_teachers_list_path %>
       </div>
     </div>
+    <br>
 
-  </div>
-
-<% else %>
-
-  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Rechercher ...", class="w-full shadow-inner p-4 border-0 mb-8 bg-white-900">
-
-  <br>
-  <div class="grid grid-cols-5 gap-10">
-    <div class="col-span-1">
-      <%= paginate @enseignants %>
-    </div>
-    <div class="col-span-4">
-      <%= link_to "#{User.where(deleted: true).count} comptes suspendus ou supprimés. Regarder?", deleted_teachers_list_path %>
-    </div>
-  </div>
-  <br>
-
-  <div class="bg-white shadow p-4 rounded">
-    <ul class="font-sans list-none p-0 container m-auto text-gray-900">
-      <% @enseignants.each do |enseignant| %>
-        <% unless enseignant.deleted.nil? %>
-          <li class="inline-block border-b border-gray-300 bg-red-200 flex justify-between items-center py-4">
-            <div class="flex items-start w-2/5">
-              <div class="w-10 h-10 rounded mr-3">
-                <%= image_tag 'teacher.png', class: "rounded-full h-10 w-10" %>
-              </div>
-              <div class="flex-1 overflow-hidden">
-                <div>
-                  <span class="font-bold"><%= enseignant.complete_name %></span>
-                  <!--              <span class="text-gray-700 text-xs">@logan</span>-->
+    <div class="bg-white shadow p-4 rounded">
+      <ul class="font-sans list-none p-0 container m-auto text-gray-900">
+        <% @enseignants.each do |enseignant| %>
+          <% unless enseignant.deleted.nil? %>
+            <li class="inline-block border-b border-gray-300 bg-red-200 flex justify-between items-center py-4">
+              <div class="flex items-start w-2/5">
+                <div class="w-10 h-10 rounded mr-3">
+                  <%= image_tag 'teacher.png', class: "rounded-full h-10 w-10" %>
                 </div>
-                <p class="text-gray-500 leading-normal"><%= enseignant.matricule %></p>
-                <p class="text-gray-500 leading-normal">Virtuellement supprimé | <%= link_to "Restaurer?", restaure_teacher_path(t_token: enseignant.token), data: {confirm: "Restaurer le compte de #{enseignant.name.upcase}?"}, class: "text-green-500", data: { confirm: "Restaurer le compte de Mr/Mme #{enseignant.name.upcase}?"} %></p>
-              </div>
-            </div>
-            <p class="w-2/5">
-              <%= enseignant.phone1 %> <br>
-              <%= enseignant.phone2 %>
-            </p>
-            <label for="status" class="font-bold w-1/5 text-right">
-              <div class="dropdown inline-block relative">
-                <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-                  <span class="mr-1">Menu</span>
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                  </svg>
-                </button>
-                <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
-                  <li class="">
-                    <%= link_to edit_user_registration_path(id: enseignant, a: :dashboard), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/>
-                        <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/>
-                        <line x1="16" y1="5" x2="19" y2="8"/>
-                      </svg>
-                      Modifier
-                    <% end %>
-                  </li>
-                  <li class="">
-                    <%= link_to setup_enseignant_index_path(e_token: enseignant.token, token: params[:token], sms: true), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
-                        <line x1="8" y1="9" x2="16" y2="9"/>
-                        <line x1="8" y1="13" x2="14" y2="13"/>
-                      </svg>
-                      Message SMS
-                    <% end %>
-                  </li>
-                  <li class="">
-                    <%= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token], suspend: true), method: :delete, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3"/>
-                      </svg>
-                      Suspendre
-                    <% end %>
-                  </li>
-                  <li class="">
-                    <%= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token]), method: :delete, data: {confirm: "Etes-vous de supprimer le compte #{enseignant.complete_name.upcase}?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <circle cx="6" cy="6" r="2"/>
-                        <circle cx="18" cy="18" r="2"/>
-                        <path d="M11 6h5a2 2 0 0 1 2 2v8"/>
-                        <polyline points="14 9 11 6 14 3"/>
-                        <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>
-                        <polyline points="10 15 13 18 10 21"/>
-                      </svg>
-                      Supprimer
-                    <% end %>
-                  </li>
-
-                  <li class="">
-                    <%= link_to update_my_t_pwd_path(t_token: enseignant.token), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <circle cx="6" cy="6" r="2"/>
-                        <circle cx="18" cy="18" r="2"/>
-                        <path d="M11 6h5a2 2 0 0 1 2 2v8"/>
-                        <polyline points="14 9 11 6 14 3"/>
-                        <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>
-                        <polyline points="10 15 13 18 10 21"/>
-                      </svg>
-                      Mot de passe
-                    <% end %>
-                  </li>
-                </ul>
-              </div>
-            </label>
-          </li>
-        <% else %>
-          <li class="inline-block border-b border-gray-300 flex justify-between items-center py-4">
-            <div class="flex items-start w-2/5">
-              <div class="w-10 h-10 rounded mr-3">
-                <%= image_tag 'teacher.png', class: "rounded-full h-10 w-10" %>
-              </div>
-              <div class="flex-1 overflow-hidden">
-                <div>
-                  <span class="font-bold"><%= enseignant.complete_name %></span>
-                  <!--              <span class="text-gray-700 text-xs">@logan</span>-->
+                <div class="flex-1 overflow-hidden">
+                  <div>
+                    <span class="font-bold"><%= enseignant.complete_name %></span>
+                    <!--              <span class="text-gray-700 text-xs">@logan</span>-->
+                  </div>
+                  <p class="text-gray-500 leading-normal"><%= enseignant.matricule %></p>
+                  <p class="text-gray-500 leading-normal">Virtuellement supprimé | <%= link_to "Restaurer?", restaure_teacher_path(t_token: enseignant.token), data: {confirm: "Restaurer le compte de #{enseignant.name.upcase}?"}, class: "text-green-500", data: { confirm: "Restaurer le compte de Mr/Mme #{enseignant.name.upcase}?"} %></p>
                 </div>
-                <p class="text-gray-500 leading-normal"><%= enseignant.matricule %></p>
               </div>
-            </div>
-            <p class="w-2/5">
-              <%= enseignant.phone1 %> <br>
-              <%= enseignant.phone2 %>
-            </p>
-            <label for="status" class="font-bold w-1/5 text-right">
-              <div class="dropdown inline-block relative">
-                <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
-                  <span class="mr-1">Menu</span>
-                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                  </svg>
-                </button>
-                <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
-                  <li class="">
-                    <%= link_to edit_user_registration_path(id: enseignant, a: :dashboard), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/>
-                        <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/>
-                        <line x1="16" y1="5" x2="19" y2="8"/>
-                      </svg>
-                      Modifier
-                    <% end %>
-                  </li>
-                  <li class="">
-                    <%= link_to setup_enseignant_index_path(e_token: enseignant.token, token: params[:token], sms: true), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
-                        <line x1="8" y1="9" x2="16" y2="9"/>
-                        <line x1="8" y1="13" x2="14" y2="13"/>
-                      </svg>
-                      Message SMS
-                    <% end %>
-                  </li>
-                  <li class="">
-                    <%= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token], suspend: true), method: :delete, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3"/>
-                      </svg>
-                      Suspendre
-                    <% end %>
-                  </li>
-                  <li class="">
-                    <%= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token]), method: :delete, data: {confirm: "Etes-vous de supprimer le compte #{enseignant.complete_name.upcase}?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <circle cx="6" cy="6" r="2"/>
-                        <circle cx="18" cy="18" r="2"/>
-                        <path d="M11 6h5a2 2 0 0 1 2 2v8"/>
-                        <polyline points="14 9 11 6 14 3"/>
-                        <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>
-                        <polyline points="10 15 13 18 10 21"/>
-                      </svg>
-                      Supprimer
-                    <% end %>
-                  </li>
+              <p class="w-2/5">
+                <%= enseignant.phone1 %> <br>
+                <%= enseignant.phone2 %>
+              </p>
+              <label for="status" class="font-bold w-1/5 text-right">
+                <div class="dropdown inline-block relative">
+                  <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+                    <span class="mr-1">Menu</span>
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </button>
+                  <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
+                    <li class="">
+                      <%= link_to edit_user_registration_path(id: enseignant, a: :dashboard), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/>
+                          <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/>
+                          <line x1="16" y1="5" x2="19" y2="8"/>
+                        </svg>
+                        Modifier
+                      <% end %>
+                    </li>
+                    <li class="">
+                      <%= link_to setup_enseignant_index_path(e_token: enseignant.token, token: params[:token], sms: true), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
+                          <line x1="8" y1="9" x2="16" y2="9"/>
+                          <line x1="8" y1="13" x2="14" y2="13"/>
+                        </svg>
+                        Message SMS
+                      <% end %>
+                    </li>
+                    <li class="">
+                      <%= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token], suspend: true), method: :delete, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3"/>
+                        </svg>
+                        Suspendre
+                      <% end %>
+                    </li>
+                    <li class="">
+                      <%= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token]), method: :delete, data: {confirm: "Etes-vous de supprimer le compte #{enseignant.complete_name.upcase}?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <circle cx="6" cy="6" r="2"/>
+                          <circle cx="18" cy="18" r="2"/>
+                          <path d="M11 6h5a2 2 0 0 1 2 2v8"/>
+                          <polyline points="14 9 11 6 14 3"/>
+                          <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>
+                          <polyline points="10 15 13 18 10 21"/>
+                        </svg>
+                        Supprimer
+                      <% end %>
+                    </li>
 
-                  <li class="">
-                    <%= link_to update_my_t_pwd_path(t_token: enseignant.token), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
-                           viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                           stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z"/>
-                        <circle cx="6" cy="6" r="2"/>
-                        <circle cx="18" cy="18" r="2"/>
-                        <path d="M11 6h5a2 2 0 0 1 2 2v8"/>
-                        <polyline points="14 9 11 6 14 3"/>
-                        <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>
-                        <polyline points="10 15 13 18 10 21"/>
-                      </svg>
-                      Mot de passe
-                    <% end %>
-                  </li>
-                </ul>
+                    <li class="">
+                      <%= link_to update_my_t_pwd_path(t_token: enseignant.token), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <circle cx="6" cy="6" r="2"/>
+                          <circle cx="18" cy="18" r="2"/>
+                          <path d="M11 6h5a2 2 0 0 1 2 2v8"/>
+                          <polyline points="14 9 11 6 14 3"/>
+                          <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>
+                          <polyline points="10 15 13 18 10 21"/>
+                        </svg>
+                        Mot de passe
+                      <% end %>
+                    </li>
+                  </ul>
+                </div>
+              </label>
+            </li>
+          <% else %>
+            <li class="inline-block border-b border-gray-300 flex justify-between items-center py-4">
+              <div class="flex items-start w-2/5">
+                <div class="w-10 h-10 rounded mr-3">
+                  <%= image_tag 'teacher.png', class: "rounded-full h-10 w-10" %>
+                </div>
+                <div class="flex-1 overflow-hidden">
+                  <div>
+                    <span class="font-bold"><%= enseignant.complete_name %></span>
+                    <!--              <span class="text-gray-700 text-xs">@logan</span>-->
+                  </div>
+                  <p class="text-gray-500 leading-normal"><%= enseignant.matricule %></p>
+                </div>
               </div>
-            </label>
-          </li>
+              <p class="w-2/5">
+                <%= enseignant.phone1 %> <br>
+                <%= enseignant.phone2 %>
+              </p>
+              <label for="status" class="font-bold w-1/5 text-right">
+                <div class="dropdown inline-block relative">
+                  <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+                    <span class="mr-1">Menu</span>
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                    </svg>
+                  </button>
+                  <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">
+                    <li class="">
+                      <%= link_to edit_user_registration_path(id: enseignant, a: :dashboard), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/>
+                          <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/>
+                          <line x1="16" y1="5" x2="19" y2="8"/>
+                        </svg>
+                        Modifier
+                      <% end %>
+                    </li>
+                    <li class="">
+                      <%= link_to setup_enseignant_index_path(e_token: enseignant.token, token: params[:token], sms: true), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>
+                          <line x1="8" y1="9" x2="16" y2="9"/>
+                          <line x1="8" y1="13" x2="14" y2="13"/>
+                        </svg>
+                        Message SMS
+                      <% end %>
+                    </li>
+                    <li class="">
+                      <%= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token], suspend: true), method: :delete, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3"/>
+                        </svg>
+                        Suspendre
+                      <% end %>
+                    </li>
+                    <li class="">
+                      <%= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token]), method: :delete, data: {confirm: "Etes-vous de supprimer le compte #{enseignant.complete_name.upcase}?"}, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <circle cx="6" cy="6" r="2"/>
+                          <circle cx="18" cy="18" r="2"/>
+                          <path d="M11 6h5a2 2 0 0 1 2 2v8"/>
+                          <polyline points="14 9 11 6 14 3"/>
+                          <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>
+                          <polyline points="10 15 13 18 10 21"/>
+                        </svg>
+                        Supprimer
+                      <% end %>
+                    </li>
+
+                    <li class="">
+                      <%= link_to update_my_t_pwd_path(t_token: enseignant.token), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z"/>
+                          <circle cx="6" cy="6" r="2"/>
+                          <circle cx="18" cy="18" r="2"/>
+                          <path d="M11 6h5a2 2 0 0 1 2 2v8"/>
+                          <polyline points="14 9 11 6 14 3"/>
+                          <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>
+                          <polyline points="10 15 13 18 10 21"/>
+                        </svg>
+                        Mot de passe
+                      <% end %>
+                    </li>
+                  </ul>
+                </div>
+              </label>
+            </li>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
-  </div>
+      </ul>
+    </div>
 
-<% end %>
+  <% end %>
 
-<!--<div class="flex flex-col">-->
-<!--  <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">-->
-<!--    <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">-->
-<!--      <table class="min-w-full">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">-->
-<!--            Nom Complet-->
-<!--          </th>-->
-<!--          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">-->
-<!--            Classe & matières-->
-<!--          </th>-->
-<!--          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">-->
-<!--            Contact-->
-<!--          </th>-->
-<!--          <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody class="bg-white">-->
-<%# @enseignants.each do |enseignant| %>
-<!--          <tr>-->
-<!--            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
-<!--              <div class="flex items-center">-->
-<!--                <div class="flex-shrink-0 h-10 w-10">-->
-<%#= image_tag 'teacher.png', class: "h-10 w-10 rounded-full" %>
-<!--                </div>-->
-<!--                <div class="ml-4">-->
-<!--                  <div class="text-sm leading-5 font-medium text-gray-900"><%#= excerpt(enseignant.complete_name, '', radius: 20) %></div>-->
-<!--                  <div class="text-sm leading-5 text-gray-500"><%#= enseignant.matricule %></div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </td>-->
-<!--            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
-<!--              <div class="text-sm leading-5 text-gray-900">-->
-<%# current_classe = TeacherClasse.where(user_id: enseignant.id) %>
-<%# current_classe.distinct.pluck(:salle_de_class_id).uniq.each do |classe| %>
-<%#= SalleDeClass.find(classe).name %>
-<%# end %>
-<!--              </div>-->
-<!--              <div class="text-sm leading-5 text-gray-500">-->
-<%# current_matiere = TeacherClasse.where(user_id: enseignant.id) %>
-<%# current_classe.distinct.pluck(:matiere_id).uniq.each do |matiere| %>
-<!--                  <%#= Matiere.find(matiere).name %> <br>-->
-<%# end %>
-<!--              </div>-->
-<!--            </td>-->
-<!--            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">-->
-<!--              <div class="text-sm leading-5 text-gray-900">-->
-<%#= enseignant.phone1 %>
-<!--              </div>-->
-<!--              <div class="text-sm leading-5 text-gray-900">-->
-<%#= enseignant.phone2 %>
-<!--              </div>-->
-<!--            </td>-->
-<!--            <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">-->
-<!--              <div class="pr-10">-->
-
-<!--                <div class="dropdown inline-block relative">-->
-<!--                  <button class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">-->
-<!--                    <span class="mr-1">Menu</span>-->
-<!--                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">-->
-<!--                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>-->
-<!--                    </svg>-->
-<!--                  </button>-->
-<!--                  <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 z-10">-->
-<!--                    <li class="">-->
-<%#= link_to setup_enseignant_index_path(e_token: enseignant.token, token: params[:token], update: true), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-<!--                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-<!--                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-<!--                             stroke-linecap="round" stroke-linejoin="round">-->
-<!--                          <path stroke="none" d="M0 0h24v24H0z"/>-->
-<!--                          <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3"/>-->
-<!--                          <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3"/>-->
-<!--                          <line x1="16" y1="5" x2="19" y2="8"/>-->
-<!--                        </svg>-->
-<!--                        Modifier-->
-<%# end %>
-<!--                    </li>-->
-<!--                    <li class="">-->
-<%#= link_to setup_enseignant_index_path(e_token: enseignant.token, token: params[:token], sms: true), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-<!--                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-<!--                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-<!--                             stroke-linecap="round" stroke-linejoin="round">-->
-<!--                          <path stroke="none" d="M0 0h24v24H0z"/>-->
-<!--                          <path d="M12 20l-3 -3h-2a3 3 0 0 1 -3 -3v-6a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-2l-3 3"/>-->
-<!--                          <line x1="8" y1="9" x2="16" y2="9"/>-->
-<!--                          <line x1="8" y1="13" x2="14" y2="13"/>-->
-<!--                        </svg>-->
-<!--                        Message SMS-->
-<%# end %>
-<!--                    </li>-->
-<!--                    <li class="">-->
-<%#= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token], suspend: true), method: :delete, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-<!--                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-<!--                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-<!--                             stroke-linecap="round" stroke-linejoin="round">-->
-<!--                          <path stroke="none" d="M0 0h24v24H0z"/>-->
-<!--                          <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3"/>-->
-<!--                        </svg>-->
-<!--                        Suspendre-->
-<%# end %>
-<!--                    </li>-->
-<!--                    <li class="">-->
-<%#= link_to setup_new_teacher_path(e_token: enseignant.token, token: params[:token]), method: :delete, class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-<!--                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-<!--                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-<!--                             stroke-linecap="round" stroke-linejoin="round">-->
-<!--                          <path stroke="none" d="M0 0h24v24H0z"/>-->
-<!--                          <circle cx="6" cy="6" r="2"/>-->
-<!--                          <circle cx="18" cy="18" r="2"/>-->
-<!--                          <path d="M11 6h5a2 2 0 0 1 2 2v8"/>-->
-<!--                          <polyline points="14 9 11 6 14 3"/>-->
-<!--                          <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>-->
-<!--                          <polyline points="10 15 13 18 10 21"/>-->
-<!--                        </svg>-->
-<!--                        Supprimer-->
-<%# end %>
-<!--                    </li>-->
-
-<!--                    <li class="">-->
-<%#= link_to setup_enseignant_index_path(e_token: enseignant.token, token: params[:token], pwd: true), class: "flex rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap text-left" do %>
-<!--                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-4 opacity-50" width="24" height="24"-->
-<!--                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"-->
-<!--                             stroke-linecap="round" stroke-linejoin="round">-->
-<!--                          <path stroke="none" d="M0 0h24v24H0z"/>-->
-<!--                          <circle cx="6" cy="6" r="2"/>-->
-<!--                          <circle cx="18" cy="18" r="2"/>-->
-<!--                          <path d="M11 6h5a2 2 0 0 1 2 2v8"/>-->
-<!--                          <polyline points="14 9 11 6 14 3"/>-->
-<!--                          <path d="M13 18h-5a2 2 0 0 1 -2 -2v-8"/>-->
-<!--                          <polyline points="10 15 13 18 10 21"/>-->
-<!--                        </svg>-->
-<!--                        Mot de passe-->
-<%# end %>
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--                </div>-->
-
-<!--              </div>-->
-<!--            </td>-->
-<!--          </tr>-->
-<%# end %>
-<!--        </tbody>-->
-<!--      </table>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
-<!--<div class="container my-12 mx-auto px-4 md:px-12">-->
-<!--  <div class="flex flex-wrap -mx-1 lg:-mx-4">-->
-
-<%# @enseignants.each do |enseignant| %>
-<!--      <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">-->
-
-<!--        <article class="overflow-hidden rounded-lg shadow-lg">-->
-
-<!--          <a href="#">-->
-<!--            <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">-->
-<!--          </a>-->
-
-<!--          <header class="flex items-center justify-between leading-tight p-2 md:p-4">-->
-<!--            <h1 class="text-lg">-->
-<!--              <a class="no-underline hover:underline text-black" href="#">-->
-<!--                Article Title-->
-<!--              </a>-->
-<!--            </h1>-->
-<!--            <p class="text-grey-darker text-sm">-->
-<!--              11/1/19-->
-<!--            </p>-->
-<!--          </header>-->
-
-<!--          <footer class="flex items-center justify-between leading-none p-2 md:p-4">-->
-<!--            <a class="flex items-center no-underline hover:underline text-black" href="#">-->
-<!--              <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">-->
-<!--              <p class="ml-2 text-sm">-->
-<%#= enseignant.complete_name %>
-<!--              </p>-->
-<!--            </a>-->
-<!--            <a class="no-underline text-grey-darker hover:text-red-dark" href="#">-->
-<!--              <span class="hidden">Like</span>-->
-<!--              <i class="fa fa-heart"></i>-->
-<!--            </a>-->
-<!--          </footer>-->
-
-<!--        </article>-->
-
-
-<!--      </div>-->
-
-<%# end %>
-
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div class="bg-gray-50">-->
-<!--  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">-->
-<!--    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">-->
-<!--      Formulaire d'importation des-->
-<!--      <br/>-->
-<!--      <span class="text-indigo-600">enseignants</span>-->
-<!--    </h2>-->
-<!--    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">-->
-<!--      <div class="inline-flex rounded-md shadow">-->
-<%#= link_to "Précédent", :back, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-<!--      </div>-->
-<!--      <div class="ml-3 inline-flex rounded-md shadow">-->
-<%#= link_to "Formulaire de saisie", setup_add_new_structure_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--<main class="flex-1 md:p-0 lg:pt-8 lg:px-8 md:ml-0 flex flex-col">-->
-<!--  <section class="bg-white p-4 shadow">-->
-<%#= form_with(url: import_enseignant_intent_path) do |form| %>
-<%#= form.file_field :file, accept: "text/csv", class: "w-full shadow-inner p-4 border-0 bg-gray-100" %>
-<!--      <div class="md:flex mt-6 mb-6">-->
-<!--        <div class="md:flex-1 px-3 text-center md:text-right">-->
-<%#= form.submit "Importer", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-<!--        </div>-->
-<!--      </div>-->
-<%# end %>
-<!--  </section>-->
-<!--</main>-->
-
-<!--<div class="bg-gray-50">-->
-<!--  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">-->
-<!--    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">-->
-<!--      Formulaire de création-->
-<!--      <br/>-->
-<!--      <span class="text-indigo-600">des enseignants</span>-->
-<!--    </h2>-->
-<!--  </div>-->
-<!--</div>-->
-
-<%#= form_with(url: setup_add_new_structure_path) do |form| %>
-<!--  <main class="flex-1 md:p-0 lg:pt-8 lg:px-8 md:ml-0 flex flex-col">-->
-<!--    <section class="bg-white p-4 shadow">-->
-<!--      <div class="md:flex">-->
-<!--        <h2 class="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6">Nouvelle enseignant</h2>-->
-<!--      </div>-->
-<!--      <form>-->
-<!--        <div class="md:flex mb-8">-->
-<!--          <div class="md:w-1/3">-->
-<!--            <legend class="uppercase tracking-wide text-sm">Informations personnelle</legend>-->
-<!--            <p class="text-xs font-light text-red">Merci de renseigner toutes les informations personnelle de l'enseignant.</p>-->
-<!--          </div>-->
-<!--          <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Nom</label>-->
-<%#= form.text_field :name, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Nom de m'enseignant" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Prénom</label>-->
-<%#= form.text_field :second_name, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Prénom de l'enseignant" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Sexe enseignant</label>-->
-<%#= form.select(:sexe, [%w(Féminin feminin), %w(Masculin masculin)], {}, {class: "w-full shadow-inner p-4 border-0 bg-gray-100"}) %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Age enseignant</label>-->
-<%#= form.number_field :age, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Age de l'enseignant" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Date naissance</label>-->
-<%#= form.date_field :date_naissance, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Age de l'enseignant" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Lieu naissance</label>-->
-<%#= form.date_field :lieu_naissance, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Age de l'enseignant" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Pays</label>-->
-<%#= form.text_field :pays, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Pays de localisation" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Diplome</label>-->
-<%#= form.text_field :diplome, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Diplome de l'enseignant" %>
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="md:flex mb-8">-->
-<!--          <div class="md:w-1/3">-->
-<!--            <legend class="uppercase tracking-wide text-sm">Contact</legend>-->
-<!--          </div>-->
-<!--          <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Numéro de téléphone principale</label>-->
-<%#= form.phone_field :mobile, class: "w-full shadow-inner p-4 border-0  bg-gray-100", placeholder: "Numéro de téléphone fixe" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Numéro de téléphone secondaire</label>-->
-<%#= form.phone_field :fixe, class: "w-full shadow-inner p-4 border-0  bg-gray-100", placeholder: "Numéro de téléphone mobile" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Adresse email</label>-->
-<%#= form.email_field :email, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Adresse email enseignant" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Région</label>-->
-<%#= form.text_field :region, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Région de localisation" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Site web link</label>-->
-<%#= form.url_field :url, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Adresse site web" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Email contact</label>-->
-<%#= form.email_field :email, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Adresse email de contact" %>
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="md:flex mb-8">-->
-<!--          <div class="md:w-1/3">-->
-<!--            <legend class="uppercase tracking-wide text-sm">Affectation</legend>-->
-<!--          </div>-->
-<!--          <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Section principale</label>-->
-<%#= form.collection_select(:cycle_id, CycleEcole.all, :id, :cycle_with_initial, {prompt: "Selectionner un cycle..."}, {class: "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}) %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold mb-4">Salle de classe</label>-->
-<%#= form.collection_check_boxes(:cycle_id, CycleEcole.all, :id, :cycle_with_initial, {prompt: "Selectionner un cycle..."}, {class: "inline-block bg-gray-200"}) %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Numéro de téléphone secondaire</label>-->
-<%#= form.phone_field :fixe, class: "w-full shadow-inner p-4 border-0  bg-gray-100", placeholder: "Numéro de téléphone mobile" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Adresse email</label>-->
-<%#= form.email_field :email, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Adresse email enseignant" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-xs font-bold">Région</label>-->
-<%#= form.text_field :region, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Région de localisation" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Site web link</label>-->
-<%#= form.url_field :url, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Adresse site web" %>
-<!--            </div>-->
-<!--            <div class="mb-4">-->
-<!--              <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Email contact</label>-->
-<%#= form.email_field :email, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Adresse email de contact" %>
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="md:flex">-->
-<!--          <div class="md:w-1/3">-->
-<!--            <legend class="uppercase tracking-wide text-sm">Réseaux Sociaux</legend>-->
-<!--          </div>-->
-<!--          <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">-->
-<!--            <div class="md:flex mb-4">-->
-<!--              <div class="md:flex-1 md:pr-3">-->
-<!--                <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Facebook</label>-->
-<!--                <div class="w-full flex">-->
-<!--                  <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">facebook.com/</span>-->
-<!--                  <input class="flex-1 shadow-inner p-4 border-0" type="text" name="facebook" placeholder="acmeco">-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="md:flex-1 md:pl-3 mt-2 md:mt-0">-->
-<!--                <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Twitter</label>-->
-<!--                <div class="w-full flex">-->
-<!--                  <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">twitter.com/</span>-->
-<!--                  <input class="flex-1 shadow-inner p-4 border-0" type="text" name="twitter" placeholder="acmeco">-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="md:flex mb-4">-->
-<!--              <div class="md:flex-1 md:pr-3">-->
-<!--                <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Instagram</label>-->
-<!--                <div class="w-full flex">-->
-<!--                  <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">instagram.com/</span>-->
-<!--                  <input class="flex-1 shadow-inner p-4 border-0" type="text" name="instagram" placeholder="acmeco">-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="md:flex-1 md:pl-3 mt-2 md:mt-0">-->
-<!--                <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Yelp</label>-->
-<!--                <div class="w-full flex">-->
-<!--                  <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">yelp.com/</span>-->
-<!--                  <input class="flex-1 shadow-inner p-4 border-0" type="text" name="yelp" placeholder="acmeco">-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="md:flex mb-6">-->
-<!--          <div class="md:w-1/3">-->
-<!--            <legend class="uppercase tracking-wide text-sm">Description</legend>-->
-<!--          </div>-->
-<!--          <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">-->
-<%#= form.rich_text_area :description, class: "w-full shadow-inner p-4 border-0 bg-gray-100", placeholder: "Région" %>
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="md:flex mb-6">-->
-<!--          <div class="md:flex-1 px-3 text-center md:text-right">-->
-<%#= form.submit "Enregistrer", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-<!--          </div>-->
-<!--        </div>-->
-<!--      </form>-->
-<!--    </section>-->
-<!--  </main>-->
-<%# end %>
+</div>

@@ -12,121 +12,94 @@
   </div>
 <% end %>
 
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Salle de classe
-      <br/>
-      <span class="text-indigo-600"><%= @salle_de_class.name %> <%= @salle_de_class.id %></span>
-    </h2>
-<!--    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">-->
-<!--      <div class="inline-flex rounded-md shadow">-->
-        <%#= link_to 'Nouvelle matière', new_matiere_path, class: "hover:bg-transparent inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-<!--      </div>-->
-<!--    </div>-->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between mt-8">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      Detail de salles de classe : <%= @salle_de_class.name %>
+    </h3>
+    <div class="mt-3 sm:mt-0 sm:ml-4">
+      <%= link_to "Nouvelle salle de classe", new_salle_de_class_path, class: "items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    </div>
   </div>
-</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @salle_de_class.name %>
-</p>
 
-<p>
-  <strong>Effectif:</strong>
-  <%= @students.count unless @students.empty? %>
-</p>
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="flex flex-col mt-8">
 
-<p>
-  <strong>Cycle ecole:</strong>
-  <%= @salle_de_class.cycle_ecole_id %>
-</p>
+    <h2 class="mb-8 text-gray-500 text-xs font-medium uppercase tracking-wide">Apprenants dans la salle de classe</h2>
 
-<hr>
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+            <tr>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Noms
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Filières
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Role
+              </th>
+              <th scope="col" class="px-6 py-3 bg-gray-50">
+                <span class="sr-only">Edit</span>
+              </th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            <% @students.each do |student| %>
 
-<% if @students.empty? %>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10">
+                      <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+                    </div>
+                    <div class="ml-4">
+                      <div class="text-sm font-medium text-gray-900">
+                        <%= student.name %>
+                      </div>
+                      <div class="text-sm text-gray-500">
+                        <%= student.matricule %>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900"><%= student.salle_de_class.name %></div>
+                  <div class="text-sm text-gray-500">Filière</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  Active
+                </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  Admin
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                </td>
+              </tr>
 
-  <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+            <% end %>
 
-    <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
-
-      <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
-
-      <div class="text-center md:text-left">
-        <h2 class="text-lg mt-8">Aucune élèves inscrit.</h2> <br>
-        <%= link_to "Ajouter un nouvel élève ?", "#", class: 'hover:bg-transparent hover:text-indigo-500' %>
+            <!-- More rows... -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-
   </div>
 
-  <% else %>
+  <%= link_to 'Editer la classe', edit_salle_de_class_path(@salle_de_class), class: "mt-8" %> |
+  <%= link_to 'Retour', salle_de_classes_path %>
 
-  <br>
-  <%= paginate @students %>
-  <br>
-  <div class="bg-white shadow p-8 rounded mb-4">
-    <ul class="font-sans list-none p-0 container m-auto text-gray-900">
-      <% @students.each do |student| %>
-        <li class="inline-block border-b border-gray-300 flex justify-between items-center py-4">
-          <div class="flex items-start w-2/5">
-            <div class="w-10 h-10 rounded mr-3">
-              <div class="rounded-full h-10 w-10">
-                <%= image_tag 'student.png' %>
-              </div>
-            </div>
-            <div class="flex-1 overflow-hidden">
-              <div>
-                <span class="font-bold"><%= student.complete_name %></span>
-                <br>
-                <span class="text-gray-700 text-xs">@<%= student.matricule %></span>
-              </div>
-              <p class="text-black leading-normal"></p>
-            </div>
-          </div>
-          <p class="w-4/5 flex inline-block ml-8">
-            <%= link_to "#", class: 'mr-4 inline-block' do %>
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-line" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z"/>
-                <line x1="4" y1="19" x2="20" y2="19" />
-                <polyline points="4 15 8 9 12 11 16 6 20 10" />
-              </svg>
-              Voir les statistiques
-            <% end %>
-          </p>
-          <label for="status" class="flex font-bold w-2/5 text-right">
-            <%= link_to "#", class: "m-4", title: "Dossier #{student.complete_name}" do %>
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z"/>
-                <polyline points="14 3 14 8 19 8" />
-                <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-              </svg>
-            <% end %>
-            <%= link_to "#", class: "m-4" do %>
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z"/>
-                <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
-                <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
-                <line x1="16" y1="5" x2="19" y2="8" />
-              </svg>
-            <% end %>
-            <%= link_to "#", class: "m-4" do %>
-              <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-friends" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z"/>
-                <circle cx="7" cy="5" r="2" />
-                <path d="M5 22v-5l-1-1v-4a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4l-1 1v5" />
-                <circle cx="17" cy="5" r="2" />
-                <path d="M15 22v-4h-2l2 -6a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1l2 6h-2v4" />
-              </svg>
-            <% end %>
-            <%= link_to 'Supprimer', "#", method: :delete, data: {confirm: 'Are you sure?'}, class: "m-4" %>
-          </label>
-        </li>
-        <% end %>
-    </ul>
-  </div>
-
-  <% end %>
-
-<%= link_to 'Editer la classe', edit_salle_de_class_path(@salle_de_class) %> |
-<%= link_to 'Retour', salle_de_classes_path %>
+</div>

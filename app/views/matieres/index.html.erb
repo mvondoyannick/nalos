@@ -12,124 +12,178 @@
   </div>
 <% end %>
 
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Matières
-      <br/>
-      <span class="text-indigo-600">disponibles</span>
-    </h2>
-    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow">
-        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-          Get started
-        </a>
+
+
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Content goes here -->
+
+  <!--
+  This example requires Tailwind CSS v2.0+
+
+  This example requires some changes to your config:
+
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ]
+  }
+  ```
+-->
+  <div class="relative pb-5 border-b border-gray-200 sm:pb-0 mt-4">
+    <div class="md:flex md:items-center md:justify-between">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Matières enregistrées & disponibles
+      </h3>
+      <div class="mt-3 flex md:mt-0 md:absolute md:top-3 md:right-0">
+        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Share
+        </button>
+        <%= link_to "Nouvelle matière", new_matiere_path, class: "ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
       </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to "Matières par filière", filieres_mat_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+    </div>
+    <div class="mt-4">
+      <!-- Dropdown menu on small screens -->
+      <div class="sm:hidden">
+        <label for="selectedTab" class="sr-only">Select a tab</label>
+        <select id="selectedTab" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+          <option>Applied</option>
+
+          <option>Phone Screening</option>
+
+          <option selected>Toutes les matières</option>
+
+          <option>Matières par filière</option>
+
+          <option>Hired</option>
+        </select>
       </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to 'Ajouter une nouvelle matière', new_matiere_path, class: "hover:bg-transparent inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      <!-- Tabs at small breakpoint and up -->
+      <div class="hidden sm:block">
+        <nav class="-mb-px flex space-x-8">
+          <a href="#" class="whitespace-nowrap pb-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            Applied
+          </a>
+
+          <a href="#" class="whitespace-nowrap pb-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            Phone Screening
+          </a>
+
+          <a href="#" class="whitespace-nowrap pb-4 px-1 border-b-2 border-indigo-500 font-medium text-sm text-indigo-600" aria-current="page">
+            Toutes les matières
+          </a>
+
+          <%= link_to "Matières par filière", filieres_mat_path, class: "whitespace-nowrap pb-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" %>
+
+          <a href="#" class="whitespace-nowrap pb-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+            Hired
+          </a>
+        </nav>
       </div>
     </div>
   </div>
-</div>
 
-<% if @matieres.empty? %>
-
-  <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+  <% if @matieres.empty? %>
 
     <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-      <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+      <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-      <div class="text-center md:text-left">
-        <h2 class="text-lg mt-8">Aucune matière trouvée.</h2> <br>
-        <%= link_to 'Ajouter une matiere?', new_matiere_path, class: "hover:bg-transparent hover:text-indigo-500" %>
+        <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+
+        <div class="text-center md:text-left">
+          <h2 class="text-lg mt-8">Aucune matière trouvée.</h2> <br>
+          <%= link_to 'Ajouter une matiere?', new_matiere_path, class: "hover:bg-transparent hover:text-indigo-500" %>
+        </div>
       </div>
+
     </div>
 
-  </div>
+  <% else %>
 
-<% else %>
+    <%= paginate @matieres %>
+    <br>
 
-  <%= paginate @matieres %>
-  <br>
-
-  <!--
-  Tailwind UI components require Tailwind CSS v1.8 and the @tailwindcss/ui plugin.
-  Read the documentation to get started: https://tailwindui.com/documentation
--->
-  <div class="flex flex-col">
-    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-          <table class="min-w-full divide-y divide-gray-200">
-            <thead>
-            <tr>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Libellé matière
-              </th>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Filière
-              </th>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Etablissement
-              </th>
-              <th class="px-6 py-3 bg-gray-50" colspan="3"></th>
-            </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-            <% @matieres.each do |matiere| %>
+    <!--
+    Tailwind UI components require Tailwind CSS v1.8 and the @tailwindcss/ui plugin.
+    Read the documentation to get started: https://tailwindui.com/documentation
+  -->
+    <div class="flex flex-col">
+      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead>
               <tr>
-              <td class="px-6 py-4 whitespace-no-wrap">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10">
-                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900">
-                      <%= matiere.name %>
+                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Libellé matière
+                </th>
+                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Filière
+                </th>
+                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                  Etablissement
+                </th>
+                <th class="px-6 py-3 bg-gray-50" colspan="3"></th>
+              </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+              <% @matieres.each do |matiere| %>
+                <tr>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=60" alt="">
+                      </div>
+                      <div class="ml-4">
+                        <div class="text-sm leading-5 font-medium text-gray-900">
+                          <%= matiere.name %>
+                        </div>
+                        <div class="text-sm leading-5 text-gray-500">
+                          <%= matiere.user_id.nil? ? "Aucun user" : matiere.user.email %>
+                        </div>
+                      </div>
                     </div>
-                    <div class="text-sm leading-5 text-gray-500">
-                      <%= matiere.user_id.nil? ? "Aucun user" : matiere.user.email %>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap">
-                <div class="text-sm leading-5 text-gray-900"><%= matiere.filiere_id.nil? ? "Aucune filiere" : matiere.filiere.name %></div>
-                <div class="text-sm leading-5 text-gray-500"><%= matiere.created_at %></div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap">
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
+                    <div class="text-sm leading-5 text-gray-900"><%= matiere.filiere_id.nil? ? "Aucune filiere" : matiere.filiere.name %></div>
+                    <div class="text-sm leading-5 text-gray-500"><%= matiere.created_at %></div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                   Active
                 </span>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                <%= matiere.structure.name %>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                <%= link_to 'Voir', matiere, class: "text-indigo-600 hover:text-indigo-900" %>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                <%= link_to 'Editer', edit_matiere_path(matiere), class: "text-indigo-600 hover:text-indigo-900" %>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                <%= link_to 'Supprimer', matiere, method: :delete, data: {confirm: 'Are you sure?'}, class: "text-indigo-600 hover:text-indigo-900" %>
-              </td>
-            </tr>
-            <% end %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                    <%= matiere.structure.name %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                    <%= link_to 'Voir', matiere, class: "text-indigo-600 hover:text-indigo-900" %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                    <%= link_to 'Editer', edit_matiere_path(matiere), class: "text-indigo-600 hover:text-indigo-900" %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                    <%= link_to 'Supprimer', matiere, method: :delete, data: {confirm: 'Are you sure?'}, class: "text-indigo-600 hover:text-indigo-900" %>
+                  </td>
+                </tr>
+              <% end %>
 
-            <!-- More rows... -->
-            </tbody>
-          </table>
+              <!-- More rows... -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-<% end %>
+  <% end %>
+
+</div>

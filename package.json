@@ -1,5 +1,5 @@
 {
-  "name": "ecole",
+  "name": "nalos",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
@@ -7,19 +7,23 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
+    "@tailwindcss/forms": "^0.2.1",
     "@tailwindcss/ui": "^0.2.2",
     "active_storage_drag_and_drop": "^0.4.1",
-    "alpinejs": "^2.5.0",
+    "alpinejs": "^2.7.3",
     "chart.js": "^2.9.3",
     "chartkick": "^3.2.0",
+    "focus-trap": "^6.2.0",
     "jquery": "^3.5.0",
+    "plyr": "^3.6.3",
+    "select2": "^4.0.13",
     "stimulus": "^1.1.1",
     "stimulus_reflex": "3.3.0",
     "tailwindcss-multi-theme": "^1.0.4",
     "trix": "^1.2.0",
     "turbolinks": "^5.2.0"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "devDependencies": {
     "@tailwindcss/custom-forms": "^0.2.1",
     "tailwindcss": "^1.4.0",
