@@ -1,4 +1,6 @@
-<p id="notice"><%= notice %></p>
+<% if notice.present? %>
+  <%= render 'layouts/notification_success' %>
+<% end %>
 
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,7 +47,7 @@
                     </div>
                     <div class="ml-4">
                       <div class="text-sm leading-5 font-medium text-gray-900">
-                        <%= link_to role.name.upcase, "#", data: {reflex: "click->ExampleReflex#greetings", id: role.id} %>
+                        <%= button_tag role.name.upcase, data: {reflex: "click->ExampleReflex#greetings", id: role.id} %>
                       </div>
                       <div class="text-sm leading-5 text-gray-500">
                         <%= role.created_at %>
@@ -66,7 +68,8 @@
                   <%= link_to 'Show', edit_role_path(role), class: "text-indigo-600 hover:text-indigo-900" %>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                  <%= link_to 'Supprimer', role, method: :delete, data: { confirm: 'Are you sure?', reflex: "ExampleReflex#greetings" }, class: "text-red-600 hover:text-red-900" %>
+                  <%#= link_to 'Supprimer', role, method: :delete, data: { confirm: 'Are you sure?', reflex: "ExampleReflex#greetings" }, class: "text-red-600 hover:text-red-900" %>
+                  <%= button_tag 'Supprimer', data: { confirm: 'Are you sure?', reflex: "click->ExampleReflex#delete_role", id: role.id }, class: "text-red-600 hover:text-red-900" if current_user.role.name == 'admin' %>
                 </td>
               </tr>
             <% end %>

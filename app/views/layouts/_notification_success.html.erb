@@ -21,11 +21,11 @@
         </div>
         <div class="ml-3 w-0 flex-1 pt-0.5">
           <p class="text-sm font-medium text-gray-900">
-            Authentifié avec succès
+            Centre de notification
           </p>
           <p class="mt-1 text-sm text-gray-500">
-            Bonjour <%= current_user.complete_name.upcase %>, nous sommes content de vous savoir connecté. <br>
-            Prenez le temps de découvrir vos activités de ce jour
+            Mr/Mme <%= current_user.complete_name.upcase %>, <br><br>
+            <%= notice %>
           </p>
           <div class="mt-2">
             <button @click="show = false;" class="bg-white rounded-md text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

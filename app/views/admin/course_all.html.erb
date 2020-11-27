@@ -168,7 +168,8 @@
         <h3 class="text-lg leading-6 font-medium text-gray-900">
           Liste des cours en attente de validation
         </h3>
-        <p class="mt-2 max-w-4xl text-sm text-gray-500">Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur id nulla tempus. Fringilla egestas justo massa purus sagittis malesuada.</p>
+        <p class="mt-2 max-w-4xl text-sm text-gray-500">Workcation is a property rental website. Etiam ullamcorper massa
+          viverra consequat, consectetur id nulla tempus. Fringilla egestas justo massa purus sagittis malesuada.</p>
       </div>
 
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -212,7 +213,7 @@
                     <%= course.matiere.name %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <%= course.created_at.strftime("%d %b %y") %>
+                    <%= course.created_at.strftime("%d %b %y - %Hh:%mm") %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <%= course.course_status.name.upcase %>
@@ -221,7 +222,11 @@
                     <%= link_to "Détails", course_path(course), class: "text-indigo-600 hover:text-indigo-900" %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <%= link_to "Valider", "#", data: {reflex: "click->ExampleReflex#update_course", id: course.id, name: course.course_status.name}, class: "text-red-600 hover:text-red-900 hover:font-bold" if current_user.role.name == "admin" %>
+                    <% if course.course_status.name == 'validate' %>
+                      <%= button_tag "Suspendre", data: {reflex: "click->ExampleReflex#suspend_course", id: course.id, name: course.course_status.name}, class: "text-red-600 hover:text-red-900 hover:font-bold" if current_user.role.name == "admin" %>
+                    <% else %>
+                      <%= button_tag "Valider", data: {reflex: "click->ExampleReflex#update_course", id: course.id, name: course.course_status.name}, class: "text-red-600 hover:text-red-900 hover:font-bold" if current_user.role.name == "admin" %>
+                    <% end %>
                   </td>
                 </tr>
 
@@ -243,7 +248,8 @@
         <h3 class="text-lg leading-6 font-medium text-gray-900">
           Liste des cours validées
         </h3>
-        <p class="mt-2 max-w-4xl text-sm text-gray-500">Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur id nulla tempus. Fringilla egestas justo massa purus sagittis malesuada.</p>
+        <p class="mt-2 max-w-4xl text-sm text-gray-500">Workcation is a property rental website. Etiam ullamcorper massa
+          viverra consequat, consectetur id nulla tempus. Fringilla egestas justo massa purus sagittis malesuada.</p>
       </div>
 
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -287,7 +293,7 @@
                     <%= course.matiere.name %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <%= course.created_at.strftime("%d %b %y") %>
+                    <%= course.created_at.strftime("%d %b %y  - %Hh:%m") %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <%= course.course_status.name.upcase %>
@@ -296,7 +302,11 @@
                     <%= link_to "Détails", course_path(course), class: "text-indigo-600 hover:text-indigo-900" %>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <%= link_to "Valider", "#", data: {reflex: "click->ExampleReflex#update_course", id: course.id, name: course.course_status.name}, class: "text-red-600 hover:text-red-900 hover:font-bold" if current_user.role.name == "admin" %>
+                    <% if course.course_status.name == 'validate' %>
+                      <%= button_tag "Suspendre", data: {reflex: "click->ExampleReflex#suspend_course", id: course.id, name: course.course_status.name}, class: "text-red-600 hover:text-red-900 hover:font-bold" if current_user.role.name == "admin" %>
+                    <% else %>
+                      <%= button_tag "Valider", data: {reflex: "click->ExampleReflex#update_course", id: course.id, name: course.course_status.name}, class: "text-red-600 hover:text-red-900 hover:font-bold" if current_user.role.name == "admin" %>
+                    <% end %>
                   </td>
                 </tr>
 

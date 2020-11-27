@@ -7,13 +7,37 @@ class ExampleReflex < ApplicationReflex
     @data = content.created_at
   end
 
+  # soft role delete
+  def delete_role
+    role = Role.find(element.dataset[:id])
+    if role.name == "admin" || role.name == "root" || role.name == "teacher"
+      puts "Impossible de supprimer #{role.name}"
+    else
+      role.delete
+
+      #send mail to notify that role has been deleted
+      NotificationMailer.new_notification_email.deliver_now
+
+    end
+    # deleted = role.delete
+  end
+
   #update course and notified teacher with email and SMS
   def update_course
-    if element.dataset[:name] == "validate"
+    if element.dataset[:name] == "waiting"
       flash.now[:notice] = 'Message sent!'
       # flash.now[:error] = "Could not save client"
     else
       course = Course.find(element.dataset[:id])
+      course.update(course_status_id: CourseStatus.find_by_name('validate').id)
+    end
+  end
+
+  # suspendre des cours
+  def suspend_course
+    if element.dataset[:name] == "validate"
+      course = Course.find(element.dataset[:id])
+      course.update(course_status_id: CourseStatus.find_by_name('waiting').id)
     end
   end
   # Add Reflex methods in this file.
