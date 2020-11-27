@@ -1,6 +1,21 @@
 # frozen_string_literal: true
 
 class ExampleReflex < ApplicationReflex
+
+  def greetings
+    content = Role.find(element.dataset[:id])
+    @data = content.created_at
+  end
+
+  #update course and notified teacher with email and SMS
+  def update_course
+    if element.dataset[:name] == "validate"
+      flash.now[:notice] = 'Message sent!'
+      # flash.now[:error] = "Could not save client"
+    else
+      course = Course.find(element.dataset[:id])
+    end
+  end
   # Add Reflex methods in this file.
   #
   # All Reflex instances expose the following properties:

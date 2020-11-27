@@ -1,6 +1,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.session_store :cache_store
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -65,5 +67,10 @@ Rails.application.configure do
   config.assets.paths << "#{Rails.root}/app/assets/videos"
 
   # remote access,
-  config.hosts << "elearning.nalschool.com"
+  # config.hosts << "elearning.nalschool.com"
+  # config.hosts << "www.elearning.nalschool.com"
+  # config.hosts << "124abac253b5.ngrok.io"
+  config.hosts << "https://50f73e63fa20.ngrok.io"
+  config.hosts << "http://50f73e63fa20.ngrok.io"
+  config.hosts << "af721a525daf.ngrok.io"
 end

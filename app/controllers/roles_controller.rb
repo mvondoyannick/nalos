@@ -29,6 +29,10 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       if @role.save
+
+        # send email notifications
+        NotificationMailer.new_notification_email.deliver_later
+
         format.html { redirect_to @role, notice: 'Role was successfully created.' }
         format.json { render :show, status: :created, location: @role }
       else

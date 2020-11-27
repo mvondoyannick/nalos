@@ -93,3 +93,7 @@ gem "plyr-rails", "~> 3.5"
 gem 'honeybadger', '~> 4.0'
 
 gem "jquery-rails", "~> 4.4"
+
+gem "cancancan", "~> 3.1"
+
+gem "stimulus_reflex", "~> 3.3"
