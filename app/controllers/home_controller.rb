@@ -1,3 +1,4 @@
+
 class HomeController < ApplicationController
   before_action :authenticate_user!, except: [:discus_chat]
   before_action :update_comment_readed, only: :read_message
@@ -37,7 +38,7 @@ class HomeController < ApplicationController
   # read message
   def read_message
     @current_comment = Comment.find_by(metakey: params[:key])
-    
+    @current_course = Course.find(@current_comment.course_id)
   end
 
   def dashboard

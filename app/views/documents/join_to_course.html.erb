@@ -1,26 +1,13 @@
 <% if notice.present? %>
-  <div class="-m-2 text-center mb-8" id="notice">
-
-    <div class="p-2">
-      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
-        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
-        <span class="inline-flex px-2">
-                <%= notice %>
-              </span>
-      </div>
-    </div>
-
-  </div>
+  <%= render 'layouts/notification_success' %>
 <% end %>
 
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Publication d'une
-      <br/>
-      <span class="text-indigo-600">nouvelle leçon.</span>
-    </h2>
-  </div>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="pb-5 border-b border-gray-200 mb-12">
+  <h3 class="text-lg leading-6 font-medium text-gray-900">
+    Nouvelle leçon ou support de cours
+  </h3>
+  <p class="mt-2 max-w-4xl text-sm text-gray-500">Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur id nulla tempus. Fringilla egestas justo massa purus sagittis malesuada.</p>
 </div>
 
 
@@ -28,9 +15,10 @@
   <div class="md:grid md:grid-cols-3 md:gap-6">
     <div class="md:col-span-1">
       <div class="px-4 sm:px-0">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">Profile</h3>
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Apreçu du document/fichier</h3>
         <p class="mt-1 text-sm text-gray-600">
-          This information will be displayed publicly so be careful what you share.
+          Ici vous avez un aperçu du document ou fichier que vous êtes entrain de joindre/rajouter comme support faisant parti d'un
+          cours ou d'une leçon.
         </p>
       </div>
     </div>
@@ -79,9 +67,10 @@
     <div class="md:grid md:grid-cols-3 md:gap-6">
       <div class="md:col-span-1">
         <div class="px-4 sm:px-0">
-          <h3 class="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Informations supplémentaires</h3>
           <p class="mt-1 text-sm text-gray-600">
-            Use a permanent address where you can receive mail.
+            Completer les informations supplementaires qui permettront de donner plus d'informations
+             à cette leçon.
           </p>
         </div>
       </div>

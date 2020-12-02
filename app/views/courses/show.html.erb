@@ -1,206 +1,190 @@
 <% if notice.present? %>
-  <div class="-m-2 text-center mb-8" id="notice">
-
-    <div class="p-2">
-      <div class="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow text-sm">
-        <span class="inline-flex bg-purple-600 text-white rounded-full h-6 px-3 justify-center items-center text-">Terminé!</span>
-        <span class="inline-flex px-2">
-          <%= notice %>
-        </span>
-      </div>
-    </div>
-
-  </div>
+  <%= render 'layouts/notification_success' %>
 <% end %>
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      <%= @course.chapter %>
-      <br />
-      <span class="text-indigo-600"><%= @course.salle_de_class.name %></span>
-    </h2>
-    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow mr-2">
-        <%= link_to "Modifier", edit_course_path(@course), class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-green-600 hover:bg-indigo-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
-      <div class="inline-flex rounded-md shadow">
-        <%= link_to "Supprimer", @course, method: :delete, data: {confirm: "Supprimer ce cours?"}, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-400 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
-      <div class="ml-3 inline-flex rounded-md shadow">
-        <%= link_to "Retourner aux leçons", courses_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
+
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-8">
+  <!-- Content goes here -->
+  <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between mb-8">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      <%= @course.chapter %> | <%= @course.salle_de_class.name %>
+    </h3>
+    <div class="mt-3 flex sm:mt-0 sm:ml-4">
+      <%= link_to "Modifier cette leçon", edit_course_path(@course), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <%= link_to "Supprimer", @course, method: :delete, data: {confirm: "Supprimer ce cours?"}, class: "ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
     </div>
   </div>
-</div>
 
-<div class="mb-8 p-2 w-full flex flex-wrap bg-white shadow">
-  <div class=" w-full lg:w-3/4 bg-white ">
-    <p class="object-center lg:items-center">
-      <% docs = Document.find(@course.document_id).file.find(@course.file_id) %>
-      <% if docs.video? %>
-        <%= video_tag url_for(docs), width: "100%", controls: "", id: "player", playsinline: true %>
-      <% elsif docs.audio? %>
-        <%= video_tag url_for(docs), width: "100%", poster: "poster.jpg", controls: "", id: "player", playsinline: true %>
-      <% elsif docs.image? %>
-        <%= image_tag url_for(docs) %>
-      <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
-        <%= image_tag(docs.preview(resize: "1000x1000")) %>
-      <% elsif docs.content_type.end_with?("msword") %>
-        <%= image_tag(docs.preview(resize: "1000x1000")) %>
-      <% elsif docs.content_type.end_with?("vnd.ms-excel") %>
-        <%= image_tag(docs.preview(resize: "1000x1000")) %>
-      <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
-        <%= image_tag(docs.preview(resize: "1000x1000")) %>
-      <% elsif docs.content_type.end_with?("pdf") %>
-        <object data="<%= rails_blob_path(docs) %>" type="" height="1000" width="100%"></object>
-      <% end %>
-    </p>
-    <hr>
-    <br>
-    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-      <dt class="text-sm leading-5 font-medium text-gray-500">
-        Tags
-      </dt>
-      <% if @course.tag.nil? %>
-        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+  <div class="mb-8 p-2 w-full flex flex-wrap bg-white shadow">
+    <div class=" w-full lg:w-3/4 bg-white ">
+      <p class="object-center lg:items-center">
+        <% docs = Document.find(@course.document_id).file.find(@course.file_id) %>
+        <% if docs.video? %>
+          <%= video_tag url_for(docs), width: "100%", controls: "", id: "player", playsinline: true %>
+        <% elsif docs.audio? %>
+          <%= video_tag url_for(docs), width: "100%", poster: "poster.jpg", controls: "", id: "player", playsinline: true %>
+        <% elsif docs.image? %>
+          <%= image_tag url_for(docs) %>
+        <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+          <%= image_tag(docs.preview(resize: "1000x1000")) %>
+        <% elsif docs.content_type.end_with?("msword") %>
+          <%= image_tag(docs.preview(resize: "1000x1000")) %>
+        <% elsif docs.content_type.end_with?("vnd.ms-excel") %>
+          <%= image_tag(docs.preview(resize: "1000x1000")) %>
+        <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+          <%= image_tag(docs.preview(resize: "1000x1000")) %>
+        <% elsif docs.content_type.end_with?("pdf") %>
+          <object data="<%= rails_blob_path(docs) %>" type="" height="1000" width="100%"></object>
+        <% end %>
+      </p>
+      <hr>
+      <br>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm leading-5 font-medium text-gray-500">
+          Tags
+        </dt>
+        <% if @course.tag.nil? %>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
             <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
               Aucun tag(s) pour ce cours
             </span>
-        </dd>
-      <% else %>
-        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-          <% @course.tag.split(',').each do |tagged| %>
+          </dd>
+        <% else %>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <% @course.tag.split(',').each do |tagged| %>
                   <span class="inline-block bg-gray-200 rounded-full mb-2 px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
                     <%= link_to "##{tagged}", course_tags_path(token: Course.find(params[:id]).token), class: 'hover:bg-transparent hover:text-indigo-500' %>
                   </span>
-          <% end %>
-        </dd>
-      <% end %>
-    </div>
-  </div>
-  <div class="border w-full lg:w-1/4 bg-white">
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
-      <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
-          Informations
-        </h3>
-        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-          Auteur<%= link_to current_user.complete_name, "#", class: " rounded-lg px-2 items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" %>
-        </p>
-      </div>
-      <div>
-        <dl>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Leçon
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= @course.chapter %>
-            </dd>
-          </div>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Classe
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= @course.salle_de_class.name %>
-            </dd>
-          </div>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Matière
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= @course.matiere.name %>
-            </dd>
-          </div>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Statut
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= @course.course_status_id.nil? ? "Inconnu" : @course.course_status.name %>
-            </dd>
-          </div>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Date
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= @course.created_at.strftime("%d %b %Y") %>
-            </dd>
-          </div>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Catégorie
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <% if @course.categorie.nil? %>
-                Aucune catégorie associée à ce cours.
-              <% else %>
-                <%= @course.categorie %>
-              <% end %>
-            </dd>
-          </div>
-        </dl>
+            <% end %>
+          </dd>
+        <% end %>
       </div>
     </div>
+    <div class="border w-full lg:w-1/4 bg-white">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+        <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Informations
+          </h3>
+          <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+            Auteur<%= link_to current_user.complete_name, "#", class: " rounded-lg px-2 items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" %>
+          </p>
+        </div>
+        <div>
+          <dl>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Leçon
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <%= @course.chapter %>
+              </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Classe
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <%= @course.salle_de_class.name %>
+              </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Matière
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <%= @course.matiere.name %>
+              </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Statut
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <%= @course.course_status_id.nil? ? "Inconnu" : @course.course_status.name %>
+              </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Date
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <%= @course.created_at.strftime("%d %b %Y") %>
+              </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Catégorie
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <% if @course.categorie.nil? %>
+                  Aucune catégorie associée à ce cours.
+                <% else %>
+                  <%= @course.categorie %>
+                <% end %>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
-  <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-    <h3 class="text-lg leading-6 font-medium text-gray-900">
-      Documents composant ce cours
-    </h3>
-    <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-      Auteur: <%= link_to current_user.complete_name, "#", class: " rounded-lg px-2 items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" %>
-      .
-    </p>
-  </div>
-  <div>
-    <dl>
-      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm leading-5 font-medium text-gray-500">
-          Extrait de ce cours
-        </dt>
-        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-          <%= @course.extrait.body %>
-        </dd>
-      </div>
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm leading-5 font-medium text-gray-500">
-          Salle de classe concernée
-        </dt>
-        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-          <%= @course.salle_de_class.name %>
-        </dd>
-      </div>
-      <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm leading-5 font-medium text-gray-500">
-          Fichiers joints
-        </dt>
-        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-          <ul class="border border-gray-200 rounded-md">
-            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
-              <div class="w-0 flex-1 flex items-center">
-                <svg class="flex-shrink-0 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"/>
-                </svg>
-                <span class="ml-2 flex-1 w-0 truncate">
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+    <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Documents composant ce cours
+      </h3>
+      <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+        Auteur: <%= link_to current_user.complete_name, "#", class: " rounded-lg px-2 items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" %>
+        .
+      </p>
+    </div>
+    <div>
+      <dl>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Extrait de ce cours
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @course.extrait.body %>
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Salle de classe concernée
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= @course.salle_de_class.name %>
+          </dd>
+        </div>
+        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm leading-5 font-medium text-gray-500">
+            Fichiers joints
+          </dt>
+          <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <ul class="border border-gray-200 rounded-md">
+              <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
+                <div class="w-0 flex-1 flex items-center">
+                  <svg class="flex-shrink-0 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="ml-2 flex-1 w-0 truncate">
                   <%= Document.find(@course.document_id).file.find(@course.file_id).filename %>
                 </span>
-              </div>
-              <div class="ml-4 flex-shrink-0">
-                <%=  %>
-                <%= link_to "Télécharger", rails_blob_path(Document.find(@course.document_id).file.find(@course.file_id), disposition: "attachment"), class: "font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out" %>
-              </div>
-            </li>
-          </ul>
-        </dd>
-      </div>
-    </dl>
+                </div>
+                <div class="ml-4 flex-shrink-0">
+                  <%=  %>
+                  <%= link_to "Télécharger", rails_blob_path(Document.find(@course.document_id).file.find(@course.file_id), disposition: "attachment"), class: "font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out" %>
+                </div>
+              </li>
+            </ul>
+          </dd>
+        </div>
+      </dl>
+    </div>
   </div>
+
 </div>
 
 

@@ -25,11 +25,13 @@ class ExampleReflex < ApplicationReflex
   #update course and notified teacher with email and SMS
   def update_course
     if element.dataset[:name] == "waiting"
-      flash.now[:notice] = 'Message sent!'
-      # flash.now[:error] = "Could not save client"
-    else
       course = Course.find(element.dataset[:id])
       course.update(course_status_id: CourseStatus.find_by_name('validate').id)
+    else
+      #course = Course.find(element.dataset[:id])
+      #course.update(course_status_id: CourseStatus.find_by_name('validate').id)
+      # flash.now[:notice] = 'Message sent!'
+      # flash.now[:error] = "Could not save client"
     end
   end
 

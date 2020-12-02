@@ -1,0 +1,20 @@
+<style>
+  #video {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+  }
+
+  .OT_root {
+      height: 500px !important;
+      width: 500px !important;
+  }
+</style>
+
+<div id="video" data-controller="hello"
+      data-vonage-token="<%= @token %>"
+      data-vonage-api-key="47009224"
+      data-vonage-session-id="<%= @session_id %>"
+      data-vonage-name="<%= current_user.name %>">
+  <h1 data-target="hello.output"></h1>
+</div>

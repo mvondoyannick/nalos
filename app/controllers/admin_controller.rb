@@ -74,6 +74,21 @@ class AdminController < ApplicationController
     #render layout: 'application_new'
   end
 
+  def stream
+    opentok = OpenTok::OpenTok.new "47009224", '6f69d24bc9a24359038b2af9323f7a80cb3739ae', :timeout_length => 30
+    #token = "T1==cGFydG5lcl9pZD00NzAwOTIyNCZzaWc9NmZjOGE4MzQyMDY1MzQ2ZTBjNmJlZjU0YmNhY2NmNWViYTQ1MWI1YTpzZXNzaW9uX2lkPTJfTVg0ME56QXdPVEl5Tkg1LU1UWXdOalk0T1RRMU5ETTNObjVpVlRadmFITlJaakpPVFZaeU1uRkdRakZQUmtKQmRuVi1RWDQmY3JlYXRlX3RpbWU9MTYwNjY4OTg0MSZub25jZT0wLjc1NjA3MjY0NDQyMDQ4ODImcm9sZT1tb2RlcmF0b3ImZXhwaXJlX3RpbWU9MTYwNzI5NDY0MSZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ=="
+    session = opentok.create_session #:archive_mode => :always, :media_mode => :routed
+    @session_id = session.session_id
+
+    puts @session_id
+
+    @token = opentok.generate_token @session_id, { name: current_user.name }
+
+    # response = opentok.streams.all(session_id)
+    # puts "this is the stream #{response}"
+
+  end
+
   # details des statistique des cours
   def course_all_detail
     c_teacher = params[:t]

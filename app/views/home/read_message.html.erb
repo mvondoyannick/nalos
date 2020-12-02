@@ -1,89 +1,105 @@
-<% @current_course = Course.find(@current_comment.course_id) %>
-<p class="text-xl text-gray-500 font-semibold mb-2">
-  Commentaire de <%= @current_comment.student.complete_name %>
-</p>
-<p>sur le cours <%= @current_comment.course.chapter %></p>
-<br>
-<!-- Two columns -->
-<div class="flex mb-4">
-  <div class="w-1/2">
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-      <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
-          Document joint au commentaire
-        </h3>
-        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-          Personal details and application.
-        </p>
-      </div>
-      <% @c = Document.find(@current_course.document_id).file.find(@current_course.file_id) %>
-      <% if @c.audio? %>
-        <%= video_tag url_for(@c), controls: true, width: "100%" %>
-      <% elsif @c.video? %>
-        <%= video_tag url_for(@c), controls: true, width: "100%" %>
-      <% elsif @c.image? %>
-        <%= image_tag(@c, size: '500x500') %>
-      <% elsif @c.content_type.end_with?("pdf") %>
-        <object data="<%= rails_blob_path(@c) %>" height="500" width="100%"></object>
-      <% end %>
-      <%#= video_tag url_for(Document.find(@current_course.document_id).file.find(@current_course.file_id)), controls: true %>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Content goes here -->
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between mt-8 mb-8">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      Messagerie de <%= @current_comment.student.complete_name %>
+    </h3>
+    <div class="mt-3 sm:mt-0 sm:ml-4">
+      <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Ecrire à cet utilisateur
+      </button>
     </div>
   </div>
-  <div class="w-1/2">
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-      <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
-          Information sur le commentaire
-        </h3>
-        <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-          Envoyé par <%= @current_comment.student.complete_name %>
-        </p>
+
+  <p class="text-xl text-gray-500 font-semibold mb-2">
+    Commentaire de <%= @current_comment.student.complete_name %>
+  </p>
+  <p>sur le cours <%= @current_comment.course.chapter %></p>
+  <br>
+  <!-- Two columns -->
+  <div class="flex mb-4">
+    <div class="w-1/2">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Document joint au commentaire
+          </h3>
+          <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+            Personal details and application.
+          </p>
+        </div>
+        <% @c = Document.find(@current_course.document_id).file.find(@current_course.file_id) %>
+        <% if @c.audio? %>
+          <%= video_tag url_for(@c), controls: true, width: "100%" %>
+        <% elsif @c.video? %>
+          <%= video_tag url_for(@c), controls: true, width: "100%" %>
+        <% elsif @c.image? %>
+          <%= image_tag(@c, size: '500x500') %>
+        <% elsif @c.content_type.end_with?("pdf") %>
+          <object data="<%= rails_blob_path(@c) %>" height="500" width="100%"></object>
+        <% end %>
+        <%#= video_tag url_for(Document.find(@current_course.document_id).file.find(@current_course.file_id)), controls: true %>
       </div>
-      <div>
-        <dl>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Date commentaire
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= @current_comment.created_at %>
-            </dd>
-          </div>
-          <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Référence du cours
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= @current_course.chapter %>
-            </dd>
-          </div>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Date publication du cours
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= @current_course.created_at %>
-            </dd>
-          </div>
-          <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm leading-5 font-medium text-gray-500">
-              Contenu
-            </dt>
-            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-              <%= @current_comment.content.body %>
-            </dd>
-          </div>
-          <div class="bg-gray-50 px-4 py-5 ">
-            <p class="text-gray-400 mb-2 mt-2">
-              Répondre à ce Commentaire
-            </p>
-            <%= form_with(url: root_path) do |form| %>
-              <%= form.rich_text_area :content %>
-              <%= form.submit :Répondre, class: 'mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
-            <% end %>
-          </div>
-        </dl>
+    </div>
+    <div class="w-1/2">
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Information sur le commentaire
+          </h3>
+          <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+            Envoyé par <%= @current_comment.student.complete_name %>
+          </p>
+        </div>
+        <div>
+          <dl>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Date commentaire
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <%= @current_comment.created_at %>
+              </dd>
+            </div>
+            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Référence du cours
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <%= @current_course.chapter %>
+              </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Date publication du cours
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <%= @current_course.created_at %>
+              </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm leading-5 font-medium text-gray-500">
+                Contenu
+              </dt>
+              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                <%= @current_comment.content.body %>
+              </dd>
+            </div>
+            <div class="bg-gray-50 px-4 py-5 ">
+              <p class="text-gray-400 mb-2 mt-2">
+                Répondre à ce Commentaire
+              </p>
+              <%= form_with(url: root_path) do |form| %>
+                <%= form.rich_text_area :content %>
+                <%= form.submit :Répondre, class: 'mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+              <% end %>
+            </div>
+          </dl>
+        </div>
       </div>
     </div>
   </div>
+
 </div>

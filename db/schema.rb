@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_130200) do
+ActiveRecord::Schema.define(version: 2020_11_29_234834) do
 
   create_table "action_mailbox_inbound_emails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -276,6 +276,19 @@ ActiveRecord::Schema.define(version: 2020_11_20_130200) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "vonage_session_id"
+    t.bigint "user_id", null: false
+    t.bigint "salle_de_class_id", null: false
+    t.bigint "filiere_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["filiere_id"], name: "index_rooms_on_filiere_id"
+    t.index ["salle_de_class_id"], name: "index_rooms_on_salle_de_class_id"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
   create_table "salle_de_classes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.integer "effectif"
@@ -496,6 +509,9 @@ ActiveRecord::Schema.define(version: 2020_11_20_130200) do
   add_foreign_key "messages", "students"
   add_foreign_key "messages", "users"
   add_foreign_key "problemes", "students"
+  add_foreign_key "rooms", "filieres"
+  add_foreign_key "rooms", "salle_de_classes"
+  add_foreign_key "rooms", "users"
   add_foreign_key "salle_de_classes", "cycle_ecoles"
   add_foreign_key "salle_de_classes", "structures"
   add_foreign_key "statistics", "courses"

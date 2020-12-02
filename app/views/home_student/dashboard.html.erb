@@ -1,19 +1,12 @@
-<p class="text-gray-400 font-semibold text-xl mb-8">
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Mon dashboard
-      <br />
-      <span class="text-indigo-600">suivi de mes activités</span>
-    </h2>
-    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow">
-        <%= link_to "Retourner à l'accueil", home_student_index_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
-      </div>
-    </div>
-  </div>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="pb-5 border-b border-gray-200 mb-8">
+  <h3 class="text-lg leading-6 font-medium text-gray-900">
+    Mon panneau personnel, mes activités
+  </h3>
+  <p class="mt-2 max-w-4xl text-sm text-gray-500">
+    Retrouvez toutes les informations liées à votre compte et ce que vous avez fait sur la plateforme durant votre parcours.</p>
 </div>
-</p>
+
 
 <div class="flex flex-col">
   <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -31,7 +24,7 @@
         </tr>
         </thead>
         <tbody class="bg-white">
-        <% @course_data.each do |statisitic| %>
+        <% @course_data.limit(10).each do |statisitic| %>
           <tr>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <div class="flex items-center">
@@ -39,8 +32,8 @@
                   <%= image_tag 'course.png', class: "h-10 w-10 rounded-full" %>
                 </div>
                 <div class="ml-4">
-                  <div class="text-sm leading-5 font-medium text-gray-900"><%= Course.find(statisitic.course_id).chapter %></div>
-                  <div class="text-sm leading-5 text-gray-500"><%= statisitic.created_at %></div>
+                  <div class="text-sm leading-5 font-medium text-gray-900"><%= link_to Course.find(statisitic.course_id).chapter, read_course_path(statisitic.course_id) %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= statisitic.created_at.strftime('%d %b %Y, %Hh:%Mm') %></div>
                 </div>
               </div>
             </td>

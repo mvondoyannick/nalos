@@ -1,0 +1,32 @@
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Content goes here -->
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="pb-5 border-b border-gray-200">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      <%= @room.name %>
+    </h3>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500">Workcation is a property rental website. Etiam ullamcorper massa viverra consequat, consectetur id nulla tempus. Fringilla egestas justo massa purus sagittis malesuada.</p>
+  </div>
+
+  <style>
+      #video {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 1rem;
+      }
+
+      .OT_root {
+          height: 500px !important;
+          width: 500px !important;
+      }
+  </style>
+
+  <div id="video" data-controller="hello"
+       data-vonage-token="<%= @token %>"
+       data-vonage-api-key="47009224"
+       data-vonage-session-id="<%= @session_id %>"
+       data-vonage-name="<%= current_user.name %>">
+    <h1 data-target="hello.output"></h1>
+  </div>
+
+</div>

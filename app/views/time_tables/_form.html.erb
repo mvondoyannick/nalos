@@ -55,7 +55,7 @@
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">
           <%= form.label :etablissement %>
         </label>
-        <%= form.collection_select(:structure_id, Structure.all, :id, :name, {prompt: "Selectionner un etablissement..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true}) %>
+        <%= form.collection_select(:structure_id, Structure.where(id: current_user.structure_id), :id, :name, {prompt: "Selectionner un etablissement..."}, {class: "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4", required: true}) %>
       </div>
     </div>
     <div class="-mx-3 md:flex mb-2">

@@ -14,6 +14,16 @@ class HomeStudentController < ApplicationController
     send_file(file_name, type: "application/pdf", disposition: "inline")
   end
 
+  # opentok
+  def live_room
+    @rooms = Room.where(salle_de_class_id: current_student.salle_de_class_id )
+  end
+
+  # live opentok room
+  def view_room
+    @room = Room.find_by_vonage_session_id(params[:vonage_session_id])
+  end
+
   def dashboard
     @course_data = Statistic.where(student_id: current_student.id)
     @course_data_week = Statistic.where(student_id: current_student.id, created_at: Date.today.beginning_of_week..Date.today.end_of_week)
@@ -88,7 +98,7 @@ class HomeStudentController < ApplicationController
   def read_course
 
     current_course = params[:id]
-    @css_class = "border-b-2"
+    @css_class = "text-indigo-600"
     @current_course = Course.find(params[:course_id])#Course.find(current_course)
     @current_file = Document.find(@current_course.document_id).file.find(@current_course.file_id)
   end

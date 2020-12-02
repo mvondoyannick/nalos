@@ -13,90 +13,90 @@
   </div>
 <% end %>
 
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Epreuves & documents
-      <br/>
-      <span class="text-indigo-600">publiés par vous.</span>
-    </h2>
-    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
-      <div class="inline-flex rounded-md shadow">
-        <%= link_to 'Importer une épreuve', new_epreufe_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out hover:bg-transparent" %>
-      </div>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Content goes here -->
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+      Liste de vos épreuves
+    </h3>
+    <div class="mt-3 sm:mt-0 sm:ml-4">
+      <%= link_to "Ajouter une nouvelle épreuve", new_epreufe_path, class: "inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
     </div>
   </div>
-</div>
 
-<% if @epreuves.empty? %>
-
-  <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
+  <% if @epreuves.empty? %>
 
     <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-      <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+      <div class="md:flex bg-transparent rounded-lg p-6 text-center justify-center">
 
-      <div class="text-center md:text-left">
-        <h2 class="text-lg mt-8">Pas d'epreuves trouvées.</h2> <br>
-        <%= link_to "Publier nouvelle epreuve?", new_epreufe_path, class: "hover:bg-transparent hover:text-indigo-500" %>
+        <%= image_tag('iconfinder_video-slides-layers-player-ui_3993849.png', class: 'mr-4 opacity-50 mx-auto md:mx-0 md:mr-6 w-100 h-100', height: 100, width: 100) %>
+
+        <div class="text-center md:text-left">
+          <h2 class="text-lg mt-8">Pas d'epreuves trouvées.</h2> <br>
+          <%= link_to "Publier nouvelle epreuve?", new_epreufe_path, class: "hover:bg-transparent hover:text-indigo-500" %>
+        </div>
       </div>
+
     </div>
 
-  </div>
+  <% else %>
 
-<% else %>
-
-  <div class="flex flex-col">
-    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-        <table class="min-w-full">
-          <thead>
-          <tr>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Titre
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Salle de classe
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Matiere
-            </th>
-            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
-          </tr>
-          </thead>
-          <tbody class="bg-white">
-          <% @epreuves.each do |epreufe| %>
+    <div class="flex flex-col">
+      <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+          <table class="min-w-full">
+            <thead>
             <tr>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10">
-                    <%= image_tag 'info.png', class: "h-10 w-10 rounded-full" %>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Titre
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Salle de classe
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                Matiere
+              </th>
+              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50" colspan="3"></th>
+            </tr>
+            </thead>
+            <tbody class="bg-white">
+            <% @epreuves.each do |epreufe| %>
+              <tr>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10">
+                      <%= image_tag 'info.png', class: "h-10 w-10 rounded-full" %>
+                    </div>
+                    <div class="ml-4">
+                      <div class="text-sm leading-5 font-medium text-gray-900"><%= epreufe.title %></div>
+                      <div class="text-sm leading-5 text-gray-500">Pub : <%= epreufe.created_at %></div>
+                    </div>
                   </div>
-                  <div class="ml-4">
-                    <div class="text-sm leading-5 font-medium text-gray-900"><%= epreufe.title %></div>
-                    <div class="text-sm leading-5 text-gray-500">Pub : <%= epreufe.created_at %></div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                <div class="text-sm leading-5 text-gray-900"><%= epreufe.salle_de_class.name %></div>
-                <div class="text-sm leading-5 text-gray-500"><%= epreufe.matiere.name %></div>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                  <div class="text-sm leading-5 text-gray-900"><%= epreufe.salle_de_class.name %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= epreufe.matiere.name %></div>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
               <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                 Active
               </span>
-              </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Consulter', epreufe, class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Editer', edit_epreufe_path(epreufe), class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Supprimer', epreufe, method: :delete, data: {confirm: 'Are you sure?'}, class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+                </td>
+                <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Consulter', epreufe, class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
+                <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Editer', edit_epreufe_path(epreufe), class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
+                <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium"><%= link_to 'Supprimer', epreufe, method: :delete, data: {confirm: 'Are you sure?'}, class: 'hover:bg-transparent text-indigo-600 hover:text-indigo-900' %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
 
-<% end %>
+  <% end %>
+
+</div>
 

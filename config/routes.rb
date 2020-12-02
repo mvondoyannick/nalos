@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :rooms
   resources :structure_types
   resources :e_responses
   resources :time_tables
@@ -149,6 +150,10 @@ Rails.application.routes.draw do
     root 'admin#index', as: 'admin_route'
     get 'set_role', to: 'admin#set_role'
     get 'set_role_root', to: 'admin#set_role_root'
+
+    # openTok stream
+    get 'stream', to: 'admin#stream'
+
 
     # setup plateforme
     scope :setup do
@@ -368,7 +373,8 @@ Rails.application.routes.draw do
 
       # a scope for student
       scope :students do
-
+        get 'live_room', to: 'home_student#live_room'
+        get 'view_room', to: 'home_student#view_room'
       end
     end
   end

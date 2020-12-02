@@ -1,11 +1,49 @@
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
+
+<div class="relative pb-5 border-b border-gray-200 sm:pb-0 mt-4 mb-8">
+  <div class="md:flex md:items-center md:justify-between">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
       <%= @current_course.chapter %>
-      <br />
-      <span class="text-indigo-600"><%= @current_course.matiere.name %></span>
-    </h2>
-    <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+    </h3>
+    <div class="mt-3 flex md:mt-0 md:absolute md:top-3 md:right-0">
+      <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Share
+      </button>
+      <button type="button" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Create
+      </button>
+    </div>
+  </div>
+  <div class="mt-4">
+    <!-- Dropdown menu on small screens -->
+    <div class="sm:hidden">
+      <label for="selected-tab" class="sr-only">Select a tab</label>
+      <select id="selected-tab" name="selected-tab" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+
+        <option>Excercices</option>
+
+        <option selected>Cours/leçon</option>
+
+        <option>Synthèses</option>
+
+      </select>
+    </div>
+    <!-- Tabs at small breakpoint and up -->
+    <div class="hidden sm:block">
+      <nav class="-mb-px flex space-x-8">
+
+        <a href="/course/exercice?course_key=<%= params[:cours_key] %>&course_id=<%= params[:course_id] %>" class="whitespace-nowrap pb-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+          Excercices
+        </a>
+
+        <a href="/course/read_course?course_key=<%= params[:cours_key] %>&course_id=<%= params[:course_id] %>" class="whitespace-nowrap pb-4 px-1 border-b-2 border-indigo-500 font-medium text-sm text-indigo-600" aria-current="page">
+          Cours/leçon
+        </a>
+
+        <a href="/course/synthese?course_key=<%= params[:cours_key] %>&course_id=<%= params[:course_id] %>" class="whitespace-nowrap pb-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+          Synthèses
+        </a>
+
+      </nav>
     </div>
   </div>
 </div>
@@ -16,7 +54,7 @@
   </h2>
 </div>
 
-<%= render 'layouts/student/navbar_internal' %>
+<%#= render 'layouts/student/navbar_internal' %>
 
   <div class="mt-3 mr-3">
     <% if @current_file.video? %>
@@ -37,15 +75,19 @@
     <%= link_to "Télécharger", rails_blob_path(Document.find(@current_course.document_id).file.find(@current_course.file_id), disposition: 'attachement'), class: "mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
   </div>
 <br>
-<div class="bg-gray-50">
-  <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-      Laisser un message
-      <br />
-      <span class="text-indigo-600">concernant ce cours.</span>
-    </h2>
-  </div>
+
+<!-- This example requires Tailwind CSS v2.0+ -->
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+  <h3 class="text-lg leading-6 font-medium text-gray-900">
+    Laissez un message
+  </h3>
+  <p class="mt-1 text-sm text-gray-500">
+    Vous avez des questions?, des difficultés? ou alors besoin d'aide ou d'informations supplementaires.
+  </p>
 </div>
+
+
 <%= form_with(url: student_comment_path) do |form| %>
   <%= form.hidden_field :student_id, value: current_student.id %>
   <%= form.hidden_field :user_id, value: @current_course.user_id %>

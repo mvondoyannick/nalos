@@ -9,6 +9,7 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-multi-theme'),
+    // require('@tailwindcss/forms'),
     require('@tailwindcss/custom-forms')
   ],
 }

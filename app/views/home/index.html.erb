@@ -25,23 +25,22 @@
             <thead>
             <tr>
               <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Date debut
+                date debut
               </th>
               <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Date Fin
+                Date fin
               </th>
               <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Filière/Salle de classe
+                Filière
               </th>
               <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Role
+                salle de classe
               </th>
-              <th class="px-6 py-3 bg-gray-50"></th>
+              <th class="px-6 py-3 bg-gray-50" colspan="2"></th>
             </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
             <% @time_table.each do |time_table| %>
-
               <tr>
                 <td class="px-6 py-4 whitespace-no-wrap">
                   <div class="flex items-center">
@@ -50,35 +49,44 @@
                     </div>
                     <div class="ml-4">
                       <div class="text-sm leading-5 font-medium text-gray-900">
-                        <%= time_table.periode_debut %>
+                        <%= time_table.periode_debut.to_date.strftime("%d %b %Y") %>
                       </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        <%= time_table.created_at %>
-                      </div>
+                      <% if Date.today > time_table.periode_fin.to_date %>
+                        <div class="text-sm leading-5 text-red-500">
+                          Emploi du temps périmé, invalide
+                        </div>
+                      <% else %>
+                        <div class="text-sm leading-5 text-green-500">
+                          Valide et en cours
+                        </div>
+                      <% end %>
                     </div>
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap">
-                  <div class="text-sm leading-5 text-gray-900"><%= time_table.periode_fin %></div>
-                  <div class="text-sm leading-5 text-gray-500">Optimization</div>
+                  <div class="text-sm leading-5 text-gray-900"><%= time_table.periode_fin.to_date.strftime("%d %b %Y") %></div>
+                  <div class="text-sm leading-5 text-gray-500"><%= time_table.structure.name %></div>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap">
                   <div class="text-sm leading-5 text-gray-900"><%= time_table.filiere.name %></div>
-                  <div class="text-sm leading-5 text-gray-500"><%= time_table.salle_de_class.name %></div>
+                  <div class="text-sm leading-5 text-gray-500">Optimization</div>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                  Active
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold">
+                  <%= time_table.salle_de_class.name %>
                 </span>
                 </td>
-                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                  Admin
+                <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                  <% if Date.today > time_table.periode_fin.to_date %>
+
+                  <% else %>
+                    <%= link_to 'Show', time_table, class: "text-indigo-600 hover:text-indigo-900" %>
+                  <% end %>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                  <%= link_to 'Supprimer', time_table, method: :delete, data: {confirm: 'Confirmer la suppression de cet emploi du temps?'}, class: "text-indigo-600 hover:text-indigo-900" %>
                 </td>
               </tr>
-
             <% end %>
 
             <!-- More rows... -->
@@ -115,87 +123,12 @@
 
     <%= render 'layouts/course_template', courses: @current_course %>
 
-    <div class="container my-12 mx-auto px-4 md:px-12">
-      <div class="flex flex-wrap -mx-1 lg:-mx-4">
-
-        <% @current_course.last(9).each do |cours| %>
-
-          <!-- Column -->
-          <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-            <!-- Article -->
-            <% if cours.file.nil? %>
-              Aucune publication trouvée
-            <% else %>
-              <% docs = Document.find(cours.document_id).file.find(cours.file_id) %>
-
-              <article class="overflow-hidden rounded-lg shadow-lg bg-white">
-
-                <a href="#">
-                  <% if docs.video? %>
-                    <%= link_to(image_tag('video.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent block h-auto w-full") %>
-                  <% elsif docs.audio? %>
-                    <%= link_to(image_tag('audio.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent  block h-auto w-full") %>
-                  <% elsif docs.image? %>
-                    <%= link_to(image_tag('photo.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent block h-auto w-full") %>
-                  <% elsif docs.content_type.end_with?("pdf") %>
-                    <%= link_to(image_tag('pdf.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent  block h-auto w-full") %>
-                  <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
-                    <%= link_to(image_tag('word.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent block h-auto w-full") %>
-                  <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
-                    <%= link_to(image_tag('excel.png', size: '1000x1000'), course_path(cours), class: "hover:bg-transparent block h-auto w-full") %>
-                  <% else %>
-                    <%= link_to(image_tag('course.png'), course_path(cours), class: "hover:bg-transparent  block h-auto w-full") %>
-                  <% end %>
-
-                </a>
-
-                <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                  <h1 class="text-lg">
-                    <p class="text-red-500 font-bold">
-                      <%= cours.categorie.nil? ? "Aucune catégorie" : cours.categorie.upcase %>
-                    </p>
-                    <a class="hover:bg-transparent hover:text-indigo-500 no-underline hover:underline text-black" href="#">
-                      <%= cours.chapter %>
-                    </a>
-                  </h1>
-                  <p class="text-grey-darker text-sm">
-                    <%= cours.created_at.strftime("%d %b %Y") %>
-                  </p>
-                </header>
-
-                <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                  <%= link_to "#", class: "hover:bg-transparent hover:text-indigo-500 flex items-center no-underline hover:underline text-black" do %>
-                    <%= image_tag 'teacher.png', class: "block rounded-full h-10 w-10" %>
-                    <p class="ml-2 text-sm">
-                      <%= cours.user.complete_name %>
-                    </p>
-                  <% end %>
-                  <a class="hover:bg-transparent hover:text-indigo-500 no-underline text-grey-darker hover:text-red-dark" href="#">
-                    <span class="hidden">Like</span>
-                    <i class="fa fa-heart"></i>
-                  </a>
-                </footer>
-
-              </article>
-
-            <% end %>
-            <!-- END Article -->
-
-          </div>
-          <!-- END Column -->
-
-        <% end %>
-
-      </div>
-    </div>
-
   <% end %>
 </div>
 
 <div class="py-8">
   <div class="flex items-center justify-between mb-8 mt-10">
-    <h2 class="text-xl font-bold text-gray-800">Babillard</h2>
+    <h2 class="text-xl font-bold text-gray-800">Babillard d'informations</h2>
     <%= link_to "Voir toutes les informations", "#", class: "text-blue-600 hover:text-blue-500 font-medium bg-transparent hover:bg-transparent hover:text-indigo-500" %>
   </div>
 
