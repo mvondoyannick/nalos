@@ -1,4 +1,5 @@
 class TimeTablesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_time_table, only: [:show, :edit, :update, :destroy]
 
   # GET /time_tables
@@ -29,8 +30,11 @@ class TimeTablesController < ApplicationController
     respond_to do |format|
       if @time_table.save
 
+        # link classes
+        #@current_classe =
+
         # send information to this teacher
-        
+        #SmsJob.set(wait: 2.seconds).perform_later(phone: "", msg: "", structure: "NALOS")
         # send notification to student
 
         format.html { redirect_to @time_table, notice: 'Time table was successfully created.' }

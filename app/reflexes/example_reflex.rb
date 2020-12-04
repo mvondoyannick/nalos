@@ -29,15 +29,17 @@ class ExampleReflex < ApplicationReflex
       course.update(course_status_id: CourseStatus.find_by_name('validate').id)
 
       # send notification to teacher
-      Sms.send(phone: course.user.phone1, msg: "Le cours #{course.chapter.upcase} publié le #{course.created_at.strftime('%d %b %Y')} à été validé et est actuellement disponible. Connectez-vous sur http://elearning.nalschool.com/users/sign_in pour suivre les statistiques.", structure: "NALOS")
+      SmsJob.set(wait: 2.seconds).perform_later(phone: course.user.phone1, msg: "Le cours #{course.chapter.upcase} publié le #{course.created_at.strftime('%d %b %Y')} à été validé et est actuellement disponible. Connectez-vous sur http://elearning.nalschool.com/users/sign_in pour suivre les statistiques.", structure: "NALOS")
 
       # send notification tout all student in this classroom
       course.salle_de_class.students.each do |student|
-        Sms.send(phone: student.phone, msg: "Le #{course.categorie.upcase} #{course.chapter.upcase} vient d'être publié par l'enseignant #{course.user.complete_name} et est actuellement disponilble sur la plateforme http://elearning.nalschool.com pour votre filière #{course.filiere.name.upcase}. Merci de vous connecter sur http://elearning.nalschool.com/students/sign_in", structure: "NALOS")
+        SmsJob.set(wait: 2.seconds).perform_later(phone: student.phone, msg: "Le #{course.categorie.upcase} #{course.chapter.upcase} vient d'être publié par l'enseignant #{course.user.complete_name} et est actuellement disponilble sur la plateforme http://elearning.nalschool.com pour votre filière #{course.filiere.name.upcase}. Merci de vous connecter sur http://elearning.nalschool.com/students/sign_in", structure: "NALOS")
 
         # send informations to parents
         #Sms.send(phone: student.phone, msg: "Le #{course.categorie.upcase} #{course.chapter.upcase} vient d'être publié par l'enseignant #{course.user.complete_name} et est actuellement disponilble sur la plateforme http://elearning.nalschool.com pour votre filière #{course.filiere.name.upcase}. Merci de vous connecter", structure: "NALOS")
       end
+
+    end
   end
 
   # suspendre des cours
@@ -47,9 +49,10 @@ class ExampleReflex < ApplicationReflex
       course.update(course_status_id: CourseStatus.find_by_name('waiting').id)
 
       # notify teacher that this course has been suspended
-      Sms.send(phone: course.user.phone1, msg: "Le cours/Leçon ayant pour libellé #{course.chapter.upcase} à été suspendu par l'administrateur. Il n'est désormais plus disponible pour les apprenants", structure: "NALOS")
+      SmsJob.set(wait: 2.seconds).perform_later(phone: course.user.phone1, msg: "Le cours/Leçon ayant pour libellé #{course.chapter.upcase} à été suspendu par l'administrateur. Il n'est désormais plus disponible pour les apprenants", structure: "NALOS")
     end
   end
+
   # Add Reflex methods in this file.
   #
   # All Reflex instances expose the following properties:
