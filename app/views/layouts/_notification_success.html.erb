@@ -24,7 +24,7 @@
             Centre de notification
           </p>
           <p class="mt-1 text-sm text-gray-500">
-            Mr/Mme <%= current_user.complete_name.upcase %>, <br><br>
+            Mr/Mme <%= user_signed_in? ? current_user.complete_name.upcase : current_student.complete_name %>, <br><br>
             <%= notice %>
           </p>
           <div class="mt-2">

@@ -212,16 +212,16 @@
           <td class="px-6 py-3 text-sm text-gray-500 font-medium">
             <div class="flex items-center space-x-2">
               <div class="flex flex-shrink-0 -space-x-1">
-                <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
 
-                <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <% Statistic.where(course_id: course.id).limit(5).each do |stats| %>
 
-                <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                  <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
 
-                <img class="max-w-none h-6 w-6 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <% end %>
+
               </div>
 
-              <span class="flex-shrink-0 text-xs leading-5 font-medium">+8</span>
+              <span class="flex-shrink-0 text-xs leading-5 font-medium">+<%= Statistic.where(course_id: course.id).count %></span>
             </div>
           </td>
           <td class="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
@@ -297,7 +297,7 @@
 
 <!-- Comptes recement crées -->
 <div class="px-4 mt-12 sm:px-6 lg:px-8">
-  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Comptes recements crées</h2>
+  <h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide mb-4">Comptes recements crées</h2>
   <!-- This example requires Tailwind CSS v2.0+ -->
 
   <% if @new_account.empty? %>
@@ -380,11 +380,11 @@
             </div>
             <div class="ml-5 w-0 flex-1">
               <dt class="text-sm font-medium text-gray-500 truncate mb-2">
-                Total inscrits
+                Total consultations
               </dt>
               <dd class="flex items-baseline">
                 <div class="text-2xl font-semibold text-gray-900">
-                  71,897
+                  <%= Statistic.all.count %>
                 </div>
 
                 <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">

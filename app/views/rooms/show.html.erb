@@ -1,4 +1,7 @@
-<p id="notice"><%= notice %></p>
+
+<% if notice.present? %>
+  <%= render 'layouts/notification_success' %>
+<% end %>
 <style>
     textchat {
         position: relative;

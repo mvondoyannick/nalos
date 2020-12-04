@@ -13,7 +13,7 @@
 
   <%= form.hidden_field :structure_id, value: current_user.structure_id %>
 
-  <div class="ml-3 inline-flex rounded-md shadow">
+  <div class=" inline-flex rounded-md shadow mb-4">
     <%= form.submit "Enregistrer une nouvelle salle de classe", class: 'inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out' %>
   </div>
 
@@ -46,10 +46,24 @@
         <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-password">
           Etablissement concerné
         </label>
-        <%= form.collection_select(:structure_id, Structure.all, :id, :name, {:include_blank => "Selectionner un etablissement"}, {class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3'}) %>
+        <%= form.collection_select(:structure_id, Structure.where(id: current_user.structure_id), :id, :name, {:include_blank => "Selectionner un etablissement"}, {class: 'appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3'}) %>
         <p class="text-grey-dark text-xs italic">Selectionner l'établissement ayant cette salle de classe</p>
       </div>
     </div>
+
+  </div>
+
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2 mt-8">
+
+    <!-- Content goes here -->
+    <div class="pb-5 border-b border-gray-200 mb-8">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Importer des salles de classe (fichier .csv)
+      </h3>
+      <p class="mt-2 max-w-4xl text-sm text-gray-500">Si vous disposez d'un fichier .csv contenant les informations de vos salles de classes
+        vous pouvez également importer celà à ce niveau.</p>
+    </div>
+
     <p class="text-2xl mt-8 mb-8">
       Importer un fichier de salle de classe
     </p>
@@ -57,7 +71,7 @@
       <div class="md:w-1/2 px-3 mb-6 md:mb-0">
         <%= form_with(url: import_gsbnal_data_path) do |form| %>
           <%= form.file_field :file, accept: 'text/csv', class: 'block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded' %>
-          <%= form.submit "Importer & enregistrer", class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+          <%= form.submit "Importer & enregistrer", accept: 'text/csv', class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
         <% end %>
       </div>
     </div>

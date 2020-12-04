@@ -28,6 +28,11 @@ class TimeTablesController < ApplicationController
 
     respond_to do |format|
       if @time_table.save
+
+        # send information to this teacher
+        
+        # send notification to student
+
         format.html { redirect_to @time_table, notice: 'Time table was successfully created.' }
         format.json { render :show, status: :created, location: @time_table }
       else

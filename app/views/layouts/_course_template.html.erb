@@ -125,8 +125,21 @@
     </div>
     <main class="my-8">
       <div class="container mx-auto px-6">
-        <h3 class="text-gray-700 text-2xl font-medium">Dernière leçons publiées</h3>
-        <span class="mt-3 text-sm text-gray-500"><%= courses.count %></span>
+<!--        <h3 class="text-gray-700 text-2xl font-medium">Dernière leçons publiées</h3>-->
+<!--        <span class="mt-3 text-sm text-gray-500"><%#= courses.count %></span>-->
+
+        <!-- This example requires Tailwind CSS v2.0+ -->
+        <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between mb-4">
+          <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Cours actuellement disponible | <%= courses.count %> cours Actuellement disponibles
+          </h3>
+          <div class="mt-3 sm:mt-0 sm:ml-4">
+            <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              Voir d'avantage
+            </button>
+          </div>
+        </div>
+
         <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
 
           <% courses.each do |cours| %>
