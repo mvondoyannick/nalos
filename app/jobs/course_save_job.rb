@@ -38,6 +38,11 @@ class CourseSaveJob < ApplicationJob
           # ActionCable.server.broadcast('notification_channel', "La leçon #{@course.chapter} à été correctement publiée")
           # CoursesController.render :index , assigns: { course: Course.last }
 
+          # Send notifications to admin of this structure
+          User.where(role_id: Role.find_by_name('admin').id, structure_id: @current_structure).each do |admin|
+            SmsJob.set(wait: 2.seconds).perform_later(phone: admin.phone1, message: "Bonjour Administrateur #{admin.name.complete_name}, un #{@current_categorie} ayant pour libellé #{@current_chapter.upcase} pour la salle de classe #{SalleDeClass.find(classe_id.to_i).name} (#{Structure.find(@current_structure).name.upcase}) concernant la matière #{Matiere.find(@current_matiere).name} vient d'etre publié et necessite votre attention pour validation. Connectez-vous sur http://elearning.nalschool.com/users/sign_in ")
+          end
+
           @comment = Comment.new(
             course_id: @course.id,
             student_id: User.find_by_matricule('05I022IU').id,

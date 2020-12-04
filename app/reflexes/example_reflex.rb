@@ -29,21 +29,15 @@ class ExampleReflex < ApplicationReflex
       course.update(course_status_id: CourseStatus.find_by_name('validate').id)
 
       # send notification to teacher
-      Sms.send(phone: course.user.phone1, msg: "Le cours #{course.chapter.upcase} publié le #{course.created_at.strftime('%d %b %Y')} à été validé et est actuellement disponible!", structure: "NALOS")
+      Sms.send(phone: course.user.phone1, msg: "Le cours #{course.chapter.upcase} publié le #{course.created_at.strftime('%d %b %Y')} à été validé et est actuellement disponible. Connectez-vous sur http://elearning.nalschool.com/users/sign_in pour suivre les statistiques.", structure: "NALOS")
 
       # send notification tout all student in this classroom
       course.salle_de_class.students.each do |student|
-        Sms.send(phone: student.phone, msg: "Le #{course.categorie.upcase} #{course.chapter.upcase} vient d'être publié par l'enseignant #{course.user.complete_name} et est actuellement disponilble sur la plateforme http://elearning.nalschool.com pour votre filière #{course.filiere.name.upcase}. Merci de vous connecter", structure: "NALOS")
+        Sms.send(phone: student.phone, msg: "Le #{course.categorie.upcase} #{course.chapter.upcase} vient d'être publié par l'enseignant #{course.user.complete_name} et est actuellement disponilble sur la plateforme http://elearning.nalschool.com pour votre filière #{course.filiere.name.upcase}. Merci de vous connecter sur http://elearning.nalschool.com/students/sign_in", structure: "NALOS")
 
         # send informations to parents
         #Sms.send(phone: student.phone, msg: "Le #{course.categorie.upcase} #{course.chapter.upcase} vient d'être publié par l'enseignant #{course.user.complete_name} et est actuellement disponilble sur la plateforme http://elearning.nalschool.com pour votre filière #{course.filiere.name.upcase}. Merci de vous connecter", structure: "NALOS")
       end
-    else
-      #course = Course.find(element.dataset[:id])
-      #course.update(course_status_id: CourseStatus.find_by_name('validate').id)
-      # flash.now[:notice] = 'Message sent!'
-      # flash.now[:error] = "Could not save client"
-    end
   end
 
   # suspendre des cours

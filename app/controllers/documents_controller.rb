@@ -30,7 +30,7 @@ class DocumentsController < ApplicationController
     puts "Data received : #{course_params}"
     CourseSaveJob.set(wait: 2.seconds).perform_later(classes_ids: params[:classes_ids], data: course_params, user_id: current_user.id, structure_id: current_user.structure_id)
 
-    redirect_to courses_path, notice: "Vos leçons sont en cours de traitement, merci de patienter ..."
+    redirect_to courses_path, notice: "Vos leçons sont en cours de traitement, merci de patienter, le système vous notifiera de sa disponibilité..."
 
   end
 

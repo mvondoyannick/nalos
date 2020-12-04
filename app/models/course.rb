@@ -41,7 +41,7 @@ class Course < ApplicationRecord
 
   # send notification to admin that new course is been published
   def send_notification
-    SmsJob.set(wait: 2.seconds).perform_later(phone: 696468953, msg: "Bonjour Admin, #{self.user.complete_name} vient de publier une nouvelle leçon avec pour titre :#{self.chapter.upcase} pour la classe #{self.salle_de_class.name}. Ce cours est attente de validation.", structure: Structure.find(self.structure_id).name.delete(' '))
+    #SmsJob.set(wait: 2.seconds).perform_later(phone: 696468953, msg: "Bonjour Admin, #{self.user.complete_name} vient de publier une nouvelle leçon avec pour titre :#{self.chapter.upcase} pour la classe #{self.salle_de_class.name}. Ce cours est attente de validation.", structure: Structure.find(self.structure_id).name.delete(' '))
     # User.where(role_id: Role.find_by_name('admin').id) do |admin|
     #   puts "SMS notification send to 696468953"
     #   SmsJob.set(wait: 2.seconds).perform_later(691451189, msg: "#{current_user.complete_name} vient de publier une nouvelle leçon est #{self.chapter} pour la classe #{self.salle_de_class.name}. Ce cours est attente de validation.", structure: self.structure.name)
