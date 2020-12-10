@@ -98,4 +98,24 @@
       <div class="border-t border-gray-200"></div>
     </div>
   </div>
+
+
+
+  <div class="form-group" data-uppy="document[file][]">
+    <%= form.label :document %>
+    <div>
+
+      <% if @document.file.attached? %>
+        <%= image_tag @document.file, width: 280, data: { behavior: 'uppy-preview' } %>
+      <% else %>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSpj0DBTVsaja01_xWh37bcutvpd7rh7zEd528HD0d_l6A73osY" width="280" data-behavior="uppy-preview" />
+      <% end %>
+
+    </div>
+
+    <%= link_to "Upload", "#", data: { behavior: "uppy-trigger" } %>
+  </div>
+
+  <%= form.rich_text_area :lorem %>
+
 <% end %>

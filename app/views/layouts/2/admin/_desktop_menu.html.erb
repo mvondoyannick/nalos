@@ -66,7 +66,7 @@
       <!-- Navigation -->
       <nav class="px-3 mt-6">
         <div class="space-y-1">
-          <%= link_to admin_index_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-900 bg-gray-200" do %>
+          <%= link_to admin_index_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-900 #{ "bg-indigo-400" if action_name == "index" && controller_name == "admin"} " do %>
 
             <!-- Heroicon name: home -->
             <svg class="mr-3 h-6 w-6 text-gray-500 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -76,7 +76,7 @@
 
           <% end %>
 
-          <%= link_to course_all_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-50" do %>
+          <%= link_to course_all_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-50 #{ "bg-indigo-400" if action_name == "course_all"}" do %>
 
             <!-- Heroicon name: view-list -->
             <svg class="mr-3 w-6 h-6 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +86,7 @@
 
           <% end %>
 
-          <%= link_to document_all_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-50" do %>
+          <%= link_to document_all_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-50 #{ "bg-indigo-400" if action_name == "document_all"}" do %>
 
             <!-- Heroicon name: view-list -->
             <svg class="mr-3 w-6 h-6 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +96,7 @@
 
           <% end %>
 
-          <%= link_to salle_de_classes_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-50" do %>
+          <%= link_to salle_de_classes_path, class: "group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-50 #{ "bg-indigo-400" if controller_name == "salle_de_classes"}" do %>
 
             <!-- Heroicon name: view-list -->
             <svg class="mr-3 w-6 h-6 text-gray-400 group-hover:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

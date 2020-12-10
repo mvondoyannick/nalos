@@ -1,7 +1,7 @@
-
 class HomeController < ApplicationController
-  before_action :authenticate_user!, except: [:discus_chat]
+  before_action :authenticate_user!, except: [:discus_chat, :messagerie, :t_message]
   before_action :update_comment_readed, only: :read_message
+
   def index
     if current_user.role.name == 'teacher'
 
@@ -20,9 +20,23 @@ class HomeController < ApplicationController
     end
   end
 
+  # new teacher message
+  def t_message
+    if request.get?
+    else
+      new_message = Message.new(message_white_list)
+      if new_message.save
+        redirect_to msg_path, notice: "Message envoyé avec succès"
+      else
+        redirect_to msg_path, notice: "Eche de l'envoi du message : #{new_message.errors.messages}"
+      end
+    end
+  end
+
   # teacher messagerie
   def messagerie
-    @comments = Comment.where(user_id: current_user.id)
+    @comments = [] #Comment.where(user_id: current_user.id)
+    @messages = Message.where(user_id: current_user.id).order(created_at: :desc)
   end
 
   def importation
@@ -37,8 +51,12 @@ class HomeController < ApplicationController
 
   # read message
   def read_message
-    @current_comment = Comment.find_by(metakey: params[:key])
-    @current_course = Course.find(@current_comment.course_id)
+    if params[:a].present?
+      @message = Message.find(params[:msg_id])
+    else
+      @current_comment = Comment.find_by(metakey: params[:key])
+      @current_course = Course.find(@current_comment.course_id)
+    end
   end
 
   def dashboard
@@ -52,7 +70,7 @@ class HomeController < ApplicationController
       salle_id = current_user.salle_de_class_id
       @room = SecureRandom.hex(10)
       @etablissement = current_user.structure.name
-      @classe = TeacherClasse.where(user_id: current_user.id)#.group(:salle_de_class_id)
+      @classe = TeacherClasse.where(user_id: current_user.id) #.group(:salle_de_class_id)
     end
   end
 
@@ -81,7 +99,7 @@ class HomeController < ApplicationController
     #@apprenant = Student.where(structure_id: current_user.structure_id, salle_de_class_id: current_user.salle_de_class_id).order(:name).page(params[:page]).per(50)  #all.where(salle_de_class_id: current_user.salle_de_class_id).order(:name)
     # Recherche des salles de classe de l'enseignant
     @current_classes = TeacherClasse.where(user_id: current_user.id).page(params[:page]).per(10)
-      #@current_classes = SalleDeClass.where(structure_id: current_user.structure_id, id: current_classes.salle_de_class_id)
+    #@current_classes = SalleDeClass.where(structure_id: current_user.structure_id, id: current_classes.salle_de_class_id)
 
   end
 
@@ -173,8 +191,17 @@ class HomeController < ApplicationController
     end
   end
 
+  # message messaging informations
+  def message_white_list
+    params.permit(:user_id, :student_id, :subject, :content)
+  end
+
   # update message or comment reading
   def update_comment_readed
-    Comment.find_by(metakey: params[:key]).update(read: true)
+    if params[:a].present?
+      # nil action
+    else
+      Comment.find_by(metakey: params[:key]).update(read: true)
+    end
   end
 end

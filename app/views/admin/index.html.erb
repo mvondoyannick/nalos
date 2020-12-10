@@ -158,7 +158,7 @@
               <span class="flex items-center truncate space-x-3">
                 <span class="w-2.5 h-2.5 flex-shrink-0 rounded-full bg-pink-600" aria-hidden="true"></span>
                 <span class="font-medium truncate text-sm leading-6">
-                  <%= course.chapter.upcase %>
+                  <%= link_to course.chapter.upcase, course_path(course.id) %>
                   <span class="truncate font-normal text-gray-500"><%= course.matiere.name %></span>
                 </span>
               </span>
@@ -203,7 +203,7 @@
               <div class="flex-shrink-0 w-2.5 h-2.5 rounded-full bg-pink-600" aria-hidden="true"></div>
               <a href="#" class="truncate hover:text-gray-600">
                 <span>
-                  <%= course.chapter.upcase %>
+                  <%= link_to course.chapter.upcase, course_path(course.id) %>
                   <span class="text-gray-500 font-normal"><%= course.matiere.name %></span>
                 </span>
               </a>
@@ -248,14 +248,13 @@
               -->
               <div x-show="open" class="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200" role="menu" aria-orientation="vertical" aria-labelledby="project-options-menu-0">
                 <div class="py-1" role="none">
-                  <a href="<%= course.token %>" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                    <!-- Heroicon name: pencil-alt -->
+                  <%= link_to course_path(course.id), class: "group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" do %>
                     <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                       <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"/>
                       <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"/>
                     </svg>
-                    Voir + Editer
-                  </a>
+                    Voir & Editer
+                  <% end %>
                   <a href="#" class="group flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
                     <!-- Heroicon name: duplicate -->
                     <svg class="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -303,7 +302,7 @@
   <% if @new_account.empty? %>
 
     <!-- This example requires Tailwind CSS v2.0+ -->
-    <span class="inline-flex items-center px-3 m-8 py-4 rounded-full text-xl font-medium bg-indigo-100 text-indigo-800">
+    <span class="inline-flex items-center mx-auto px-3 m-8 py-4 rounded-full text-xl font-medium bg-indigo-100 text-indigo-800">
       <svg class="-ml-1 mr-1.5 h-2 w-2 text-indigo-400" fill="currentColor" viewBox="0 0 8 8">
         <circle cx="4" cy="4" r="3"/>
       </svg>

@@ -1,6 +1,19 @@
 <figure class="attachment attachment--<%= blob.representable? ? "preview" : "file" %> attachment--<%= blob.filename.extension %>">
   <% if blob.representable? %>
-    <%= image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [ 800, 600 ] : [ 1024, 768 ]) %>
+
+    <% if blob.video? %>
+      <video id="player" playsinline width="100%" preload="metadata">
+        <source src="<%= rails_blob_url(blob) %>" type="<%= blob.content_type %>">
+      </video>
+    <% end %>
+
+    <% if blob.audio? %>
+      <audio id="player" playsinline width="100%" preload="metadata">
+        <source src="<%= rails_blob_url(blob) %>" type="<%= blob.content_type %>">
+      </audio>
+    <% end %>
+
+    <%= image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [800, 600] : [1024, 768]) %>
   <% end %>
 
   <figcaption class="attachment__caption">
@@ -10,5 +23,10 @@
       <span class="attachment__name"><%= blob.filename %></span>
       <span class="attachment__size"><%= number_to_human_size blob.byte_size %></span>
     <% end %>
+
+    <div class="mt-6 mb-4">
+      <%= link_to "View file", rails_blob_url(blob, disposition: "preview"), target: "_blank", class: "bg-gray-200 text-sm py-2 px-4 rounded mt-6" %> -
+      <%= link_to "Download", rails_blob_path(blob, disposition: "attachment"), class: " text-sm bg-indigo-400 py-2 px-4 rounded" %>
+    </div>
   </figcaption>
 </figure>

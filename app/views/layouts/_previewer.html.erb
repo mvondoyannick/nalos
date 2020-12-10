@@ -1,6 +1,6 @@
 <% @data = ActiveStorage::Blob.find(data.blob_id) %>
 
-<% if data.video? %>
+<% if data.video? || data.content_type.end_with?("webm") || data.content_type.end_with?("x-matroska") %>
   <div class="element">
     <div class="playerVideo">
       <%= video_tag url_for(data), width: "100%", controls: true, preload: "auto", height: 1000, width: "100%" %>

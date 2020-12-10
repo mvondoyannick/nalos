@@ -125,6 +125,7 @@ Rails.application.routes.draw do
     scope :messagerie do
       get 'msg', to: 'home#messagerie'
       get 'read_message', to: 'home#read_message'
+      match 't_message', to: 'home#t_message', via: [:post, :get]
     end
 
     # gestion des live course

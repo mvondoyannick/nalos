@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>NALOS LMS | Welcome</title>
-  <%= favicon_link_tag asset_path("logo.png") %>
+  <title>NALOS LMS | Votre réussite commence ici! </title>
+  <%= favicon_link_tag asset_path("nalos-logo.png") %>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= action_cable_meta_tag %>
@@ -13,6 +13,7 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= tag.meta name: "direct-upload-url", content: rails_direct_uploads_path %>
   <script src="https://static.opentok.com/v2/js/opentok.js" charset="utf-8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" integrity="sha512-VTd65gL0pCLNPv5Bsf5LNfKbL8/odPq0bLQ4u226UNmT7SzE4xk+5ckLNMuksNTux/pDLMtxYuf0Copz8zMsSA==" crossorigin="anonymous"></script>
   <script src="https://windmill-dashboard.vercel.app/assets/js/init-alpine.js" defer></script>

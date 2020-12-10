@@ -3,7 +3,7 @@
 <% end %>
 
 <!-- This example requires Tailwind CSS v2.0+ -->
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-8">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-8" x-data="{ open: true }">
   <!-- Content goes here -->
   <div class="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between mb-8">
     <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -11,12 +11,221 @@
     </h3>
     <div class="mt-3 flex sm:mt-0 sm:ml-4">
       <%= link_to "Modifier cette leçon", edit_course_path(@course), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-      <%= link_to "Supprimer", @course, method: :delete, data: {confirm: "Supprimer ce cours?"}, class: "ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+      <%= link_to "Supprimer", @course, method: :delete, data: { confirm: "Supprimer ce cours?" }, class: "ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
     </div>
   </div>
 
-  <div class="mb-8 p-2 w-full flex flex-wrap bg-white shadow">
-    <div class=" w-full lg:w-3/4 bg-white ">
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="static max-h-screen inset-0 overflow-hidden"> <!-- put it in fixed -->
+    <div class="absolute inset-0 overflow-hidden">
+      <section @click.away="open = false; setTimeout(() => open = true, 30000);"
+               class="absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16"
+               aria-labelledby="slide-over-heading"
+      >
+        <div x-show="open" class="w-screen max-w-md"
+             x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
+             x-transition:enter-start="translate-x-full"
+             x-transition:enter-end="translate-x-0"
+             x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
+             x-transition:leave-start="translate-x-0"
+             x-transition:leave-end="translate-x-full"
+        >
+          <div class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
+            <div class="px-4 py-6 sm:px-6">
+              <div class="flex items-start justify-between">
+                <h2 id="slide-over-heading" class="text-lg font-medium text-gray-900">
+                  <%= @course.chapter %>
+                </h2>
+                <div class="ml-3 h-7 flex items-center">
+                  <button @click="open = false;" class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500">
+                    <span class="sr-only">Close panel</span>
+                    <!-- Heroicon name: x -->
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Main -->
+            <div>
+              <div class="pb-1 sm:pb-6">
+                <div>
+                  <div class="relative h-40 sm:h-56">
+                    <% docs = Document.find(@course.document_id).file.find(@course.file_id) %>
+                    <% if docs.video? %>
+                      <%= video_tag url_for(docs), width: "100%", id: "player", playsinline: true, class: "absolute h-full w-full object-cover" %>
+                    <% elsif docs.audio? %>
+                      <%= video_tag url_for(docs), width: "100%", poster: "poster.jpg", id: "player", playsinline: true, class: "absolute h-full w-full object-cover" %>
+                    <% elsif docs.image? %>
+                      <%= image_tag url_for(docs), class: "absolute h-full w-full object-cover" %>
+                    <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.wordprocessingml.document") %>
+                      <%= image_tag(docs.preview(resize: "1000x1000"), class: "absolute h-full w-full object-cover") %>
+                    <% elsif docs.content_type.end_with?("msword") %>
+                      <%= image_tag(docs.preview(resize: "1000x1000"), class: "absolute h-full w-full object-cover") %>
+                    <% elsif docs.content_type.end_with?("vnd.ms-excel") %>
+                      <%= image_tag(docs.preview(resize: "1000x1000"), class: "absolute h-full w-full object-cover") %>
+                    <% elsif docs.content_type.end_with?("vnd.openxmlformats-officedocument.spreadsheetml.sheet") %>
+                      <%= image_tag(docs.preview(resize: "1000x1000"), class: "absolute h-full w-full object-cover") %>
+                    <% elsif docs.content_type.end_with?("pdf") %>
+                      <object data="<%= rails_blob_path(docs) %>" type="" height="1000" width="100%" , class="absolute h-full w-full object-cover"></object>
+                    <% end %>
+                  </div>
+                  <div class="mt-6 px-4 sm:mt-8 sm:flex sm:items-end sm:px-6">
+                    <div class="sm:flex-1">
+                      <div>
+                        <div class="flex items-center">
+                          <h3 class="font-bold text-xl text-gray-900 sm:text-2xl leading-normal">
+                            <%= @course.chapter %>
+                          </h3>
+<!--                          <span class="ml-2.5 bg-green-400 flex-shrink-0 inline-block h-2 w-2 rounded-full">-->
+<!--                          <span class="sr-only">Online</span>-->
+                        </span>
+                        </div>
+                        <p class="text-sm text-gray-500 leading-normal"><%= @course.user.complete_name %></p>
+                      </div>
+                      <div class="mt-5 flex flex-wrap space-y-3 sm:space-y-0 sm:space-x-3">
+                        <button type="button" class="flex-shrink-0 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:flex-1">
+                          Message (SMS)
+                        </button>
+                        <button type="button" class="flex-1 w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                          Appeler
+                        </button>
+                        <span class="ml-3 inline-flex sm:ml-0">
+                        <div class="relative inline-block text-left">
+                          <button id="options-menu" type="button" class="inline-flex items-center p-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-400 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <span class="sr-only">Open options menu</span>
+                            <!-- Heroicon name: dots-vertical -->
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                            </svg>
+                          </button>
+
+                          <!--
+                            Dropdown panel, show/hide based on dropdown state.
+
+                            Entering: "transition ease-out duration-100"
+                              From: "transform opacity-0 scale-95"
+                              To: "transform opacity-100 scale-100"
+                            Leaving: "transition ease-in duration-75"
+                              From: "transform opacity-100 scale-100"
+                              To: "transform opacity-0 scale-95"
+                          -->
+                          <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">View profile</a>
+                              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Copy profile link</a>
+                            </div>
+                          </div>
+                        </div>
+                      </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="px-4 pt-5 pb-5 sm:px-0 sm:pt-0">
+                <dl class="space-y-8 px-4 sm:px-6 sm:space-y-6">
+                  <div>
+                    <dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                      Bio
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
+                      <p>
+                        Enim feugiat ut ipsum, neque ut. Tristique mi id elementum praesent. Gravida in tempus feugiat
+                        netus enim aliquet a, quam scelerisque. Dictumst in convallis nec in bibendum aenean arcu.
+                      </p>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                      Salle de classe
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
+                      <%= @course.salle_de_class.name %>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                      Filière
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
+                      <%= @course.matiere.name %>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                      Catégorie
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
+                      <time datetime="1988-06-23">
+                        <%= @course.categorie %>
+                      </time>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                      Date publication
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
+                      <time datetime="1988-06-23">
+                        <%= @course.created_at.strftime("%d %b %Y, %Hh:%Mm") %>
+                      </time>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                      Extrait du cours
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
+                      <time datetime="1988-06-23">
+                        <%= @course.extrait.body %>
+                      </time>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                      Fichiers joints
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
+                      <time datetime="1988-06-23">
+                        <%= Document.find(@course.document_id).file.find(@course.file_id).filename %>
+                        <%= link_to "Télécharger", rails_blob_path(Document.find(@course.document_id).file.find(@course.file_id), disposition: "attachment"), class: "font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out" %>
+                      </time>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                      Tags/Nuage de point
+                    </dt>
+                    <% if @course.tag.nil? %>
+                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+              Aucun tag(s) pour ce cours
+            </span>
+                      </dd>
+                    <% else %>
+                      <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                        <% @course.tag.split(',').each do |tagged| %>
+                  <span class="inline-block bg-gray-200 rounded-full mb-2 px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                    <%= link_to "##{tagged}", course_tags_path(token: Course.find(params[:id]).token), class: 'hover:bg-transparent hover:text-indigo-500' %>
+                  </span>
+                        <% end %>
+                      </dd>
+                    <% end %>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+  <div class="mb-8 p-2 w-full flex flex-wrap bg-white">
+    <div class=" w-full lg:w-6/6 bg-white ">
       <p class="object-center lg:items-center">
         <% docs = Document.find(@course.document_id).file.find(@course.file_id) %>
         <% if docs.video? %>
@@ -60,74 +269,6 @@
         <% end %>
       </div>
     </div>
-    <div class="border w-full lg:w-1/4 bg-white">
-      <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
-        <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-          <h3 class="text-lg leading-6 font-medium text-gray-900">
-            Informations
-          </h3>
-          <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-            Auteur<%= link_to current_user.complete_name, "#", class: " rounded-lg px-2 items-center font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-200" %>
-          </p>
-        </div>
-        <div>
-          <dl>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm leading-5 font-medium text-gray-500">
-                Leçon
-              </dt>
-              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                <%= @course.chapter %>
-              </dd>
-            </div>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm leading-5 font-medium text-gray-500">
-                Classe
-              </dt>
-              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                <%= @course.salle_de_class.name %>
-              </dd>
-            </div>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm leading-5 font-medium text-gray-500">
-                Matière
-              </dt>
-              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                <%= @course.matiere.name %>
-              </dd>
-            </div>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm leading-5 font-medium text-gray-500">
-                Statut
-              </dt>
-              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                <%= @course.course_status_id.nil? ? "Inconnu" : @course.course_status.name %>
-              </dd>
-            </div>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm leading-5 font-medium text-gray-500">
-                Date
-              </dt>
-              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                <%= @course.created_at.strftime("%d %b %Y") %>
-              </dd>
-            </div>
-            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt class="text-sm leading-5 font-medium text-gray-500">
-                Catégorie
-              </dt>
-              <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                <% if @course.categorie.nil? %>
-                  Aucune catégorie associée à ce cours.
-                <% else %>
-                  <%= @course.categorie %>
-                <% end %>
-              </dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
@@ -147,7 +288,7 @@
             Extrait de ce cours
           </dt>
           <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-            <%= @course.extrait.body %>
+            <%= @course.extrait.body.nil? ? "Aucun contenu" : @course.extrait.body %>
           </dd>
         </div>
         <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -174,7 +315,7 @@
                 </span>
                 </div>
                 <div class="ml-4 flex-shrink-0">
-                  <%=  %>
+                  <%= %>
                   <%= link_to "Télécharger", rails_blob_path(Document.find(@course.document_id).file.find(@course.file_id), disposition: "attachment"), class: "font-medium text-indigo-600 hover:text-indigo-500 transition duration-150 ease-in-out" %>
                 </div>
               </li>
