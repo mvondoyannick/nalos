@@ -24,7 +24,7 @@
     </div>
     <div class="mt-5 md:mt-0 md:col-span-2">
       <% if @current_file.audio? %>
-        <%= video_tag url_for(@current_file), controls: true, width: "100%", poster: "poster.jpg" %>
+        <%= audio_tag url_for(@current_file), controls: true, width: "100%", poster: "poster.jpg" %>
       <% elsif @current_file.video? %>
         <%= video_tag url_for(@current_file), controls: true, width: "100%", poster: "https://images.unsplash.com/photo-1498940757830-82f7813bf178?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80", class: "object-cover object-center object-center" %>
       <% elsif @current_file.image? %>
@@ -43,7 +43,7 @@
       <% elsif @current_file.content_type.end_with?("vnd.ms-excel") %>
         <%= image_tag @current_file.preview(resize: "500x500") %>
       <% else %>
-        <%= image_tag 'document.png', size: '500x500' %>
+        <%= image_tag 'video.png', size: '500x500' %>
       <% end %>
     </div>
   </div>

@@ -85,6 +85,12 @@ Rails.application.routes.draw do
   get 'home/index'
   #root 'home#index'
 
+  # gestion et liste des partenaires
+  scope :partners do
+    get 'partners', to: "partenaire#index"
+    get 'app', to: 'partenaire#app'
+  end
+
   post 'importation', to: 'home#importation'
 
   scope :teacher do
