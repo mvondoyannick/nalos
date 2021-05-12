@@ -15,7 +15,7 @@
     "@uppy/dashboard": "^1.13.0",
     "active_storage_drag_and_drop": "^0.4.1",
     "alpinejs": "^2.7.3",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartkick": "^3.2.0",
     "focus-trap": "^6.2.0",
     "jquery": "^3.5.0",
